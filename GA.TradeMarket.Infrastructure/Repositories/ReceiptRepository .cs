@@ -25,7 +25,7 @@ namespace GA.TradeMarket.Infrastructure.Repositories
             }
         }
 
-        public async Task DeleteByIdAsync(int Id)
+        public async Task DeleteByIdAsync(long Id)
         {
             var res = await dbset.FirstOrDefaultAsync(io => io.Id == Id);
             dbset.Remove(res ?? throw new ArgumentException("No entity found!"));
@@ -48,7 +48,7 @@ namespace GA.TradeMarket.Infrastructure.Repositories
        .ToListAsync();
         }
 
-        public async Task<Receipt> GetByIdAsync(int Id)
+        public async Task<Receipt> GetByIdAsync(long Id)
         {
             var res = await dbset.FirstOrDefaultAsync(io => io.Id == Id);
             if (res is not null)
@@ -58,7 +58,7 @@ namespace GA.TradeMarket.Infrastructure.Repositories
             throw new ArgumentException("No relate entity found!");
         }
 
-        public async Task<Receipt> GetByIdWithDetailsAsync(int Id)
+        public async Task<Receipt> GetByIdWithDetailsAsync(long Id)
         {
             var res = await dbset
                .Include(r => r.Customer)

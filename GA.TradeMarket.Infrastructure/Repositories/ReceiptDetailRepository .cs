@@ -39,7 +39,7 @@ namespace GA.TradeMarket.Infrastructure.Repositories
             }
         }
 
-        public async Task DeleteByIdAsync(int Id)
+        public async Task DeleteByIdAsync(long Id)
         {
 
             var res = await dbset.FirstOrDefaultAsync(io => io.Id == Id);
@@ -64,7 +64,7 @@ namespace GA.TradeMarket.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<ReceiptDetail> GetByIdAsync(int Id)
+        public async Task<ReceiptDetail> GetByIdAsync(long Id)
         {
             var res = await dbset.FirstOrDefaultAsync(io => io.Id == Id);
             if (res is not null)
@@ -74,7 +74,7 @@ namespace GA.TradeMarket.Infrastructure.Repositories
             throw new ArgumentException("No entity found on this Id  ");
         }
 
-        public async Task<ReceiptDetail> GetByIdWithDetailsAsync(int Id)
+        public async Task<ReceiptDetail> GetByIdWithDetailsAsync(long Id)
         {
             var res = await dbset.Include(io => io.Receipt)
                 .Include(io => io.Product)

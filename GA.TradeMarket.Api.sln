@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GA.TradeMarket.Domain", "GA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GA.TradeMarket.Infrastructure", "GA.TradeMarket.Infrastructure\GA.TradeMarket.Infrastructure.csproj", "{881774E8-FD8E-4A28-B5D3-F5E2441B2487}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GA.TradeMarket.Application", "GA.TradeMarket.Application\GA.TradeMarket.Application.csproj", "{016E65E8-B974-4E90-8447-A2E41F3CF05C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{881774E8-FD8E-4A28-B5D3-F5E2441B2487}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{881774E8-FD8E-4A28-B5D3-F5E2441B2487}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{881774E8-FD8E-4A28-B5D3-F5E2441B2487}.Release|Any CPU.Build.0 = Release|Any CPU
+		{016E65E8-B974-4E90-8447-A2E41F3CF05C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{016E65E8-B974-4E90-8447-A2E41F3CF05C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{016E65E8-B974-4E90-8447-A2E41F3CF05C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{016E65E8-B974-4E90-8447-A2E41F3CF05C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
