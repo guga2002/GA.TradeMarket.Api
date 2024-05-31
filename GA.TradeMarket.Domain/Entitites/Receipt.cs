@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GA.TradeMarket.Domain.Entitites
 {
-    [Table("Receipts")
+    [Table("Receipts")]
     [Index(nameof(OperationDate), IsDescending = new bool[] { true })]
     public class Receipt : AbstractEntity
     {
