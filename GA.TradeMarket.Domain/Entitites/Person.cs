@@ -1,16 +1,12 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GA.TradeMarket.Domain.Entitites
 {
     [Table("Persons")]
-    public class Person:Microsoft.AspNetCore.Identity.IdentityUser
+    public class Person: IdentityUser
     {
         public string? Name { get; set; }
 

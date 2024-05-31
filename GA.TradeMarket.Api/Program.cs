@@ -9,8 +9,6 @@ using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -18,7 +16,7 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddDbContext<TradeMarketDbContext>(opt =>
+builder.Services.AddDbContext<TradeMarketDbContext>(opt=>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("GugassConnection"));
 });
