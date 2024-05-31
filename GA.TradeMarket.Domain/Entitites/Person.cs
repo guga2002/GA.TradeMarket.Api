@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 namespace GA.TradeMarket.Domain.Entitites
 {
     [Table("Persons")]
-    public class Person:IdentityUser
+    public class Person:Microsoft.AspNetCore.Identity.IdentityUser
     {
         public string? Name { get; set; }
 

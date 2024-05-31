@@ -23,6 +23,7 @@ namespace GA.TradeMarket.Domain.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<ReceiptDetail>()
                 .HasKey(rd => new { rd.ProductId, rd.ReceiptId });
 
