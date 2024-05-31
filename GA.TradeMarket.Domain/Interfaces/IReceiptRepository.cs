@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace GA.TradeMarket.Domain.Interfaces
 {
-    public interface IReceiptDetailRepository : ICrudRep<ReceiptDetail>
+    public interface IReceiptRepository:ICrudRep<Receipt>
     {
-        Task Delete(ReceiptDetail receiptDetail);
     }
-
 }

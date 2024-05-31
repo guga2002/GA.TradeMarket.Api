@@ -1,4 +1,5 @@
 ﻿using GA.TradeMarket.Domain.Entitites;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,15 +9,13 @@ using System.Threading.Tasks;
 
 namespace GA.TradeMarket.Domain.Data
 {
-    public class TradeMarketDbContext : DbContext
+    public class TradeMarketDbContext : IdentityDbContext<Person>
     {
         public TradeMarketDbContext(DbContextOptions<TradeMarketDbContext> options) : base(options)
         {
 
         }
-
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Person> Persons { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Receipt> Receipts { get; set; }
         public DbSet<ReceiptDetail> ReceiptsDetails { get; set; }
