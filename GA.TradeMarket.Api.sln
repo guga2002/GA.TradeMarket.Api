@@ -5,6 +5,8 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GA.TradeMarket.Api", "GA.TradeMarket.Api\GA.TradeMarket.Api.csproj", "{EF6DB205-0ED4-4A95-8CDA-0649BBED760C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GA.TradeMarket.Domain", "GA.TradeMarket.Domain\GA.TradeMarket.Domain.csproj", "{F63DFE10-F77F-472B-80C5-EF186223A66A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{EF6DB205-0ED4-4A95-8CDA-0649BBED760C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF6DB205-0ED4-4A95-8CDA-0649BBED760C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF6DB205-0ED4-4A95-8CDA-0649BBED760C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F63DFE10-F77F-472B-80C5-EF186223A66A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F63DFE10-F77F-472B-80C5-EF186223A66A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F63DFE10-F77F-472B-80C5-EF186223A66A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F63DFE10-F77F-472B-80C5-EF186223A66A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
