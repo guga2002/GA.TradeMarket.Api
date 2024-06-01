@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GA.TradeMarket.Domain.Entitites
 {
@@ -23,7 +18,9 @@ namespace GA.TradeMarket.Domain.Entitites
 
         public virtual ProductCategory Category { get; set; }
 
-        public virtual List<ReceiptDetail>? ReceiptDetails { get; set; }
-    }
+        public virtual IEnumerable<ReceiptDetail> ReceiptDetails { get; set; }
+
+        public virtual IEnumerable<Review> Reviews { get; set; }
+}
 
 }
