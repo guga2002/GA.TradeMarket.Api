@@ -8,6 +8,9 @@ namespace GA.TradeMarket.Application.AutoMapp
     {
         public AutoMapper()
         {
+            CreateMap<Person, PersonModel>()
+                .ReverseMap();
+
             CreateMap<Receipt, ReceiptModel>()
             .ForMember(dest => dest.ReceiptDetailsIds, opt => opt.MapFrom(src => src.ReceiptDetails.Select(rd => rd.Id)))
              .ReverseMap();

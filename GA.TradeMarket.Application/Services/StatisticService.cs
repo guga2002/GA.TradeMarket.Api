@@ -13,7 +13,7 @@ namespace GA.TradeMarket.Application.Services
         {
         }
 
-        public async Task<List<ProductModel>> GetCustomersMostPopularProductsAsync(int productCount, int customerId)
+        public async Task<List<ProductModel>> GetCustomersMostPopularProductsAsync(int productCount, long customerId)
         {
             var allreceipts = await obj.ReceiptRepository.GetAllWithDetailsAsync();
 

@@ -3,6 +3,7 @@
 namespace GA.TradeMarket.Domain.Entitites
 {
     [Table("Receipts")]
+    [Index(nameof(OperationDate), IsDescending = new bool[] { true })]
     public class Receipt : AbstractEntity
     {
         [ForeignKey("order")]

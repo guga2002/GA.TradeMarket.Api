@@ -2,15 +2,10 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace GA.TradeMarket.Domain.Data
 {
-    public class TradeMarketDbContext : IdentityDbContext<Person>
+    public class TradeMarketDbContext(DbContextOptions<TradeMarketDbContext> bs) : IdentityDbContext<Person>(bs)
     {
-        public TradeMarketDbContext(DbContextOptions<TradeMarketDbContext> options) : base(options)
-        {
-
-        }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Receipt> Receipts { get; set; }
@@ -28,6 +23,7 @@ namespace GA.TradeMarket.Domain.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<ReceiptDetail>()
                 .HasKey(rd => new { rd.ProductId, rd.ReceiptId });
 
