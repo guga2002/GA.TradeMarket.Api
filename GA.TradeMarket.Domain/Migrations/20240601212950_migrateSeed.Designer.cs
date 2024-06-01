@@ -4,6 +4,7 @@ using GA.TradeMarket.Domain.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GA.TradeMarket.Domain.Migrations
 {
     [DbContext(typeof(TradeMarketDbContext))]
-    partial class TradeMarketDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240601212950_migrateSeed")]
+    partial class migrateSeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,64 +70,6 @@ namespace GA.TradeMarket.Domain.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Coupons");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            Code = "GE343439034435",
-                            DiscountValue = 45m,
-                            ExpiryDate = new DateTime(2025, 5, 14, 1, 56, 51, 633, DateTimeKind.Local).AddTicks(107)
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            Code = "GE343433634435",
-                            DiscountValue = 467m,
-                            ExpiryDate = new DateTime(2024, 7, 27, 1, 56, 51, 633, DateTimeKind.Local).AddTicks(148)
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            Code = "GE343411434435",
-                            DiscountValue = 457m,
-                            ExpiryDate = new DateTime(2024, 8, 28, 1, 56, 51, 633, DateTimeKind.Local).AddTicks(152)
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            Code = "GE34343234435",
-                            DiscountValue = 48m,
-                            ExpiryDate = new DateTime(2024, 8, 15, 1, 56, 51, 633, DateTimeKind.Local).AddTicks(155)
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            Code = "GE343423434435",
-                            DiscountValue = 45m,
-                            ExpiryDate = new DateTime(2025, 4, 5, 1, 56, 51, 633, DateTimeKind.Local).AddTicks(158)
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            Code = "GE34343034435",
-                            DiscountValue = 25m,
-                            ExpiryDate = new DateTime(2024, 6, 12, 1, 56, 51, 633, DateTimeKind.Local).AddTicks(160)
-                        },
-                        new
-                        {
-                            Id = 7L,
-                            Code = "GE343419034435",
-                            DiscountValue = 15m,
-                            ExpiryDate = new DateTime(2025, 1, 31, 1, 56, 51, 633, DateTimeKind.Local).AddTicks(163)
-                        },
-                        new
-                        {
-                            Id = 8L,
-                            Code = "GE343424634435",
-                            DiscountValue = 78m,
-                            ExpiryDate = new DateTime(2025, 3, 14, 1, 56, 51, 633, DateTimeKind.Local).AddTicks(166)
-                        });
                 });
 
             modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.Customer", b =>
@@ -188,26 +133,18 @@ namespace GA.TradeMarket.Domain.Migrations
                         new
                         {
                             Id = 1L,
-                            Buy = 2.7m,
+                            Buy = 1.0m,
                             Currency = "USD",
-                            LogTime = new DateTime(2024, 6, 2, 1, 56, 51, 632, DateTimeKind.Local).AddTicks(9848),
-                            Sell = 2.8m
+                            LogTime = new DateTime(2024, 6, 2, 1, 29, 49, 845, DateTimeKind.Local).AddTicks(3910),
+                            Sell = 1.0m
                         },
                         new
                         {
                             Id = 2L,
-                            Buy = 2.9m,
+                            Buy = 0.85m,
                             Currency = "EUR",
-                            LogTime = new DateTime(2024, 6, 2, 1, 56, 51, 632, DateTimeKind.Local).AddTicks(9861),
-                            Sell = 2.85m
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            Buy = 2.65m,
-                            Currency = "GBP",
-                            LogTime = new DateTime(2024, 6, 2, 1, 56, 51, 632, DateTimeKind.Local).AddTicks(9862),
-                            Sell = 2.85m
+                            LogTime = new DateTime(2024, 6, 2, 1, 29, 49, 845, DateTimeKind.Local).AddTicks(3922),
+                            Sell = 0.85m
                         });
                 });
 

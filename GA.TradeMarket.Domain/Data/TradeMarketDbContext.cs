@@ -1,4 +1,5 @@
-﻿using GA.TradeMarket.Domain.Entitites;
+﻿using GA.TradeMarket.Domain.Configurations;
+using GA.TradeMarket.Domain.Entitites;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +26,11 @@ namespace GA.TradeMarket.Domain.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new ExchangeRateConfig());
+            modelBuilder.ApplyConfiguration(new CouponConfig());
+
+            Console.WriteLine("Aqvar");
+            Random rand = new Random();
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<ReceiptDetail>()
                 .HasKey(rd => new { rd.ProductId, rd.ReceiptId });
@@ -38,6 +44,7 @@ namespace GA.TradeMarket.Domain.Data
                 .HasOne(rd => rd.Receipt)
                 .WithMany(r => r.ReceiptDetails)
                 .HasForeignKey(rd => rd.ReceiptId);
+
         }
     }
 

@@ -7,7 +7,6 @@ namespace GA.TradeMarket.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class DiscountController : ControllerBase
     {
         private readonly IDiscountService ser;
@@ -149,12 +148,8 @@ namespace GA.TradeMarket.Api.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
                     await ser.AddCouponAsync(mod);
                     return Ok(mod);
-                }
-                return BadRequest("Insert was not succesfully");
             }
             catch (Exception exp)
             {
@@ -168,16 +163,12 @@ namespace GA.TradeMarket.Api.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
                     var res=await ser.GetAllCouponAsync();
                     if (res.Any())
                     {
                         return Ok(res);
                     }
                     return NotFound();
-                }
-                return BadRequest("Retrive data was not succesfully");
             }
             catch (Exception exp)
             {
