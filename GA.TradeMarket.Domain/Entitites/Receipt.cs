@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GA.TradeMarket.Domain.Entitites
 {
     [Table("Receipts")]
-    [Index(nameof(OperationDate), IsDescending = new bool[] { true })]
+    [Index(nameof(IsCheckedOut), IsDescending = new bool[] { true })]
     public class Receipt : AbstractEntity
     {
         [ForeignKey("order")]

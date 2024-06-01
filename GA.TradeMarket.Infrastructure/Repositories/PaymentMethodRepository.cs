@@ -14,7 +14,7 @@ namespace GA.TradeMarket.Infrastructure.Repositories
         {
             if (method is not null)
             {
-                if (!await dbset.AnyAsync(io => io.CardNumber == method.CardNumber&&io.CustomerId==method.CustomerId))
+                if (!await dbset.AnyAsync(io => io.CardNumber == method.CardNumber))
                 {
                     await dbset.AddAsync(method);
                     await context.SaveChangesAsync();
@@ -73,7 +73,7 @@ namespace GA.TradeMarket.Infrastructure.Repositories
             var db = dbset
         .Include(io => io.Payments)
         .ThenInclude(io => io.Order)
-        .FirstOrDefault(io => io.CustomerId == method.CustomerId);
+        .FirstOrDefault(io => io.CardHolderName == method.CardHolderName);
 
             if (db != null)
             {

@@ -25,7 +25,5 @@ namespace GA.TradeMarket.Domain.Entitites
 
         public virtual IEnumerable<Notification> Notifications { get; set; }
 
-        public virtual IEnumerable<PaymentMethod> Paymemethods { get; set; }
-
     }
 }

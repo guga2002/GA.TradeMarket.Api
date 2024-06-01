@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GA.TradeMarket.Infrastructure\GA.TradeMarket.Infrastructure.csproj" />
+    <ProjectReference Include="..\GA.TradeMarket.Persistance\GA.TradeMarket.Persistance.csproj" />
   </ItemGroup>
 
 </Project>

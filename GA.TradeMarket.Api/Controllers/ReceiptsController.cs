@@ -1,5 +1,6 @@
 ﻿using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace GA.TradeMarket.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ReceiptsController : ControllerBase
     {
 

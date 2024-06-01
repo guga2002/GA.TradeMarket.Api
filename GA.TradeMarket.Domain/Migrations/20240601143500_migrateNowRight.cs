@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GA.TradeMarket.Domain.Migrations
 {
     /// <inheritdoc />
-    public partial class migratenow : Migration
+    public partial class migrateNowRight : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -51,6 +51,37 @@ namespace GA.TradeMarket.Domain.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Coupons",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DiscountValue = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Coupons", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PaymentMethods",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CardNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CardHolderName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CVV = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PaymentMethods", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -215,22 +246,187 @@ namespace GA.TradeMarket.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Receipts",
+                name: "Bonuses",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CustomerId = table.Column<long>(type: "bigint", nullable: false),
-                    OperationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Points = table.Column<int>(type: "int", nullable: false),
+                    EnrollmentDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bonuses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Bonuses_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Notifications",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NotificationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notifications", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Notifications_Customers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CustomerId = table.Column<long>(type: "bigint", nullable: false),
+                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reviews",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<long>(type: "bigint", nullable: false),
+                    CustomerId = table.Column<long>(type: "bigint", nullable: false),
+                    ReviewText = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Rating = table.Column<int>(type: "int", nullable: false),
+                    ReviewDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reviews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Payments",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderId = table.Column<long>(type: "bigint", nullable: false),
+                    paymentMethodId = table.Column<long>(type: "bigint", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PaymentMethod = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Payments_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Payments_PaymentMethods_paymentMethodId",
+                        column: x => x.paymentMethodId,
+                        principalTable: "PaymentMethods",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Receipts",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderId = table.Column<long>(type: "bigint", nullable: false),
                     IsCheckedOut = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Receipts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Receipts_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
+                        name: "FK_Receipts_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReturnRequests",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderId = table.Column<long>(type: "bigint", nullable: false),
+                    RequestDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReturnRequests", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ReturnRequests_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Shippings",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderId = table.Column<long>(type: "bigint", nullable: false),
+                    TrackingNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Carrier = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ShippingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Shippings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Shippings_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -303,6 +499,11 @@ namespace GA.TradeMarket.Domain.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Bonuses_CustomerId",
+                table: "Bonuses",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Customers_DiscountValue",
                 table: "Customers",
                 column: "DiscountValue",
@@ -319,6 +520,32 @@ namespace GA.TradeMarket.Domain.Migrations
                 table: "Customers",
                 column: "PersonId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifications_UserId",
+                table: "Notifications",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_CustomerId",
+                table: "Orders",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_OrderDate",
+                table: "Orders",
+                column: "OrderDate",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payments_OrderId",
+                table: "Payments",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payments_paymentMethodId",
+                table: "Payments",
+                column: "paymentMethodId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductCategories_CategoryName",
@@ -367,15 +594,37 @@ namespace GA.TradeMarket.Domain.Migrations
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Receipts_CustomerId",
+                name: "IX_Receipts_IsCheckedOut",
                 table: "Receipts",
+                column: "IsCheckedOut",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Receipts_OrderId",
+                table: "Receipts",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReturnRequests_OrderId",
+                table: "ReturnRequests",
+                column: "OrderId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reviews_CustomerId",
+                table: "Reviews",
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Receipts_OperationDate",
-                table: "Receipts",
-                column: "OperationDate",
-                descending: new bool[0]);
+                name: "IX_Reviews_ProductId",
+                table: "Reviews",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Shippings_OrderId",
+                table: "Shippings",
+                column: "OrderId",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -397,16 +646,43 @@ namespace GA.TradeMarket.Domain.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Bonuses");
+
+            migrationBuilder.DropTable(
+                name: "Coupons");
+
+            migrationBuilder.DropTable(
+                name: "Notifications");
+
+            migrationBuilder.DropTable(
+                name: "Payments");
+
+            migrationBuilder.DropTable(
                 name: "ReceiptDetails");
+
+            migrationBuilder.DropTable(
+                name: "ReturnRequests");
+
+            migrationBuilder.DropTable(
+                name: "Reviews");
+
+            migrationBuilder.DropTable(
+                name: "Shippings");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "PaymentMethods");
 
             migrationBuilder.DropTable(
                 name: "Receipts");
+
+            migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "ProductCategories");

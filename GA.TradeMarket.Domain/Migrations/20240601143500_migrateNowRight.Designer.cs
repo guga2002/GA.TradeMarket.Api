@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GA.TradeMarket.Domain.Migrations
 {
     [DbContext(typeof(TradeMarketDbContext))]
-    [Migration("20240531213302_migratenow")]
-    partial class migratenow
+    [Migration("20240601143500_migrateNowRight")]
+    partial class migrateNowRight
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,53 @@ namespace GA.TradeMarket.Domain.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.BonusProgram", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("CustomerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("EnrollmentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Points")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Bonuses");
+                });
+
+            modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.Coupon", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("DiscountValue")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Coupons");
+                });
 
             modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.Customer", b =>
                 {
@@ -55,6 +102,120 @@ namespace GA.TradeMarket.Domain.Migrations
                         .IsUnique();
 
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.Notification", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("NotificationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Notifications");
+                });
+
+            modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.Order", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("CustomerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("OrderDate")
+                        .IsDescending();
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.Payment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<long>("OrderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PaymentMethod")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("paymentMethodId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("paymentMethodId");
+
+                    b.ToTable("Payments");
+                });
+
+            modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.PaymentMethod", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CVV")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CardHolderName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CardNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PaymentMethods");
                 });
 
             modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.Person", b =>
@@ -191,21 +352,18 @@ namespace GA.TradeMarket.Domain.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("CustomerId")
-                        .HasColumnType("bigint");
-
                     b.Property<bool>("IsCheckedOut")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("OperationDate")
-                        .HasColumnType("datetime2");
+                    b.Property<long>("OrderId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("OperationDate")
+                    b.HasIndex("IsCheckedOut")
                         .IsDescending();
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("Receipts");
                 });
@@ -244,6 +402,103 @@ namespace GA.TradeMarket.Domain.Migrations
                         .IsDescending();
 
                     b.ToTable("ReceiptDetails");
+                });
+
+            modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.ReturnRequest", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("OrderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RequestDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId")
+                        .IsUnique();
+
+                    b.ToTable("ReturnRequests");
+                });
+
+            modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.Review", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("CustomerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ReviewDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ReviewText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Reviews");
+                });
+
+            modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.Shipping", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Carrier")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("OrderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("ShippingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TrackingNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId")
+                        .IsUnique();
+
+                    b.ToTable("Shippings");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -379,6 +634,17 @@ namespace GA.TradeMarket.Domain.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.BonusProgram", b =>
+                {
+                    b.HasOne("GA.TradeMarket.Domain.Entitites.Customer", "Customer")
+                        .WithMany("bonuses")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
             modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.Customer", b =>
                 {
                     b.HasOne("GA.TradeMarket.Domain.Entitites.Person", "Person")
@@ -388,6 +654,47 @@ namespace GA.TradeMarket.Domain.Migrations
                         .IsRequired();
 
                     b.Navigation("Person");
+                });
+
+            modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.Notification", b =>
+                {
+                    b.HasOne("GA.TradeMarket.Domain.Entitites.Customer", "User")
+                        .WithMany("Notifications")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.Order", b =>
+                {
+                    b.HasOne("GA.TradeMarket.Domain.Entitites.Customer", "Customer")
+                        .WithMany("Orders")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.Payment", b =>
+                {
+                    b.HasOne("GA.TradeMarket.Domain.Entitites.Order", "Order")
+                        .WithMany("payments")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GA.TradeMarket.Domain.Entitites.PaymentMethod", "method")
+                        .WithMany("Payments")
+                        .HasForeignKey("paymentMethodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("method");
                 });
 
             modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.Product", b =>
@@ -403,13 +710,13 @@ namespace GA.TradeMarket.Domain.Migrations
 
             modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.Receipt", b =>
                 {
-                    b.HasOne("GA.TradeMarket.Domain.Entitites.Customer", "Customer")
+                    b.HasOne("GA.TradeMarket.Domain.Entitites.Order", "order")
                         .WithMany("Receipts")
-                        .HasForeignKey("CustomerId")
+                        .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Customer");
+                    b.Navigation("order");
                 });
 
             modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.ReceiptDetail", b =>
@@ -429,6 +736,47 @@ namespace GA.TradeMarket.Domain.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("Receipt");
+                });
+
+            modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.ReturnRequest", b =>
+                {
+                    b.HasOne("GA.TradeMarket.Domain.Entitites.Order", "Order")
+                        .WithOne("ReturnRequest")
+                        .HasForeignKey("GA.TradeMarket.Domain.Entitites.ReturnRequest", "OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.Review", b =>
+                {
+                    b.HasOne("GA.TradeMarket.Domain.Entitites.Customer", "Customer")
+                        .WithMany("Reviews")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GA.TradeMarket.Domain.Entitites.Product", "Product")
+                        .WithMany("Reviews")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.Shipping", b =>
+                {
+                    b.HasOne("GA.TradeMarket.Domain.Entitites.Order", "Order")
+                        .WithOne("Shipping")
+                        .HasForeignKey("GA.TradeMarket.Domain.Entitites.Shipping", "OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -484,7 +832,31 @@ namespace GA.TradeMarket.Domain.Migrations
 
             modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.Customer", b =>
                 {
+                    b.Navigation("Notifications");
+
+                    b.Navigation("Orders");
+
+                    b.Navigation("Reviews");
+
+                    b.Navigation("bonuses");
+                });
+
+            modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.Order", b =>
+                {
                     b.Navigation("Receipts");
+
+                    b.Navigation("ReturnRequest")
+                        .IsRequired();
+
+                    b.Navigation("Shipping")
+                        .IsRequired();
+
+                    b.Navigation("payments");
+                });
+
+            modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.PaymentMethod", b =>
+                {
+                    b.Navigation("Payments");
                 });
 
             modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.Person", b =>
@@ -496,6 +868,8 @@ namespace GA.TradeMarket.Domain.Migrations
             modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.Product", b =>
                 {
                     b.Navigation("ReceiptDetails");
+
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("GA.TradeMarket.Domain.Entitites.ProductCategory", b =>

@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GA.TradeMarket.Api", "GA.TradeMarket.Api\GA.TradeMarket.Api.csproj", "{EF6DB205-0ED4-4A95-8CDA-0649BBED760C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GA.TradeMarket.Api", "GA.TradeMarket.Api\GA.TradeMarket.Api.csproj", "{EF6DB205-0ED4-4A95-8CDA-0649BBED760C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GA.TradeMarket.Domain", "GA.TradeMarket.Domain\GA.TradeMarket.Domain.csproj", "{F63DFE10-F77F-472B-80C5-EF186223A66A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GA.TradeMarket.Domain", "GA.TradeMarket.Domain\GA.TradeMarket.Domain.csproj", "{F63DFE10-F77F-472B-80C5-EF186223A66A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GA.TradeMarket.Infrastructure", "GA.TradeMarket.Infrastructure\GA.TradeMarket.Infrastructure.csproj", "{881774E8-FD8E-4A28-B5D3-F5E2441B2487}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GA.TradeMarket.Infrastructure", "GA.TradeMarket.Infrastructure\GA.TradeMarket.Infrastructure.csproj", "{881774E8-FD8E-4A28-B5D3-F5E2441B2487}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GA.TradeMarket.Application", "GA.TradeMarket.Application\GA.TradeMarket.Application.csproj", "{016E65E8-B974-4E90-8447-A2E41F3CF05C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GA.TradeMarket.Application", "GA.TradeMarket.Application\GA.TradeMarket.Application.csproj", "{016E65E8-B974-4E90-8447-A2E41F3CF05C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GA.TradeMarket.Persistance", "GA.TradeMarket.Persistance\GA.TradeMarket.Persistance.csproj", "{E8EC0B7A-D84D-4A40-98FA-22944D4E0816}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{016E65E8-B974-4E90-8447-A2E41F3CF05C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{016E65E8-B974-4E90-8447-A2E41F3CF05C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{016E65E8-B974-4E90-8447-A2E41F3CF05C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8EC0B7A-D84D-4A40-98FA-22944D4E0816}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8EC0B7A-D84D-4A40-98FA-22944D4E0816}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8EC0B7A-D84D-4A40-98FA-22944D4E0816}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8EC0B7A-D84D-4A40-98FA-22944D4E0816}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

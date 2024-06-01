@@ -79,7 +79,7 @@ namespace GA.TradeMarket.Application.Services
             var res = await obj.CustomerRepository.GetAllWithDetailsAsync();
             if (res != null)
             {
-                var axal = res.Where(io => io.Orders
+                var axal = res.Where(io => io.bonuses
                             .Any(rd => rd.Id == id))
               .ToList();
                 if (axal.Count == 0)
