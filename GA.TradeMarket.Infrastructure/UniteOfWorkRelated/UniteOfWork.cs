@@ -1,10 +1,6 @@
 ﻿using GA.TradeMarket.Domain.Data;
 using GA.TradeMarket.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GA.TradeMarket.Infrastructure.Repositories;
 
 namespace GA.TradeMarket.Infrastructure.UniteOfWorkRelated
 {
@@ -30,6 +26,24 @@ namespace GA.TradeMarket.Infrastructure.UniteOfWorkRelated
         public IProductCategoryRepository ProductCategoryRepository { get; }
         public IReceiptRepository ReceiptRepository { get; }
         public IReceiptDetailRepository ReceiptDetailRepository { get; }
+
+        public IBonusProgramRepository bonusProgramRepository => new BonusRepository(_dbContext);
+
+        public ICouponRepository CouponRepository => new CouponRepository(_dbContext);
+
+        public INotificationRepository NotificationRepository => new NotificationRepository(_dbContext);
+
+        public IOrderRepository OrderRepository => new OrderRepository(_dbContext);
+
+        public IPaymentMethodRepository PaymentMethodRepository => new PaymentMethodRepository(_dbContext);
+
+        public IPaymentRepository PaymentRepository => new PaymentRepository(_dbContext);
+
+        public IReturnRequestRepository ReturnRequestRepository => new ReturnRequestRepository(_dbContext);
+
+        public IReviewRepository reviewRepository => new ReviewRepository(_dbContext);
+
+        public IShipingRepository ShipingRepository => new ShipingRepository(_dbContext);
 
         public async Task SaveAsync()
         {

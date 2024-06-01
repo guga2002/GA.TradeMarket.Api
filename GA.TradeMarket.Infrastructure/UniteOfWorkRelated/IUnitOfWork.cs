@@ -19,6 +19,23 @@ namespace GA.TradeMarket.Infrastructure.UniteOfWorkRelated
 
         IReceiptDetailRepository ReceiptDetailRepository { get; }
 
+        IBonusProgramRepository bonusProgramRepository { get; }
+
+        ICouponRepository CouponRepository { get; }
+
+        INotificationRepository NotificationRepository { get; }
+
+        IOrderRepository OrderRepository { get; }
+
+        IPaymentMethodRepository PaymentMethodRepository { get; }
+
+        IPaymentRepository PaymentRepository { get; }
+
+        IReturnRequestRepository ReturnRequestRepository { get; }
+
+        IReviewRepository reviewRepository { get; }
+
+        IShipingRepository ShipingRepository { get; }
         Task SaveAsync();
     }
 

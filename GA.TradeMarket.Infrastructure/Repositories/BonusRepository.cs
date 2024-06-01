@@ -5,19 +5,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GA.TradeMarket.Infrastructure.Repositories
 {
-    public class ProductCategoryRepository :BaseRepository<ProductCategory> ,IProductCategoryRepository
+    public class BonusRepository : BaseRepository<BonusProgram>, IBonusProgramRepository
     {
-        public ProductCategoryRepository(TradeMarketDbContext context):base(context)
+        public BonusRepository(TradeMarketDbContext context) : base(context)
         {
         }
 
-        public async Task AddAsync(ProductCategory customer)
+        public async Task AddAsync(BonusProgram bonus)
         {
-            if (customer.CategoryName != null)
+            if (bonus.Customer is not null)
             {
-                if (!await dbset.AnyAsync(io => io.CategoryName == customer.CategoryName))
+                if (!await dbset.AnyAsync(io => io.CustomerId == bonus.CustomerId))
                 {
-                    await dbset.AddAsync(customer);
+                    await dbset.AddAsync(bonus);
                     await context.SaveChangesAsync();
                 }
             }
@@ -33,30 +33,32 @@ namespace GA.TradeMarket.Infrastructure.Repositories
             }
         }
 
-        public async Task<IEnumerable<ProductCategory>> GetAllAsync()
+        public async Task<IEnumerable<BonusProgram>> GetAllAsync()
         {
 
             return await dbset.ToListAsync();
         }
 
-        public async Task<IEnumerable<ProductCategory>> GetAllWithDetailsAsync()
+        public async Task<IEnumerable<BonusProgram>> GetAllWithDetailsAsync()
         {
-            return await dbset.Include(io => io.Products).ToListAsync();
+            return await dbset.Include(io => io.Customer)
+                .ThenInclude(io=>io.Reviews).ToListAsync();
         }
 
-        public async Task<ProductCategory> GetByIdAsync(long Id)
+        public async Task<BonusProgram> GetByIdAsync(long Id)
         {
             var res = await dbset.FirstOrDefaultAsync(io => io.Id == Id);
-            if (res is not  null)
+            if (res is not null)
             {
                 return res;
             }
-            throw new ArgumentException("No entity DOund on this ID");
+            throw new ArgumentException("No entity found on this ID");
         }
 
-        public async Task<ProductCategory> GetByIdWithDetailsAsync(long Id)
+        public async Task<BonusProgram> GetByIdWithDetailsAsync(long Id)
         {
-            var res = await dbset.Include(io => io.Products).FirstOrDefaultAsync(io => io.Id == Id);
+            var res = await dbset.Include(io => io.Customer)
+                .ThenInclude(io=>io.bonuses).FirstOrDefaultAsync(io => io.Id == Id);
             if (res != null)
             {
                 return res;
@@ -64,7 +66,7 @@ namespace GA.TradeMarket.Infrastructure.Repositories
             throw new ArgumentException($"No Entity found on this id {Id}");
         }
 
-        public void Update(ProductCategory custom)
+        public void Update(BonusProgram custom)
         {
             if (dbset.Any(io => io.Id == custom.Id))
             {
@@ -72,6 +74,5 @@ namespace GA.TradeMarket.Infrastructure.Repositories
                 context.SaveChanges();
             }
         }
-
     }
 }

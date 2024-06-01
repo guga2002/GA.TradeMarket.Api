@@ -2,11 +2,6 @@
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GA.TradeMarket.Infrastructure.Repositories
 {
@@ -41,12 +36,8 @@ namespace GA.TradeMarket.Infrastructure.Repositories
         public async Task<IEnumerable<Customer>> GetAllWithDetailsAsync()
         {
             return await dbset.Include(i => i.Person)
-                    .Include(io => io.Receipts)
-                      .ThenInclude(io => io.ReceiptDetails)
                       .Include(io => io.Person)
-                    .Where(io => io.Receipts != null)
                     .ToListAsync();
-
         }
 
         public async Task<Customer> GetByIdAsync(long Id)
@@ -61,9 +52,7 @@ namespace GA.TradeMarket.Infrastructure.Repositories
 
         public async Task<Customer> GetByIdWithDetailsAsync(long Id)
         {
-            var res = await dbset.Include(io => io.Receipts).
-                ThenInclude(io => io.ReceiptDetails)
-                .Include(io => io.Person).
+            var res = await dbset.Include(io => io.bonuses).
                 FirstOrDefaultAsync(io => io.Id == Id);
             if (res is not null)
             {

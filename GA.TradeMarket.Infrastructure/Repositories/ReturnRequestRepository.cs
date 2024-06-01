@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GA.TradeMarket.Infrastructure.Repositories
 {
-    public class ReceiptRepository:BaseRepository<Receipt>,IReceiptRepository
+    public class ReturnRequestRepository : BaseRepository<ReturnRequest>, IReturnRequestRepository
     {
-        public ReceiptRepository(TradeMarketDbContext context):base(context)
+        public ReturnRequestRepository(TradeMarketDbContext context) : base(context)
         {
         }
 
-        public async Task AddAsync(Receipt customer)
+        public async Task AddAsync(ReturnRequest customer)
         {
-            if (! await dbset.AnyAsync(io => io.OrderId == customer.OrderId && io.IsCheckedOut == customer.IsCheckedOut))
+            if (!await dbset.AnyAsync(io => io.OrderId == customer.OrderId))
             {
                 await dbset.AddAsync(customer);
                 await context.SaveChangesAsync();
@@ -27,21 +27,20 @@ namespace GA.TradeMarket.Infrastructure.Repositories
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Receipt>> GetAllAsync()
+        public async Task<IEnumerable<ReturnRequest>> GetAllAsync()
         {
             return await dbset.ToListAsync();
         }
 
-        public async Task<IEnumerable<Receipt>> GetAllWithDetailsAsync()
+        public async Task<IEnumerable<ReturnRequest>> GetAllWithDetailsAsync()
         {
             return await dbset
-       .Include(r => r.ReceiptDetails)
-           .ThenInclude(rd => rd.Product)
-           .ThenInclude(io => io.Category)
+       .Include(r => r.Order)
+           .ThenInclude(rd => rd.payments)
        .ToListAsync();
         }
 
-        public async Task<Receipt> GetByIdAsync(long Id)
+        public async Task<ReturnRequest> GetByIdAsync(long Id)
         {
             var res = await dbset.FirstOrDefaultAsync(io => io.Id == Id);
             if (res is not null)
@@ -51,12 +50,11 @@ namespace GA.TradeMarket.Infrastructure.Repositories
             throw new ArgumentException("No relate entity found!");
         }
 
-        public async Task<Receipt> GetByIdWithDetailsAsync(long Id)
+        public async Task<ReturnRequest> GetByIdWithDetailsAsync(long Id)
         {
             var res = await dbset
-                .Include(r => r.ReceiptDetails)
-               .ThenInclude(rd => rd.Product)
-               .ThenInclude(io => io.Category)
+                .Include(r => r.Order)
+               .ThenInclude(rd => rd.payments)
               .Where(io => io.Id == Id).FirstOrDefaultAsync();
             if (res is not null)
             {
@@ -64,11 +62,11 @@ namespace GA.TradeMarket.Infrastructure.Repositories
             }
             else
             {
-                return new Receipt();
+                throw new ArgumentException("No relate entity found!");
             }
         }
 
-        public void Update(Receipt custom)
+        public void Update(ReturnRequest custom)
         {
             if (dbset.Any(io => io.Id == custom.Id))
             {
