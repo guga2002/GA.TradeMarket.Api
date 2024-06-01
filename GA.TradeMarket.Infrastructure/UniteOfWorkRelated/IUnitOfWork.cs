@@ -17,6 +17,8 @@ namespace GA.TradeMarket.Infrastructure.UniteOfWorkRelated
 
         IReceiptRepository ReceiptRepository { get; }
 
+        IExchangeRateRepository ExchangeRateRepository { get; }
+
         IReceiptDetailRepository ReceiptDetailRepository { get; }
 
         IBonusProgramRepository bonusProgramRepository { get; }

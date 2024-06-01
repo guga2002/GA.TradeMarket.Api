@@ -96,6 +96,8 @@ namespace GA.TradeMarket.Application.AutoMapp
 
             CreateMap<ShippingModel,Shipping>().ReverseMap();
 
+            CreateMap<ExchangeRate,ExchangeRateModel>().ReverseMap();
+
         }
 
     }

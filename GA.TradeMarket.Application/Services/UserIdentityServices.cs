@@ -367,7 +367,7 @@ namespace RGBA.Optio.Domain.Services
                      <p>ჩვენ შევნიშნეთ ახალი მოწყობილება თქვენს It Step ანგარიშში. თუ ეს თქვენ იყავით, არ არის საჭირო შემდგომი ქმედება. 
                       თუმცა, თუ თქვენ არ შესულხართ, გთხოვთ, დაუყოვნებლივ დაგვიკავშირდეთ და ჩვენ დაგეხმარებით თქვენი ანგარიშის დაცვაში..</p>
                      <p>მადლობა ყურადღებისთვის.</p>
-                     <p style='color: #ff6600;'>Sincerely,<br/>Your RGBASOLUTION Team</p>
+                     <p style='color: #ff6600;'>პატივისცემით,<br/>G.Apkha</p>
                      </body>
                      </html>";
 
@@ -407,8 +407,8 @@ namespace RGBA.Optio.Domain.Services
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer: "https://localhost:44359/",
-                audience: "https://localhost:44359/",
+                issuer: "https://localhost:7049/",
+                audience: "https://localhost:7049/",
                 claims: claims,
                 expires: DateTime.Now.AddHours(6),
                 signingCredentials: credentials);

@@ -52,6 +52,7 @@ builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IReturnRequestRepository, ReturnRequestRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IShipingRepository, ShipingRepository>();
+builder.Services.AddScoped<IExchangeRateRepository,ExchangeRateRepository>();
 
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IProductService, ProductService>();
@@ -62,6 +63,8 @@ builder.Services.AddScoped<IAfterSoldService, AfterSoldService>();
 builder.Services.AddScoped<IDiscountService, DiscountService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IShippingService, ShippingService>();
+builder.Services.AddScoped<ICurrencyService,CurrencyService>();
+
 
 builder.Services.AddSingleton<SmtpService>();
 #endregion
