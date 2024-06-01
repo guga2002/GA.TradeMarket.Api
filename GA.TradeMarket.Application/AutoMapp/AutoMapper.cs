@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
 using GA.TradeMarket.Application.Models;
 using GA.TradeMarket.Domain.Entitites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GA.TradeMarket.Application.AutoMapp
 {
@@ -49,7 +44,7 @@ namespace GA.TradeMarket.Application.AutoMapp
                 .ForMember(dest => dest.Surname, opt => opt.MapFrom(src => src.Person.Surname))
                 .ForMember(dest => dest.BirthDate, opt => opt.MapFrom(src => src.Person.BirthDate))
                 .ForMember(dest => dest.DiscountValue, opt => opt.MapFrom(src => src.DiscountValue))
-                .ForMember(dest => dest.ReceiptsIds, opt => opt.MapFrom(src => src.Receipts.Select(r => r.Id)));
+                .ForMember(dest => dest.ReceiptsIds, opt => opt.MapFrom(src => src.Reviews.Select(r => r.Id)));
 
             CreateMap<CustomerModel, Customer>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.id))
@@ -57,7 +52,7 @@ namespace GA.TradeMarket.Application.AutoMapp
                 .ForPath(dest => dest.Person.Surname, opt => opt.MapFrom(src => src.Surname))
                 .ForPath(dest => dest.Person.BirthDate, opt => opt.MapFrom(src => src.BirthDate))
                 .ForMember(dest => dest.DiscountValue, opt => opt.MapFrom(src => src.DiscountValue))
-                .ForMember(dest => dest.Receipts, opt => opt.MapFrom(src => src.ReceiptsIds.Select(id => new Receipt { Id = id })));
+                .ForMember(dest => dest.Reviews, opt => opt.MapFrom(src => src.ReceiptsIds.Select(id => new Receipt { Id = id })));
 
             CreateMap<CustomerModel, Person>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.id))
@@ -80,6 +75,23 @@ namespace GA.TradeMarket.Application.AutoMapp
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.CategoryName))
                 .ForMember(dest => dest.Products, opt => opt.Ignore());
 
+            CreateMap<BonusProgram, BonusProgramModel>().ReverseMap();
+
+            CreateMap<CouponModel, Coupon>().ReverseMap();
+
+            CreateMap<Notification,NotificationModel>().ReverseMap();
+
+            CreateMap<Order,OrderModel>().ReverseMap();
+
+            CreateMap<PaymentMethodModel, PaymentMethod>().ReverseMap();
+
+            CreateMap<PaymentModel, Payment>().ReverseMap();
+
+            CreateMap<ReturnRequestModel,ReturnRequest>().ReverseMap();
+
+            CreateMap<ReviewModel, Review>().ReverseMap();
+
+            CreateMap<ShippingModel,Shipping>().ReverseMap();
 
         }
 

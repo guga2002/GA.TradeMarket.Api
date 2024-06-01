@@ -32,6 +32,11 @@ namespace GA.TradeMarket.Application.Services
             {
                 throw new MarketException("shecdoma");
             }
+            var category = await obj.ProductCategoryRepository.GetByIdAsync(item.ProductCategoryId);
+            if(category is null)
+            {
+                throw new ArgumentNullException(" Product Category is null");
+            }
             if (obj.ProductRepository != null)
             {
                 var mapped = mapper.Map<Product>(item);
@@ -160,6 +165,11 @@ namespace GA.TradeMarket.Application.Services
             }
             else
             {
+                var category = await obj.ProductCategoryRepository.GetByIdAsync(item.ProductCategoryId);
+                if (category is null)
+                {
+                    throw new ArgumentNullException(" Product Category is null");
+                }
                 var mappedProduct = mapper.Map<Product>(item);
                 obj.ProductRepository.Update(mappedProduct);
                 await obj.SaveAsync();

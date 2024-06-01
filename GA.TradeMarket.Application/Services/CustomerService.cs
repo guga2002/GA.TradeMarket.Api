@@ -4,11 +4,6 @@ using GA.TradeMarket.Application.Models;
 using GA.TradeMarket.Application.Validation;
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GA.TradeMarket.Application.Services
 {
@@ -29,6 +24,7 @@ namespace GA.TradeMarket.Application.Services
             {
                 throw new MarketException("Tarigi");
             }
+
             if (!string.IsNullOrEmpty(item.Name) && !string.IsNullOrEmpty(item.Surname))
             {
                 var mapped = mapper.Map<Customer>(item);
@@ -83,9 +79,8 @@ namespace GA.TradeMarket.Application.Services
             var res = await obj.CustomerRepository.GetAllWithDetailsAsync();
             if (res != null)
             {
-                var axal = res.Where(io => io.Receipts
-                            .SelectMany(r => r.ReceiptDetails)
-                            .Any(rd => rd.ProductId == id))
+                var axal = res.Where(io => io.Orders
+                            .Any(rd => rd.Id == id))
               .ToList();
                 if (axal.Count == 0)
                 {

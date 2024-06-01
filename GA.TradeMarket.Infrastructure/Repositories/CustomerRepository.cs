@@ -36,7 +36,6 @@ namespace GA.TradeMarket.Infrastructure.Repositories
         public async Task<IEnumerable<Customer>> GetAllWithDetailsAsync()
         {
             return await dbset.Include(i => i.Person)
-                    .Include(io => io.Reviews)
                       .Include(io => io.Person)
                     .ToListAsync();
         }
@@ -53,9 +52,7 @@ namespace GA.TradeMarket.Infrastructure.Repositories
 
         public async Task<Customer> GetByIdWithDetailsAsync(long Id)
         {
-            var res = await dbset.Include(io => io.Orders).
-                ThenInclude(io => io.Shipping)
-                .Include(io => io.Person).
+            var res = await dbset.Include(io => io.bonuses).
                 FirstOrDefaultAsync(io => io.Id == Id);
             if (res is not null)
             {

@@ -3,11 +3,6 @@ using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
 using GA.TradeMarket.Application.Validation;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GA.TradeMarket.Application.Services
 {
@@ -23,7 +18,7 @@ namespace GA.TradeMarket.Application.Services
             var allreceipts = await obj.ReceiptRepository.GetAllWithDetailsAsync();
 
             var selectedProducts = allreceipts
-                .Where(io => io.CustomerId == customerId)
+                .Where(io => io.order.CustomerId == customerId)
                 .OrderByDescending(io => io.ReceiptDetails?.Sum(detail => detail.Quantity))
                 .SelectMany(io => io.ReceiptDetails.Select(detail => detail.Product))
                 .Take(productCount);
@@ -41,7 +36,7 @@ namespace GA.TradeMarket.Application.Services
 
             var details = await obj.ReceiptRepository.GetAllWithDetailsAsync();
 
-            var filteredByDate = details.Where(io => io.OperationDate >= startDate && io.OperationDate <= endDate);
+            var filteredByDate = details.Where(io => io.order.OrderDate >= startDate && io.order.OrderDate <= endDate);
 
             var filtered = filteredByDate
                 .SelectMany(io => io.ReceiptDetails)
@@ -72,9 +67,9 @@ namespace GA.TradeMarket.Application.Services
 
             var receipts = await obj.ReceiptRepository.GetAllWithDetailsAsync();
 
-            var filteredReceipts = receipts.Where(io => io.OperationDate >= startDate && io.OperationDate <= endDate);
+            var filteredReceipts = receipts.Where(io => io.order.OrderDate >= startDate && io.order.OrderDate <= endDate);
 
-            var groupedReceiptsByCustomer = filteredReceipts.GroupBy(io => io.Customer);
+            var groupedReceiptsByCustomer = filteredReceipts.GroupBy(io => io.order.Customer);
  
             var customerActivities = groupedReceiptsByCustomer
                 .Select(group => new CustomerActivityModel

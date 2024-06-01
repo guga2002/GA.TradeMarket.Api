@@ -4,11 +4,6 @@ using GA.TradeMarket.Application.Models;
 using GA.TradeMarket.Application.Validation;
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GA.TradeMarket.Application.Services
 {
@@ -23,6 +18,11 @@ namespace GA.TradeMarket.Application.Services
         {
             if (item != null)
             {
+                var customer= await obj.CustomerRepository.GetByIdAsync(item.CustomerId);
+                if(customer is null)
+                {
+                    throw new ArgumentNullException("Customer not exist there");
+                }
                 var mapped = mapper.Map<Receipt>(item);
                 if (mapped != null)
                 {
@@ -62,7 +62,7 @@ namespace GA.TradeMarket.Application.Services
                     ReceiptId = receipt.Id,
                     UnitPrice = product.Price,
                    Quantity=quantity,
-                   DiscountUnitPrice=receipt.Customer.DiscountValue
+                   DiscountUnitPrice=receipt.order.Customer.DiscountValue
                 };
                 await obj.ReceiptDetailRepository.AddAsync(details);
                 await obj.SaveAsync();
@@ -99,7 +99,7 @@ namespace GA.TradeMarket.Application.Services
             {
                 foreach (var ite in res)
                 {
-                    obj.ReceiptDetailRepository.Delete(ite);
+                   await obj.ReceiptDetailRepository.Delete(ite);
                 }
             }
         }
@@ -149,7 +149,7 @@ namespace GA.TradeMarket.Application.Services
         public async Task<IEnumerable<ReceiptModel>> GetReceiptsByPeriodAsync(DateTime start, DateTime end)
         {
             var rec = await obj.ReceiptRepository.GetAllWithDetailsAsync();
-            var sab = rec.Where(io => io.OperationDate >= start && io.OperationDate <= end).ToList();
+            var sab = rec.Where(io => io.order.OrderDate >= start && io.order.OrderDate <= end).ToList();
             List<ReceiptModel> Receipts = new List<ReceiptModel>();
             foreach (var item in sab)
             {
@@ -158,8 +158,8 @@ namespace GA.TradeMarket.Application.Services
                     ReceiptModel mod = new ReceiptModel()
                     {
                         IsCheckedOut = item.IsCheckedOut,
-                        OperationDate = item.OperationDate,
-                        CustomerId = item.CustomerId,
+                        OperationDate = item.order.OrderDate,
+                        CustomerId = item.order.CustomerId,
                         ReceiptDetailsIds = item.ReceiptDetails.Select(io => io.Id).ToList(),
                         Id = item.Id,
                     };
@@ -194,7 +194,7 @@ namespace GA.TradeMarket.Application.Services
 
                         if (obj.ReceiptDetailRepository != null)
                         {
-                            obj.ReceiptDetailRepository.Delete(detail);
+                            await obj.ReceiptDetailRepository.Delete(detail);
                             await obj.SaveAsync();
                         }
                         else
@@ -231,16 +231,20 @@ namespace GA.TradeMarket.Application.Services
             return 0;
         }
 
-        public Task UpdateAsync(ReceiptModel item)
+        public async Task UpdateAsync(ReceiptModel item)
         {
             if (item == null)
             {
                 throw new MarketException("Exception ocured");
             }
+            var customer= await obj.CustomerRepository.GetByIdAsync(item.CustomerId);
+            if(customer == null)
+            {
+                throw new ArgumentNullException("No customer  exist there");
+            }
             var mapped = mapper.Map<Receipt>(item);
             obj.ReceiptRepository.Update(mapped);
-            obj.SaveAsync();
-            return Task.CompletedTask;
+            await obj.SaveAsync();
         }
     }
 
