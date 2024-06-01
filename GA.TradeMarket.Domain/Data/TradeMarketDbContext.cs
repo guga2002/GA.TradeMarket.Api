@@ -1,11 +1,7 @@
 ﻿using GA.TradeMarket.Domain.Entitites;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace GA.TradeMarket.Domain.Data
 {
@@ -20,6 +16,15 @@ namespace GA.TradeMarket.Domain.Data
         public DbSet<Receipt> Receipts { get; set; }
         public DbSet<ReceiptDetail> ReceiptsDetails { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<BonusProgram> Bonuses { get; set; }
+        public DbSet<Coupon> Coupons { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<PaymentMethod> paymentMethods { get; set; }
+        public DbSet<ReturnRequest> returnRequest { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Shipping> Shippings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

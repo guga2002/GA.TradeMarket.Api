@@ -2,11 +2,6 @@
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GA.TradeMarket.Infrastructure.Repositories
 {
@@ -60,7 +55,8 @@ namespace GA.TradeMarket.Infrastructure.Repositories
             return await dbset.Include(io => io.Product)
                 .ThenInclude(io => io.Category)
                 .Include(io => io.Receipt)
-                .ThenInclude(io => io.Customer)
+                .ThenInclude(io => io.order)
+                .ThenInclude(io => io.ReturnRequest)
                 .ToListAsync();
         }
 
