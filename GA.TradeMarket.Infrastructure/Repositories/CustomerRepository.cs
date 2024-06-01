@@ -2,11 +2,6 @@
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GA.TradeMarket.Infrastructure.Repositories
 {
@@ -23,7 +18,7 @@ namespace GA.TradeMarket.Infrastructure.Repositories
             await context.SaveChangesAsync();
         }
 
-        public async Task DeleteByIdAsync(int Id)
+        public async Task DeleteByIdAsync(long Id)
         {
             var res = await dbset.FirstOrDefaultAsync(io => io.Id == Id);
             if (res is not null)
@@ -41,15 +36,12 @@ namespace GA.TradeMarket.Infrastructure.Repositories
         public async Task<IEnumerable<Customer>> GetAllWithDetailsAsync()
         {
             return await dbset.Include(i => i.Person)
-                    .Include(io => io.Receipts)
-                      .ThenInclude(io => io.ReceiptDetails)
+                    .Include(io => io.Reviews)
                       .Include(io => io.Person)
-                    .Where(io => io.Receipts != null)
                     .ToListAsync();
-
         }
 
-        public async Task<Customer> GetByIdAsync(int Id)
+        public async Task<Customer> GetByIdAsync(long Id)
         {
             var res = await dbset.FirstOrDefaultAsync(io => io.Id == Id);
             if (res != null)
@@ -59,10 +51,10 @@ namespace GA.TradeMarket.Infrastructure.Repositories
             throw new ArgumentException("No  entity found on this Id");
         }
 
-        public async Task<Customer> GetByIdWithDetailsAsync(int Id)
+        public async Task<Customer> GetByIdWithDetailsAsync(long Id)
         {
-            var res = await dbset.Include(io => io.Receipts).
-                ThenInclude(io => io.ReceiptDetails)
+            var res = await dbset.Include(io => io.Orders).
+                ThenInclude(io => io.Shipping)
                 .Include(io => io.Person).
                 FirstOrDefaultAsync(io => io.Id == Id);
             if (res is not null)

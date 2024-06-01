@@ -2,7 +2,7 @@
 
 namespace GA.TradeMarket.Domain.Entitites
 {
-    public class BonusProgram
+    public class BonusProgram:AbstractEntity
     {
         [ForeignKey("Customer")]
         public long CustomerId { get; set; }

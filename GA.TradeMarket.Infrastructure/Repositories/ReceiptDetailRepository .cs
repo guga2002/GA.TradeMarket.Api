@@ -2,11 +2,6 @@
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GA.TradeMarket.Infrastructure.Repositories
 {
@@ -39,7 +34,7 @@ namespace GA.TradeMarket.Infrastructure.Repositories
             }
         }
 
-        public async Task DeleteByIdAsync(int Id)
+        public async Task DeleteByIdAsync(long Id)
         {
 
             var res = await dbset.FirstOrDefaultAsync(io => io.Id == Id);
@@ -60,11 +55,12 @@ namespace GA.TradeMarket.Infrastructure.Repositories
             return await dbset.Include(io => io.Product)
                 .ThenInclude(io => io.Category)
                 .Include(io => io.Receipt)
-                .ThenInclude(io => io.Customer)
+                .ThenInclude(io => io.order)
+                .ThenInclude(io => io.ReturnRequest)
                 .ToListAsync();
         }
 
-        public async Task<ReceiptDetail> GetByIdAsync(int Id)
+        public async Task<ReceiptDetail> GetByIdAsync(long Id)
         {
             var res = await dbset.FirstOrDefaultAsync(io => io.Id == Id);
             if (res is not null)
@@ -74,7 +70,7 @@ namespace GA.TradeMarket.Infrastructure.Repositories
             throw new ArgumentException("No entity found on this Id  ");
         }
 
-        public async Task<ReceiptDetail> GetByIdWithDetailsAsync(int Id)
+        public async Task<ReceiptDetail> GetByIdWithDetailsAsync(long Id)
         {
             var res = await dbset.Include(io => io.Receipt)
                 .Include(io => io.Product)
