@@ -1,5 +1,6 @@
 ﻿using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
+using GA.TradeMarket.Application.Models.RequestModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,11 +19,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
         [HttpGet]
         [Route("payment")]
-        public async Task<ActionResult<IEnumerable<PaymentModel>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<PaymentModel>>> GetAllWithDetailsAsync()
         {
             try
             {
-                var res = await ser.GetAllAsync();
+                var res = await ser.GetAllWithDetailsAsync();
                 if (!res.Any())
                 {
                     return NotFound();
@@ -42,7 +43,7 @@ namespace GA.TradeMarket.Api.Controllers
             try
             {
                 var res = await ser.GetByIdAsync(Id);
-                if (res is not null)
+                if (res is null)
                 {
                     return NotFound();
                 }
@@ -56,16 +57,13 @@ namespace GA.TradeMarket.Api.Controllers
 
         [HttpPost]
         [Route("payment")]
-        public async Task<ActionResult> AddAsync([FromBody] PaymentModel item)
+        public async Task<ActionResult> AddAsync([FromBody] PaymentModelIn item)
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
+
                     await ser.AddAsync(item);
                     return Ok(item);
-                }
-                return BadRequest("Insert was not succesfully");
             }
             catch (Exception exp)
             {
@@ -90,16 +88,12 @@ namespace GA.TradeMarket.Api.Controllers
         }
         [HttpPut]
         [Route("payment")]
-        public async Task<ActionResult> UpdateAsync([FromBody] PaymentModel item)
+        public async Task<ActionResult> UpdateAsync([FromBody] PaymentModelIn item)
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
                     await ser.UpdateAsync(item);
                     return Ok(item);
-                }
-                return BadRequest("Update was not succesfully");
             }
             catch (Exception exp)
             {
@@ -109,16 +103,12 @@ namespace GA.TradeMarket.Api.Controllers
 
         [HttpPut]
         [Route("PaymentMethod")]
-        public async Task<ActionResult> UpdateCouponAsync([FromBody] PaymentMethodModel mod)
+        public async Task<ActionResult> UpdateCouponAsync([FromBody] PaymentMethodModelIn mod)
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
                     await ser.UpdatePaymentMethodAsync(mod);
                     return Ok(mod);
-                }
-                return BadRequest("Update was not succesfully");
             }
             catch (Exception exp)
             {
@@ -144,16 +134,12 @@ namespace GA.TradeMarket.Api.Controllers
 
         [HttpPost]
         [Route("PaymentMethod")]
-        public async Task<ActionResult> AddCouponAsync([FromBody] PaymentMethodModel mod)
+        public async Task<ActionResult> AddCouponAsync([FromBody] PaymentMethodModelIn mod)
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
                     await ser.AddPaymentMethodAsync(mod);
                     return Ok(mod);
-                }
-                return BadRequest("Insert was not succesfully");
             }
             catch (Exception exp)
             {
@@ -167,16 +153,12 @@ namespace GA.TradeMarket.Api.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
                     var res = await ser.GetAllPaymentMethodAsync();
                     if (res.Any())
                     {
                         return Ok(res);
                     }
                     return NotFound();
-                }
-                return BadRequest("Retrive data was not succesfully");
             }
             catch (Exception exp)
             {

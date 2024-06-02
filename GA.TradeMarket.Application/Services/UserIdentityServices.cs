@@ -349,18 +349,18 @@ namespace RGBA.Optio.Domain.Services
 
             var result = await signin.PasswordSignInAsync(mod.Email, mod.Password, mod.SetCookie,
                 lockoutOnFailure: false);
-
-            switch (result.Succeeded)
+            if (result.Succeeded)
             {
-                case true:
-                    {
-                        await SetPersistentCookieAsync(_httpContextAccessor.HttpContext.User);
-                        var token = GenerateJwtToken(mod.Email);
-                        await Console.Out.WriteLineAsync(token);
-                        var usr = await userManager.FindByNameAsync(mod.Email);
-                        if (usr == null) return (result, token);
-                        var recipientName = usr.Name + ' ' + usr.Surname;
-                        var emailContent = $@"
+               
+                await SetPersistentCookieAsync(_httpContextAccessor.HttpContext.User);
+                var token = GenerateJwtToken(mod.Email);
+                Console.WriteLine("es aris tokenii");
+                Console.WriteLine(token);
+
+                var usr = await userManager.FindByNameAsync(mod.Email);
+
+                var recipientName = usr.Name + ' ' + usr.Surname;
+                var emailContent = $@"
                       <html>
                      <body style='font-family: Arial, sans-serif;'>
                      <p>ძვირფასო <span style='color: #3366cc;'>{recipientName}</span>,</p>
@@ -371,23 +371,18 @@ namespace RGBA.Optio.Domain.Services
                      </body>
                      </html>";
 
-                       smtp.SendMessage(usr.Email,
-                           $"უსაფრთხოებასთან დაკავშირებით: ახალი მოწყობილობა დაფიქსირდა თქვენს ანგარიშზე {DateTime.Now.ToShortTimeString()}",
-                           emailContent);
-                        await userManager.AddClaimAsync(usr, new Claim("Name", usr.Name));
-                        await userManager.AddClaimAsync(usr, new Claim("Surname", usr.Surname));
-                        await userManager.AddClaimAsync(usr, new Claim("BirthDay", usr.BirthDate.ToShortDateString()));
-                        await userManager.AddLoginAsync(usr,
-                            new UserLoginInfo("JWT", GenerateJwtToken(usr.UserName), "Authorization"));
+                smtp.SendMessage(usr.Email,
+                    $"უსაფრთხოებასთან დაკავშირებით: ახალი მოწყობილობა დაფიქსირდა თქვენს ანგარიშზე {DateTime.Now.ToShortTimeString()}",
+                    emailContent);
+                await userManager.AddClaimAsync(usr, new Claim("Name", usr.Name));
+                await userManager.AddClaimAsync(usr, new Claim("Surname", usr.Surname));
+                await userManager.AddClaimAsync(usr, new Claim("BirthDay", usr.BirthDate.ToShortDateString()));
+                await userManager.AddLoginAsync(usr,
+                    new UserLoginInfo("JWT", GenerateJwtToken(usr.UserName), "Authorization"));
 
-                        return (result, token);
-                    }
-                case false when !mod.SetCookie:
-                    //await ClearPersistentCookieAsync();
-                    break;
+                return (result, token);
             }
-
-            return (null, null);
+            throw new ArgumentException(" sign in was not succesfully");
         }
 
         #endregion

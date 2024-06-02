@@ -35,7 +35,8 @@ namespace GA.TradeMarket.Infrastructure.Repositories
         {
             return await dbset
        .Include(r => r.Product)
-           .ThenInclude(rd => rd.ReceiptDetails)
+       .Include(io=>io.Customer)
+       .ThenInclude(io => io.Person)
        .ToListAsync();
         }
 

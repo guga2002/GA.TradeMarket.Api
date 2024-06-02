@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GA.TradeMarket.Application.Models;
+using GA.TradeMarket.Application.Models.RequestModels;
 using GA.TradeMarket.Domain.Entitites;
 
 namespace GA.TradeMarket.Application.AutoMapp
@@ -8,95 +9,56 @@ namespace GA.TradeMarket.Application.AutoMapp
     {
         public AutoMapper()
         {
-            CreateMap<Person, PersonModel>()
-                .ReverseMap();
 
-            CreateMap<Receipt, ReceiptModel>()
-            .ForMember(dest => dest.ReceiptDetailsIds, opt => opt.MapFrom(src => src.ReceiptDetails.Select(rd => rd.Id)))
-             .ReverseMap();
+            CreateMap<BonusProgram, BonusProgramModel>();
+            CreateMap<BonusProgram, BonusProgramModelIn>().ReverseMap();
 
-            CreateMap<Product, ProductModel>()
-                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.CategoryName))
-                .ForMember(dest => dest.ReceiptDetailIds, opt => opt.MapFrom(src => src.ReceiptDetails.Select(rd => rd.Id)));
+            CreateMap<Coupon, CouponModel>();
+            CreateMap<CouponModelIn, Coupon>().ReverseMap();
 
-            CreateMap<ProductModel, Product>()
-                .ForMember(dest => dest.Category, opt => opt.MapFrom(src => new ProductCategory { CategoryName = src.CategoryName })) 
-                .ForMember(dest => dest.ReceiptDetails, opt => opt.Ignore());
+            CreateMap<Notification,NotificationModel>();
+            CreateMap<Notification, NotificationModelIn>().ReverseMap();
 
-            CreateMap<ReceiptDetail, ReceiptDetailModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.DiscountUnitPrice, opt => opt.MapFrom(src => src.DiscountUnitPrice))
-                .ForMember(dest => dest.ReceiptId, opt => opt.MapFrom(src => src.ReceiptId))
-                .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
-                .ForMember(dest => dest.UnitPrice, opt => opt.MapFrom(src => src.UnitPrice))
-                .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
+            CreateMap<Order,OrderModel>();
+            CreateMap<Order, OrderModelIn>().ReverseMap();
 
-            CreateMap<ReceiptDetailModel, ReceiptDetail>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.ReceiptId, opt => opt.MapFrom(src => src.ReceiptId))
-                .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
-                .ForMember(dest => dest.UnitPrice, opt => opt.MapFrom(src => src.UnitPrice))
-                .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
-                .ForMember(dest => dest.DiscountUnitPrice, opt => opt.MapFrom(src => src.DiscountUnitPrice))
-                .ForMember(dest => dest.Receipt, opt => opt.Ignore())
-                .ForMember(dest => dest.Product, opt => opt.Ignore());
+            CreateMap<PaymentMethod, PaymentMethodModel>();
+            CreateMap<PaymentMethodModelIn, PaymentMethod>().ReverseMap();
 
-            CreateMap<Customer, CustomerModel>()
-                .ForMember(dest => dest.id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Person.Name))
-                .ForMember(dest => dest.Surname, opt => opt.MapFrom(src => src.Person.Surname))
-                .ForMember(dest => dest.BirthDate, opt => opt.MapFrom(src => src.Person.BirthDate))
-                .ForMember(dest => dest.DiscountValue, opt => opt.MapFrom(src => src.DiscountValue))
-                .ForMember(dest => dest.ReceiptsIds, opt => opt.MapFrom(src => src.Reviews.Select(r => r.Id)));
+            CreateMap<Payment, PaymentModel>();
+            CreateMap<PaymentModelIn, Payment>().ReverseMap();
 
-            CreateMap<CustomerModel, Customer>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.id))
-                .ForPath(dest => dest.Person.Name, opt => opt.MapFrom(src => src.Name))
-                .ForPath(dest => dest.Person.Surname, opt => opt.MapFrom(src => src.Surname))
-                .ForPath(dest => dest.Person.BirthDate, opt => opt.MapFrom(src => src.BirthDate))
-                .ForMember(dest => dest.DiscountValue, opt => opt.MapFrom(src => src.DiscountValue))
-                .ForMember(dest => dest.Reviews, opt => opt.MapFrom(src => src.ReceiptsIds.Select(id => new Receipt { Id = id })));
+            CreateMap<ReturnRequest, ReturnRequestModel>();
+            CreateMap<ReturnRequestModelIn, ReturnRequest>().ReverseMap();
 
-            CreateMap<CustomerModel, Person>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.id))
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Surname, opt => opt.MapFrom(src => src.Surname))
-                .ForMember(dest => dest.BirthDate, opt => opt.MapFrom(src => src.BirthDate));
+            CreateMap<Review, ReviewModel>();
+            CreateMap<ReviewModelIn, Review>().ReverseMap();
 
-            CreateMap<Person, CustomerModel>()
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Surname, opt => opt.MapFrom(src => src.Surname))
-                .ForMember(dest => dest.BirthDate, opt => opt.MapFrom(src => src.BirthDate));
+            CreateMap<Shipping, ShippingModel>();
+            CreateMap<ShippingModelIn, Shipping>().ReverseMap();
 
-            CreateMap<ProductCategory, ProductCategoryModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.CategoryName))
-                .ForMember(dest => dest.ProductIds, opt => opt.MapFrom(src => src.Products.Select(p => p.Id)));
+            CreateMap<ExchangeRate,ExchangeRateModel>();
 
-            CreateMap<ProductCategoryModel, ProductCategory>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.CategoryName))
-                .ForMember(dest => dest.Products, opt => opt.Ignore());
+            CreateMap<Coupon, CouponModel>();
+            CreateMap<CouponModelIn, Coupon>().ReverseMap();
 
-            CreateMap<BonusProgram, BonusProgramModel>().ReverseMap();
+            CreateMap<Customer, CustomerModel>();
+            CreateMap<Person, PersonModel>().ReverseMap();
 
-            CreateMap<CouponModel, Coupon>().ReverseMap();
+            CreateMap<ProductCategory, ProductCategoryModel>();
+            CreateMap<ProductCategory, ProductCategoryModelIn>().ReverseMap();
 
-            CreateMap<Notification,NotificationModel>().ReverseMap();
+            CreateMap<Product, ProductModel>();
+            CreateMap<Product, ProductModelIn>().ReverseMap();
 
-            CreateMap<Order,OrderModel>().ReverseMap();
+            CreateMap<Receipt, ReceiptModel>();
+            CreateMap<Receipt, ReceiptModelIn>().ReverseMap();
 
-            CreateMap<PaymentMethodModel, PaymentMethod>().ReverseMap();
+            CreateMap<ReceiptDetail, ReceiptDetailModel>();
 
-            CreateMap<PaymentModel, Payment>().ReverseMap();
+            CreateMap<ReturnRequest, ReturnRequestModel>();
+            CreateMap<ReturnRequest, ReturnRequestModelIn>().ReverseMap();
 
-            CreateMap<ReturnRequestModel,ReturnRequest>().ReverseMap();
-
-            CreateMap<ReviewModel, Review>().ReverseMap();
-
-            CreateMap<ShippingModel,Shipping>().ReverseMap();
-
-            CreateMap<ExchangeRate,ExchangeRateModel>().ReverseMap();
 
         }
 

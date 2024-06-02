@@ -1,12 +1,13 @@
 ﻿using GA.TradeMarket.Application.Models;
+using GA.TradeMarket.Application.Models.RequestModels;
 
 namespace GA.TradeMarket.Application.Interfaces
 {
-    public interface IPaymentService:Icrud<PaymentModel>
+    public interface IPaymentService:Icrud<PaymentModel,PaymentModelIn>
     {
-        Task UpdatePaymentMethodAsync(PaymentMethodModel mod);
+        Task UpdatePaymentMethodAsync(PaymentMethodModelIn mod);
         Task RemovePayMentMethodAsync(long a);
-        Task AddPaymentMethodAsync(PaymentMethodModel mod);
+        Task AddPaymentMethodAsync(PaymentMethodModelIn mod);
         Task<IEnumerable<PaymentMethodModel>> GetAllPaymentMethodAsync();
     }
 }

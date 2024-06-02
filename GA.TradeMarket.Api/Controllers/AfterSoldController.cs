@@ -1,5 +1,6 @@
 ﻿using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
+using GA.TradeMarket.Application.Models.RequestModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace GA.TradeMarket.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AfterSoldController : ControllerBase
     {
         private readonly IAfterSoldService ser;
@@ -16,11 +18,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
         [HttpGet]
         [Route("returnrequest")]
-        public async Task<ActionResult<IEnumerable<ReturnRequestModel>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<ReturnRequestModel>>> GetAllWithDetailsAsync()
         {
             try
             {
-                var res = await ser.GetAllAsync();
+                var res = await ser.GetAllWithDetailsAsync();
                 if (!res.Any())
                 {
                     return NotFound();
@@ -40,7 +42,7 @@ namespace GA.TradeMarket.Api.Controllers
             try
             {
                 var res = await ser.GetByIdAsync(Id);
-                if (res is not null)
+                if (res is null)
                 {
                     return NotFound();
                 }
@@ -54,16 +56,12 @@ namespace GA.TradeMarket.Api.Controllers
 
         [HttpPost]
         [Route("returnrequest")]
-        public async Task<ActionResult> AddAsync([FromBody] ReturnRequestModel item)
+        public async Task<ActionResult> AddAsync([FromBody] ReturnRequestModelIn item)
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    await ser.AddAsync(item);
-                    return Ok(item);
-                }
-                return BadRequest("Insert was not succesfully");
+                await ser.AddAsync(item);
+                return Ok(item);
             }
             catch (Exception exp)
             {
@@ -88,16 +86,12 @@ namespace GA.TradeMarket.Api.Controllers
         }
         [HttpPut]
         [Route("returnrequest")]
-        public async Task<ActionResult> UpdateAsync([FromBody] ReturnRequestModel item)
+        public async Task<ActionResult> UpdateAsync([FromBody] ReturnRequestModelIn item)
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    await ser.UpdateAsync(item);
-                    return Ok(item);
-                }
-                return BadRequest("Update was not succesfully");
+                await ser.UpdateAsync(item);
+                return Ok(item);
             }
             catch (Exception exp)
             {
@@ -107,16 +101,12 @@ namespace GA.TradeMarket.Api.Controllers
 
         [HttpPut]
         [Route("review")]
-        public async Task<ActionResult> UpdateCouponAsync([FromBody] ReviewModel mod)
+        public async Task<ActionResult> UpdateCouponAsync([FromBody] ReviewModelIn mod)
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    await ser.UpdateReviewAsync(mod);
-                    return Ok(mod);
-                }
-                return BadRequest("Update was not succesfully");
+                await ser.UpdateReviewAsync(mod);
+                return Ok(mod);
             }
             catch (Exception exp)
             {
@@ -142,16 +132,12 @@ namespace GA.TradeMarket.Api.Controllers
 
         [HttpPost]
         [Route("review")]
-        public async Task<ActionResult> AddCouponAsync([FromBody] ReviewModel mod)
+        public async Task<ActionResult> AddCouponAsync([FromBody] ReviewModelIn mod)
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    await ser.AddReviewAsync(mod);
-                    return Ok(mod);
-                }
-                return BadRequest("Insert was not succesfully");
+                await ser.AddReviewAsync(mod);
+                return Ok(mod);
             }
             catch (Exception exp)
             {
@@ -165,16 +151,12 @@ namespace GA.TradeMarket.Api.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
+                var res = await ser.GetAllReviewsAsync();
+                if (res.Any())
                 {
-                    var res = await ser.GetAllReviewsAsync();
-                    if (res.Any())
-                    {
-                        return Ok(res);
-                    }
-                    return NotFound();
+                    return Ok(res);
                 }
-                return BadRequest("Retrive data was not succesfully");
+                return NotFound();
             }
             catch (Exception exp)
             {

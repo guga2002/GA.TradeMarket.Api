@@ -14,14 +14,14 @@ namespace GA.TradeMarket.Domain.Configurations
     {
         public void Configure(EntityTypeBuilder<Review> builder)
         {
-            Faker fk = new Faker();
+            Bogus.Faker fk = new Bogus.Faker();
             builder.HasData(
-                new Review() { CustomerId = 1, ReviewDate = DateTime.Now.AddDays(-fk.Random.Int()), ProductId = 1, Rating = 3, ReviewText = fk.Lorem.Text(), Id = 1 },
-                new Review() { CustomerId = 2, ReviewDate = DateTime.Now.AddDays(-fk.Random.Int()), ProductId = 2, Rating = 5, ReviewText = fk.Lorem.Text(), Id = 2 },
-                new Review() { CustomerId = 3, ReviewDate = DateTime.Now.AddDays(-fk.Random.Int()), ProductId = 3, Rating = 4, ReviewText = fk.Lorem.Text(), Id = 3 },
-                new Review() { CustomerId = 2, ReviewDate = DateTime.Now.AddDays(-fk.Random.Int()), ProductId = 4, Rating = 3, ReviewText = fk.Lorem.Text(), Id = 4 },
-                new Review() { CustomerId = 2, ReviewDate = DateTime.Now.AddDays(-fk.Random.Int()), ProductId = 5, Rating = 2, ReviewText = fk.Lorem.Text(), Id = 5 },
-                new Review() { CustomerId = 1, ReviewDate = DateTime.Now.AddDays(-fk.Random.Int()), ProductId = 6, Rating = 4, ReviewText = fk.Lorem.Text(), Id = 6 }
+                new Review() { CustomerId = 1, ReviewDate = DateTime.Now.AddDays(-15), ProductId = 1, Rating = 3, ReviewText = fk.Lorem.Text(), Id = 1 },
+                new Review() { CustomerId = 2, ReviewDate = DateTime.Now.AddDays(-54), ProductId = 2, Rating = 5, ReviewText = fk.Lorem.Text(), Id = 2 },
+                new Review() { CustomerId = 3, ReviewDate = DateTime.Now.AddDays(-23), ProductId = 3, Rating = 4, ReviewText = fk.Lorem.Text(), Id = 3 },
+                new Review() { CustomerId = 2, ReviewDate = DateTime.Now.AddDays(-2), ProductId = 4, Rating = 3, ReviewText = fk.Lorem.Text(), Id = 4 },
+                new Review() { CustomerId = 2, ReviewDate = DateTime.Now.AddDays(-34), ProductId = 5, Rating = 2, ReviewText = fk.Lorem.Text(), Id = 5 },
+                new Review() { CustomerId = 1, ReviewDate = DateTime.Now.AddDays(-35), ProductId = 6, Rating = 4, ReviewText = fk.Lorem.Text(), Id = 6 }
                     );
         }
     }

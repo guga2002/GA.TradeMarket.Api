@@ -10,7 +10,7 @@ namespace GA.TradeMarket.Domain.Configurations
         public void Configure(EntityTypeBuilder<Notification> builder)
         {
             Random rnd = new Random();
-            Faker fk = new Faker();
+            Bogus.Faker fk = new Bogus.Faker();
             builder.HasData(
                 new Notification() { NotificationDate = DateTime.Now.AddHours(-rnd.Next(10, 1000)), Message = fk.Lorem.Text(), UserId = 1, Id = 1 },
                 new Notification() { NotificationDate = DateTime.Now.AddHours(-rnd.Next(10, 1000)), Message = fk.Lorem.Text(), UserId = 2, Id = 2 },

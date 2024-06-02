@@ -1,5 +1,6 @@
 ﻿using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
+using GA.TradeMarket.Application.Models.RequestModels;
 using GA.TradeMarket.Application.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -20,10 +21,10 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         [HttpGet("All")]
-        public async Task<ActionResult<IEnumerable<ProductModel>>> GetAllProducts()
+        public async Task<ActionResult<IEnumerable<ProductModel>>> GetAllWithDetailsAsync()
         {
 
-            var products = await _productService.GetAllAsync();
+            var products = await _productService.GetAllWithDetailsAsync();
             return Ok(products);
         }
 
@@ -48,7 +49,7 @@ namespace GA.TradeMarket.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductModel>>> SearchProducts([FromQuery] long categoryId, [FromQuery] decimal? minPrice, [FromQuery] decimal? maxPrice)
         {
-            var res = await _productService.GetAllAsync();
+            var res = await _productService.GetAllWithDetailsAsync();
             if (res == null)
             {
                 return NotFound();
@@ -62,7 +63,7 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddProduct([FromBody]ProductModel product)
+        public async Task<IActionResult> AddProduct([FromBody]ProductModelIn product)
         {
             if (!ModelState.IsValid || string.IsNullOrEmpty(product.ProductName))
                 return BadRequest();
@@ -71,7 +72,7 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         [HttpPut("{id:long}")]
-        public async Task<IActionResult> UpdateProduct([FromRoute]long id,[FromBody] ProductModel product)
+        public async Task<IActionResult> UpdateProduct([FromRoute]long id,[FromBody] ProductModelIn product)
         {
             if (id != product.Id)
                 return BadRequest();
@@ -102,7 +103,7 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         [HttpPost("categories")]
-        public async Task<ActionResult<ProductCategoryModel>> AddCategory([FromBody]ProductCategoryModel category)
+        public async Task<ActionResult<ProductCategoryModel>> AddCategory([FromBody]ProductCategoryModelIn category)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -112,7 +113,7 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         [HttpPut("categories/{id:long}")]
-        public async Task<IActionResult> UpdateCategory([FromRoute]long id, [FromBody]ProductCategoryModel category)
+        public async Task<IActionResult> UpdateCategory([FromRoute]long id, [FromBody]ProductCategoryModelIn category)
         {
             if (id != category.Id)
                 return BadRequest();

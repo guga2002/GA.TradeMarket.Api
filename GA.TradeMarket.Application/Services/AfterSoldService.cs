@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
+using GA.TradeMarket.Application.Models.RequestModels;
 using GA.TradeMarket.Application.Validation;
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
@@ -13,7 +14,7 @@ namespace GA.TradeMarket.Application.Services
         {
         }
 
-        public async Task AddAsync(ReturnRequestModel item)
+        public async Task AddAsync(ReturnRequestModelIn item)
         {
             ArgumentNullException.ThrowIfNull(item, nameof(item));
             var order = await obj.OrderRepository.GetByIdAsync(item.OrderId);
@@ -28,7 +29,7 @@ namespace GA.TradeMarket.Application.Services
             }
         }
 
-        public async Task AddReviewAsync(ReviewModel mod)
+        public async Task AddReviewAsync(ReviewModelIn mod)
         {
             ArgumentNullException.ThrowIfNull(mod, nameof(mod));
             var product = await obj.ProductRepository.GetByIdAsync(mod.ProductId);
@@ -53,9 +54,9 @@ namespace GA.TradeMarket.Application.Services
             await obj.ReturnRequestRepository.DeleteByIdAsync(item);
         }
 
-        public async Task<IEnumerable<ReturnRequestModel>> GetAllAsync()
+        public async Task<IEnumerable<ReturnRequestModel>> GetAllWithDetailsAsync()
         {
-            var returnreq = await obj.ReturnRequestRepository.GetAllAsync();
+            var returnreq = await obj.ReturnRequestRepository.GetAllWithDetailsAsync();
             if(returnreq.Any())
             {
                 var mapped=mapper.Map<IEnumerable<ReturnRequestModel>>(returnreq);
@@ -66,7 +67,7 @@ namespace GA.TradeMarket.Application.Services
 
         public async Task<IEnumerable<ReviewModel>> GetAllReviewsAsync()
         {
-            var returnreq = await obj.reviewRepository.GetAllAsync();
+            var returnreq = await obj.reviewRepository.GetAllWithDetailsAsync();
             if (returnreq.Any())
             {
                 var mapped = mapper.Map<IEnumerable<ReviewModel>>(returnreq);
@@ -91,7 +92,7 @@ namespace GA.TradeMarket.Application.Services
             await obj.reviewRepository.DeleteByIdAsync(a);
         }
 
-        public async Task UpdateAsync(ReturnRequestModel item)
+        public async Task UpdateAsync(ReturnRequestModelIn item)
         {
             ArgumentNullException.ThrowIfNull(item, nameof(item));
             var order = await obj.OrderRepository.GetByIdAsync(item.OrderId);
@@ -106,7 +107,7 @@ namespace GA.TradeMarket.Application.Services
             }
         }
 
-        public async Task UpdateReviewAsync(ReviewModel mod)
+        public async Task UpdateReviewAsync(ReviewModelIn mod)
         {
             ArgumentNullException.ThrowIfNull(mod, nameof(mod));
             var product = await obj.ProductRepository.GetByIdAsync(mod.ProductId);

@@ -42,7 +42,9 @@ namespace GA.TradeMarket.Infrastructure.Repositories
         public async Task<IEnumerable<BonusProgram>> GetAllWithDetailsAsync()
         {
             return await dbset.Include(io => io.Customer)
-                .ThenInclude(io=>io.Reviews).ToListAsync();
+                .ThenInclude(io=>io.Reviews)
+             
+                .ToListAsync();
         }
 
         public async Task<BonusProgram> GetByIdAsync(long Id)

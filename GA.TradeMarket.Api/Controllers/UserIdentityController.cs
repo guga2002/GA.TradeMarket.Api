@@ -62,12 +62,9 @@ namespace GA.TradeMarket.Api.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new MarketException(mod.Email);
-                }
+
                 var res = await ser.SignInAsync(mod);
-                return Ok(res);
+                return Ok(res.Item2);
             }
             catch (Exception exp)
             {

@@ -1,5 +1,6 @@
 ﻿using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
+using GA.TradeMarket.Application.Models.RequestModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,9 +21,9 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ReceiptModel>>> Get()
+        public async Task<ActionResult<IEnumerable<ReceiptModel>>> GetAllWIthDetails()
         {
-            var res = await ser.GetAllAsync();
+            var res = await ser.GetAllWithDetailsAsync();
             if (res == null)
             {
                 return NotFound();
@@ -33,12 +34,19 @@ namespace GA.TradeMarket.Api.Controllers
         [HttpGet("{Id:long}")]
         public async Task<ActionResult<ReceiptModel>> GetById([FromRoute]long id)
         {
-            var res = await ser.GetByIdAsync(id);
-            if (res == null)
+            try
             {
-                return NotFound();
+                var res = await ser.GetByIdAsync(id);
+                if (res == null)
+                {
+                    return NotFound();
+                }
+                return Ok(res);
             }
-            return Ok(res);
+            catch (Exception exp)
+            {
+                return BadRequest(exp.Message);
+            }
         }
 
         [HttpGet("{id:long}/details")]
@@ -68,7 +76,7 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateReceipt([FromBody] ReceiptModel receipt)
+        public async Task<ActionResult> CreateReceipt([FromBody] ReceiptModelIn receipt)
         {
 
             if (receipt == null) return BadRequest();
@@ -77,7 +85,7 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         [HttpPut("{id:long}")]
-        public async Task<IActionResult> UpdateReceipt([FromRoute] long id, [FromBody] ReceiptModel receipt)
+        public async Task<IActionResult> UpdateReceipt([FromRoute] long id, [FromBody] ReceiptModelIn receipt)
         {
             if (receipt == null) return BadRequest();
             await ser.UpdateAsync(receipt);

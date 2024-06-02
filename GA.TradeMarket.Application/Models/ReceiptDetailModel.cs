@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GA.TradeMarket.Domain.Entitites;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,8 @@ namespace GA.TradeMarket.Application.Models
         public decimal DiscountUnitPrice { get; set; }
 
         public int Quantity { get; set; }
+
+        public virtual ProductModel Product { get; set; }
     }
 
 }

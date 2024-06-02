@@ -40,6 +40,8 @@ namespace GA.TradeMarket.Infrastructure.Repositories
                     .Include(io => io.ReturnRequest)
                       .Include(io => io.payments)
                       .Include(io=>io.Customer)
+                      .Include(io=>io.Receipts)
+                      .Include(io=>io.Shipping)
                     .ToListAsync();
 
         }

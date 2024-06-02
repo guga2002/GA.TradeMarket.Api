@@ -1,5 +1,6 @@
 ﻿using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
+using GA.TradeMarket.Application.Models.RequestModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,9 +21,9 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CustomerModel>>> GetAsync()
+        public async Task<ActionResult<IEnumerable<CustomerModel>>> GetAllWithDetailsAsync()
         {
-            var res = await _customerService.GetAllAsync();
+            var res = await _customerService.GetAllWithDetailsAsync();
             if (res == null)
             {
                 NotFound();
@@ -38,7 +39,7 @@ namespace GA.TradeMarket.Api.Controllers
             {
                 if (id < 0) return NotFound();
                 var res = await _customerService.GetByIdAsync(id);
-                if (res == null || res.Name is null || res.Surname is null)
+                if (res == null)
                 {
                     return NotFound(id);
                 }
@@ -72,7 +73,7 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] CustomerModel value)
+        public async Task<ActionResult> Post([FromBody] CustomerReqModel value)
         {
             try
             {
@@ -91,7 +92,7 @@ namespace GA.TradeMarket.Api.Controllers
 
         [HttpPut]
         [Route("{id:long}")]
-        public async Task<ActionResult> Put([FromRoute]long Id, [FromBody] CustomerModel value)
+        public async Task<ActionResult> Put([FromRoute]long Id, [FromBody] CustomerReqModel value)
         {
             try
             {

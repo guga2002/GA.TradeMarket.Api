@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
+using GA.TradeMarket.Application.Models.RequestModels;
 using GA.TradeMarket.Application.Validation;
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
@@ -21,7 +22,7 @@ namespace GA.TradeMarket.Application.Services
         {
         }
 
-        public async Task AddAsync(ProductModel item)
+        public async Task AddAsync(ProductModelIn item)
         {
 
             if (string.IsNullOrEmpty(item.ProductName))
@@ -49,7 +50,7 @@ namespace GA.TradeMarket.Application.Services
             }
         }
 
-        public async Task AddCategoryAsync(ProductCategoryModel mod)
+        public async Task AddCategoryAsync(ProductCategoryModelIn mod)
         {
             if (mod == null || string.IsNullOrEmpty(mod.CategoryName) || mod.Id < 0)
             {
@@ -71,7 +72,7 @@ namespace GA.TradeMarket.Application.Services
             await obj.SaveAsync();
         }
 
-        public async Task<IEnumerable<ProductModel>> GetAllAsync()
+        public async Task<IEnumerable<ProductModel>> GetAllWithDetailsAsync()
         {
             var res = await obj.ProductRepository.GetAllWithDetailsAsync();
             var mapped = mapper.Map<IEnumerable<ProductModel>>(res);
@@ -80,7 +81,7 @@ namespace GA.TradeMarket.Application.Services
 
         public async Task<IEnumerable<ProductCategoryModel>> GetAllProductCategoriesAsync()
         {
-            var res = await obj.ProductCategoryRepository.GetAllAsync();
+            var res = await obj.ProductCategoryRepository.GetAllWithDetailsAsync();
             if (res == null) throw new MarketException("shecdoma");
             var mapped = mapper.Map<IEnumerable<ProductCategoryModel>>(res);
             return mapped;
@@ -157,7 +158,7 @@ namespace GA.TradeMarket.Application.Services
             await obj.SaveAsync();
         }
 
-        public async Task UpdateAsync(ProductModel item)
+        public async Task UpdateAsync(ProductModelIn item)
         {
             if (item == null || string.IsNullOrEmpty(item.ProductName))
             {
@@ -176,7 +177,7 @@ namespace GA.TradeMarket.Application.Services
             }
         }
 
-        public async Task UpdateCategoryAsync(ProductCategoryModel mod)
+        public async Task UpdateCategoryAsync(ProductCategoryModelIn mod)
         {
             if (mod == null || string.IsNullOrEmpty(mod.CategoryName))
             {

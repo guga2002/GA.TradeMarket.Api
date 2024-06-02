@@ -14,17 +14,17 @@ namespace GA.TradeMarket.Domain.Configurations
     {
         public void Configure(EntityTypeBuilder<Coupon> builder)
         {
-            Faker fk = new Faker();
+            Bogus.Faker fk = new Bogus.Faker();
             Random rand=new Random();
             builder.HasData(
-                new Coupon() { Id = 1, DiscountValue = fk.Finance.Amount(), ExpiryDate = DateTime.Now.AddDays(rand.Next(10, 500)), Code =fk.Finance.BitcoinAddress()},
-                 new Coupon() { Id = 2, DiscountValue = fk.Finance.Amount(), ExpiryDate = DateTime.Now.AddDays(rand.Next(10, 500)), Code = fk.Finance.BitcoinAddress() },
-                  new Coupon() { Id = 3, DiscountValue = fk.Finance.Amount(), ExpiryDate = DateTime.Now.AddDays(rand.Next(10, 500)), Code = fk.Finance.BitcoinAddress() },
-                   new Coupon() { Id = 4, DiscountValue = fk.Finance.Amount(), ExpiryDate = DateTime.Now.AddDays(rand.Next(10, 500)), Code = fk.Finance.BitcoinAddress() },
-                    new Coupon() { Id = 5, DiscountValue = fk.Finance.Amount(), ExpiryDate = DateTime.Now.AddDays(rand.Next(10, 500)), Code = fk.Finance.BitcoinAddress() },
-                     new Coupon() { Id = 6, DiscountValue = fk.Finance.Amount(), ExpiryDate = DateTime.Now.AddDays(rand.Next(10, 500)), Code = fk.Finance.BitcoinAddress() },
-                      new Coupon() { Id = 7, DiscountValue = fk.Finance.Amount(), ExpiryDate = DateTime.Now.AddDays(rand.Next(10, 500)), Code = fk.Finance.BitcoinAddress() },
-                   new Coupon() { Id = 8, DiscountValue = fk.Finance.Amount(), ExpiryDate = DateTime.Now.AddDays(rand.Next(10, 500)), Code = fk.Finance.BitcoinAddress() }
+                new Coupon() { Id = 1, DiscountValue = rand.Next(100,400), ExpiryDate = DateTime.Now.AddDays(rand.Next(10, 500)), Code =fk.Finance.BitcoinAddress()+$"{rand.Next(100,100000)}"},
+                 new Coupon() { Id = 2, DiscountValue = rand.Next(100, 400), ExpiryDate = DateTime.Now.AddDays(rand.Next(10, 500)), Code = fk.Finance.BitcoinAddress()+$"{rand.Next(100, 100000)}" },
+                  new Coupon() { Id = 3, DiscountValue = rand.Next(100, 400), ExpiryDate = DateTime.Now.AddDays(rand.Next(10, 500)), Code = fk.Finance.BitcoinAddress() + $"{rand.Next(100, 100000)}" },
+                   new Coupon() { Id = 4, DiscountValue = rand.Next(100, 400), ExpiryDate = DateTime.Now.AddDays(rand.Next(10, 500)), Code = fk.Finance.BitcoinAddress()+ $"{rand.Next(100, 100000)}" },
+                    new Coupon() { Id = 5, DiscountValue = rand.Next(100, 400), ExpiryDate = DateTime.Now.AddDays(rand.Next(10, 500)), Code = fk.Finance.BitcoinAddress() + $"{rand.Next(100, 100000)}" },
+                     new Coupon() { Id = 6, DiscountValue = rand.Next(100, 400), ExpiryDate = DateTime.Now.AddDays(rand.Next(10, 500)), Code = fk.Finance.BitcoinAddress()+ $"{rand.Next(100, 100000)}" },
+                      new Coupon() { Id = 7, DiscountValue = rand.Next(100, 400), ExpiryDate = DateTime.Now.AddDays(rand.Next(10, 500)), Code = fk.Finance.BitcoinAddress() + $"{rand.Next(100, 100000)}" },
+                   new Coupon() { Id = 8, DiscountValue = rand.Next(100, 400), ExpiryDate = DateTime.Now.AddDays(rand.Next(10, 500)), Code = fk.Finance.BitcoinAddress()+ $"{rand.Next(100, 100000)}" }
                 );
         }
     }       

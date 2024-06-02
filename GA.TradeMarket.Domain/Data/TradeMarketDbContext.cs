@@ -1,5 +1,6 @@
 ﻿using GA.TradeMarket.Domain.Configurations;
 using GA.TradeMarket.Domain.Entitites;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -43,7 +44,44 @@ namespace GA.TradeMarket.Domain.Data
             modelBuilder.ApplyConfiguration(new ReviewConfig());
             modelBuilder.ApplyConfiguration(new ShipingConfig());
 
-            Console.WriteLine("Aqvar");
+            string ADMIN_ID = "02174cf0–9412–4cfe - afbf - 59f706d72cf6";
+            string ROLE_ID = "341743f0 - asd2–42de - afbf - 59kmkkmk72cf6";
+
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Name = "admin",
+                NormalizedName = "ADMIN",
+                Id = ROLE_ID,
+                ConcurrencyStamp = ROLE_ID
+            });
+
+            var appUser = new Person
+            {
+                Id = ADMIN_ID,
+                Email = "aapkhazava22@gmail.com",
+                NormalizedEmail="AAPKHAZAVA22@GMAIL.COM",
+                EmailConfirmed = true,
+                UserName = "gugaadmin",
+                Name="Guga",
+                Surname= " Apkhazava",
+                BirthDate=new DateTime(2002,02,02),
+                PhoneNumber="599042047",
+                PhoneNumberConfirmed=true,
+                NormalizedUserName = "GUGAADMIN"
+            };
+
+            PasswordHasher<Person> ph = new PasswordHasher<Person>();
+
+            appUser.PasswordHash = ph.HashPassword(appUser, "Guga13guga#");
+
+            modelBuilder.Entity<Person>().HasData(appUser);
+
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = ROLE_ID,
+                UserId = ADMIN_ID
+            });
+
             Random rand = new Random();
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<ReceiptDetail>()

@@ -1,5 +1,6 @@
 ﻿using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
+using GA.TradeMarket.Application.Models.RequestModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,11 +19,11 @@ namespace GA.TradeMarket.Api.Controllers
 
         [HttpGet]
         [Route("bonusprogram")]
-        public async Task<ActionResult<IEnumerable<BonusProgramModel>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<BonusProgramModel>>> GetAllWithDetailsAsync()
         {
             try
             {
-                var res= await ser.GetAllAsync();
+                var res= await ser.GetAllWithDetailsAsync();
                 if(!res.Any())
                 {
                     return NotFound();
@@ -56,7 +57,7 @@ namespace GA.TradeMarket.Api.Controllers
 
         [HttpPost]
         [Route("bonusprogram")]
-        public async Task<ActionResult> AddAsync([FromBody]BonusProgramModel item)
+        public async Task<ActionResult> AddAsync([FromBody]BonusProgramModelIn item)
         {
             try
             {
@@ -90,7 +91,7 @@ namespace GA.TradeMarket.Api.Controllers
         }
         [HttpPut]
         [Route("bonusprogram")]
-        public async Task<ActionResult> UpdateAsync([FromBody]BonusProgramModel item)
+        public async Task<ActionResult> UpdateAsync([FromBody]BonusProgramModelIn item)
         {
             try
             {
@@ -109,7 +110,7 @@ namespace GA.TradeMarket.Api.Controllers
 
         [HttpPut]
         [Route("coupon")]
-        public async Task<ActionResult> UpdateCouponAsync([FromBody]CouponModel mod)
+        public async Task<ActionResult> UpdateCouponAsync([FromBody]CouponModelIn mod)
         {
             try
             {
@@ -144,7 +145,7 @@ namespace GA.TradeMarket.Api.Controllers
 
         [HttpPost]
         [Route("coupon")]
-        public async Task<ActionResult> AddCouponAsync([FromBody]CouponModel mod)
+        public async Task<ActionResult> AddCouponAsync([FromBody]CouponModelIn mod)
         {
             try
             {

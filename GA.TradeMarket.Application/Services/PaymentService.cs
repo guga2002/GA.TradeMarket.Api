@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
+using GA.TradeMarket.Application.Models.RequestModels;
 using GA.TradeMarket.Application.Validation;
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
@@ -13,7 +14,7 @@ namespace GA.TradeMarket.Application.Services
         {
         }
 
-        public async Task AddAsync(PaymentModel item)
+        public async Task AddAsync(PaymentModelIn item)
         {
           ArgumentNullException.ThrowIfNull(item, nameof(item));
             if(item.Amount<0) throw new ArgumentNullException(nameof(item.Amount));
@@ -31,11 +32,11 @@ namespace GA.TradeMarket.Application.Services
             throw new ArgumentException("Mapping not was succesfully");
         }
 
-        public async Task AddPaymentMethodAsync(PaymentMethodModel mod)
+        public async Task AddPaymentMethodAsync(PaymentMethodModelIn mod)
         {
             ArgumentNullException.ThrowIfNull(mod, nameof(mod));
             if (mod.ExpiryDate >DateTime.Now) throw new ArgumentNullException(nameof(mod.ExpiryDate));
-            var customer=await obj.CustomerRepository.GetByIdAsync(mod.CustomerId);
+            var customer=await obj.CustomerRepository.GetByIdAsync(mod.Id);
             if(customer is null)
             {
                 throw new ArgumentNullException("Custumer is Null");
@@ -53,9 +54,9 @@ namespace GA.TradeMarket.Application.Services
             await obj.PaymentRepository.DeleteByIdAsync(item);
         }
 
-        public async Task<IEnumerable<PaymentModel>> GetAllAsync()
+        public async Task<IEnumerable<PaymentModel>> GetAllWithDetailsAsync()
         {
-           var res= await obj.PaymentRepository.GetAllAsync();
+           var res= await obj.PaymentRepository.GetAllWithDetailsAsync();
             if(res.Any())
             {
                 var mapped=mapper.Map<IEnumerable<PaymentModel>>(res);
@@ -69,7 +70,7 @@ namespace GA.TradeMarket.Application.Services
 
         public async Task<IEnumerable<PaymentMethodModel>> GetAllPaymentMethodAsync()
         {
-            var res = await obj.PaymentMethodRepository.GetAllAsync();
+            var res = await obj.PaymentMethodRepository.GetAllWithDetailsAsync();
             if (res.Any())
             {
                 var mapped = mapper.Map<IEnumerable<PaymentMethodModel>>(res);
@@ -97,7 +98,7 @@ namespace GA.TradeMarket.Application.Services
             await obj.PaymentMethodRepository.DeleteByIdAsync(a);
         }
 
-        public async Task UpdateAsync(PaymentModel item)
+        public async Task UpdateAsync(PaymentModelIn item)
         {
             ArgumentNullException.ThrowIfNull(item, nameof(item));
             if (item.Amount < 0) throw new ArgumentNullException(nameof(item.Amount));
@@ -115,12 +116,12 @@ namespace GA.TradeMarket.Application.Services
             throw new ArgumentException("Mapping not was succesfully");
         }
 
-        public async Task UpdatePaymentMethodAsync(PaymentMethodModel mod)
+        public async Task UpdatePaymentMethodAsync(PaymentMethodModelIn mod)
         {
 
             ArgumentNullException.ThrowIfNull(mod, nameof(mod));
             if (mod.ExpiryDate > DateTime.Now) throw new ArgumentNullException(nameof(mod.ExpiryDate));
-            var customer = await obj.CustomerRepository.GetByIdAsync(mod.CustomerId);
+            var customer = await obj.CustomerRepository.GetByIdAsync(mod.Id);
             if (customer is null)
             {
                 throw new ArgumentNullException("Custumer is Null");

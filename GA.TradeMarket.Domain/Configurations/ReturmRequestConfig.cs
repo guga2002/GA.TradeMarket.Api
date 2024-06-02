@@ -14,12 +14,12 @@ namespace GA.TradeMarket.Domain.Configurations
     {
         public void Configure(EntityTypeBuilder<ReturnRequest> builder)
         {
-            Faker fk = new Faker();
+            Bogus.Faker fk = new Bogus.Faker();
             builder.HasData(
 
-                new ReturnRequest() { RequestDate = DateTime.Now.AddDays(-fk.Random.Int()), OrderId = 1, Reason = fk.Lorem.Text(), Status = "Active", Id = 1 },
-                new ReturnRequest() { RequestDate = DateTime.Now.AddDays(-fk.Random.Int()), OrderId = 2, Reason = fk.Lorem.Text(), Status = "Passed", Id = 2 },
-                new ReturnRequest() { RequestDate = DateTime.Now.AddDays(-fk.Random.Int()), OrderId = 3, Reason = fk.Lorem.Text(), Status = "Declined", Id = 3 }
+                new ReturnRequest() { RequestDate = DateTime.Now.AddDays(-30), OrderId = 1, Reason = fk.Lorem.Text(), Status = "Active", Id = 1},
+                new ReturnRequest() { RequestDate = DateTime.Now.AddDays(-100), OrderId = 2, Reason = fk.Lorem.Text(), Status = "Passed", Id = 2 },
+                new ReturnRequest() { RequestDate = DateTime.Now.AddDays(-20), OrderId = 3, Reason = fk.Lorem.Text(), Status = "Declined", Id = 3 }
                 );
         }
     }

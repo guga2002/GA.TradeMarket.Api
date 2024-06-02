@@ -1,13 +1,9 @@
 ﻿using GA.TradeMarket.Application.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GA.TradeMarket.Application.Models.RequestModels;
 
 namespace GA.TradeMarket.Application.Interfaces
 {
-    public interface ICustomerService : Icrud<CustomerModel>
+    public interface ICustomerService : Icrud<CustomerModel, CustomerReqModel>
     {
         Task<IEnumerable<CustomerModel>> GetCustomersByProductIdAsync(long id);
     }

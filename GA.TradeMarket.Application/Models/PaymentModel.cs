@@ -11,5 +11,7 @@
         public string PaymentMethod { get; set; }
 
         public DateTime PaymentDate { get; set; }
+
+        public virtual OrderModel Order { get; set; }
     }
 }

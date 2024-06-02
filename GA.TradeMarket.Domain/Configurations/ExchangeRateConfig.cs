@@ -10,9 +10,7 @@ namespace GA.TradeMarket.Domain.Configurations
         {
             builder.HasData(
 
-                 new ExchangeRate { Id = 1, Currency = "USD", Buy = 2.7m, Sell = 2.8m, LogTime = DateTime.Now },
-                  new ExchangeRate { Id = 2, Currency = "EUR", Buy = 2.9m, Sell = 2.85m, LogTime = DateTime.Now },
-                   new ExchangeRate { Id = 3, Currency = "GBP", Buy = 2.65m, Sell = 2.85m, LogTime = DateTime.Now }
+                 new ExchangeRate { Id = 1, Currency = "GEL", Buy = 1.0m, Sell = 1.0m, LogTime = DateTime.Now }
                 );
         }
     }

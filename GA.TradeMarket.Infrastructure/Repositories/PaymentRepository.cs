@@ -39,8 +39,7 @@ namespace GA.TradeMarket.Infrastructure.Repositories
 
         public async Task<IEnumerable<Payment>> GetAllWithDetailsAsync()
         {
-            return await dbset.Include(io => io.Order)
-                .ThenInclude(io => io.Receipts)
+            return await dbset.Include(io => io.Order).Include(io=>io.method)
                 .ToListAsync();
         }
 

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
+using GA.TradeMarket.Application.Models.RequestModels;
 using GA.TradeMarket.Application.Validation;
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
@@ -14,7 +15,7 @@ namespace GA.TradeMarket.Application.Services
         {
         }
 
-        public async Task AddAsync(ReceiptModel item)
+        public async Task AddAsync(ReceiptModelIn item)
         {
             if (item != null)
             {
@@ -104,7 +105,7 @@ namespace GA.TradeMarket.Application.Services
             }
         }
 
-        public async Task<IEnumerable<ReceiptModel>> GetAllAsync()
+        public async Task<IEnumerable<ReceiptModel>> GetAllWithDetailsAsync()
         {
             var res = await obj.ReceiptRepository.GetAllWithDetailsAsync();
             if (res == null) throw new MarketException("ahaa");
@@ -121,7 +122,7 @@ namespace GA.TradeMarket.Application.Services
 
         public async Task<ReceiptModel> GetByIdAsync(long Id)
         {
-            var res = await obj.ReceiptRepository.GetByIdWithDetailsAsync(Id);
+            var res = await obj.ReceiptRepository.GetByIdAsync(Id);
             if (res != null)
             {
                 var mapped = mapper.Map<ReceiptModel>(res);
@@ -158,9 +159,8 @@ namespace GA.TradeMarket.Application.Services
                     ReceiptModel mod = new ReceiptModel()
                     {
                         IsCheckedOut = item.IsCheckedOut,
-                        OperationDate = item.order.OrderDate,
+
                         CustomerId = item.order.CustomerId,
-                        ReceiptDetailsIds = item.ReceiptDetails.Select(io => io.Id).ToList(),
                         Id = item.Id,
                     };
                     Receipts.Add(mod);
@@ -231,7 +231,7 @@ namespace GA.TradeMarket.Application.Services
             return 0;
         }
 
-        public async Task UpdateAsync(ReceiptModel item)
+        public async Task UpdateAsync(ReceiptModelIn item)
         {
             if (item == null)
             {

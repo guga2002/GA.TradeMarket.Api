@@ -14,7 +14,7 @@ namespace GA.TradeMarket.Domain.Configurations
     {
         public void Configure(EntityTypeBuilder<ProductCategory> builder)
         {
-            Faker fk = new Faker();
+            Bogus.Faker fk = new Bogus.Faker();
             builder.HasData(
                 new ProductCategory() { CategoryName = fk.Commerce.Categories(1)[0], Id = 1 },
                  new ProductCategory() { CategoryName = fk.Commerce.Categories(2)[1], Id = 2 },

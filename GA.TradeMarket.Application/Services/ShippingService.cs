@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
+using GA.TradeMarket.Application.Models.RequestModels;
 using GA.TradeMarket.Application.Validation;
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
@@ -13,7 +14,7 @@ namespace GA.TradeMarket.Application.Services
         {
         }
 
-        public async Task AddAsync(ShippingModel item)
+        public async Task AddAsync(ShippingModelIn item)
         {
            ArgumentNullException.ThrowIfNull(item,nameof(item));
             if(string.IsNullOrEmpty(item.TrackingNumber))
@@ -32,7 +33,7 @@ namespace GA.TradeMarket.Application.Services
             }
         }
 
-        public async Task AddNotificationAsync(NotificationModel mod)
+        public async Task AddNotificationAsync(NotificationModelIn mod)
         {
             ArgumentNullException.ThrowIfNull(mod, nameof(mod));
             if (string.IsNullOrEmpty(mod.Message))
@@ -57,9 +58,9 @@ namespace GA.TradeMarket.Application.Services
            await obj.ShipingRepository.DeleteByIdAsync(item);
         }
 
-        public async Task<IEnumerable<ShippingModel>> GetAllAsync()
+        public async Task<IEnumerable<ShippingModel>> GetAllWithDetailsAsync()
         {
-            var res = await obj.ShipingRepository.GetAllAsync();
+            var res = await obj.ShipingRepository.GetAllWithDetailsAsync();
             if(res.Any())
             {
                 var mapped = mapper.Map<IEnumerable<ShippingModel>>(res);
@@ -70,7 +71,7 @@ namespace GA.TradeMarket.Application.Services
 
         public async Task<IEnumerable<NotificationModel>> GetAllNotificationAsync()
         {
-            var res = await obj.NotificationRepository.GetAllAsync();
+            var res = await obj.NotificationRepository.GetAllWithDetailsAsync();
             if (res.Any())
             {
                 var mapped = mapper.Map<IEnumerable<NotificationModel>>(res);
@@ -95,7 +96,7 @@ namespace GA.TradeMarket.Application.Services
             await obj.NotificationRepository.DeleteByIdAsync(a);
         }
 
-        public async Task UpdateAsync(ShippingModel item)
+        public async Task UpdateAsync(ShippingModelIn item)
         {
             ArgumentNullException.ThrowIfNull(item, nameof(item));
             if (string.IsNullOrEmpty(item.TrackingNumber))
@@ -115,7 +116,7 @@ namespace GA.TradeMarket.Application.Services
             }
         }
 
-        public async Task UpdateNotificationAsync(NotificationModel mod)
+        public async Task UpdateNotificationAsync(NotificationModelIn mod)
         {
             ArgumentNullException.ThrowIfNull(mod, nameof(mod));
             if (string.IsNullOrEmpty(mod.Message))

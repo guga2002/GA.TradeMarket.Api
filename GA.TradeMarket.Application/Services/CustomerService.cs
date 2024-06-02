@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
+using GA.TradeMarket.Application.Models.RequestModels;
 using GA.TradeMarket.Application.Validation;
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
@@ -14,7 +15,7 @@ namespace GA.TradeMarket.Application.Services
         {
         }
 
-        public async Task AddAsync(CustomerModel item)
+        public async Task AddAsync(CustomerReqModel item)
         {
             if (item == null)
             {
@@ -55,7 +56,7 @@ namespace GA.TradeMarket.Application.Services
             }
         }
 
-        public async Task<IEnumerable<CustomerModel>> GetAllAsync()
+        public async Task<IEnumerable<CustomerModel>> GetAllWithDetailsAsync()
         {
             var res = await obj.CustomerRepository.GetAllWithDetailsAsync();
             if (res == null) throw new MarketException("Shecdoma");
@@ -66,7 +67,7 @@ namespace GA.TradeMarket.Application.Services
 
         public async Task<CustomerModel> GetByIdAsync(long Id)
         {
-            var res = await obj.CustomerRepository.GetByIdWithDetailsAsync(Id);
+            var res = await obj.CustomerRepository.GetByIdAsync(Id);
             if (res == null) throw new MarketException("Shecdoma");
             var mapped = mapper.Map<CustomerModel>(res);
             if (mapped == null) throw new MarketException("shecdoma");
@@ -94,7 +95,7 @@ namespace GA.TradeMarket.Application.Services
             throw new MarketException("shecdoma");
         }
 
-        public async Task UpdateAsync(CustomerModel item)
+        public async Task UpdateAsync(CustomerReqModel item)
         {
 
             if (item.BirthDate >= DateTime.Now || item.BirthDate <= new DateTime(1890, 1, 1, 1, 1, 1, DateTimeKind.Utc))

@@ -1,18 +1,12 @@
-﻿using Bogus;
-using GA.TradeMarket.Domain.Entitites;
+﻿using GA.TradeMarket.Domain.Entitites;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GA.TradeMarket.Domain.Configurations
 {
     public class ProductConfig : IEntityTypeConfiguration<Product>
     {
-        Faker fk = new Faker();
+        Bogus.Faker fk = new Bogus.Faker();
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.HasData(
@@ -29,7 +23,21 @@ namespace GA.TradeMarket.Domain.Configurations
                     new Product() { Id = 11, ProductCategoryId = 3, Price = fk.Commerce.Random.Decimal(), ProductName = fk.Commerce.ProductName() },
                     new Product() { Id = 12, ProductCategoryId = 4, Price = fk.Commerce.Random.Decimal(), ProductName = fk.Commerce.ProductName() },
                     new Product() { Id = 13, ProductCategoryId = 3, Price = fk.Commerce.Random.Decimal(), ProductName = fk.Commerce.ProductName() },
-                    new Product() { Id = 14, ProductCategoryId = 6, Price = fk.Commerce.Random.Decimal(), ProductName = fk.Commerce.ProductName() }
+                    new Product() { Id = 14, ProductCategoryId = 6, Price = fk.Commerce.Random.Decimal(), ProductName = fk.Commerce.ProductName() },
+                      new Product() { Id = 15, ProductCategoryId = 1, Price = fk.Commerce.Random.Decimal(), ProductName = fk.Commerce.ProductName() },
+                 new Product() { Id = 16, ProductCategoryId = 2, Price = fk.Commerce.Random.Decimal(), ProductName = fk.Commerce.ProductName() },
+                  new Product() { Id = 17, ProductCategoryId = 3, Price = fk.Commerce.Random.Decimal(), ProductName = fk.Commerce.ProductName() },
+                  new Product() { Id = 18, ProductCategoryId = 4, Price = fk.Commerce.Random.Decimal(), ProductName = fk.Commerce.ProductName() },
+                  new Product() { Id = 19, ProductCategoryId = 5, Price = fk.Commerce.Random.Decimal(), ProductName = fk.Commerce.ProductName() },
+                 new Product() { Id = 20, ProductCategoryId = 6, Price = fk.Commerce.Random.Decimal(), ProductName = fk.Commerce.ProductName() },
+                  new Product() { Id = 21, ProductCategoryId = 7, Price = fk.Commerce.Random.Decimal(), ProductName = fk.Commerce.ProductName() },
+                   new Product() { Id = 22, ProductCategoryId = 8, Price = fk.Commerce.Random.Decimal(), ProductName = fk.Commerce.ProductName() },
+                    new Product() { Id = 23, ProductCategoryId = 9, Price = fk.Commerce.Random.Decimal(), ProductName = fk.Commerce.ProductName() },
+                    new Product() { Id = 24, ProductCategoryId = 1, Price = fk.Commerce.Random.Decimal(), ProductName = fk.Commerce.ProductName() },
+                    new Product() { Id = 25, ProductCategoryId = 3, Price = fk.Commerce.Random.Decimal(), ProductName = fk.Commerce.ProductName() },
+                    new Product() { Id = 26, ProductCategoryId = 4, Price = fk.Commerce.Random.Decimal(), ProductName = fk.Commerce.ProductName() },
+                    new Product() { Id = 27, ProductCategoryId = 3, Price = fk.Commerce.Random.Decimal(), ProductName = fk.Commerce.ProductName() },
+                    new Product() { Id = 28, ProductCategoryId = 6, Price = fk.Commerce.Random.Decimal(), ProductName = fk.Commerce.ProductName() }
                     );
         }
     }

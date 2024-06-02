@@ -1,12 +1,13 @@
 ﻿using GA.TradeMarket.Application.Models;
+using GA.TradeMarket.Application.Models.RequestModels;
 
 namespace GA.TradeMarket.Application.Interfaces
 {
-    public interface IShippingService:Icrud<ShippingModel>
+    public interface IShippingService:Icrud<ShippingModel,ShippingModelIn>
     {
-        Task UpdateNotificationAsync(NotificationModel mod);
+        Task UpdateNotificationAsync(NotificationModelIn mod);
         Task RemoveNotificationAsync(long a);
-        Task AddNotificationAsync(NotificationModel mod);
+        Task AddNotificationAsync(NotificationModelIn mod);
         Task<IEnumerable<NotificationModel>> GetAllNotificationAsync();
     }
 }

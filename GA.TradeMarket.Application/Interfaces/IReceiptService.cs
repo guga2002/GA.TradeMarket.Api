@@ -1,8 +1,9 @@
 ﻿using GA.TradeMarket.Application.Models;
+using GA.TradeMarket.Application.Models.RequestModels;
 
 namespace GA.TradeMarket.Application.Interfaces
 {
-    public interface IReceiptService : Icrud<ReceiptModel>
+    public interface IReceiptService : Icrud<ReceiptModel,ReceiptModelIn>
     {
         Task<decimal> ToPayAsync(long id);
         Task RemoveProductAsync(long productId, long id, int quantity);

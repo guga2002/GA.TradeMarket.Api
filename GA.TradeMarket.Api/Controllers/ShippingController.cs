@@ -1,5 +1,6 @@
 ﻿using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
+using GA.TradeMarket.Application.Models.RequestModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,11 +19,11 @@ namespace GA.TradeMarket.Api.Controllers
 
         [HttpGet]
         [Route("shipping")]
-        public async Task<ActionResult<IEnumerable<ShippingModel>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<ShippingModel>>> GetAllWithDetailsAsync()
         {
             try
             {
-                var res = await ser.GetAllAsync();
+                var res = await ser.GetAllWithDetailsAsync();
                 if (!res.Any())
                 {
                     return NotFound();
@@ -42,7 +43,7 @@ namespace GA.TradeMarket.Api.Controllers
             try
             {
                 var res = await ser.GetByIdAsync(Id);
-                if (res is not null)
+                if (res is null)
                 {
                     return NotFound();
                 }
@@ -56,16 +57,12 @@ namespace GA.TradeMarket.Api.Controllers
 
         [HttpPost]
         [Route("shipping")]
-        public async Task<ActionResult> AddAsync([FromBody] ShippingModel item)
+        public async Task<ActionResult> AddAsync([FromBody] ShippingModelIn item)
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    await ser.AddAsync(item);
-                    return Ok(item);
-                }
-                return BadRequest("Insert was not succesfully");
+                await ser.AddAsync(item);
+                return Ok(item);
             }
             catch (Exception exp)
             {
@@ -90,16 +87,12 @@ namespace GA.TradeMarket.Api.Controllers
         }
         [HttpPut]
         [Route("shipping")]
-        public async Task<ActionResult> UpdateAsync([FromBody] ShippingModel item)
+        public async Task<ActionResult> UpdateAsync([FromBody] ShippingModelIn item)
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    await ser.UpdateAsync(item);
-                    return Ok(item);
-                }
-                return BadRequest("Update was not succesfully");
+                await ser.UpdateAsync(item);
+                return Ok(item);
             }
             catch (Exception exp)
             {
@@ -109,16 +102,12 @@ namespace GA.TradeMarket.Api.Controllers
 
         [HttpPut]
         [Route("Notification")]
-        public async Task<ActionResult> UpdateCouponAsync([FromBody] NotificationModel mod)
+        public async Task<ActionResult> UpdateCouponAsync([FromBody] NotificationModelIn mod)
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    await ser.UpdateNotificationAsync(mod);
-                    return Ok(mod);
-                }
-                return BadRequest("Update was not succesfully");
+                await ser.UpdateNotificationAsync(mod);
+                return Ok(mod);
             }
             catch (Exception exp)
             {
@@ -144,16 +133,12 @@ namespace GA.TradeMarket.Api.Controllers
 
         [HttpPost]
         [Route("Notification")]
-        public async Task<ActionResult> AddCouponAsync([FromBody] NotificationModel mod)
+        public async Task<ActionResult> AddCouponAsync([FromBody] NotificationModelIn mod)
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    await ser.AddNotificationAsync(mod);
-                    return Ok(mod);
-                }
-                return BadRequest("Insert was not succesfully");
+                await ser.AddNotificationAsync(mod);
+                return Ok(mod);
             }
             catch (Exception exp)
             {
@@ -167,16 +152,12 @@ namespace GA.TradeMarket.Api.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
                     var res = await ser.GetAllNotificationAsync();
                     if (res.Any())
                     {
                         return Ok(res);
                     }
                     return NotFound();
-                }
-                return BadRequest("Retrive data was not succesfully");
             }
             catch (Exception exp)
             {

@@ -9,7 +9,7 @@ namespace GA.TradeMarket.Domain.Configurations
     {
         public void Configure(EntityTypeBuilder<PaymentMethod> builder)
         {
-            Faker fk = new Faker();
+            Bogus.Faker fk = new Bogus.Faker();
             Random rnd = new Random();
             builder.HasData(
                 new PaymentMethod() { CardHolderName = fk.Finance.AccountName(), CardNumber = fk.Finance.CreditCardNumber(), CVV = fk.Finance.CreditCardCvv(), ExpiryDate = DateTime.Now.AddYears(rnd.Next(2, 10)), Id = 1 },

@@ -9,7 +9,7 @@ namespace GA.TradeMarket.Application.Models
     public class ProductCategoryModel : AbstractModel
     {
         public string? CategoryName { get; set; }
-        public List<long>? ProductIds { get; set; }
+        public virtual IEnumerable<ProductModel> Products { get; set; }
     }
 
 }

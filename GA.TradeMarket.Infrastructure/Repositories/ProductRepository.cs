@@ -52,7 +52,7 @@ namespace GA.TradeMarket.Infrastructure.Repositories
         public async Task<IEnumerable<Product>> GetAllWithDetailsAsync()
         {
             return await dbset.Include(io => io.ReceiptDetails)
-                .Include(io => io.Category)
+                .Include(io => io.Category).Include(io=>io.Reviews)
                 .ToListAsync();
         }
 

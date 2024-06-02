@@ -47,7 +47,7 @@ namespace GA.TradeMarket.Application.Services
 
         public async Task<IEnumerable<ExchangeRateModel>> GetExchangeRates()
         {
-           var res=await obj.ExchangeRateRepository.GetAllAsync();
+           var res=await obj.ExchangeRateRepository.GetAllWithDetailsAsync();
             var mapped=mapper.Map<IEnumerable<ExchangeRateModel>>(res);
             return mapped;
         }

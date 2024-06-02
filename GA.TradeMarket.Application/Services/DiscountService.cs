@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
+using GA.TradeMarket.Application.Models.RequestModels;
 using GA.TradeMarket.Application.Validation;
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
@@ -13,7 +14,7 @@ namespace GA.TradeMarket.Application.Services
         {
         }
 
-        public async Task AddAsync(BonusProgramModel item)
+        public async Task AddAsync(BonusProgramModelIn item)
         {
            ArgumentNullException.ThrowIfNull(item, nameof(item));
             var customer = await obj.CustomerRepository.GetByIdAsync(item.CustomerId);
@@ -25,7 +26,7 @@ namespace GA.TradeMarket.Application.Services
             await obj.bonusProgramRepository.AddAsync(map);
         }
 
-        public async Task AddCouponAsync(CouponModel mod)
+        public async Task AddCouponAsync(CouponModelIn mod)
         {
             ArgumentNullException.ThrowIfNull(mod, nameof(mod));
             if(string.IsNullOrEmpty(mod.Code)) { 
@@ -41,9 +42,9 @@ namespace GA.TradeMarket.Application.Services
             await obj.bonusProgramRepository.DeleteByIdAsync(item);
         }
 
-        public async Task<IEnumerable<BonusProgramModel>> GetAllAsync()
+        public async Task<IEnumerable<BonusProgramModel>> GetAllWithDetailsAsync()
         {
-            var res= await obj.bonusProgramRepository.GetAllAsync();
+            var res= await obj.bonusProgramRepository.GetAllWithDetailsAsync();
             if(res.Any())
             {
                 var  mapped= mapper.Map<IEnumerable<BonusProgramModel>>(res);
@@ -57,7 +58,7 @@ namespace GA.TradeMarket.Application.Services
 
         public async Task<IEnumerable<CouponModel>> GetAllCouponAsync()
         {
-            var res = await obj.CouponRepository.GetAllAsync();
+            var res = await obj.CouponRepository.GetAllWithDetailsAsync();
             if (res.Any())
             {
                 var mapped = mapper.Map<IEnumerable<CouponModel>>(res);
@@ -85,7 +86,7 @@ namespace GA.TradeMarket.Application.Services
             await obj.CouponRepository.DeleteByIdAsync(a);
         }
 
-        public async Task UpdateAsync(BonusProgramModel item)
+        public async Task UpdateAsync(BonusProgramModelIn item)
         {
            ArgumentNullException.ThrowIfNull(item, "item");
             if(item.EnrollmentDate>DateTime.Now||item.EnrollmentDate< new DateTime(1933,01,01))
@@ -98,7 +99,7 @@ namespace GA.TradeMarket.Application.Services
             await obj.SaveAsync();
         }
 
-        public async Task UpdateCouponAsync(CouponModel mod)
+        public async Task UpdateCouponAsync(CouponModelIn mod)
         {
             ArgumentNullException.ThrowIfNull(mod, "mod");
             if (mod.ExpiryDate>DateTime.Now)

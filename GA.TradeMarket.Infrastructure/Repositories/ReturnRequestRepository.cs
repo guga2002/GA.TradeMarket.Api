@@ -36,7 +36,7 @@ namespace GA.TradeMarket.Infrastructure.Repositories
         {
             return await dbset
        .Include(r => r.Order)
-           .ThenInclude(rd => rd.payments)
+       .ThenInclude(io => io.Receipts)
        .ToListAsync();
         }
 
