@@ -28,6 +28,20 @@ namespace GA.TradeMarket.Domain.Data
         {
             modelBuilder.ApplyConfiguration(new ExchangeRateConfig());
             modelBuilder.ApplyConfiguration(new CouponConfig());
+            modelBuilder.ApplyConfiguration(new PeopleConfig());
+            modelBuilder.ApplyConfiguration(new CustomerConfig());
+            modelBuilder.ApplyConfiguration(new BonusProgramConfig());
+            modelBuilder.ApplyConfiguration(new NotificationConfig());
+            modelBuilder.ApplyConfiguration(new OrderConfig());
+            modelBuilder.ApplyConfiguration(new PaymentMethodConfig());
+            modelBuilder.ApplyConfiguration(new PaymentConfig());
+            modelBuilder.ApplyConfiguration(new ProductCategoryConfig());
+            modelBuilder.ApplyConfiguration(new ProductConfig());
+            modelBuilder.ApplyConfiguration(new ReceiptConfig());
+            modelBuilder.ApplyConfiguration(new ReceiptDetailConfig());
+            modelBuilder.ApplyConfiguration(new ReturmRequestConfig());
+            modelBuilder.ApplyConfiguration(new ReviewConfig());
+            modelBuilder.ApplyConfiguration(new ShipingConfig());
 
             Console.WriteLine("Aqvar");
             Random rand = new Random();
