@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GA.TradeMarket.Domain.Migrations
 {
     /// <inheritdoc />
-    public partial class migratenNow : Migration
+    public partial class migrate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,8 +32,8 @@ namespace GA.TradeMarket.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Surname = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -76,7 +76,7 @@ namespace GA.TradeMarket.Domain.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Currency = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Currency = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Buy = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Sell = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     LogTime = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -92,10 +92,10 @@ namespace GA.TradeMarket.Domain.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CardNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CardHolderName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CardNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CardHolderName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CVV = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CVV = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -108,7 +108,7 @@ namespace GA.TradeMarket.Domain.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CategoryName = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    CategoryName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -249,7 +249,7 @@ namespace GA.TradeMarket.Domain.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductCategoryId = table.Column<long>(type: "bigint", nullable: false),
-                    ProductName = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProductName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
@@ -313,7 +313,7 @@ namespace GA.TradeMarket.Domain.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CustomerId = table.Column<long>(type: "bigint", nullable: false),
                     OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Status = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -364,7 +364,7 @@ namespace GA.TradeMarket.Domain.Migrations
                     OrderId = table.Column<long>(type: "bigint", nullable: false),
                     paymentMethodId = table.Column<long>(type: "bigint", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PaymentMethod = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PaymentMethod = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -413,7 +413,7 @@ namespace GA.TradeMarket.Domain.Migrations
                     OrderId = table.Column<long>(type: "bigint", nullable: false),
                     RequestDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Reason = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Status = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -433,10 +433,10 @@ namespace GA.TradeMarket.Domain.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OrderId = table.Column<long>(type: "bigint", nullable: false),
-                    TrackingNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Carrier = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TrackingNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Carrier = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     ShippingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Status = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -487,11 +487,11 @@ namespace GA.TradeMarket.Domain.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "BirthDate", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Surname", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "02174cf0–9412–4cfe - afbf - 59f706d72cf6", 0, new DateTime(2002, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "762047f7-5309-45e8-8661-adb3dc7eaf86", "aapkhazava22@gmail.com", true, false, null, "Guga", "AAPKHAZAVA22@GMAIL.COM", "GUGAADMIN", "AQAAAAIAAYagAAAAEIrsoSaYg3KvtX0awWxhPbe7m7nHG+IohW1gLT3ZtbUuip/e4BUepGUkIU5QH1wibA==", "599042047", true, "226354a5-86f5-4fbb-82c4-4e1fb6765a32", " Apkhazava", false, "gugaadmin" },
-                    { "1", 0, new DateTime(1992, 6, 2, 20, 50, 44, 607, DateTimeKind.Local).AddTicks(520), "dadbfaad-68b4-4638-80e4-fcd02d68756c", "demetris.hackett@terry.co.uk", false, false, null, "Ledner", null, null, null, "979-320-2769", false, "7a43f6ca-3e10-403e-907f-25f2492f1a73", "Stroman", false, "robbie" },
-                    { "2", 0, new DateTime(2005, 6, 2, 20, 50, 44, 607, DateTimeKind.Local).AddTicks(4644), "2ae8d3b8-1c90-496e-9141-8ccf5b6bbbb0", "nels@beier.ca", false, false, null, "Hudson", null, null, null, "200-470-7431", false, "fc7f983c-5be9-4f1f-ad91-ce99c1441e5c", "Rempel", false, "stevie" },
-                    { "3", 0, new DateTime(1991, 6, 2, 20, 50, 44, 607, DateTimeKind.Local).AddTicks(7399), "441be1e7-e100-405f-81b3-fb345b1f0629", "jerrell@abbott.ca", false, false, null, "Larson", null, null, null, "322.424.7200", false, "a7d526b8-7887-40ce-81e2-153e83489038", "Vandervort", false, "claudia" },
-                    { "4", 0, new DateTime(1977, 6, 2, 20, 50, 44, 608, DateTimeKind.Local).AddTicks(420), "63695683-22b5-45b3-9083-68c0b642bae8", "luigi_lowe@gleason.us", false, false, null, "Lemke", null, null, null, "694.489.8196", false, "6da8d0b0-e519-4f6f-b149-d5bee0d9f2b8", "Crist", false, "paxton" }
+                    { "02174cf0–9412–4cfe - afbf - 59f706d72cf6", 0, new DateTime(2002, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "927c8b1f-4fa5-4cd2-9f5b-ab4107337f9a", "aapkhazava22@gmail.com", true, false, null, "Guga", "AAPKHAZAVA22@GMAIL.COM", "GUGAADMIN", "AQAAAAIAAYagAAAAEFo6Z24/XqJKLPJatRxYDr4a9qbTKOJHMHLpZDoKaO3ZKKimFqQ5qguPPMAE4w4oGA==", "599042047", true, "bfeab9ee-16bf-4621-89c9-3eafb856f928", " Apkhazava", false, "gugaadmin" },
+                    { "1", 0, new DateTime(1978, 6, 3, 11, 41, 37, 959, DateTimeKind.Local).AddTicks(8263), "402dda98-d6ab-442b-88cc-2a9cdebad8d3", "wilhelm@gorczany.name", false, false, null, "Dickens", null, null, null, "1-040-615-3177 x9410", false, "75788046-a24d-4d31-93a6-04eed62bffec", "Bartell", false, "rene" },
+                    { "2", 0, new DateTime(2010, 6, 3, 11, 41, 37, 960, DateTimeKind.Local).AddTicks(1542), "8c72a89e-505a-4368-a427-1b3e654944ca", "carter_grady@moen.uk", false, false, null, "Pouros", null, null, null, "529.852.8131", false, "c6e29e2c-4822-4371-9165-95cca2f532b0", "Keeling", false, "maymie.spencer" },
+                    { "3", 0, new DateTime(2006, 6, 3, 11, 41, 37, 960, DateTimeKind.Local).AddTicks(4624), "157f608b-0b48-4c91-9f1c-f886782b6301", "xavier@bodelindgren.biz", false, false, null, "Murphy", null, null, null, "(660)907-2031", false, "3ebb8cee-dcab-4a34-91f3-310257a54bdc", "Ruecker", false, "berneice" },
+                    { "4", 0, new DateTime(1980, 6, 3, 11, 41, 37, 960, DateTimeKind.Local).AddTicks(7612), "cd7c9ec2-7a12-4a8e-9233-f18fa90891e9", "cyrus@hermanvon.name", false, false, null, "Orn", null, null, null, "(806)707-4387 x17877", false, "6704b07a-3784-4274-847e-578f3955cd8f", "Swift", false, "garrison" }
                 });
 
             migrationBuilder.InsertData(
@@ -499,37 +499,37 @@ namespace GA.TradeMarket.Domain.Migrations
                 columns: new[] { "Id", "Code", "DiscountValue", "ExpiryDate" },
                 values: new object[,]
                 {
-                    { 1L, "1ECXM6uGpc1AWbwfi8tsqy7Sk543392", 251m, new DateTime(2025, 10, 14, 20, 50, 44, 606, DateTimeKind.Local).AddTicks(7812) },
-                    { 2L, "319jQa6JnhmCb3G4wiRz57d8LZF61591", 118m, new DateTime(2024, 12, 7, 20, 50, 44, 606, DateTimeKind.Local).AddTicks(7902) },
-                    { 3L, "3245izVNvjFr78oMZCsf1hGbgW6xuEcnS19689", 345m, new DateTime(2025, 5, 15, 20, 50, 44, 606, DateTimeKind.Local).AddTicks(7938) },
-                    { 4L, "1ATarmkGMfjVKNPb4cz89s2YCJQ6EXueW96298", 101m, new DateTime(2024, 8, 13, 20, 50, 44, 606, DateTimeKind.Local).AddTicks(8006) },
-                    { 5L, "1dRVhzT18EQDiu5Y2k3LpUvgSZJBb7Xs76317", 281m, new DateTime(2025, 1, 21, 20, 50, 44, 606, DateTimeKind.Local).AddTicks(8042) },
-                    { 6L, "3zomMWHGtsd62wC5S8nQbpyJiBTj19K48243", 208m, new DateTime(2025, 1, 18, 20, 50, 44, 606, DateTimeKind.Local).AddTicks(8074) },
-                    { 7L, "12PuEGMHnKBdbXtyzNLsfFJRkQ4w973xrD72406", 395m, new DateTime(2024, 7, 5, 20, 50, 44, 606, DateTimeKind.Local).AddTicks(8105) },
-                    { 8L, "1DvqfRnd6rXzCP5bhV9isGK2xcN55869", 178m, new DateTime(2025, 6, 26, 20, 50, 44, 606, DateTimeKind.Local).AddTicks(8142) }
+                    { 1L, "1uA6vTaJePcs82Lypwrxo4EYSX7n28045", 399m, new DateTime(2024, 9, 1, 11, 41, 37, 959, DateTimeKind.Local).AddTicks(3845) },
+                    { 2L, "16YqgVJQHLAmt7MKznsShRf5ejD2uTa83Ur71341", 301m, new DateTime(2024, 9, 12, 11, 41, 37, 959, DateTimeKind.Local).AddTicks(3944) },
+                    { 3L, "3ub7g8jaDSPBFTvZnKYG3eoq1kVmCEiAWX87548", 117m, new DateTime(2024, 7, 28, 11, 41, 37, 959, DateTimeKind.Local).AddTicks(3984) },
+                    { 4L, "1ZTLXgojScU4apeWEQtNFVdy3s89511", 201m, new DateTime(2025, 5, 3, 11, 41, 37, 959, DateTimeKind.Local).AddTicks(4022) },
+                    { 5L, "1T8sPEHkDWUCxRQXu4ApKcoFJejdYi23238", 292m, new DateTime(2025, 8, 23, 11, 41, 37, 959, DateTimeKind.Local).AddTicks(4053) },
+                    { 6L, "3r4KvbMDwzfJp7tqXL9gsyiFRoESYG47065", 175m, new DateTime(2025, 2, 10, 11, 41, 37, 959, DateTimeKind.Local).AddTicks(4084) },
+                    { 7L, "1pTZw4La36ft8NdyK2qrMWPJvniYjeXoQ977256", 101m, new DateTime(2025, 8, 25, 11, 41, 37, 959, DateTimeKind.Local).AddTicks(4116) },
+                    { 8L, "37toGN6eDqwWX5xafQLAgFKuVpdcBvE25242", 340m, new DateTime(2024, 12, 21, 11, 41, 37, 959, DateTimeKind.Local).AddTicks(4183) }
                 });
 
             migrationBuilder.InsertData(
                 table: "ExchangeRates",
                 columns: new[] { "Id", "Buy", "Currency", "LogTime", "Sell" },
-                values: new object[] { 1L, 1.0m, "GEL", new DateTime(2024, 6, 2, 20, 50, 44, 604, DateTimeKind.Local).AddTicks(4706), 1.0m });
+                values: new object[] { 1L, 1.0m, "GEL", new DateTime(2024, 6, 3, 11, 41, 37, 957, DateTimeKind.Local).AddTicks(918), 1.0m });
 
             migrationBuilder.InsertData(
                 table: "PaymentMethods",
                 columns: new[] { "Id", "CVV", "CardHolderName", "CardNumber", "ExpiryDate" },
                 values: new object[,]
                 {
-                    { 1L, "175", "Personal Loan Account", "6706884457305044", new DateTime(2032, 6, 2, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(108) },
-                    { 2L, "154", "Savings Account", "6449-4571-1642-1205", new DateTime(2033, 6, 2, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(468) },
-                    { 3L, "345", "Auto Loan Account", "503815698648563020", new DateTime(2028, 6, 2, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(790) },
-                    { 4L, "574", "Credit Card Account", "4894-2067-4629-7468", new DateTime(2033, 6, 2, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(1157) },
-                    { 5L, "478", "Home Loan Account", "5178-4231-3870-8234", new DateTime(2033, 6, 2, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(1428) },
-                    { 6L, "193", "Home Loan Account", "6759-8819-1566-5528", new DateTime(2031, 6, 2, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(1710) },
-                    { 7L, "439", "Credit Card Account", "6304551465062455", new DateTime(2027, 6, 2, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(1947) },
-                    { 8L, "930", "Checking Account", "6771-8942-1375-2157", new DateTime(2028, 6, 2, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(2208) },
-                    { 9L, "389", "Money Market Account", "6011-9648-0896-3285", new DateTime(2027, 6, 2, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(2511) },
-                    { 10L, "636", "Personal Loan Account", "6706506511959173", new DateTime(2027, 6, 2, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(2771) },
-                    { 11L, "593", "Checking Account", "4472746450979", new DateTime(2032, 6, 2, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(3027) }
+                    { 1L, "950", "Checking Account", "4730544558156", new DateTime(2028, 6, 3, 11, 41, 37, 964, DateTimeKind.Local).AddTicks(8298) },
+                    { 2L, "833", "Auto Loan Account", "5893-5372-0419-8147", new DateTime(2029, 6, 3, 11, 41, 37, 964, DateTimeKind.Local).AddTicks(8842) },
+                    { 3L, "809", "Credit Card Account", "6371-0774-8778-2712", new DateTime(2031, 6, 3, 11, 41, 37, 964, DateTimeKind.Local).AddTicks(9198) },
+                    { 4L, "313", "Home Loan Account", "630480392961380395", new DateTime(2030, 6, 3, 11, 41, 37, 964, DateTimeKind.Local).AddTicks(9552) },
+                    { 5L, "855", "Credit Card Account", "6398-1435-0157-0688", new DateTime(2033, 6, 3, 11, 41, 37, 964, DateTimeKind.Local).AddTicks(9831) },
+                    { 6L, "064", "Auto Loan Account", "5496-3702-8837-9784", new DateTime(2028, 6, 3, 11, 41, 37, 965, DateTimeKind.Local).AddTicks(119) },
+                    { 7L, "004", "Checking Account", "5018-6006-4595-7586", new DateTime(2028, 6, 3, 11, 41, 37, 965, DateTimeKind.Local).AddTicks(454) },
+                    { 8L, "991", "Home Loan Account", "503857965446820103", new DateTime(2033, 6, 3, 11, 41, 37, 965, DateTimeKind.Local).AddTicks(768) },
+                    { 9L, "105", "Credit Card Account", "3025-327783-9998", new DateTime(2030, 6, 3, 11, 41, 37, 965, DateTimeKind.Local).AddTicks(1031) },
+                    { 10L, "283", "Personal Loan Account", "6389-7027-5299-9200", new DateTime(2030, 6, 3, 11, 41, 37, 965, DateTimeKind.Local).AddTicks(1315) },
+                    { 11L, "350", "Home Loan Account", "3672-941324-1516", new DateTime(2026, 6, 3, 11, 41, 37, 965, DateTimeKind.Local).AddTicks(1624) }
                 });
 
             migrationBuilder.InsertData(
@@ -537,16 +537,16 @@ namespace GA.TradeMarket.Domain.Migrations
                 columns: new[] { "Id", "CategoryName" },
                 values: new object[,]
                 {
-                    { 1L, "Garden" },
-                    { 2L, "Kids" },
-                    { 3L, "Industrial" },
-                    { 4L, "Garden" },
-                    { 5L, "Movies" },
-                    { 6L, "Sports" },
-                    { 7L, "Computers" },
-                    { 8L, "Books" },
-                    { 9L, "Grocery" },
-                    { 10L, "Tools" }
+                    { 1L, "Baby" },
+                    { 2L, "Tools" },
+                    { 3L, "Clothing" },
+                    { 4L, "Tools" },
+                    { 5L, "Clothing" },
+                    { 6L, "Industrial" },
+                    { 7L, "Beauty" },
+                    { 8L, "Kids" },
+                    { 9L, "Toys" },
+                    { 10L, "Grocery" }
                 });
 
             migrationBuilder.InsertData(
@@ -559,10 +559,10 @@ namespace GA.TradeMarket.Domain.Migrations
                 columns: new[] { "Id", "DiscountValue", "OperationDate", "PersonId" },
                 values: new object[,]
                 {
-                    { 1L, 121m, new DateTime(2024, 3, 30, 20, 50, 44, 608, DateTimeKind.Local).AddTicks(1961), "1" },
-                    { 2L, 275m, new DateTime(2024, 3, 27, 7, 50, 44, 608, DateTimeKind.Local).AddTicks(1967), "2" },
-                    { 3L, 557m, new DateTime(2023, 11, 9, 1, 50, 44, 608, DateTimeKind.Local).AddTicks(1969), "3" },
-                    { 4L, 632m, new DateTime(2023, 10, 1, 23, 50, 44, 608, DateTimeKind.Local).AddTicks(1970), "4" }
+                    { 1L, 137m, new DateTime(2023, 4, 30, 0, 41, 37, 960, DateTimeKind.Local).AddTicks(9061), "1" },
+                    { 2L, 441m, new DateTime(2023, 6, 7, 2, 41, 37, 960, DateTimeKind.Local).AddTicks(9066), "2" },
+                    { 3L, 674m, new DateTime(2024, 3, 29, 21, 41, 37, 960, DateTimeKind.Local).AddTicks(9068), "3" },
+                    { 4L, 754m, new DateTime(2023, 12, 30, 0, 41, 37, 960, DateTimeKind.Local).AddTicks(9070), "4" }
                 });
 
             migrationBuilder.InsertData(
@@ -570,34 +570,34 @@ namespace GA.TradeMarket.Domain.Migrations
                 columns: new[] { "Id", "Price", "ProductCategoryId", "ProductName" },
                 values: new object[,]
                 {
-                    { 1L, 0.9769139255852110m, 1L, "Sleek Steel Fish" },
-                    { 2L, 0.2423756411080440m, 2L, "Small Fresh Soap" },
-                    { 3L, 0.1095439796749350m, 3L, "Licensed Plastic Pants" },
-                    { 4L, 0.1169930684884530m, 4L, "Rustic Soft Shoes" },
-                    { 5L, 0.8513664257818320m, 5L, "Tasty Wooden Shoes" },
-                    { 6L, 0.2769163344326630m, 6L, "Generic Cotton Sausages" },
-                    { 7L, 0.8311701554633210m, 7L, "Handmade Rubber Shoes" },
-                    { 8L, 0.8998930107807970m, 8L, "Intelligent Concrete Towels" },
-                    { 9L, 0.3341109826597690m, 9L, "Generic Steel Chips" },
-                    { 10L, 0.01023621663870960m, 1L, "Fantastic Fresh Car" },
-                    { 11L, 0.137799080294620m, 3L, "Practical Wooden Pizza" },
-                    { 12L, 0.8920679190394550m, 4L, "Sleek Plastic Mouse" },
-                    { 13L, 0.3634897011449230m, 3L, "Refined Soft Table" },
-                    { 14L, 0.7307625576318240m, 6L, "Incredible Wooden Car" },
-                    { 15L, 0.8240924372551390m, 1L, "Handcrafted Concrete Salad" },
-                    { 16L, 0.4843404616576110m, 2L, "Refined Soft Bike" },
-                    { 17L, 0.2468174403920780m, 3L, "Awesome Steel Cheese" },
-                    { 18L, 0.8707581461816520m, 4L, "Small Concrete Fish" },
-                    { 19L, 0.4849513374842890m, 5L, "Incredible Cotton Hat" },
-                    { 20L, 0.4152807967773790m, 6L, "Fantastic Rubber Chair" },
-                    { 21L, 0.7115973332096360m, 7L, "Fantastic Cotton Keyboard" },
-                    { 22L, 0.008043071655095550m, 8L, "Awesome Steel Chair" },
-                    { 23L, 0.9136845613360820m, 9L, "Licensed Concrete Tuna" },
-                    { 24L, 0.7571008862779890m, 1L, "Handcrafted Cotton Hat" },
-                    { 25L, 0.1580135870880490m, 3L, "Handmade Steel Keyboard" },
-                    { 26L, 0.1249321068579620m, 4L, "Tasty Frozen Shirt" },
-                    { 27L, 0.8880735782472570m, 3L, "Unbranded Wooden Computer" },
-                    { 28L, 0.2581431965011270m, 6L, "Tasty Fresh Pizza" }
+                    { 1L, 0.0129699856136830m, 1L, "Intelligent Concrete Chips" },
+                    { 2L, 0.3555568640360720m, 2L, "Intelligent Rubber Soap" },
+                    { 3L, 0.004038397762760490m, 3L, "Intelligent Plastic Chicken" },
+                    { 4L, 0.9992389100676840m, 4L, "Practical Steel Gloves" },
+                    { 5L, 0.6683573599777520m, 5L, "Fantastic Metal Tuna" },
+                    { 6L, 0.01730201501701980m, 6L, "Tasty Soft Keyboard" },
+                    { 7L, 0.5359801440196420m, 7L, "Rustic Cotton Bike" },
+                    { 8L, 0.435189068318830m, 8L, "Handmade Soft Towels" },
+                    { 9L, 0.3674693376314080m, 9L, "Awesome Steel Fish" },
+                    { 10L, 0.06900564782519450m, 1L, "Generic Cotton Keyboard" },
+                    { 11L, 0.7886830890714540m, 3L, "Gorgeous Frozen Bike" },
+                    { 12L, 0.1976677669688450m, 4L, "Unbranded Rubber Keyboard" },
+                    { 13L, 0.5519519108423630m, 3L, "Handcrafted Frozen Table" },
+                    { 14L, 0.4717061806907380m, 6L, "Sleek Wooden Chips" },
+                    { 15L, 0.4640248442858550m, 1L, "Fantastic Wooden Chips" },
+                    { 16L, 0.1042292973202090m, 2L, "Generic Metal Fish" },
+                    { 17L, 0.2195606554307940m, 3L, "Small Plastic Computer" },
+                    { 18L, 0.9467363243381990m, 4L, "Handcrafted Concrete Cheese" },
+                    { 19L, 0.2839471388732690m, 5L, "Practical Granite Chips" },
+                    { 20L, 0.3391831432528340m, 6L, "Handcrafted Concrete Sausages" },
+                    { 21L, 0.72640342628690m, 7L, "Unbranded Granite Bike" },
+                    { 22L, 0.0970971719747950m, 8L, "Tasty Cotton Car" },
+                    { 23L, 0.8985232892851620m, 9L, "Fantastic Wooden Salad" },
+                    { 24L, 0.603822614543830m, 1L, "Incredible Frozen Table" },
+                    { 25L, 0.3251882754769910m, 3L, "Practical Concrete Mouse" },
+                    { 26L, 0.7445148215674250m, 4L, "Gorgeous Soft Shoes" },
+                    { 27L, 0.2887609816963020m, 3L, "Fantastic Wooden Chips" },
+                    { 28L, 0.06970529727610560m, 6L, "Rustic Fresh Sausages" }
                 });
 
             migrationBuilder.InsertData(
@@ -605,22 +605,22 @@ namespace GA.TradeMarket.Domain.Migrations
                 columns: new[] { "Id", "CustomerId", "EnrollmentDate", "Points" },
                 values: new object[,]
                 {
-                    { 1L, 1L, new DateTime(1997, 6, 2, 20, 50, 44, 608, DateTimeKind.Local).AddTicks(2117), 655 },
-                    { 2L, 2L, new DateTime(2021, 6, 2, 20, 50, 44, 608, DateTimeKind.Local).AddTicks(2120), 107 },
-                    { 3L, 2L, new DateTime(2018, 6, 2, 20, 50, 44, 608, DateTimeKind.Local).AddTicks(2122), 289 },
-                    { 4L, 3L, new DateTime(2017, 6, 2, 20, 50, 44, 608, DateTimeKind.Local).AddTicks(2123), 967 },
-                    { 5L, 4L, new DateTime(2016, 6, 2, 20, 50, 44, 608, DateTimeKind.Local).AddTicks(2125), 667 },
-                    { 6L, 1L, new DateTime(2019, 6, 2, 20, 50, 44, 608, DateTimeKind.Local).AddTicks(2127), 788 },
-                    { 7L, 1L, new DateTime(2003, 6, 2, 20, 50, 44, 608, DateTimeKind.Local).AddTicks(2128), 319 },
-                    { 8L, 2L, new DateTime(2021, 6, 2, 20, 50, 44, 608, DateTimeKind.Local).AddTicks(2130), 585 },
-                    { 9L, 3L, new DateTime(1995, 6, 2, 20, 50, 44, 608, DateTimeKind.Local).AddTicks(2131), 758 },
-                    { 10L, 2L, new DateTime(2014, 6, 2, 20, 50, 44, 608, DateTimeKind.Local).AddTicks(2133), 172 },
-                    { 11L, 4L, new DateTime(2002, 6, 2, 20, 50, 44, 608, DateTimeKind.Local).AddTicks(2134), 481 },
-                    { 12L, 1L, new DateTime(2023, 6, 2, 20, 50, 44, 608, DateTimeKind.Local).AddTicks(2136), 832 },
-                    { 13L, 2L, new DateTime(2019, 6, 2, 20, 50, 44, 608, DateTimeKind.Local).AddTicks(2137), 368 },
-                    { 14L, 4L, new DateTime(2011, 6, 2, 20, 50, 44, 608, DateTimeKind.Local).AddTicks(2139), 275 },
-                    { 15L, 2L, new DateTime(2001, 6, 2, 20, 50, 44, 608, DateTimeKind.Local).AddTicks(2140), 617 },
-                    { 16L, 2L, new DateTime(2006, 6, 2, 20, 50, 44, 608, DateTimeKind.Local).AddTicks(2141), 854 }
+                    { 1L, 1L, new DateTime(2003, 6, 3, 11, 41, 37, 960, DateTimeKind.Local).AddTicks(9221), 818 },
+                    { 2L, 2L, new DateTime(2006, 6, 3, 11, 41, 37, 960, DateTimeKind.Local).AddTicks(9226), 959 },
+                    { 3L, 2L, new DateTime(1997, 6, 3, 11, 41, 37, 960, DateTimeKind.Local).AddTicks(9228), 863 },
+                    { 4L, 3L, new DateTime(2018, 6, 3, 11, 41, 37, 960, DateTimeKind.Local).AddTicks(9229), 294 },
+                    { 5L, 4L, new DateTime(2000, 6, 3, 11, 41, 37, 960, DateTimeKind.Local).AddTicks(9231), 264 },
+                    { 6L, 1L, new DateTime(1999, 6, 3, 11, 41, 37, 960, DateTimeKind.Local).AddTicks(9233), 911 },
+                    { 7L, 1L, new DateTime(1997, 6, 3, 11, 41, 37, 960, DateTimeKind.Local).AddTicks(9235), 232 },
+                    { 8L, 2L, new DateTime(1999, 6, 3, 11, 41, 37, 960, DateTimeKind.Local).AddTicks(9237), 931 },
+                    { 9L, 3L, new DateTime(2014, 6, 3, 11, 41, 37, 960, DateTimeKind.Local).AddTicks(9238), 975 },
+                    { 10L, 2L, new DateTime(1997, 6, 3, 11, 41, 37, 960, DateTimeKind.Local).AddTicks(9240), 474 },
+                    { 11L, 4L, new DateTime(2010, 6, 3, 11, 41, 37, 960, DateTimeKind.Local).AddTicks(9241), 526 },
+                    { 12L, 1L, new DateTime(1998, 6, 3, 11, 41, 37, 960, DateTimeKind.Local).AddTicks(9243), 121 },
+                    { 13L, 2L, new DateTime(2011, 6, 3, 11, 41, 37, 960, DateTimeKind.Local).AddTicks(9247), 541 },
+                    { 14L, 4L, new DateTime(2014, 6, 3, 11, 41, 37, 960, DateTimeKind.Local).AddTicks(9249), 834 },
+                    { 15L, 2L, new DateTime(2020, 6, 3, 11, 41, 37, 960, DateTimeKind.Local).AddTicks(9251), 768 },
+                    { 16L, 2L, new DateTime(2008, 6, 3, 11, 41, 37, 960, DateTimeKind.Local).AddTicks(9253), 617 }
                 });
 
             migrationBuilder.InsertData(
@@ -628,15 +628,15 @@ namespace GA.TradeMarket.Domain.Migrations
                 columns: new[] { "Id", "Message", "NotificationDate", "UserId" },
                 values: new object[,]
                 {
-                    { 1L, "doloribus", new DateTime(2024, 5, 27, 17, 50, 44, 610, DateTimeKind.Local).AddTicks(2896), 1L },
-                    { 2L, "Repellendus alias dolore illo maiores accusamus. Aut qui quo sed. Praesentium explicabo voluptatum debitis recusandae est consequatur.", new DateTime(2024, 5, 8, 20, 50, 44, 610, DateTimeKind.Local).AddTicks(2948), 2L },
-                    { 3L, "Fuga rem asperiores animi quaerat. Quae et quae repudiandae suscipit eos. Explicabo alias quam facere quos aliquid. Sint aut ut. Aut et doloribus voluptatem saepe eos voluptatum. Eos quibusdam sint vitae ex consectetur.", new DateTime(2024, 5, 30, 13, 50, 44, 610, DateTimeKind.Local).AddTicks(3156), 3L },
-                    { 4L, "Ea enim error.", new DateTime(2024, 5, 3, 1, 50, 44, 610, DateTimeKind.Local).AddTicks(3281), 4L },
-                    { 5L, "Quam dolore placeat ut.", new DateTime(2024, 4, 24, 2, 50, 44, 610, DateTimeKind.Local).AddTicks(3300), 1L },
-                    { 6L, "Minus quam impedit ex dolorem est et.", new DateTime(2024, 5, 5, 12, 50, 44, 610, DateTimeKind.Local).AddTicks(3316), 2L },
-                    { 7L, "Perferendis magnam temporibus rem perspiciatis illum.", new DateTime(2024, 5, 2, 19, 50, 44, 610, DateTimeKind.Local).AddTicks(3373), 3L },
-                    { 8L, "Atque est quia dicta fugiat incidunt rerum.\nAmet necessitatibus et sint fugiat velit.", new DateTime(2024, 5, 19, 0, 50, 44, 610, DateTimeKind.Local).AddTicks(3397), 4L },
-                    { 9L, "Quis ut et fugiat.", new DateTime(2024, 5, 20, 7, 50, 44, 610, DateTimeKind.Local).AddTicks(3445), 1L }
+                    { 1L, "Esse maxime ut nihil ullam ullam ratione facilis ut rerum. Qui nobis suscipit totam perferendis quis. Deserunt numquam in. Repudiandae consequuntur ex quis ipsam consequatur sit qui.", new DateTime(2024, 5, 4, 16, 41, 37, 962, DateTimeKind.Local).AddTicks(7286), 1L },
+                    { 2L, "Eligendi voluptas modi architecto.\nLabore qui incidunt adipisci perferendis reprehenderit harum et voluptatem tenetur.\nIste voluptatum et sit et nobis dolorem mollitia nesciunt.", new DateTime(2024, 4, 23, 12, 41, 37, 962, DateTimeKind.Local).AddTicks(7503), 2L },
+                    { 3L, "Veritatis est sit et esse.\nBeatae aut pariatur vero totam.\nAssumenda reprehenderit tenetur reprehenderit optio enim exercitationem eum eius corrupti.", new DateTime(2024, 5, 23, 15, 41, 37, 962, DateTimeKind.Local).AddTicks(7622), 3L },
+                    { 4L, "consequatur", new DateTime(2024, 5, 20, 0, 41, 37, 962, DateTimeKind.Local).AddTicks(7693), 4L },
+                    { 5L, "Delectus dolores porro voluptates perspiciatis aspernatur.\nMolestiae facere ut illo vero.\nEa quam vitae.\nEa aspernatur maxime laudantium.\nEst consequuntur tempora aut quibusdam.\nRerum numquam pariatur voluptatem ut sequi harum eaque enim.", new DateTime(2024, 5, 9, 10, 41, 37, 962, DateTimeKind.Local).AddTicks(7701), 1L },
+                    { 6L, "Aut et eum non saepe molestiae.\nBeatae molestiae possimus quia modi debitis illo.\nSequi autem a id beatae provident eos nemo.\nRerum voluptas dignissimos quas voluptatibus ratione sed.", new DateTime(2024, 5, 9, 10, 41, 37, 962, DateTimeKind.Local).AddTicks(7843), 2L },
+                    { 7L, "Quam rerum ipsa.", new DateTime(2024, 4, 28, 0, 41, 37, 962, DateTimeKind.Local).AddTicks(7930), 3L },
+                    { 8L, "mollitia", new DateTime(2024, 5, 18, 10, 41, 37, 962, DateTimeKind.Local).AddTicks(7945), 4L },
+                    { 9L, "Quasi ab consectetur laudantium aliquid ea modi sit amet dolorum.", new DateTime(2024, 5, 19, 4, 41, 37, 962, DateTimeKind.Local).AddTicks(7949), 1L }
                 });
 
             migrationBuilder.InsertData(
@@ -644,17 +644,17 @@ namespace GA.TradeMarket.Domain.Migrations
                 columns: new[] { "Id", "CustomerId", "OrderDate", "Status" },
                 values: new object[,]
                 {
-                    { 1L, 1L, new DateTime(2024, 5, 19, 20, 50, 44, 610, DateTimeKind.Local).AddTicks(3723), "Done" },
-                    { 2L, 2L, new DateTime(2024, 5, 12, 20, 50, 44, 610, DateTimeKind.Local).AddTicks(3726), "Decline" },
-                    { 3L, 3L, new DateTime(2024, 5, 22, 20, 50, 44, 610, DateTimeKind.Local).AddTicks(3728), "Done" },
-                    { 4L, 2L, new DateTime(2024, 5, 5, 20, 50, 44, 610, DateTimeKind.Local).AddTicks(3729), "processing" },
-                    { 5L, 3L, new DateTime(2024, 5, 16, 20, 50, 44, 610, DateTimeKind.Local).AddTicks(3730), "Done" },
-                    { 6L, 4L, new DateTime(2024, 5, 27, 20, 50, 44, 610, DateTimeKind.Local).AddTicks(3732), "Sent" },
-                    { 7L, 2L, new DateTime(2024, 5, 8, 20, 50, 44, 610, DateTimeKind.Local).AddTicks(3733), "done" },
-                    { 8L, 1L, new DateTime(2024, 5, 13, 20, 50, 44, 610, DateTimeKind.Local).AddTicks(3734), "Done" },
-                    { 9L, 4L, new DateTime(2024, 5, 8, 20, 50, 44, 610, DateTimeKind.Local).AddTicks(3735), "Done" },
-                    { 10L, 2L, new DateTime(2024, 6, 1, 20, 50, 44, 610, DateTimeKind.Local).AddTicks(3737), "done" },
-                    { 11L, 1L, new DateTime(2024, 5, 13, 20, 50, 44, 610, DateTimeKind.Local).AddTicks(3738), "Done" }
+                    { 1L, 1L, new DateTime(2024, 5, 5, 11, 41, 37, 962, DateTimeKind.Local).AddTicks(8235), "Done" },
+                    { 2L, 2L, new DateTime(2024, 6, 2, 11, 41, 37, 962, DateTimeKind.Local).AddTicks(8239), "Decline" },
+                    { 3L, 3L, new DateTime(2024, 5, 13, 11, 41, 37, 962, DateTimeKind.Local).AddTicks(8240), "Done" },
+                    { 4L, 2L, new DateTime(2024, 5, 12, 11, 41, 37, 962, DateTimeKind.Local).AddTicks(8241), "processing" },
+                    { 5L, 3L, new DateTime(2024, 5, 14, 11, 41, 37, 962, DateTimeKind.Local).AddTicks(8243), "Done" },
+                    { 6L, 4L, new DateTime(2024, 5, 23, 11, 41, 37, 962, DateTimeKind.Local).AddTicks(8244), "Sent" },
+                    { 7L, 2L, new DateTime(2024, 5, 7, 11, 41, 37, 962, DateTimeKind.Local).AddTicks(8245), "done" },
+                    { 8L, 1L, new DateTime(2024, 5, 15, 11, 41, 37, 962, DateTimeKind.Local).AddTicks(8246), "Done" },
+                    { 9L, 4L, new DateTime(2024, 5, 5, 11, 41, 37, 962, DateTimeKind.Local).AddTicks(8248), "Done" },
+                    { 10L, 2L, new DateTime(2024, 5, 26, 11, 41, 37, 962, DateTimeKind.Local).AddTicks(8249), "done" },
+                    { 11L, 1L, new DateTime(2024, 5, 24, 11, 41, 37, 962, DateTimeKind.Local).AddTicks(8250), "Done" }
                 });
 
             migrationBuilder.InsertData(
@@ -662,12 +662,12 @@ namespace GA.TradeMarket.Domain.Migrations
                 columns: new[] { "Id", "CustomerId", "ProductId", "Rating", "ReviewDate", "ReviewText" },
                 values: new object[,]
                 {
-                    { 1L, 1L, 1L, 3, new DateTime(2024, 5, 18, 20, 50, 44, 620, DateTimeKind.Local).AddTicks(7505), "Earum praesentium dolore adipisci quod voluptatibus aliquid perferendis.\nDolorum quos voluptate alias non." },
-                    { 2L, 2L, 2L, 5, new DateTime(2024, 4, 9, 20, 50, 44, 620, DateTimeKind.Local).AddTicks(7614), "Et reprehenderit aperiam totam ullam tempora impedit iste non expedita.\nLaborum eos ullam.\nEos dolores sunt nobis." },
-                    { 3L, 3L, 3L, 4, new DateTime(2024, 5, 10, 20, 50, 44, 620, DateTimeKind.Local).AddTicks(7755), "reprehenderit" },
-                    { 4L, 2L, 4L, 3, new DateTime(2024, 5, 31, 20, 50, 44, 620, DateTimeKind.Local).AddTicks(7760), "Voluptates quia soluta." },
-                    { 5L, 2L, 5L, 2, new DateTime(2024, 4, 29, 20, 50, 44, 620, DateTimeKind.Local).AddTicks(7775), "sint" },
-                    { 6L, 1L, 6L, 4, new DateTime(2024, 4, 28, 20, 50, 44, 620, DateTimeKind.Local).AddTicks(7780), "amet" }
+                    { 1L, 1L, 1L, 3, new DateTime(2024, 5, 19, 11, 41, 37, 972, DateTimeKind.Local).AddTicks(8309), "error" },
+                    { 2L, 2L, 2L, 5, new DateTime(2024, 4, 10, 11, 41, 37, 972, DateTimeKind.Local).AddTicks(8345), "distinctio" },
+                    { 3L, 3L, 3L, 4, new DateTime(2024, 5, 11, 11, 41, 37, 972, DateTimeKind.Local).AddTicks(8352), "Quos voluptatem saepe delectus ut labore non vero earum provident." },
+                    { 4L, 2L, 4L, 3, new DateTime(2024, 6, 1, 11, 41, 37, 972, DateTimeKind.Local).AddTicks(8423), "veritatis" },
+                    { 5L, 2L, 5L, 2, new DateTime(2024, 4, 30, 11, 41, 37, 972, DateTimeKind.Local).AddTicks(8430), "Maiores culpa exercitationem.\nFugit optio consectetur modi asperiores libero illum nihil natus excepturi." },
+                    { 6L, 1L, 6L, 4, new DateTime(2024, 4, 29, 11, 41, 37, 972, DateTimeKind.Local).AddTicks(8490), "odit" }
                 });
 
             migrationBuilder.InsertData(
@@ -675,24 +675,24 @@ namespace GA.TradeMarket.Domain.Migrations
                 columns: new[] { "Id", "Amount", "OrderId", "PaymentDate", "PaymentMethod", "paymentMethodId" },
                 values: new object[,]
                 {
-                    { 1L, 557m, 1L, new DateTime(2024, 5, 10, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(3270), "ATM", 1L },
-                    { 2L, 970m, 2L, new DateTime(2024, 5, 26, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(3276), "ATM", 2L },
-                    { 3L, 79m, 3L, new DateTime(2024, 5, 11, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(3277), "ATM", 3L },
-                    { 4L, 161m, 4L, new DateTime(2024, 5, 30, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(3279), "ATM", 4L },
-                    { 5L, 109m, 5L, new DateTime(2024, 5, 29, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(3281), "ATM", 5L },
-                    { 6L, 540m, 1L, new DateTime(2024, 5, 13, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(3283), "ATM", 6L },
-                    { 7L, 204m, 3L, new DateTime(2024, 5, 10, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(3285), "ATM", 7L },
-                    { 8L, 336m, 2L, new DateTime(2024, 5, 24, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(3287), "ATM", 8L },
-                    { 9L, 340m, 3L, new DateTime(2024, 5, 10, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(3289), "ATM", 1L },
-                    { 10L, 152m, 4L, new DateTime(2024, 5, 28, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(3291), "ATM", 3L },
-                    { 11L, 654m, 5L, new DateTime(2024, 5, 21, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(3292), "ATM", 2L },
-                    { 12L, 201m, 2L, new DateTime(2024, 5, 16, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(3294), "ATM", 4L },
-                    { 13L, 306m, 3L, new DateTime(2024, 5, 7, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(3295), "ATM", 5L },
-                    { 14L, 39m, 1L, new DateTime(2024, 5, 18, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(3297), "ATM", 6L },
-                    { 15L, 90m, 6L, new DateTime(2024, 5, 7, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(3299), "ATM", 7L },
-                    { 16L, 433m, 7L, new DateTime(2024, 5, 27, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(3300), "ATM", 4L },
-                    { 17L, 736m, 4L, new DateTime(2024, 5, 16, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(3302), "ATM", 5L },
-                    { 18L, 139m, 3L, new DateTime(2024, 5, 18, 20, 50, 44, 612, DateTimeKind.Local).AddTicks(3304), "ATM", 3L }
+                    { 1L, 173m, 1L, new DateTime(2024, 5, 13, 11, 41, 37, 965, DateTimeKind.Local).AddTicks(1876), "ATM", 1L },
+                    { 2L, 61m, 2L, new DateTime(2024, 5, 18, 11, 41, 37, 965, DateTimeKind.Local).AddTicks(1882), "ATM", 2L },
+                    { 3L, 128m, 3L, new DateTime(2024, 5, 26, 11, 41, 37, 965, DateTimeKind.Local).AddTicks(1884), "ATM", 3L },
+                    { 4L, 678m, 4L, new DateTime(2024, 5, 8, 11, 41, 37, 965, DateTimeKind.Local).AddTicks(1886), "ATM", 4L },
+                    { 5L, 672m, 5L, new DateTime(2024, 5, 28, 11, 41, 37, 965, DateTimeKind.Local).AddTicks(2018), "ATM", 5L },
+                    { 6L, 482m, 1L, new DateTime(2024, 5, 19, 11, 41, 37, 965, DateTimeKind.Local).AddTicks(2022), "ATM", 6L },
+                    { 7L, 261m, 3L, new DateTime(2024, 5, 8, 11, 41, 37, 965, DateTimeKind.Local).AddTicks(2025), "ATM", 7L },
+                    { 8L, 211m, 2L, new DateTime(2024, 5, 11, 11, 41, 37, 965, DateTimeKind.Local).AddTicks(2026), "ATM", 8L },
+                    { 9L, 710m, 3L, new DateTime(2024, 5, 9, 11, 41, 37, 965, DateTimeKind.Local).AddTicks(2028), "ATM", 1L },
+                    { 10L, 958m, 4L, new DateTime(2024, 5, 21, 11, 41, 37, 965, DateTimeKind.Local).AddTicks(2030), "ATM", 3L },
+                    { 11L, 633m, 5L, new DateTime(2024, 5, 26, 11, 41, 37, 965, DateTimeKind.Local).AddTicks(2032), "ATM", 2L },
+                    { 12L, 932m, 2L, new DateTime(2024, 5, 7, 11, 41, 37, 965, DateTimeKind.Local).AddTicks(2034), "ATM", 4L },
+                    { 13L, 416m, 3L, new DateTime(2024, 5, 7, 11, 41, 37, 965, DateTimeKind.Local).AddTicks(2035), "ATM", 5L },
+                    { 14L, 900m, 1L, new DateTime(2024, 5, 17, 11, 41, 37, 965, DateTimeKind.Local).AddTicks(2037), "ATM", 6L },
+                    { 15L, 531m, 6L, new DateTime(2024, 5, 20, 11, 41, 37, 965, DateTimeKind.Local).AddTicks(2039), "ATM", 7L },
+                    { 16L, 761m, 7L, new DateTime(2024, 5, 17, 11, 41, 37, 965, DateTimeKind.Local).AddTicks(2041), "ATM", 4L },
+                    { 17L, 153m, 4L, new DateTime(2024, 5, 20, 11, 41, 37, 965, DateTimeKind.Local).AddTicks(2042), "ATM", 5L },
+                    { 18L, 470m, 3L, new DateTime(2024, 5, 27, 11, 41, 37, 965, DateTimeKind.Local).AddTicks(2044), "ATM", 3L }
                 });
 
             migrationBuilder.InsertData(
@@ -717,9 +717,9 @@ namespace GA.TradeMarket.Domain.Migrations
                 columns: new[] { "Id", "OrderId", "Reason", "RequestDate", "Status" },
                 values: new object[,]
                 {
-                    { 1L, 1L, "Minima doloremque alias laudantium ut doloribus et nemo doloribus qui. Ut sint ab et quos recusandae. Reprehenderit impedit et. Neque molestias fugiat odit. Tenetur magni iure maiores et. Ducimus consectetur qui et et voluptatem placeat exercitationem suscipit.", new DateTime(2024, 5, 3, 20, 50, 44, 619, DateTimeKind.Local).AddTicks(2171), "Active" },
-                    { 2L, 2L, "Blanditiis quae architecto ut minus porro.", new DateTime(2024, 2, 23, 20, 50, 44, 619, DateTimeKind.Local).AddTicks(2459), "Passed" },
-                    { 3L, 3L, "Adipisci nostrum dolor sint rerum non nihil libero.\nVeritatis corporis qui ut qui dolor ducimus repudiandae ea.\nEos autem corporis quisquam sed dolore suscipit.\nIpsa maxime repellendus qui qui molestias vel autem occaecati.\nQuaerat voluptatum sed accusantium.\nLibero eveniet ab nemo illum error.", new DateTime(2024, 5, 13, 20, 50, 44, 619, DateTimeKind.Local).AddTicks(2485), "Declined" }
+                    { 1L, 1L, "et", new DateTime(2024, 5, 4, 11, 41, 37, 971, DateTimeKind.Local).AddTicks(2926), "Active" },
+                    { 2L, 2L, "Nesciunt similique ea culpa amet.\nDelectus sequi quisquam molestias.\nVitae voluptas facere qui nemo atque quidem aut velit.\nFugit nobis totam ab vel.\nEum et sit et quia asperiores quod sed.", new DateTime(2024, 2, 24, 11, 41, 37, 971, DateTimeKind.Local).AddTicks(2969), "Passed" },
+                    { 3L, 3L, "Quo esse possimus aperiam assumenda inventore nulla error nihil officia. Similique maxime consequuntur. Nam ratione quo ipsa est. Dicta esse alias rem.", new DateTime(2024, 5, 14, 11, 41, 37, 971, DateTimeKind.Local).AddTicks(3202), "Declined" }
                 });
 
             migrationBuilder.InsertData(
@@ -727,13 +727,13 @@ namespace GA.TradeMarket.Domain.Migrations
                 columns: new[] { "Id", "Carrier", "OrderId", "ShippingDate", "Status", "TrackingNumber" },
                 values: new object[,]
                 {
-                    { 1L, "3w2pbxZi8SVrNKhqmXydPQ5FGauAgLW", 1L, new DateTime(2024, 5, 29, 20, 50, 44, 622, DateTimeKind.Local).AddTicks(2742), "Sent from abroad", "FQTOTJF1818" },
-                    { 2L, "18kTWZSGzgypXsR3LjNvQif7D2rMn", 2L, new DateTime(2024, 5, 28, 20, 50, 44, 622, DateTimeKind.Local).AddTicks(2873), "Recieved from abroad", "LWZABSI1" },
-                    { 3L, "1R8i9ZaHyJrL4hoF6EtjKxQvpdDez5cSm1", 3L, new DateTime(2024, 4, 18, 20, 50, 44, 622, DateTimeKind.Local).AddTicks(2979), "recieve in sorting centre", "TZQECXZ1941" },
-                    { 4L, "3WF4z9yCc8o6knbwDQKAjRatMLY2", 4L, new DateTime(2024, 4, 18, 20, 50, 44, 622, DateTimeKind.Local).AddTicks(3115), "delivered", "CBPIINR1" },
-                    { 5L, "3nXFaJcfmqd58D2pzQWLY4w1UbuxHTiK", 5L, new DateTime(2024, 5, 30, 20, 50, 44, 622, DateTimeKind.Local).AddTicks(3178), "Unsuccesfull delivery", "IDZUPRL1861" },
-                    { 6L, "1xiag3Pu2Fkv4JyndCGes8VKTz5ScmQ", 6L, new DateTime(2024, 5, 22, 20, 50, 44, 622, DateTimeKind.Local).AddTicks(3380), "recieved", "ZDIOCSI1" },
-                    { 7L, "1154Q3aVEedxCzFZAJtyL98snUY", 7L, new DateTime(2024, 4, 7, 20, 50, 44, 622, DateTimeKind.Local).AddTicks(3422), "boxing", "XNBOMDY1" }
+                    { 1L, "3E12ri7yQcJqszWNpgekj8YS9P", 1L, new DateTime(2024, 5, 30, 11, 41, 37, 974, DateTimeKind.Local).AddTicks(3574), "Sent from abroad", "UMNOCST1002" },
+                    { 2L, "354kuJ3EqV1nTYHfZzRvPgoMeyw68xXAms", 2L, new DateTime(2024, 5, 29, 11, 41, 37, 974, DateTimeKind.Local).AddTicks(3675), "Recieved from abroad", "TRQUAMZ1312" },
+                    { 3L, "1hun13QVGrke9JSa2AgE65bTwoR", 3L, new DateTime(2024, 4, 19, 11, 41, 37, 974, DateTimeKind.Local).AddTicks(3720), "recieve in sorting centre", "HVUUPYY1152" },
+                    { 4L, "1UkzPVheqvGo3jLfZdcrHS1pJw", 4L, new DateTime(2024, 4, 19, 11, 41, 37, 974, DateTimeKind.Local).AddTicks(3758), "delivered", "OLPAGLN1" },
+                    { 5L, "1XrYBoDE8LZKzJWQ6ahnAjMewuy", 5L, new DateTime(2024, 5, 31, 11, 41, 37, 974, DateTimeKind.Local).AddTicks(3825), "Unsuccesfull delivery", "FDKIAXV1" },
+                    { 6L, "3HQrbCGkB7n8icapgeFofDP1LXEy", 6L, new DateTime(2024, 5, 23, 11, 41, 37, 974, DateTimeKind.Local).AddTicks(3924), "recieved", "CFDEPTR1" },
+                    { 7L, "3kNFtKXbYDuox43Lj2v8a69SefZiJWhrpz1", 7L, new DateTime(2024, 4, 8, 11, 41, 37, 974, DateTimeKind.Local).AddTicks(3960), "boxing", "LOFUTNH1106" }
                 });
 
             migrationBuilder.InsertData(
@@ -741,16 +741,16 @@ namespace GA.TradeMarket.Domain.Migrations
                 columns: new[] { "ProductId", "ReceiptId", "DiscountUnitPrice", "Id", "Quantity", "UnitPrice" },
                 values: new object[,]
                 {
-                    { 1L, 1L, 240m, 1L, 57, 382.88m },
-                    { 1L, 5L, 582m, 6L, 85, 329.27m },
-                    { 2L, 2L, 683m, 7L, 12, 126.55m },
-                    { 2L, 3L, 864m, 2L, 17, 95.94m },
-                    { 3L, 2L, 268m, 3L, 19, 335.26m },
-                    { 3L, 3L, 542m, 8L, 51, 818.98m },
-                    { 4L, 2L, 460m, 9L, 14, 406.30m },
-                    { 4L, 3L, 592m, 4L, 98, 291.09m },
-                    { 5L, 3L, 898m, 10L, 62, 909.43m },
-                    { 5L, 4L, 644m, 5L, 96, 517.81m }
+                    { 1L, 1L, 495m, 1L, 62, 151.82m },
+                    { 1L, 5L, 450m, 6L, 23, 305.67m },
+                    { 2L, 2L, 204m, 7L, 28, 186.24m },
+                    { 2L, 3L, 179m, 2L, 87, 29.04m },
+                    { 3L, 2L, 984m, 3L, 73, 640.80m },
+                    { 3L, 3L, 335m, 8L, 58, 886.01m },
+                    { 4L, 2L, 842m, 9L, 73, 558.88m },
+                    { 4L, 3L, 799m, 4L, 76, 239.86m },
+                    { 5L, 3L, 127m, 10L, 56, 812.47m },
+                    { 5L, 4L, 561m, 5L, 63, 966.92m }
                 });
 
             migrationBuilder.CreateIndex(

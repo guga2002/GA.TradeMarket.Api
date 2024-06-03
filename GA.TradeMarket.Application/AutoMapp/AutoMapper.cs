@@ -37,7 +37,7 @@ namespace GA.TradeMarket.Application.AutoMapp
             CreateMap<Shipping, ShippingModel>();
             CreateMap<ShippingModelIn, Shipping>().ReverseMap();
 
-            CreateMap<ExchangeRate,ExchangeRateModel>();
+            CreateMap<ExchangeRate,ExchangeRateModel>().ReverseMap();
 
             CreateMap<Coupon, CouponModel>();
             CreateMap<CouponModelIn, Coupon>().ReverseMap();

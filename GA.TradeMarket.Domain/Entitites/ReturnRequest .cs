@@ -11,7 +11,6 @@ namespace GA.TradeMarket.Domain.Entitites
 
         public DateTime RequestDate { get; set; }
 
-        [MaxLength(150)]
         public string Reason { get; set; }
 
         [MaxLength(100)]

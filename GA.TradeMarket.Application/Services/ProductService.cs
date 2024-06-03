@@ -106,7 +106,6 @@ namespace GA.TradeMarket.Application.Services
                 {
                     var prod = new ProductModel()
                     {
-                        CategoryName = item.Category.CategoryName,
                         Price = item.Price,
                         ProductName = item.ProductName,
                         ProductCategoryId = item.ProductCategoryId,
@@ -133,7 +132,6 @@ namespace GA.TradeMarket.Application.Services
                 {
                     var prod = new ProductModel()
                     {
-                        CategoryName = item.Category.CategoryName,
                         Price = item.Price,
                         ProductName = item.ProductName,
                         ProductCategoryId = item.ProductCategoryId,

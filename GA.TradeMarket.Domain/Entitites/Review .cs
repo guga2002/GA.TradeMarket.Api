@@ -12,7 +12,6 @@ namespace GA.TradeMarket.Domain.Entitites
         [ForeignKey("Customer")]
         public long CustomerId { get; set; }
 
-        [MaxLength(150)]
         public string ReviewText { get; set; }
 
         [Range(0,10)]

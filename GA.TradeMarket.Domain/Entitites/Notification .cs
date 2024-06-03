@@ -9,7 +9,6 @@ namespace GA.TradeMarket.Domain.Entitites
         [ForeignKey("User")]
         public long UserId { get; set; }
 
-        [MaxLength(200)]
         public string Message { get; set; }
 
         public DateTime NotificationDate { get; set; }
