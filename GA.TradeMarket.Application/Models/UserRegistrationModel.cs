@@ -1,15 +1,12 @@
-﻿using GA.TradeMarket.Domain.Entitites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace GA.TradeMarket.Application.Models
 {
     public class UserRegistrationModel
     {
         public PersonModel Persons { get; set; }
+
+        [StringLength(30,MinimumLength =5,ErrorMessage ="Password is not strong enought")]
         public string Password { get; set; }
     }
 }

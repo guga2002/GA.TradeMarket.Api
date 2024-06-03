@@ -1,4 +1,6 @@
-﻿namespace GA.TradeMarket.Application.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace GA.TradeMarket.Application.Models
 {
     public class ConvertCurrencyModel
     {
