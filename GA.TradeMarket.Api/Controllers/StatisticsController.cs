@@ -1,5 +1,6 @@
 ﻿using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
+using GA.TradeMarket.Application.StaticFIles;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,7 +25,7 @@ namespace GA.TradeMarket.Api.Controllers
             var res = await statistik.GetMostPopularProductsAsync(productCount);
             if (res == null)
             {
-               return BadRequest(res);
+               return BadRequest(ErrorKeys.BadRequest);
             }
             return Ok(res);
         }
@@ -36,7 +37,7 @@ namespace GA.TradeMarket.Api.Controllers
             var res = await statistik.GetCustomersMostPopularProductsAsync(productCount, customerId);
             if (res == null)
             {
-               return BadRequest(res);
+               return BadRequest(ErrorKeys.BadRequest);
             }
             return Ok(res);
         }
@@ -47,7 +48,7 @@ namespace GA.TradeMarket.Api.Controllers
             var res = await statistik.GetMostValuableCustomersAsync(customerCount, startDate, endDate);
             if (res == null)
             {
-                return BadRequest(res);
+                return BadRequest(ErrorKeys.BadRequest);
             }
             return Ok(res);
         }

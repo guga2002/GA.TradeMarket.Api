@@ -1,6 +1,7 @@
 ﻿using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
 using GA.TradeMarket.Application.Models.RequestModels;
+using GA.TradeMarket.Application.StaticFIles;
 using GA.TradeMarket.Application.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -36,7 +37,7 @@ namespace GA.TradeMarket.Api.Controllers
                 var product = await _productService.GetByIdAsync(id);
                 if (product == null || product.ProductName is null)
                 {
-                    return NotFound(id);
+                    return NotFound(ErrorKeys.NotFound);
                 }
                 return Ok(product);
             }
@@ -52,7 +53,7 @@ namespace GA.TradeMarket.Api.Controllers
             var res = await _productService.GetAllWithDetailsAsync();
             if (res == null)
             {
-                return NotFound();
+                return NotFound(ErrorKeys.NotFound);
             }
             if (maxPrice != 50)
             {
@@ -66,7 +67,7 @@ namespace GA.TradeMarket.Api.Controllers
         public async Task<IActionResult> AddProduct([FromBody]ProductModelIn product)
         {
             if (!ModelState.IsValid || string.IsNullOrEmpty(product.ProductName))
-                return BadRequest();
+                return BadRequest(ErrorKeys.BadRequest);
             await _productService.AddAsync(product);
             return Ok(product);
         }
@@ -75,7 +76,7 @@ namespace GA.TradeMarket.Api.Controllers
         public async Task<IActionResult> UpdateProduct([FromRoute]long id,[FromBody] ProductModelIn product)
         {
             if (id != product.Id)
-                return BadRequest();
+                return BadRequest(ErrorKeys.BadRequest);
             if (!ModelState.IsValid || string.IsNullOrEmpty(product.ProductName))
             {
                 return BadRequest(ModelState);
@@ -89,10 +90,10 @@ namespace GA.TradeMarket.Api.Controllers
         {
             var existingProduct = await _productService.GetByIdAsync(id);
             if (existingProduct == null)
-                return NotFound();
+                return NotFound(ErrorKeys.NotFound);
 
             await _productService.DeleteAsync(id);
-            return NoContent();
+            return Ok(id);
         }
 
         [HttpGet("categories")]
@@ -116,20 +117,20 @@ namespace GA.TradeMarket.Api.Controllers
         public async Task<IActionResult> UpdateCategory([FromRoute]long id, [FromBody]ProductCategoryModelIn category)
         {
             if (id != category.Id)
-                return BadRequest();
+                return BadRequest(ErrorKeys.BadRequest);
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             await _productService.UpdateCategoryAsync(category);
-            return NoContent();
+            return Ok(category);
         }
 
         [HttpDelete("categories/{id:long}")]
         public async Task<IActionResult> DeleteCategory([FromRoute]long id)
         {
             await _productService.RemoveCategoryAsync(id);
-            return Ok();
+            return Ok(id);
         }
 
     }

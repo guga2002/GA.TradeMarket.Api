@@ -1,6 +1,7 @@
 ﻿using Azure;
 using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
+using GA.TradeMarket.Application.StaticFIles;
 using GA.TradeMarket.Application.Validation;
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Persistance.SMTP;
@@ -111,7 +112,7 @@ namespace GA.TradeMarket.Api.Controllers
                 }
                 else
                 {
-                    return BadRequest();
+                    return BadRequest(ErrorKeys.BadRequest);
                 }
             }
             catch (Exception exp)
@@ -129,7 +130,7 @@ namespace GA.TradeMarket.Api.Controllers
             {
                 if (!await ser.IsUserExist(email))
                 {
-                    return BadRequest();
+                    return BadRequest(ErrorKeys.BadRequest);
                 }
                 var link = Url.ActionLink(nameof(ForgetPassword), "Customer", new { Email = email, Password = newPassword }, Request.Scheme);
                 if (link is null) return BadRequest();
@@ -145,7 +146,7 @@ namespace GA.TradeMarket.Api.Controllers
                   <h2 style='font-size: 16px;color:red;'>თუ თქვენ  არ გამოგიგზავნიათ მოთხოვნა, გთხოვთ დაგვიკავშირდეთ!</h2>
                 </div>";
                 smtp.SendMessage(email, "პაროლის შეცვლის მოთხოვნა" + '_' + DateTime.Now.Hour + ':' + DateTime.Now.Minute, body);
-                return Ok();
+                return Ok(email);
             }
             catch (Exception exp)
             {
@@ -188,10 +189,10 @@ namespace GA.TradeMarket.Api.Controllers
                 }
 
                 if (User.Identity is not { Name: not null, IsAuthenticated: true })
-                    return BadRequest();
+                    return BadRequest(ErrorKeys.BadRequest);
 
                 var res = await ser.ResetPasswordAsync(arg, User.Identity.Name);
-                return Ok();
+                return Ok(arg);
             }
             catch (Exception exp)
             {
@@ -206,7 +207,7 @@ namespace GA.TradeMarket.Api.Controllers
             try
             {
                 if (User?.Identity is not { Name: not null, IsAuthenticated: true })
-                    return BadRequest();
+                    return BadRequest(ErrorKeys.BadRequest);
                 var res = await ser.Info(User.Identity.Name);
                 return Ok(res);
 
@@ -236,7 +237,7 @@ namespace GA.TradeMarket.Api.Controllers
                     }
 
                     var user = await userManager.FindByNameAsync(User.Identity.Name);
-                    if (user == null) return BadRequest();
+                    if (user == null) return BadRequest(ErrorKeys.BadRequest);
 
                     var rek = await userManager.GenerateEmailConfirmationTokenAsync(user);
                     var link = Url.ActionLink(nameof(GetEmailVerificationMessage), "Customer",
@@ -246,7 +247,7 @@ namespace GA.TradeMarket.Api.Controllers
                     return Ok(link);
                 }
 
-                return BadRequest();
+                return BadRequest(ErrorKeys.BadRequest);
 
             }
             catch (Exception exp)
@@ -262,7 +263,7 @@ namespace GA.TradeMarket.Api.Controllers
             try
             {
                 if (User.Identity is null || !User.Identity.IsAuthenticated || User.Identity.Name is null)
-                    return BadRequest();
+                    return BadRequest(ErrorKeys.BadRequest);
                 var res = await ser.SignOutAsync(User.Identity.Name);
                 return Ok(res);
             }
@@ -310,7 +311,7 @@ namespace GA.TradeMarket.Api.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest();
+                    return BadRequest(ErrorKeys.BadRequest);
                 }
                 var res = await ser.DeleteRole(role);
                 return Ok(res);

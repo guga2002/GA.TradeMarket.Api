@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GA.TradeMarket.Domain.Entitites
@@ -11,6 +12,7 @@ namespace GA.TradeMarket.Domain.Entitites
         [ForeignKey("person")]
         public string PersonId { get; set; }
 
+        [Range(0, int.MaxValue)]
         public decimal DiscountValue { get; set; }
 
         public DateTime OperationDate { get; set; }

@@ -1,6 +1,7 @@
 ﻿using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
 using GA.TradeMarket.Application.Models.RequestModels;
+using GA.TradeMarket.Application.StaticFIles;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,7 +27,7 @@ namespace GA.TradeMarket.Api.Controllers
                 var res = await ser.GetAllWithDetailsAsync();
                 if (!res.Any())
                 {
-                    return NotFound();
+                    return NotFound(ErrorKeys.NotFound);
                 }
                 return Ok(res);
             }
@@ -45,7 +46,7 @@ namespace GA.TradeMarket.Api.Controllers
                 var res = await ser.GetByIdAsync(Id);
                 if (res is null)
                 {
-                    return NotFound();
+                    return NotFound(ErrorKeys.NotFound);
                 }
                 return Ok(res);
             }
@@ -157,7 +158,7 @@ namespace GA.TradeMarket.Api.Controllers
                     {
                         return Ok(res);
                     }
-                    return NotFound();
+                    return NotFound(ErrorKeys.NotFound);
             }
             catch (Exception exp)
             {

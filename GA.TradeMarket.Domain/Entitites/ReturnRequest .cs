@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GA.TradeMarket.Domain.Entitites
 {
@@ -7,9 +8,15 @@ namespace GA.TradeMarket.Domain.Entitites
     {
         [ForeignKey("Order")]
         public long OrderId { get; set; }
+
         public DateTime RequestDate { get; set; }
+
+        [MaxLength(150)]
         public string Reason { get; set; }
+
+        [MaxLength(100)]
         public string Status { get; set; }
+
         public virtual Order Order { get; set; }
     }
 

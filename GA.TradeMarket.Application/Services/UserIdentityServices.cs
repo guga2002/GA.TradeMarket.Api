@@ -317,9 +317,7 @@ namespace RGBA.Optio.Domain.Services
 </html>
 ";
 
-            smtp.SendMessage(user.Email, "IT step final Project-GA", body);
-
-
+            smtp.SendMessage(user.Email, $"IT step final Project-GA {DateTime.Now.ToShortTimeString()}", body);
             return res;
         }
 

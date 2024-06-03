@@ -2,6 +2,7 @@
 using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
 using GA.TradeMarket.Application.Models.DecoderObjects;
+using GA.TradeMarket.Application.StaticFIles;
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
 using System.Net.Http.Headers;
@@ -28,7 +29,7 @@ namespace GA.TradeMarket.Application.Services
                 var tbcanswer= await GetcourseFromTbc(currency);
                 if(tbcanswer.Item1 is null)
                 {
-                    throw new ArgumentNullException(" bad request no such currency exist");
+                    throw new ArgumentNullException(ErrorKeys.BadRequest);
                 }
                 var exchangerate = new ExchangeRateModel()
                 {
@@ -68,7 +69,7 @@ namespace GA.TradeMarket.Application.Services
                 var result = JsonSerializer.Deserialize<ExchangeRateDecodable>(json);
                 return result;
             }
-            throw new ArgumentException(" there  was internall error");
+            throw new ArgumentException(ErrorKeys.InternalServerError);
         }
         private async Task<(string,decimal,decimal)>  GetcourseFromTbc(string currency)
         {

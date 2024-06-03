@@ -1,6 +1,7 @@
 ﻿using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
 using GA.TradeMarket.Application.Models.RequestModels;
+using GA.TradeMarket.Application.StaticFIles;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,7 @@ namespace GA.TradeMarket.Api.Controllers
             var res = await ser.GetAllWithDetailsAsync();
             if (res == null)
             {
-                return NotFound();
+                return NotFound(ErrorKeys.NotFound);
             }
             return Ok(res);
         }
@@ -39,7 +40,7 @@ namespace GA.TradeMarket.Api.Controllers
                 var res = await ser.GetByIdAsync(id);
                 if (res == null)
                 {
-                    return NotFound();
+                    return NotFound(ErrorKeys.NotFound);
                 }
                 return Ok(res);
             }
@@ -55,7 +56,7 @@ namespace GA.TradeMarket.Api.Controllers
             var res = await ser.GetReceiptDetailsAsync(id);
             if (res == null)
             {
-                return NotFound();
+                return NotFound(ErrorKeys.NotFound);
             }
             return Ok(res);
         }
@@ -79,7 +80,7 @@ namespace GA.TradeMarket.Api.Controllers
         public async Task<ActionResult> CreateReceipt([FromBody] ReceiptModelIn receipt)
         {
 
-            if (receipt == null) return BadRequest();
+            if (receipt == null) return BadRequest(ErrorKeys.BadRequest);
             await ser.AddAsync(receipt);
             return Ok(receipt);
         }
@@ -87,7 +88,7 @@ namespace GA.TradeMarket.Api.Controllers
         [HttpPut("{id:long}")]
         public async Task<IActionResult> UpdateReceipt([FromRoute] long id, [FromBody] ReceiptModelIn receipt)
         {
-            if (receipt == null) return BadRequest();
+            if (receipt == null) return BadRequest(ErrorKeys.BadRequest);
             await ser.UpdateAsync(receipt);
             return Ok();
         }
@@ -105,21 +106,21 @@ namespace GA.TradeMarket.Api.Controllers
         {
 
             await ser.RemoveProductAsync(productId, id, quantity);
-            return Ok();
+            return Ok(id);
         }
 
         [HttpPut("{id:long}/checkout")]
         public async Task<IActionResult> CheckoutReceipt([FromRoute]long id)
         {
             await ser.CheckOutAsync(id);
-            return Ok();
+            return Ok(id);
         }
 
         [HttpDelete("{id:long}")]
         public async Task<IActionResult> DeleteReceipt([FromRoute]long id)
         {
             await ser.DeleteAsync(id);
-            return Ok();
+            return Ok(id);
         }
 
     }

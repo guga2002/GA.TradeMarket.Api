@@ -2,6 +2,7 @@
 using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
 using GA.TradeMarket.Application.Models.RequestModels;
+using GA.TradeMarket.Application.StaticFIles;
 using GA.TradeMarket.Application.Validation;
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
@@ -22,14 +23,14 @@ namespace GA.TradeMarket.Application.Services
            var method= await obj.PaymentMethodRepository.GetByIdAsync(item.paymentMethodId);
             if(order is null || method is null)
             {
-                throw new NoItemFoundException("No related Items found");
+                throw new NoItemFoundException(ErrorKeys.NoOrder);
             }
             var mapped = mapper.Map<Payment>(item);
             if(mapped is not null)
             {
                await obj.PaymentRepository.AddAsync(mapped);
             }
-            throw new ArgumentException("Mapping not was succesfully");
+            throw new ArgumentException(ErrorKeys.mapped);
         }
 
         public async Task AddPaymentMethodAsync(PaymentMethodModelIn mod)
@@ -39,14 +40,14 @@ namespace GA.TradeMarket.Application.Services
             var customer=await obj.CustomerRepository.GetByIdAsync(mod.Id);
             if(customer is null)
             {
-                throw new ArgumentNullException("Custumer is Null");
+                throw new ArgumentNullException(ErrorKeys.NoCustommer);
             }
             var mapped = mapper.Map<PaymentMethod>(mod);
             if (mapped is not null)
             {
                 await obj.PaymentMethodRepository.AddAsync(mapped);
             }
-            throw new ArgumentException("Mapping not was succesfully");
+            throw new ArgumentException(ErrorKeys.mapped);
         }
 
         public async Task DeleteAsync(long item)
@@ -65,7 +66,7 @@ namespace GA.TradeMarket.Application.Services
                     return mapped;
                 }
             }
-            throw new NoItemFoundException("No Entities found in Payment");
+            throw new NoItemFoundException(ErrorKeys.NotFound);
         }
 
         public async Task<IEnumerable<PaymentMethodModel>> GetAllPaymentMethodAsync()
@@ -79,7 +80,7 @@ namespace GA.TradeMarket.Application.Services
                     return mapped;
                 }
             }
-            throw new NoItemFoundException("No Entities found in Paymentmethod");
+            throw new NoItemFoundException(ErrorKeys.NotFound);
         }
 
         public async Task<PaymentModel> GetByIdAsync(long Id)
@@ -90,7 +91,7 @@ namespace GA.TradeMarket.Application.Services
                 var mapped = mapper.Map<PaymentModel>(payment);
                 return mapped;
             }
-            throw new MarketException("No payment method exist");
+            throw new MarketException(ErrorKeys.NotFound);
         }
 
         public async Task RemovePayMentMethodAsync(long a)
@@ -105,7 +106,7 @@ namespace GA.TradeMarket.Application.Services
             var method = await obj.PaymentMethodRepository.GetByIdAsync(item.paymentMethodId);
             if (method is null)
             {
-                throw new NoItemFoundException("No related Items found");
+                throw new NoItemFoundException(ErrorKeys.NotFound);
             }
             var mapped = mapper.Map<Payment>(item);
             if (mapped is not null)
@@ -113,7 +114,7 @@ namespace GA.TradeMarket.Application.Services
                  obj.PaymentRepository.Update(mapped);
             }
             await obj.SaveAsync();
-            throw new ArgumentException("Mapping not was succesfully");
+            throw new ArgumentException(ErrorKeys.mapped);
         }
 
         public async Task UpdatePaymentMethodAsync(PaymentMethodModelIn mod)
@@ -124,7 +125,7 @@ namespace GA.TradeMarket.Application.Services
             var customer = await obj.CustomerRepository.GetByIdAsync(mod.Id);
             if (customer is null)
             {
-                throw new ArgumentNullException("Custumer is Null");
+                throw new ArgumentNullException(ErrorKeys.NoCustommer);
             }
             var mapped = mapper.Map<PaymentMethod>(mod);
             if (mapped is not null)
@@ -132,7 +133,7 @@ namespace GA.TradeMarket.Application.Services
                  obj.PaymentMethodRepository.Update(mapped);
             }
             await obj.SaveAsync();
-            throw new ArgumentException("Mapping not was succesfully");
+            throw new ArgumentException(ErrorKeys.mapped);
         }
     }
 }

@@ -88,7 +88,7 @@ internal class Program
             });
             opt.AddSecurityRequirement(new OpenApiSecurityRequirement
         {
-    {
+        {
         new OpenApiSecurityScheme
         {
             Reference = new OpenApiReference
@@ -98,7 +98,7 @@ internal class Program
             }
         },
         new string[] { }
-    }
+                }
         });
         });
 
@@ -130,8 +130,8 @@ internal class Program
             options.Cookie.HttpOnly = true;
             options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
             options.Cookie.SameSite = SameSiteMode.Strict;
-            options.Cookie.Name = "YourAppAuthCookie";
-            options.LoginPath = "/ UserIdentity/SignIn";
+            options.Cookie.Name = "ItStepCookiesPolicy";
+            options.LoginPath = "/UserIdentity/SignIn";
             options.AccessDeniedPath = "/Account/Error";
             options.SlidingExpiration = true;
             options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
@@ -151,7 +151,7 @@ internal class Program
 
         var app = builder.Build();
 
-        if (app.Environment.IsDevelopment())
+        if (app.Environment.IsDevelopment()||app.Environment.IsProduction())
         {
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -178,6 +178,3 @@ internal class Program
     }
 }
 
-#region Add scopes to DI
-
-#endregion

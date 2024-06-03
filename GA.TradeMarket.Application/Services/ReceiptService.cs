@@ -2,6 +2,7 @@
 using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
 using GA.TradeMarket.Application.Models.RequestModels;
+using GA.TradeMarket.Application.StaticFIles;
 using GA.TradeMarket.Application.Validation;
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
@@ -22,7 +23,7 @@ namespace GA.TradeMarket.Application.Services
                 var customer= await obj.CustomerRepository.GetByIdAsync(item.CustomerId);
                 if(customer is null)
                 {
-                    throw new ArgumentNullException("Customer not exist there");
+                    throw new ArgumentNullException(ErrorKeys.NoCustommer);
                 }
                 var mapped = mapper.Map<Receipt>(item);
                 if (mapped != null)
@@ -32,12 +33,12 @@ namespace GA.TradeMarket.Application.Services
                 }
                 else
                 {
-                    throw new MarketException("kide");
+                    throw new MarketException(ErrorKeys.General);
                 }
             }
             else
             {
-                throw new MarketException("kide");
+                throw new MarketException(ErrorKeys.General);
             }
         }
 
@@ -46,7 +47,7 @@ namespace GA.TradeMarket.Application.Services
             var receipt = await obj.ReceiptRepository.GetByIdWithDetailsAsync(receiptId);
             if (receipt == null)
             {
-                throw new MarketException($"Receipt with ID {receiptId} does not exist.");
+                throw new MarketException(ErrorKeys.NotFound);
             }
 
             if (obj.ProductRepository != null)
@@ -55,7 +56,7 @@ namespace GA.TradeMarket.Application.Services
 
                 if (product == null)
                 {
-                    throw new MarketException("no product exist");
+                    throw new MarketException(ErrorKeys.NoProduct);
                 }
                 ReceiptDetail details = new ReceiptDetail()
                 {
@@ -108,7 +109,7 @@ namespace GA.TradeMarket.Application.Services
         public async Task<IEnumerable<ReceiptModel>> GetAllWithDetailsAsync()
         {
             var res = await obj.ReceiptRepository.GetAllWithDetailsAsync();
-            if (res == null) throw new MarketException("ahaa");
+            if (res == null) throw new MarketException(ErrorKeys.General);
             var mapped = mapper.Map<IEnumerable<ReceiptModel>>(res);
             if (mapped != null)
             {
@@ -116,7 +117,7 @@ namespace GA.TradeMarket.Application.Services
             }
             else
             {
-                throw new MarketException("gassworaa");
+                throw new MarketException(ErrorKeys.General);
             }
         }
 
@@ -131,7 +132,7 @@ namespace GA.TradeMarket.Application.Services
             }
             else
             {
-                throw new MarketException("Exception");
+                throw new MarketException(ErrorKeys.NotFound);
             }
 
         }
@@ -235,12 +236,12 @@ namespace GA.TradeMarket.Application.Services
         {
             if (item == null)
             {
-                throw new MarketException("Exception ocured");
+                throw new MarketException(ErrorKeys.General);
             }
             var customer= await obj.CustomerRepository.GetByIdAsync(item.CustomerId);
             if(customer == null)
             {
-                throw new ArgumentNullException("No customer  exist there");
+                throw new ArgumentNullException(ErrorKeys.General);
             }
             var mapped = mapper.Map<Receipt>(item);
             obj.ReceiptRepository.Update(mapped);

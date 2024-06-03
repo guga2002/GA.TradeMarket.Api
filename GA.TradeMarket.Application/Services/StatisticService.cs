@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
+using GA.TradeMarket.Application.StaticFIles;
 using GA.TradeMarket.Application.Validation;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
 
@@ -31,7 +32,7 @@ namespace GA.TradeMarket.Application.Services
         {
             if (startDate >= endDate || startDate >= DateTime.Now || endDate >= DateTime.Now)
             {
-                throw new MarketException("Invalid date range.");
+                throw new MarketException(ErrorKeys.General);
             }
 
             var details = await obj.ReceiptRepository.GetAllWithDetailsAsync();
@@ -62,7 +63,7 @@ namespace GA.TradeMarket.Application.Services
 
             if (startDate >= endDate || startDate >= DateTime.Now || endDate >= DateTime.Now)
             {
-                throw new MarketException("Invalid date range.");
+                throw new MarketException(ErrorKeys.General);
             }
 
             var receipts = await obj.ReceiptRepository.GetAllWithDetailsAsync();

@@ -13,6 +13,7 @@ namespace GA.TradeMarket.Domain.Entitites
         public bool IsCheckedOut { get; set; }
 
         public virtual Order order { get; set; }
+
         public virtual  IEnumerable<ReceiptDetail> ReceiptDetails { get; set; }
     }
 

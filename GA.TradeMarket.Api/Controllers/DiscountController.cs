@@ -1,7 +1,7 @@
 ﻿using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
 using GA.TradeMarket.Application.Models.RequestModels;
-using Microsoft.AspNetCore.Authorization;
+using GA.TradeMarket.Application.StaticFIles;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GA.TradeMarket.Api.Controllers
@@ -26,7 +26,7 @@ namespace GA.TradeMarket.Api.Controllers
                 var res= await ser.GetAllWithDetailsAsync();
                 if(!res.Any())
                 {
-                    return NotFound();
+                    return NotFound(ErrorKeys.NotFound);
                 }
                 return Ok(res);
             }
@@ -45,7 +45,7 @@ namespace GA.TradeMarket.Api.Controllers
                 var res = await ser.GetByIdAsync(Id);
                 if (res is not null)
                 {
-                    return NotFound();
+                    return NotFound(ErrorKeys.NotFound);
                 }
                 return Ok(res);
             }
@@ -66,7 +66,7 @@ namespace GA.TradeMarket.Api.Controllers
                     await ser.AddAsync(item);
                     return Ok(item);
                 }
-                return BadRequest("Insert was not succesfully");
+                return BadRequest(ErrorKeys.UnsuccesfullInsert);
             }
             catch (Exception exp)
             {
@@ -100,7 +100,7 @@ namespace GA.TradeMarket.Api.Controllers
                     await ser.UpdateAsync(item);
                     return Ok(item);
                 }
-                return BadRequest("Update was not succesfully");
+                return BadRequest(ErrorKeys.UnsucessfullUpdate);
             }
             catch (Exception exp)
             {
@@ -119,7 +119,7 @@ namespace GA.TradeMarket.Api.Controllers
                     await ser.UpdateCouponAsync(mod);
                     return Ok(mod);
                 }
-                return BadRequest("Update was not succesfully");
+                return BadRequest(ErrorKeys.UnsucessfullUpdate);
             }
             catch (Exception exp)
             {
@@ -169,7 +169,7 @@ namespace GA.TradeMarket.Api.Controllers
                     {
                         return Ok(res);
                     }
-                    return NotFound();
+                    return NotFound(ErrorKeys.NotFound);
             }
             catch (Exception exp)
             {

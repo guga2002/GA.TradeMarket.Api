@@ -1,9 +1,8 @@
 ﻿using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
 using GA.TradeMarket.Application.Models.DecoderObjects;
-using Microsoft.AspNetCore.Http;
+using GA.TradeMarket.Application.StaticFIles;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Http.Headers;
 
 namespace GA.TradeMarket.Api.Controllers
 {
@@ -60,7 +59,7 @@ namespace GA.TradeMarket.Api.Controllers
                 var res= await ser.GetExchangeRates();
                 if(!res.Any())
                 {
-                    return NotFound();
+                    return NotFound(ErrorKeys.NotFound);
                 }
                 return Ok(res);
             }
@@ -77,7 +76,7 @@ namespace GA.TradeMarket.Api.Controllers
             try
             {
                 await ser.Delete(id);
-                return Ok();
+                return Ok(id);
             }
             catch (Exception exp)
             {

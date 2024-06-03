@@ -1,6 +1,7 @@
 ﻿using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
 using GA.TradeMarket.Application.Models.RequestModels;
+using GA.TradeMarket.Application.StaticFIles;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -46,9 +47,9 @@ namespace GA.TradeMarket.Api.Controllers
                 return Ok(res);
 
             }
-            catch (Exception)
+            catch (Exception exp)
             {
-                return NotFound();
+                return BadRequest(exp.Message);
             }
         }
 
@@ -64,7 +65,7 @@ namespace GA.TradeMarket.Api.Controllers
                 {
                     return Ok(res);
                 }
-                return NotFound();
+                return NotFound(ErrorKeys.NotFound);
             }
             catch (Exception exp)
             {
@@ -79,7 +80,7 @@ namespace GA.TradeMarket.Api.Controllers
             {
                 if (value.Name == string.Empty || value.Surname == string.Empty || value.BirthDate >= DateTime.Now || value.DiscountValue < 0)
                 {
-                    return BadRequest();
+                    return BadRequest(ErrorKeys.BadRequest);
                 }
                 await _customerService.AddAsync(value);
                 return Ok(value);
@@ -102,11 +103,11 @@ namespace GA.TradeMarket.Api.Controllers
                 }
                 await _customerService.UpdateAsync(value);
 
-                return Ok();
+                return Ok(value);
             }
-            catch (Exception)
+            catch (Exception exp)
             {
-                return BadRequest();
+                return BadRequest(exp.Message);
             }
         }
 
@@ -118,10 +119,10 @@ namespace GA.TradeMarket.Api.Controllers
             {
                 if (id < 0)
                 {
-                    return BadRequest();
+                    return BadRequest(ErrorKeys.BadRequest);
                 }
                 await _customerService.DeleteAsync(id);
-                return Ok();
+                return Ok(id);
             }
             catch (Exception exp)
             {

@@ -2,6 +2,7 @@
 using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
 using GA.TradeMarket.Application.Models.RequestModels;
+using GA.TradeMarket.Application.StaticFIles;
 using GA.TradeMarket.Application.Validation;
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
@@ -66,7 +67,7 @@ namespace GA.TradeMarket.Application.Services
                 var mapped = mapper.Map<IEnumerable<ShippingModel>>(res);
                 return mapped;
             }
-            throw new NoItemFoundException("No items found");
+            throw new NoItemFoundException(ErrorKeys.NotFound);
         }
 
         public async Task<IEnumerable<NotificationModel>> GetAllNotificationAsync()
@@ -77,7 +78,7 @@ namespace GA.TradeMarket.Application.Services
                 var mapped = mapper.Map<IEnumerable<NotificationModel>>(res);
                 return mapped;
             }
-            throw new NoItemFoundException("No items found");
+            throw new NoItemFoundException(ErrorKeys.NotFound);
         }
 
         public async Task<ShippingModel> GetByIdAsync(long Id)
@@ -88,7 +89,7 @@ namespace GA.TradeMarket.Application.Services
                 var mapped = mapper.Map<ShippingModel>(res);
                 return mapped;
             }
-            throw new NoItemFoundException("No items found");
+            throw new NoItemFoundException(ErrorKeys.NotFound);
         }
 
         public async Task RemoveNotificationAsync(long a)

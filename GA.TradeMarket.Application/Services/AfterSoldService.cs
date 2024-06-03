@@ -2,6 +2,7 @@
 using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
 using GA.TradeMarket.Application.Models.RequestModels;
+using GA.TradeMarket.Application.StaticFIles;
 using GA.TradeMarket.Application.Validation;
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
@@ -20,7 +21,7 @@ namespace GA.TradeMarket.Application.Services
             var order = await obj.OrderRepository.GetByIdAsync(item.OrderId);
             if (order is null)
             {
-                throw new NoItemFoundException("No order exist");
+                throw new NoItemFoundException(ErrorKeys.NoOrder);
             }
             var mapped=mapper.Map<ReturnRequest>(order);
             if(mapped is not null)
@@ -35,12 +36,12 @@ namespace GA.TradeMarket.Application.Services
             var product = await obj.ProductRepository.GetByIdAsync(mod.ProductId);
             if (product is null)
             {
-                throw new NoItemFoundException("No order exist");
+                throw new NoItemFoundException(ErrorKeys.NoOrder);
             }
             var customer= await obj.CustomerRepository.GetByIdAsync(mod.CustomerId);
             if (customer is null)
             {
-                throw new NoItemFoundException("Custumer no  exist");
+                throw new NoItemFoundException(ErrorKeys.NoCustommer);
             }
             var mapped = mapper.Map<Review>(mod);
             if (mapped is not null)
@@ -62,7 +63,7 @@ namespace GA.TradeMarket.Application.Services
                 var mapped=mapper.Map<IEnumerable<ReturnRequestModel>>(returnreq);
                 return mapped;
             }
-            throw new NoItemFoundException(" no related Entities found");
+            throw new NoItemFoundException(ErrorKeys.NotFound);
         }
 
         public async Task<IEnumerable<ReviewModel>> GetAllReviewsAsync()
@@ -73,7 +74,7 @@ namespace GA.TradeMarket.Application.Services
                 var mapped = mapper.Map<IEnumerable<ReviewModel>>(returnreq);
                 return mapped;
             }
-            throw new NoItemFoundException(" no related Entities found");
+            throw new NoItemFoundException(ErrorKeys.NotFound);
         }
 
         public async Task<ReturnRequestModel> GetByIdAsync(long Id)
@@ -84,7 +85,7 @@ namespace GA.TradeMarket.Application.Services
                 var mapped = mapper.Map<ReturnRequestModel>(returnreq);
                 return mapped;
             }
-            throw new NoItemFoundException(" no related Entities found");
+            throw new NoItemFoundException(ErrorKeys.NotFound);
         }
 
         public async Task RemoveReviewAsync(long a)
@@ -98,7 +99,7 @@ namespace GA.TradeMarket.Application.Services
             var order = await obj.OrderRepository.GetByIdAsync(item.OrderId);
             if (order is null)
             {
-                throw new NoItemFoundException("No order exist");
+                throw new NoItemFoundException(ErrorKeys.NoOrder);
             }
             var mapped = mapper.Map<ReturnRequest>(order);
             if (mapped is not null)
@@ -113,12 +114,12 @@ namespace GA.TradeMarket.Application.Services
             var product = await obj.ProductRepository.GetByIdAsync(mod.ProductId);
             if (product is null)
             {
-                throw new NoItemFoundException("No order exist");
+                throw new NoItemFoundException(ErrorKeys.NoOrder);
             }
             var customer = await obj.CustomerRepository.GetByIdAsync(mod.CustomerId);
             if (customer is null)
             {
-                throw new NoItemFoundException("Custumer no  exist");
+                throw new NoItemFoundException(ErrorKeys.NoCustommer);
             }
             var mapped = mapper.Map<Review>(mod);
             if (mapped is not null)

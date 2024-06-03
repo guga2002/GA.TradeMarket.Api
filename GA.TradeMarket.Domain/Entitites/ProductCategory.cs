@@ -1,10 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GA.TradeMarket.Domain.Entitites
 {
@@ -12,6 +8,7 @@ namespace GA.TradeMarket.Domain.Entitites
     [Index(nameof(CategoryName), IsDescending = new bool[] { true })]
     public class ProductCategory : AbstractEntity
     {
+        [MaxLength(100)]
         public required string CategoryName { get; set; }
 
         public virtual IEnumerable<Product> Products { get; set; }

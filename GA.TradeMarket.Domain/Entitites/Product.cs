@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GA.TradeMarket.Domain.Entitites
@@ -12,8 +13,10 @@ namespace GA.TradeMarket.Domain.Entitites
         public long ProductCategoryId { get; set; }
 
         [Column("ProductName")]
+        [MaxLength(100)]
         public required string ProductName { get; set; }
 
+        [Range(0,int.MaxValue)]
         public decimal Price { get; set; }
 
         public virtual ProductCategory Category { get; set; }

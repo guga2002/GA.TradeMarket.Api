@@ -2,6 +2,7 @@
 using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
 using GA.TradeMarket.Application.Models.RequestModels;
+using GA.TradeMarket.Application.StaticFIles;
 using GA.TradeMarket.Application.Validation;
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
@@ -20,7 +21,7 @@ namespace GA.TradeMarket.Application.Services
            var custommer = await obj.CustomerRepository.GetByIdAsync(item.CustomerId);
             if(custommer is null)
             {
-                throw new TradeMarket.Application.Validation.MarketException("No costummer  exist");
+                throw new TradeMarket.Application.Validation.MarketException(ErrorKeys.NoCustommer);
             }
             var mapped = mapper.Map<Order>(item);
             await obj.OrderRepository.AddAsync(mapped);
@@ -39,7 +40,7 @@ namespace GA.TradeMarket.Application.Services
                 var mapped= mapper.Map<IEnumerable<OrderModel>>(res);
                 return mapped;
             }
-            throw new MarketException("No  orders exist");
+            throw new MarketException(ErrorKeys.NotFound);
         }
 
         public async Task<OrderModel> GetByIdAsync(long Id)
@@ -50,7 +51,7 @@ namespace GA.TradeMarket.Application.Services
                 var  mapped=mapper.Map<OrderModel>(res);
                 return mapped;
             }
-            throw new MarketException("No entity exist on this Id");
+            throw new MarketException(ErrorKeys.NotFound);
         }
 
         public async Task UpdateAsync(OrderModelIn item)
@@ -59,7 +60,7 @@ namespace GA.TradeMarket.Application.Services
             var custommer = await obj.CustomerRepository.GetByIdAsync(item.CustomerId);
             if (custommer is null)
             {
-                throw new TradeMarket.Application.Validation.MarketException("No costummer  exist");
+                throw new TradeMarket.Application.Validation.MarketException(ErrorKeys.NoCustommer);
             }
             var mapped = mapper.Map<Order>(item);
             obj.OrderRepository.Update(mapped);

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GA.TradeMarket.Domain.Entitites
 {
@@ -7,12 +8,20 @@ namespace GA.TradeMarket.Domain.Entitites
     {
         [ForeignKey("Product")]
         public long ProductId { get; set; }
+
         [ForeignKey("Customer")]
         public long CustomerId { get; set; }
+
+        [MaxLength(150)]
         public string ReviewText { get; set; }
+
+        [Range(0,10)]
         public int Rating { get; set; }
+
         public DateTime ReviewDate { get; set; }
+
         public virtual Product Product { get; set; }
+
         public virtual Customer Customer { get; set; }
     }
 }

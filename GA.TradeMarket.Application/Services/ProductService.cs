@@ -2,6 +2,7 @@
 using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
 using GA.TradeMarket.Application.Models.RequestModels;
+using GA.TradeMarket.Application.StaticFIles;
 using GA.TradeMarket.Application.Validation;
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
@@ -27,16 +28,16 @@ namespace GA.TradeMarket.Application.Services
 
             if (string.IsNullOrEmpty(item.ProductName))
             {
-                throw new MarketException("shecdomaa");
+                throw new MarketException(ErrorKeys.General);
             }
             if (item.Price < 0)
             {
-                throw new MarketException("shecdoma");
+                throw new MarketException(ErrorKeys.General);
             }
             var category = await obj.ProductCategoryRepository.GetByIdAsync(item.ProductCategoryId);
             if(category is null)
             {
-                throw new ArgumentNullException(" Product Category is null");
+                throw new ArgumentNullException(ErrorKeys.NoCategory);
             }
             if (obj.ProductRepository != null)
             {
@@ -46,7 +47,7 @@ namespace GA.TradeMarket.Application.Services
             }
             else
             {
-                throw new ArgumentException("it is null there");
+                throw new ArgumentException(ErrorKeys.General);
             }
         }
 
@@ -54,7 +55,7 @@ namespace GA.TradeMarket.Application.Services
         {
             if (mod == null || string.IsNullOrEmpty(mod.CategoryName) || mod.Id < 0)
             {
-                throw new MarketException("shecdomaaa");
+                throw new MarketException(ErrorKeys.General);
             }
             else
             {
@@ -67,7 +68,7 @@ namespace GA.TradeMarket.Application.Services
 
         public async Task DeleteAsync(long item)
         {
-            if (item <= 0) throw new MarketException("kide");
+            if (item <= 0) throw new MarketException(ErrorKeys.General);
             await obj.ProductRepository.DeleteByIdAsync(item);
             await obj.SaveAsync();
         }
@@ -82,7 +83,7 @@ namespace GA.TradeMarket.Application.Services
         public async Task<IEnumerable<ProductCategoryModel>> GetAllProductCategoriesAsync()
         {
             var res = await obj.ProductCategoryRepository.GetAllWithDetailsAsync();
-            if (res == null) throw new MarketException("shecdoma");
+            if (res == null) throw new MarketException(ErrorKeys.General);
             var mapped = mapper.Map<IEnumerable<ProductCategoryModel>>(res);
             return mapped;
         }
@@ -162,14 +163,14 @@ namespace GA.TradeMarket.Application.Services
         {
             if (item == null || string.IsNullOrEmpty(item.ProductName))
             {
-                throw new MarketException("ProductModel cannot be null and ProductName cannot be empty.");
+                throw new MarketException(ErrorKeys.General);
             }
             else
             {
                 var category = await obj.ProductCategoryRepository.GetByIdAsync(item.ProductCategoryId);
                 if (category is null)
                 {
-                    throw new ArgumentNullException(" Product Category is null");
+                    throw new ArgumentNullException(ErrorKeys.NoCategory);
                 }
                 var mappedProduct = mapper.Map<Product>(item);
                 obj.ProductRepository.Update(mappedProduct);
@@ -181,7 +182,7 @@ namespace GA.TradeMarket.Application.Services
         {
             if (mod == null || string.IsNullOrEmpty(mod.CategoryName))
             {
-                throw new MarketException("There is null");
+                throw new MarketException(ErrorKeys.General);
             }
             else
             {

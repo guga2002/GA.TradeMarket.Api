@@ -2,6 +2,7 @@
 using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
 using GA.TradeMarket.Application.Models.RequestModels;
+using GA.TradeMarket.Application.StaticFIles;
 using GA.TradeMarket.Application.Validation;
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
@@ -20,7 +21,7 @@ namespace GA.TradeMarket.Application.Services
             var customer = await obj.CustomerRepository.GetByIdAsync(item.CustomerId);
             if(customer is null)
             {
-                throw new NoUserExistException(" no such a Customer exist");
+                throw new NoUserExistException(ErrorKeys.NoCustommer);
             }
             var map = mapper.Map<BonusProgram>(item);
             await obj.bonusProgramRepository.AddAsync(map);
@@ -53,7 +54,7 @@ namespace GA.TradeMarket.Application.Services
                     return mapped;
                 }
             }
-            throw new NoItemFoundException("No bonuses  exist!");
+            throw new NoItemFoundException(ErrorKeys.NoBonus);
         }
 
         public async Task<IEnumerable<CouponModel>> GetAllCouponAsync()
@@ -67,7 +68,7 @@ namespace GA.TradeMarket.Application.Services
                     return mapped;
                 }
             }
-            throw new NoItemFoundException("No coupons  exist!");
+            throw new NoItemFoundException(ErrorKeys.NoCoupon);
         }
 
         public async Task<BonusProgramModel> GetByIdAsync(long Id)
@@ -78,7 +79,7 @@ namespace GA.TradeMarket.Application.Services
                 var mapped=mapper.Map<BonusProgramModel>(bonus);
                 return mapped;
             }
-            throw new NoItemFoundException("No item exist");
+            throw new NoItemFoundException(ErrorKeys.NotFound);
         }
 
         public async Task RemoveCouponAsync(long a)
@@ -88,10 +89,10 @@ namespace GA.TradeMarket.Application.Services
 
         public async Task UpdateAsync(BonusProgramModelIn item)
         {
-           ArgumentNullException.ThrowIfNull(item, "item");
+           ArgumentNullException.ThrowIfNull(item, ErrorKeys.ArgumentNull);
             if(item.EnrollmentDate>DateTime.Now||item.EnrollmentDate< new DateTime(1933,01,01))
             {
-                throw new MarketException(" Datetime is not correct!");
+                throw new MarketException(ErrorKeys.DateValidation);
             }
             var mapped=mapper.Map<BonusProgram>(item);
             if (mapped is not null) 
@@ -101,10 +102,10 @@ namespace GA.TradeMarket.Application.Services
 
         public async Task UpdateCouponAsync(CouponModelIn mod)
         {
-            ArgumentNullException.ThrowIfNull(mod, "mod");
+            ArgumentNullException.ThrowIfNull(mod, ErrorKeys.ArgumentNull);
             if (mod.ExpiryDate>DateTime.Now)
             {
-                throw new MarketException(" Datetime is not correct!");
+                throw new MarketException(ErrorKeys.DateValidation);
             }
             var mapped = mapper.Map<Coupon>(mod);
             if (mapped is not null)
