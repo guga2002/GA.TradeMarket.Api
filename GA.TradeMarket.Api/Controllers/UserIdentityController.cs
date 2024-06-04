@@ -32,27 +32,22 @@ namespace GA.TradeMarket.Api.Controllers
         [Route(nameof(GetEmailVerificationMessage))]
         [ApiExplorerSettings(IgnoreApi = true)]
         [AllowAnonymous]
-        public async Task<ActionResult<IActionResult>> GetEmailVerificationMessage([FromQuery] string? securitySchema)
+        public async Task<ActionResult> GetEmailVerificationMessage([FromQuery] string? securitySchema,string? UserName)
         {
             try
             {
-                if (User?.Identity is not null && securitySchema is not null && User.Identity.Name is not null)
-                {
-                    var res = await ser.ConfirmMail(User.Identity.Name, securitySchema);
-                    return Ok(
-                        Content(
-                        res
-                            ? "<div style='text-align: center;'><h1 style='color: green; font-weight: bold; font-size: 24px;'>Congratulations!</h1><p style='font-size: 16px;'>Your email has been verified successfully.</p></div>"
-                            : "<h1>somethings strange</h1>", "text/html"));
-                }
 
-                return Ok(Content(
-                    "<div style='text-align: center;'><h1 style='color: red; font-weight: bold; font-size: 24px;'>The link has expired!</h1><p style='font-size: 16px;'>Please contact support for assistance.</p></div>",
-                    "text/html"));
+                var res = await ser.ConfirmMail(UserName, securitySchema);
+                return
+                    Content(
+                    res
+                        ? "<div style='text-align: center;'><h1 style='color: green; font-weight: bold; font-size: 24px;'>Congratulations!</h1><p style='font-size: 16px;'>Your email has been verified successfully.</p></div>"
+                        : "<h1>somethings strange</h1>", "text/html");
+
             }
             catch (Exception exp)
             {
-                return Ok(Content($"Error: {exp.Message}", "text/html"));
+                return Content($"Error: {exp.Message}", "text/html");
             }
         }
 
@@ -132,7 +127,7 @@ namespace GA.TradeMarket.Api.Controllers
                 {
                     return BadRequest(ErrorKeys.BadRequest);
                 }
-                var link = Url.ActionLink(nameof(ForgetPassword), "Customer", new { Email = email, Password = newPassword }, Request.Scheme);
+                var link = Url.ActionLink(nameof(ForgetPassword), "UserIdentity", new { Email = email, Password = newPassword }, Request.Scheme);
                 if (link is null) return BadRequest();
                 var body = $@"
                   <div align='center' style='font-family: Arial, sans-serif;'>
@@ -159,7 +154,7 @@ namespace GA.TradeMarket.Api.Controllers
         [Route(nameof(ForgetPassword))]
         [ApiExplorerSettings(IgnoreApi = true)]
         [AllowAnonymous]
-        public async Task<ActionResult<IActionResult>> ForgetPassword([FromQuery] string email, [FromQuery] string password)
+        public async Task<ActionResult> ForgetPassword([FromQuery] string email, [FromQuery] string password)
         {
             try
             {
@@ -168,7 +163,7 @@ namespace GA.TradeMarket.Api.Controllers
                     throw new MarketException(email);
                 }
                 var res = await ser.ForgetPassword(email, password);
-                return Ok(Content(res ? "<html><body><h1>Password Reset Successfully!</h1></body></html>" : "<html><body><h1>Password Reset Failed</h1></body></html>", "text/html"));
+                return Content(res ? "<html><body><h1>Password Reset Successfully!</h1></body></html>" : "<html><body><h1>Password Reset Failed</h1></body></html>", "text/html");
             }
             catch (Exception exp)
             {
@@ -224,10 +219,6 @@ namespace GA.TradeMarket.Api.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new MarketException("info");
-                }
 
                 if (User.Identity is not null && User.Identity.Name != null && User.Identity.IsAuthenticated)
                 {
@@ -240,14 +231,14 @@ namespace GA.TradeMarket.Api.Controllers
                     if (user == null) return BadRequest(ErrorKeys.BadRequest);
 
                     var rek = await userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var link = Url.ActionLink(nameof(GetEmailVerificationMessage), "Customer",
-                        new { SecuritySchema = rek }, Request.Scheme);
-                    if (link == null) return BadRequest(link);
+                    var link = Url.ActionLink(nameof(GetEmailVerificationMessage), "UserIdentity",
+                        new { SecuritySchema = rek, UserName= User.Identity.Name}, Request.Scheme);
+                    if (link == null) return BadRequest("Linki ara  validuri");
                     await ser.SendLinkToUser(User.Identity.Name, link);
                     return Ok(link);
                 }
 
-                return BadRequest(ErrorKeys.BadRequest);
+                return NotFound(ErrorKeys.BadRequest);
 
             }
             catch (Exception exp)

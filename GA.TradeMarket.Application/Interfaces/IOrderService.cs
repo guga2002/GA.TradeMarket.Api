@@ -5,5 +5,7 @@ namespace GA.TradeMarket.Application.Interfaces
 {
     public interface IOrderService:Icrud<OrderModel,OrderModelIn>
     {
+        Task<string> CheckStatus(long orderId);
+        Task UpdateStatus(UpdateStatusModelIn ord);
     }
 }

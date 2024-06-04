@@ -5,9 +5,10 @@ namespace GA.TradeMarket.Application.Interfaces
     public interface IStatisticService
     {
         Task<List<ProductModel>> GetMostPopularProductsAsync(int productCount);
-        Task<List<CustomerActivityModel>> GetMostValuableCustomersAsync(int customerCount, DateTime startDate, DateTime endDate);
         Task<List<ProductModel>> GetCustomersMostPopularProductsAsync(int productCount, long customerId);
-        Task<decimal> GetIncomeOfCategoryInPeriod(long categoryId, DateTime startDate, DateTime endDate);
+        Task<decimal> GetIncomeOfCategoryInPeriod(IncomeOfCategoryModel mod);
+        Task<List<CustomerActivityModel>> GetMostValuableCustomersAsync(StatisticShipperModel mod);
+        Task<IEnumerable<ShippingModel>> PopularShiper(StatisticShipperModel mod);
     }
 
 }

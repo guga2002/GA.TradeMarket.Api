@@ -65,5 +65,26 @@ namespace GA.TradeMarket.Application.Services
             var mapped = mapper.Map<Order>(item);
             obj.OrderRepository.Update(mapped);
         }
+
+        public async Task<string> CheckStatus(long orderId)
+        {
+            var order = await  obj.OrderRepository.GetByIdAsync(orderId);
+            if(order is not null)
+            {
+                return order.Status;
+            }
+            throw new ArgumentException("No order Exist on this Id");
+        }
+
+        public async Task UpdateStatus(UpdateStatusModelIn ord)
+        {
+            ArgumentNullException.ThrowIfNull(ord, nameof(ord));
+            var order = await obj.OrderRepository.GetByIdAsync(ord.OrderId);
+            if (order is not null)
+            {
+                order.Status=ord.Status;
+                await obj.SaveAsync();
+            }
+        }
     }
 }

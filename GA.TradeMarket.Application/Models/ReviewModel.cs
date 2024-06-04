@@ -9,7 +9,9 @@ namespace GA.TradeMarket.Application.Models
         public long CustomerId { get; set; }
 
         [StringLength(200,MinimumLength =3,ErrorMessage ="The  Review is not   correct in length")]
+
         public string ReviewText { get; set; }
+
 
         [Range(0,10,ErrorMessage ="ranting must be  between  0-10")]
         public int Rating { get; set; }

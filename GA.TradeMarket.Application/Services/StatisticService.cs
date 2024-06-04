@@ -4,6 +4,7 @@ using GA.TradeMarket.Application.Models;
 using GA.TradeMarket.Application.StaticFIles;
 using GA.TradeMarket.Application.Validation;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
+using System.Collections.Generic;
 
 namespace GA.TradeMarket.Application.Services
 {
@@ -28,20 +29,20 @@ namespace GA.TradeMarket.Application.Services
             return mapp;
         }
 
-        public async Task<decimal> GetIncomeOfCategoryInPeriod(long categoryId, DateTime startDate, DateTime endDate)
+        public async Task<decimal> GetIncomeOfCategoryInPeriod(IncomeOfCategoryModel mod)
         {
-            if (startDate >= endDate || startDate >= DateTime.Now || endDate >= DateTime.Now)
+            if (mod.start >= mod.end || mod.end >= DateTime.Now || mod.start >= DateTime.Now)
             {
                 throw new MarketException(ErrorKeys.General);
             }
 
             var details = await obj.ReceiptRepository.GetAllWithDetailsAsync();
 
-            var filteredByDate = details.Where(io => io.order.OrderDate >= startDate && io.order.OrderDate <= endDate);
+            var filteredByDate = details.Where(io => io.order.OrderDate >= mod.start && io.order.OrderDate <= mod.end);
 
             var filtered = filteredByDate
                 .SelectMany(io => io.ReceiptDetails)
-                .Where(detail => detail.Product != null && detail.Product.ProductCategoryId == categoryId);
+                .Where(detail => detail.Product != null && detail.Product.ProductCategoryId == mod.CategoryId);
 
             var totalIncome = filtered.Sum(detail => detail.DiscountUnitPrice * detail.Quantity);
 
@@ -58,17 +59,17 @@ namespace GA.TradeMarket.Application.Services
             return mapped;
         }
 
-        public async Task<List<CustomerActivityModel>> GetMostValuableCustomersAsync(int customerCount, DateTime startDate, DateTime endDate)
+        public async Task<List<CustomerActivityModel>> GetMostValuableCustomersAsync(StatisticShipperModel mod)
         {
 
-            if (startDate >= endDate || startDate >= DateTime.Now || endDate >= DateTime.Now)
+            if (mod.start >= mod.end || mod.start >= DateTime.Now || mod.end >= DateTime.Now)
             {
                 throw new MarketException(ErrorKeys.General);
             }
 
             var receipts = await obj.ReceiptRepository.GetAllWithDetailsAsync();
 
-            var filteredReceipts = receipts.Where(io => io.order.OrderDate >= startDate && io.order.OrderDate <= endDate);
+            var filteredReceipts = receipts.Where(io => io.order.OrderDate >= mod.start && io.order.OrderDate <= mod.end);
 
             var groupedReceiptsByCustomer = filteredReceipts.GroupBy(io => io.order.Customer);
  
@@ -81,7 +82,30 @@ namespace GA.TradeMarket.Application.Services
                 })
                 .OrderByDescending(activity => activity.ReceiptSum)
                 .ToList();
-            var topCustomers = customerActivities.Take(customerCount).ToList();
+            var topCustomers = customerActivities.Take(mod.Count).ToList();
+
+            return topCustomers;
+        }
+
+        public async Task<IEnumerable<ShippingModel>> PopularShiper(StatisticShipperModel mod)
+        {
+            var shipping = await obj.OrderRepository.GetAllWithDetailsAsync();
+
+            var filteredReceipts = shipping.Where(io => io.OrderDate >= mod.start && io.OrderDate <= mod.end);
+
+            var groupedSHippers= filteredReceipts.GroupBy(io => io.Shipping);
+
+            var customerActivities = groupedSHippers
+                .Select(group => new ShippingModel
+                {
+                   ShippingDate=group.Key.ShippingDate,
+                   Status=group.Key.Status,
+                   TrackingNumber=group.Key.TrackingNumber,
+                   Carrier=group.Key.Carrier,
+                })
+                .OrderByDescending(activity => activity.OrderId)
+                .ToList();
+            var topCustomers = customerActivities.Take(mod.Count).ToList();
 
             return topCustomers;
         }

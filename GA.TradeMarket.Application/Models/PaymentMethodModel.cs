@@ -6,7 +6,7 @@ namespace GA.TradeMarket.Application.Models
     {
         public string CardNumber { get; set; }
 
-        [RegularExpression("^[A-Z][a-zA-Z]*([ -][A-Z][a-zA-Z]*)*$", ErrorMessage = "Card Holder Name is not in correct format,")]
+        [RegularExpression("^[A-Z][a-zA-Z]*([ -][A-Z][a-zA-Z]{3,25}})$", ErrorMessage = "Card Holder Name is not in correct format,")]
         public string CardHolderName { get; set; }
 
         public DateTime ExpiryDate { get; set; }

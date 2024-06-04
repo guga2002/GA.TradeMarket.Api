@@ -19,6 +19,26 @@ namespace GA.TradeMarket.Api.Controllers
             statistik = ser;
         }
 
+        [HttpPost]
+        [Route(nameof(PopularShiper))]
+        public async Task<ActionResult> PopularShiper(StatisticShipperModel mod)
+        {
+            try
+            {
+                var res=await statistik.PopularShiper(mod);
+                if(res.Any())
+                {
+                    return Ok(res);
+                }
+                return NotFound(ErrorKeys.NotFound);
+            }
+            catch (Exception exp)
+            {
+                return BadRequest(exp.Message);
+            }
+
+        }
+
         [HttpGet(nameof(GetPopularProducts))]
         public async Task<ActionResult<IEnumerable<ProductModel>>> GetPopularProducts([FromQuery]int productCount)
         {
@@ -42,22 +62,43 @@ namespace GA.TradeMarket.Api.Controllers
             return Ok(res);
         }
 
-        [HttpGet("activity/{customerCount:int}")]
-        public async Task<ActionResult<IEnumerable<CustomerModel>>> GetMostActiveCustomers([FromRoute]int customerCount, DateTime startDate, DateTime endDate)
+        [HttpPost]
+        [Route(nameof(MostActiveCustomers))]
+        public async Task<ActionResult<IEnumerable<CustomerModel>>> MostActiveCustomers([FromBody]StatisticShipperModel Customer)
         {
-            var res = await statistik.GetMostValuableCustomersAsync(customerCount, startDate, endDate);
+            try
+            {
+            var res = await statistik.GetMostValuableCustomersAsync(Customer);
             if (res == null)
             {
                 return BadRequest(ErrorKeys.BadRequest);
             }
             return Ok(res);
+            }
+            catch (Exception exp)
+            {
+                return BadRequest(exp.Message);
+            }
         }
 
-        [HttpGet("income/{categoryId:long}")]
-        public async Task<ActionResult<decimal>> GetCategoryIncome(long categoryId, DateTime startDate, DateTime endDate)
+        [HttpPost]
+        [Route(nameof(CategoryIncome))]
+        public async Task<ActionResult<decimal>> CategoryIncome([FromBody] IncomeOfCategoryModel Statistic)
         {
-            var res = await statistik.GetIncomeOfCategoryInPeriod(categoryId, startDate, endDate);
-            return Ok(res);
+            try
+            {
+                var res = await statistik.GetIncomeOfCategoryInPeriod(Statistic);
+                if(res==0)
+                {
+                    return NotFound(ErrorKeys.NotFound);
+                }
+                return Ok(res);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
     }

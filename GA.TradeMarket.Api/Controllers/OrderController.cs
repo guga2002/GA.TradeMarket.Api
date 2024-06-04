@@ -1,6 +1,7 @@
 ﻿using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
 using GA.TradeMarket.Application.Models.RequestModels;
+using GA.TradeMarket.Application.StaticFIles;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -92,6 +93,41 @@ namespace GA.TradeMarket.Api.Controllers
                 return Ok(item);
             }
             catch (Exception exp )
+            {
+                return BadRequest(exp.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("UpdateStatus")]
+        public async Task<ActionResult> UpdateStatus(UpdateStatusModelIn ord)
+        {
+            try
+            {
+                await ser.UpdateStatus(ord);
+                return Ok(ord);
+
+            }
+            catch (Exception exp)
+            {
+                return BadRequest($"{exp.Message}");
+            }
+        }
+
+        [HttpGet]
+        [Route("Status/{Id:long}")]
+        public async Task<ActionResult> OrderStatus(long  Id)
+        {
+            try
+            {
+                var res= await ser.CheckStatus(Id);
+                if(string.IsNullOrEmpty(res))
+                {
+                    return NotFound(ErrorKeys.NotFound);
+                }
+                return Ok(res);
+            }
+            catch (Exception exp)
             {
                 return BadRequest(exp.Message);
             }

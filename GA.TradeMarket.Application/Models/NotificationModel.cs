@@ -6,7 +6,7 @@ namespace GA.TradeMarket.Application.Models
     {
         public long UserId { get; set; }
 
-        [RegularExpression("^[A-Z][a-zA-Z]*([ -][A-Z][a-zA-Z]*)*$", ErrorMessage = "Message is not in correct format,")]
+        [RegularExpression("^[A-Z][a-zA-Z]*([ -][A-Z][a-zA-Z]{3,25})$", ErrorMessage = "Message is not in correct format,")]
         public string Message { get; set; }
         public DateTime NotificationDate { get; set; }
 

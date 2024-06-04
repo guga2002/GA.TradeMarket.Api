@@ -9,8 +9,10 @@ namespace GA.TradeMarket.Application.Models
         [StringLength(30,MinimumLength =4,ErrorMessage ="Tracking number is not  right")]
         public string TrackingNumber { get; set; }
 
+
         [StringLength(20,MinimumLength =3,ErrorMessage ="Please inicialize carrier correctly")]
         public string Carrier { get; set; }
+
 
         public DateTime ShippingDate { get; set; }
 

@@ -340,22 +340,22 @@ namespace RGBA.Optio.Domain.Services
 
         public async Task<(Microsoft.AspNetCore.Identity.SignInResult, string)> SignInAsync(SignInModel mod)
         {
-            if (string.IsNullOrEmpty(mod.Email) || string.IsNullOrEmpty(mod.Password))
+            if (string.IsNullOrEmpty(mod.Username) || string.IsNullOrEmpty(mod.Password))
             {
                 throw new MarketException("Username or password is empty.");
             }
 
-            var result = await signin.PasswordSignInAsync(mod.Email, mod.Password, mod.SetCookie,
+            var result = await signin.PasswordSignInAsync(mod.Username, mod.Password, mod.SetCookie,
                 lockoutOnFailure: false);
             if (result.Succeeded)
             {
                
                 await SetPersistentCookieAsync(_httpContextAccessor.HttpContext.User);
-                var token = GenerateJwtToken(mod.Email);
+                var token = GenerateJwtToken(mod.Username);
                 Console.WriteLine("es aris tokenii");
                 Console.WriteLine(token);
 
-                var usr = await userManager.FindByNameAsync(mod.Email);
+                var usr = await userManager.FindByNameAsync(mod.Username);
 
                 var recipientName = usr.Name + ' ' + usr.Surname;
                 var emailContent = $@"
@@ -400,8 +400,6 @@ namespace RGBA.Optio.Domain.Services
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer: "https://localhost:7049/",
-                audience: "https://localhost:7049/",
                 claims: claims,
                 expires: DateTime.Now.AddHours(6),
                 signingCredentials: credentials);
