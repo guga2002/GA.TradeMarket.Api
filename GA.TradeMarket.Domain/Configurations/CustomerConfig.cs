@@ -14,7 +14,11 @@ namespace GA.TradeMarket.Domain.Configurations
                 new Customer() { DiscountValue =ran.Next(100,1000) , OperationDate = DateTime.Now.AddHours(-ran.Next(100, 10000)), PersonId = "1", Id = 1 },
                 new Customer() { DiscountValue = ran.Next(100, 1000), OperationDate = DateTime.Now.AddHours(-ran.Next(100, 10000)), PersonId = "2", Id = 2 },
                 new Customer() { DiscountValue = ran.Next(100, 1000), OperationDate = DateTime.Now.AddHours(-ran.Next(100, 10000)), PersonId = "3", Id = 3 },
-                new Customer() { DiscountValue = ran.Next(100, 1000), OperationDate = DateTime.Now.AddHours(-ran.Next(100, 10000)), PersonId = "4", Id = 4 }
+                new Customer() { DiscountValue = ran.Next(100, 1000), OperationDate = DateTime.Now.AddHours(-ran.Next(100, 10000)), PersonId = "4", Id = 4 },
+                 new Customer() { DiscountValue = ran.Next(100, 1000), OperationDate = DateTime.Now.AddHours(-ran.Next(100, 10000)), PersonId = "5", Id = 5 },
+                new Customer() { DiscountValue = ran.Next(100, 1000), OperationDate = DateTime.Now.AddHours(-ran.Next(100, 10000)), PersonId = "6", Id = 6 },
+                new Customer() { DiscountValue = ran.Next(100, 1000), OperationDate = DateTime.Now.AddHours(-ran.Next(100, 10000)), PersonId = "7", Id = 7 },
+                new Customer() { DiscountValue = ran.Next(100, 1000), OperationDate = DateTime.Now.AddHours(-ran.Next(100, 10000)), PersonId = "8", Id = 8 }
                 );
         }
     }

@@ -21,7 +21,11 @@ namespace GA.TradeMarket.Domain.Configurations
                 new Review() { CustomerId = 3, ReviewDate = DateTime.Now.AddDays(-23), ProductId = 3, Rating = 4, ReviewText = fk.Lorem.Text(), Id = 3 },
                 new Review() { CustomerId = 2, ReviewDate = DateTime.Now.AddDays(-2), ProductId = 4, Rating = 3, ReviewText = fk.Lorem.Text(), Id = 4 },
                 new Review() { CustomerId = 2, ReviewDate = DateTime.Now.AddDays(-34), ProductId = 5, Rating = 2, ReviewText = fk.Lorem.Text(), Id = 5 },
-                new Review() { CustomerId = 1, ReviewDate = DateTime.Now.AddDays(-35), ProductId = 6, Rating = 4, ReviewText = fk.Lorem.Text(), Id = 6 }
+                new Review() { CustomerId = 1, ReviewDate = DateTime.Now.AddDays(-35), ProductId = 6, Rating = 4, ReviewText = fk.Lorem.Text(), Id = 6 },
+                  new Review() { CustomerId = 5, ReviewDate = DateTime.Now.AddDays(-15), ProductId = 11, Rating = 3, ReviewText = fk.Lorem.Text(), Id = 7 },
+                new Review() { CustomerId = 6, ReviewDate = DateTime.Now.AddDays(-54), ProductId = 12, Rating = 5, ReviewText = fk.Lorem.Text(), Id =8 },
+                new Review() { CustomerId = 7, ReviewDate = DateTime.Now.AddDays(-23), ProductId = 7, Rating = 4, ReviewText = fk.Lorem.Text(), Id = 9 },
+                new Review() { CustomerId = 8, ReviewDate = DateTime.Now.AddDays(-2), ProductId = 13, Rating = 3, ReviewText = fk.Lorem.Text(), Id = 10 }
                     );
         }
     }

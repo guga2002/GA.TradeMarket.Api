@@ -25,7 +25,23 @@ namespace GA.TradeMarket.Domain.Configurations
                             new BonusProgram() { CustomerId = 2, EnrollmentDate = DateTime.Now.AddYears(-rand.Next(1, 30)), Points = rand.Next(100, 1000), Id = 13 },
                              new BonusProgram() { CustomerId = 4, EnrollmentDate = DateTime.Now.AddYears(-rand.Next(1, 30)), Points = rand.Next(100, 1000), Id = 14 },
                               new BonusProgram() { CustomerId = 2, EnrollmentDate = DateTime.Now.AddYears(-rand.Next(1, 30)), Points = rand.Next(100, 1000), Id = 15 },
-                           new BonusProgram() { CustomerId = 2, EnrollmentDate = DateTime.Now.AddYears(-rand.Next(1, 30)), Points = rand.Next(100, 1000), Id = 16 }
+                           new BonusProgram() { CustomerId = 2, EnrollmentDate = DateTime.Now.AddYears(-rand.Next(1, 30)), Points = rand.Next(100, 1000), Id = 16 },
+                                  new BonusProgram() { CustomerId = 5, EnrollmentDate = DateTime.Now.AddYears(-rand.Next(1, 30)), Points = rand.Next(100, 1000), Id = 17 },
+                 new BonusProgram() { CustomerId = 6, EnrollmentDate = DateTime.Now.AddYears(-rand.Next(1, 30)), Points = rand.Next(100, 1000), Id = 18 },
+                  new BonusProgram() { CustomerId = 7, EnrollmentDate = DateTime.Now.AddYears(-rand.Next(1, 30)), Points = rand.Next(100, 1000), Id = 19 },
+                   new BonusProgram() { CustomerId = 8, EnrollmentDate = DateTime.Now.AddYears(-rand.Next(1, 30)), Points = rand.Next(100, 1000), Id = 20 },
+                    new BonusProgram() { CustomerId = 4, EnrollmentDate = DateTime.Now.AddYears(-rand.Next(1, 30)), Points = rand.Next(100, 1000), Id = 21 },
+                     new BonusProgram() { CustomerId = 5, EnrollmentDate = DateTime.Now.AddYears(-rand.Next(1, 30)), Points = rand.Next(100, 1000), Id = 22 },
+                      new BonusProgram() { CustomerId = 6, EnrollmentDate = DateTime.Now.AddYears(-rand.Next(1, 30)), Points = rand.Next(100, 1000), Id = 23 },
+                       new BonusProgram() { CustomerId = 8, EnrollmentDate = DateTime.Now.AddYears(-rand.Next(1, 30)), Points = rand.Next(100, 1000), Id = 24 },
+                        new BonusProgram() { CustomerId = 7, EnrollmentDate = DateTime.Now.AddYears(-rand.Next(1, 30)), Points = rand.Next(100, 1000), Id = 25 },
+                         new BonusProgram() { CustomerId = 4, EnrollmentDate = DateTime.Now.AddYears(-rand.Next(1, 30)), Points = rand.Next(100, 1000), Id = 26 },
+                          new BonusProgram() { CustomerId = 5, EnrollmentDate = DateTime.Now.AddYears(-rand.Next(1, 30)), Points = rand.Next(100, 1000), Id = 27 },
+                           new BonusProgram() { CustomerId = 2, EnrollmentDate = DateTime.Now.AddYears(-rand.Next(1, 30)), Points = rand.Next(100, 1000), Id = 28 },
+                            new BonusProgram() { CustomerId = 8, EnrollmentDate = DateTime.Now.AddYears(-rand.Next(1, 30)), Points = rand.Next(100, 1000), Id = 29 },
+                             new BonusProgram() { CustomerId = 7, EnrollmentDate = DateTime.Now.AddYears(-rand.Next(1, 30)), Points = rand.Next(100, 1000), Id = 30 },
+                              new BonusProgram() { CustomerId = 2, EnrollmentDate = DateTime.Now.AddYears(-rand.Next(1, 30)), Points = rand.Next(100, 1000), Id = 31 },
+                           new BonusProgram() { CustomerId = 6, EnrollmentDate = DateTime.Now.AddYears(-rand.Next(1, 30)), Points = rand.Next(100, 1000), Id = 32 }
                 );
         }
     }
