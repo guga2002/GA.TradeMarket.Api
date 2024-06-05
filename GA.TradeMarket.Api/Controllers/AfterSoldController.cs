@@ -17,6 +17,10 @@ namespace GA.TradeMarket.Api.Controllers
         {
             this.ser = ser;
         }
+
+        /// <summary>
+        /// Get details about ReturnRequest
+        /// </summary>
         [HttpGet]
         [Route("returnrequest")]
         public async Task<ActionResult<IEnumerable<ReturnRequestModel>>> GetAllWithDetailsAsync()
@@ -36,6 +40,10 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Get details about ReturnRequest by Id
+        /// </summary>
         [HttpGet]
         [Route("returnrequest/{Id:long}")]
         public async Task<ActionResult<IEnumerable<ReturnRequestModel>>> GetByIdAsync([FromRoute] long Id)
@@ -55,6 +63,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// add new ReturnRequest to DB
+        /// </summary>
         [HttpPost]
         [Route("returnrequest")]
         public async Task<ActionResult> AddAsync([FromBody] ReturnRequestModelIn item)
@@ -71,6 +82,9 @@ namespace GA.TradeMarket.Api.Controllers
 
         }
 
+        /// <summary>
+        /// remove the request from db
+        /// </summary>
         [HttpDelete]
         [Route("returnrequest/{item:long}")]
         public async Task<ActionResult> DeleteAsync([FromRoute] long item)
@@ -85,6 +99,10 @@ namespace GA.TradeMarket.Api.Controllers
                 return BadRequest(exp.Message);
             }
         }
+
+        /// <summary>
+        /// update request details
+        /// </summary>
         [HttpPut]
         [Route("returnrequest")]
         public async Task<ActionResult> UpdateAsync([FromBody] ReturnRequestModelIn item)
@@ -100,6 +118,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// update discount review details in db
+        /// </summary>
         [HttpPut]
         [Route("review")]
         public async Task<ActionResult> UpdateCouponAsync([FromBody] ReviewModelIn mod)
@@ -116,6 +137,9 @@ namespace GA.TradeMarket.Api.Controllers
 
         }
 
+        /// <summary>
+        /// Removing  review details
+        /// </summary>
         [HttpDelete]
         [Route("review/{Id:long}")]
         public async Task<ActionResult> RemoveCouponAsync([FromRoute] long Id)
@@ -131,6 +155,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Add new review to DB
+        /// </summary>
         [HttpPost]
         [Route("review")]
         public async Task<ActionResult> AddCouponAsync([FromBody] ReviewModelIn mod)
@@ -146,6 +173,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Get all avalible review
+        /// </summary>
         [HttpGet]
         [Route("review")]
         public async Task<ActionResult<IEnumerable<ReviewModel>>> GetAllCouponAsync()

@@ -19,6 +19,9 @@ namespace GA.TradeMarket.Api.Controllers
             statistik = ser;
         }
 
+        /// <summary>
+        /// get specify  counted  popular shipper in data range
+        /// </summary>
         [HttpPost]
         [Route(nameof(PopularShiper))]
         public async Task<ActionResult> PopularShiper(StatisticShipperModel mod)
@@ -39,17 +42,30 @@ namespace GA.TradeMarket.Api.Controllers
 
         }
 
+        /// <summary>
+        /// get  popular products by specify count
+        /// </summary>
         [HttpGet(nameof(GetPopularProducts))]
         public async Task<ActionResult<IEnumerable<ProductModel>>> GetPopularProducts([FromQuery]int productCount)
         {
-            var res = await statistik.GetMostPopularProductsAsync(productCount);
-            if (res == null)
+            try
             {
-               return BadRequest(ErrorKeys.BadRequest);
+                var res = await statistik.GetMostPopularProductsAsync(productCount);
+                if (res == null)
+                {
+                    return BadRequest(ErrorKeys.BadRequest);
+                }
+                return Ok(res);
             }
-            return Ok(res);
+            catch (Exception exp)
+            {
+                return BadRequest($"{exp.Message}");
+            }
         }
 
+        /// <summary>
+        /// get  customer facorite products
+        /// </summary>
         [HttpGet("customer/{id:long}/{productCount:int}")]
         public async Task<ActionResult<IEnumerable<ProductModel>>> GetCustomerFavoriteProducts([FromQuery]int productCount,[FromRoute] long customerId)
         {
@@ -62,18 +78,21 @@ namespace GA.TradeMarket.Api.Controllers
             return Ok(res);
         }
 
+        /// <summary>
+        /// get most active customers
+        /// </summary>
         [HttpPost]
         [Route(nameof(MostActiveCustomers))]
         public async Task<ActionResult<IEnumerable<CustomerModel>>> MostActiveCustomers([FromBody]StatisticShipperModel Customer)
         {
             try
             {
-            var res = await statistik.GetMostValuableCustomersAsync(Customer);
-            if (res == null)
-            {
-                return BadRequest(ErrorKeys.BadRequest);
-            }
-            return Ok(res);
+                var res = await statistik.GetMostValuableCustomersAsync(Customer);
+                if (res == null)
+                {
+                    return BadRequest(ErrorKeys.BadRequest);
+                }
+                return Ok(res);
             }
             catch (Exception exp)
             {
@@ -81,6 +100,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// get incomes by category id
+        /// </summary>
         [HttpPost]
         [Route(nameof(CategoryIncome))]
         public async Task<ActionResult<decimal>> CategoryIncome([FromBody] IncomeOfCategoryModel Statistic)
@@ -94,10 +116,9 @@ namespace GA.TradeMarket.Api.Controllers
                 }
                 return Ok(res);
             }
-            catch (Exception)
+            catch (Exception exp)
             {
-
-                throw;
+                return BadRequest(exp.Message);
             }
         }
 

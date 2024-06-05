@@ -51,6 +51,11 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Sign in Method - set cookie
+        /// </summary>
+        /// <param name="mod"></param>
+        /// <returns name="(SignInResult, string)"></returns>
         [HttpPost]
         [Route(nameof(SignIn))]
         [AllowAnonymous]
@@ -68,6 +73,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Registration - add user to Db
+        /// </summary>
         [HttpPost]
         [Route(nameof(Registration))]
         [AllowAnonymous]
@@ -116,6 +124,10 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+
+        /// <summary>
+        /// reset password - forget password
+        /// </summary>
         [HttpGet]
         [Route(nameof(ResetPasswordNow))]
         [AllowAnonymous]
@@ -172,6 +184,10 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
 
+
+        /// <summary>
+        /// change password - when you laready know old password
+        /// </summary>
         [HttpPost]
         [Route(nameof(ResetPassword))]
         public async Task<ActionResult<IdentityResult>> ResetPassword([FromBody] PasswordResetModel arg)
@@ -195,6 +211,10 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Info about current user
+        /// </summary>
         [HttpGet]
         [Route(nameof(Info))]
         public async Task<ActionResult<PersonModel>> Info()
@@ -213,6 +233,10 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Confirm email address  for authorized user
+        /// </summary>
         [HttpGet]
         [Route(nameof(ConfirmEmail))]
         public async Task<ActionResult<string>> ConfirmEmail()
@@ -247,6 +271,10 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+
+        /// <summary>
+        /// SignOut from system
+        /// </summary>
         [HttpPost]
         [Route(nameof(SignOutNow))]
         public async Task<ActionResult<bool>> SignOutNow()
@@ -264,6 +292,10 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+
+        /// <summary>
+        /// add new role to database
+        /// </summary>
         [HttpGet]
         [Route("[action]")]
         public async Task<ActionResult<IEnumerable<RoleModel>>> Roles()
@@ -279,6 +311,10 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+
+        /// <summary>
+        ///get all users details  from DB
+        /// </summary>
         [HttpGet]
         [Route("[action]")]
         public async Task<ActionResult<IEnumerable<PersonModel>>> Users()
@@ -294,6 +330,10 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+
+        /// <summary>
+        /// delete specify Role from DB
+        /// </summary>
         [HttpDelete]
         [Route("Role/{role:alpha}/[action]")]
         public async Task<ActionResult<IdentityResult>> Delete([FromRoute] string role)
@@ -313,6 +353,10 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+
+        /// <summary>
+        /// add new role to DB
+        /// </summary>
         [HttpPost]
         [Route("Role/{role:alpha}/[action]")]
         public async Task<ActionResult<IdentityResult>> Add([FromRoute] string role)
@@ -332,7 +376,12 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+
+        /// <summary>
+        /// delete specify User from DB only for ADMIN
+        /// </summary>
         [HttpDelete]
+        [Authorize(Roles ="ADMIN")]
         [Route("User/{id}/[action]")]
         public async Task<ActionResult<IdentityResult>> DeleteUser([FromRoute] string id)
         {
@@ -351,6 +400,10 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+
+        /// <summary>
+        /// assign specify role to specify User
+        /// </summary>
         [HttpPost]
         [Route("User/{userid}[action]/{role:alpha}")]
         public async Task<ActionResult<IdentityResult>> Role([FromRoute] string userid, [FromRoute] string role)

@@ -17,6 +17,9 @@ namespace GA.TradeMarket.Api.Controllers
                 this.ser = ser;
         }
 
+        /// <summary>
+        /// Converting currencies, source from TBC bank
+        /// </summary>
         [HttpPost]
         [Route(nameof(ConvertNow))]
         public async Task<ActionResult<ExchangeRateDecodable>> ConvertNow([FromBody]ConvertCurrencyModel mod)
@@ -32,9 +35,12 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Getting exchange rate, from DB
+        /// </summary>
         [HttpPost]
         [Route("{Currency:alpha}")]
-        public async Task<ActionResult<string>> GetValueCourse([FromRoute]string Currency)
+        public async Task<ActionResult<string>> GetExchangeRate([FromRoute]string Currency)
         {
             try
             {
@@ -51,6 +57,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// all exchange rates
+        /// </summary>
         [HttpGet]
         public async Task<ActionResult<ExchangeRateModel>> GetExchangeRates()
         {
@@ -69,6 +78,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// remove specify currency from DB
+        /// </summary>
         [HttpDelete]
         [Route("{id:long}")]
         public async Task<ActionResult> Delete(long id)

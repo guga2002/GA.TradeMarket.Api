@@ -9,9 +9,11 @@ using GA.TradeMarket.Persistance.SMTP;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RGBA.Optio.Domain.Services;
+using System.Reflection;
 using System.Text;
 
 internal class Program
@@ -76,32 +78,55 @@ internal class Program
         #endregion
 
         builder.Services.AddEndpointsApiExplorer();
+
         builder.Services.AddSwaggerGen(opt =>
         {
-            opt.SwaggerDoc("v1", new OpenApiInfo { Title = "It Step final Project", Version = "v1" });
+            opt.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Version = "v1",
+                Title = "It Step Final Project",
+                Description = "Final Project, Online Trade Market",
+                TermsOfService = new Uri("https://github.com/guga2002/GA.TradeMarket.Api/blob/master/README.md"),
+                Contact = new OpenApiContact
+                {
+                    Name = "Contact Me",
+                    Url = new Uri("https://www.linkedin.com/in/guga-apkhazava-938a40237/")
+                },
+                License = new OpenApiLicense
+                {
+                    Name = "License, Source Code",
+                    Url = new Uri("https://github.com/guga2002/GA.TradeMarket.Api")
+                }
+            });
+
+
             opt.AddSecurityDefinition("auth", new OpenApiSecurityScheme
             {
                 Type = SecuritySchemeType.ApiKey,
                 Name = "Authorization",
                 In = ParameterLocation.Header,
-                Description = "Enter token there"
+                Description = "Enter token here"
             });
-            opt.AddSecurityRequirement(new OpenApiSecurityRequirement
-        {
-        {
-        new OpenApiSecurityScheme
-        {
-            Reference = new OpenApiReference
-            {
-                Type = ReferenceType.SecurityScheme,
-                Id = "Auth"
-            }
-        },
-        new string[] { }
-                }
-        });
-        });
 
+            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            opt.IncludeXmlComments(xmlPath);
+
+            opt.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "auth" 
+                }
+            },
+            Array.Empty<string>()
+                }
+            });
+        });
 
 
         builder.Services.AddIdentity<Person, IdentityRole>()

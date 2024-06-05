@@ -18,6 +18,9 @@ namespace GA.TradeMarket.Api.Controllers
                 this.ser= se;
         }
 
+        /// <summary>
+        /// Get details about orders
+        /// </summary>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OrderModel>>> GetAllWithDetailsAsync()
         {
@@ -36,6 +39,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Get details about order by id
+        /// </summary>
         [HttpGet]
         [Route("{id:long}")]
         public async Task<ActionResult> GetByIdAsync([FromRoute]long Id)
@@ -55,6 +61,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        ///add new order to DB
+        /// </summary>
         [HttpPost]
         public async Task<ActionResult> AddAsync([FromBody]OrderModelIn item)
         {
@@ -69,6 +78,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        ///  remove order from DB
+        /// </summary>
         [HttpDelete]
         [Route("{Id:long}")]
         public async Task<ActionResult> DeleteAsync(long Id)
@@ -84,6 +96,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Update order details
+        /// </summary>
         [HttpPut]
         public async Task<ActionResult> UpdateAsync(OrderModelIn item)
         {
@@ -98,6 +113,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Update status of order
+        /// </summary>
         [HttpPost]
         [Route("UpdateStatus")]
         public async Task<ActionResult> UpdateStatus(UpdateStatusModelIn ord)
@@ -114,6 +132,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        ///Get current status of order
+        /// </summary>
         [HttpGet]
         [Route("Status/{Id:long}")]
         public async Task<ActionResult> OrderStatus(long  Id)

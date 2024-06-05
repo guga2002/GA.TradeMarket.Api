@@ -21,6 +21,9 @@ namespace GA.TradeMarket.Api.Controllers
             ser = se;
         }
 
+        /// <summary>
+        /// Get details about receipts
+        /// </summary>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ReceiptModel>>> GetAllWIthDetails()
         {
@@ -32,6 +35,9 @@ namespace GA.TradeMarket.Api.Controllers
             return Ok(res);
         }
 
+        /// <summary>
+        /// Get details about receipt by Id
+        /// </summary>
         [HttpGet("{Id:long}")]
         public async Task<ActionResult<ReceiptModel>> GetById([FromRoute]long id)
         {
@@ -50,6 +56,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Get receiptDetals
+        /// </summary>
         [HttpGet("{id:long}/details")]
         public async Task<ActionResult<IEnumerable<ReceiptDetailModel>>> GetDetails([FromRoute] long id)
         {
@@ -61,6 +70,9 @@ namespace GA.TradeMarket.Api.Controllers
             return Ok(res);
         }
 
+        /// <summary>
+        /// Get total Amount of specify Receipt
+        /// </summary>
         [HttpGet("{id:long}/sum")]
         public async Task<ActionResult<decimal>> GetReceiptSum([FromRoute]long id)
         {
@@ -69,6 +81,9 @@ namespace GA.TradeMarket.Api.Controllers
             return Ok(res);
         }
 
+        /// <summary>
+        /// Get Receipts  to specify data range
+        /// </summary>
         [HttpGet("period")]
         public async Task<ActionResult<IEnumerable<ReceiptModel>>> GetReceiptsByPeriodAsync(DateTime startDate, DateTime endDate)
         {
@@ -76,6 +91,9 @@ namespace GA.TradeMarket.Api.Controllers
             return Ok(res);
         }
 
+        /// <summary>
+        /// Add new receipt ro DB
+        /// </summary>
         [HttpPost]
         public async Task<ActionResult> CreateReceipt([FromBody] ReceiptModelIn receipt)
         {
@@ -85,6 +103,9 @@ namespace GA.TradeMarket.Api.Controllers
             return Ok(receipt);
         }
 
+        /// <summary>
+        /// Update new receipt to DB
+        /// </summary>
         [HttpPut("{id:long}")]
         public async Task<IActionResult> UpdateReceipt([FromRoute] long id, [FromBody] ReceiptModelIn receipt)
         {
@@ -93,14 +114,20 @@ namespace GA.TradeMarket.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Add specify product to Cart
+        /// </summary>
         [HttpPut("{id:long}/products/add/{productId:long}/{quantity:int}")]
         public async Task<IActionResult> AddProductToReceipt([FromRoute]long id, [FromRoute]long productId,[FromQuery] int quantity)
         {
 
             await ser.AddProductAsync(id, productId, quantity);
-            return Ok("good");
+            return Ok(id);
         }
 
+        /// <summary>
+        /// Remove specify product from Cart
+        /// </summary>
         [HttpPut("{id:long}/products/remove/{productId:long}/{quantity:int}")]
         public async Task<IActionResult> RemoveProductFromReceipt([FromRoute] long id, [FromRoute] long productId, [FromQuery] int quantity)
         {
@@ -109,6 +136,9 @@ namespace GA.TradeMarket.Api.Controllers
             return Ok(id);
         }
 
+        /// <summary>
+        /// pay for the receipt
+        /// </summary>
         [HttpPut("{id:long}/checkout")]
         public async Task<IActionResult> CheckoutReceipt([FromRoute]long id)
         {
@@ -116,6 +146,9 @@ namespace GA.TradeMarket.Api.Controllers
             return Ok(id);
         }
 
+        /// <summary>
+        /// remove specify receipt from DB
+        /// </summary>
         [HttpDelete("{id:long}")]
         public async Task<IActionResult> DeleteReceipt([FromRoute]long id)
         {

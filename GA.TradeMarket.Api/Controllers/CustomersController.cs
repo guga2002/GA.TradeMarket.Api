@@ -21,6 +21,9 @@ namespace GA.TradeMarket.Api.Controllers
             _customerService = ser;
         }
 
+        /// <summary>
+        /// Get customer Detail info
+        /// </summary>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CustomerModel>>> GetAllWithDetailsAsync()
         {
@@ -32,9 +35,12 @@ namespace GA.TradeMarket.Api.Controllers
             return Ok(res);
         }
 
+        /// <summary>
+        /// Get customer detail by id
+        /// </summary>
         [HttpGet]
         [Route("{id:long}")]
-        public async Task<ActionResult<ProductModel>> GetById([FromRoute]long id)
+        public async Task<ActionResult<CustomerModel>> GetById([FromRoute]long id)
         {
             try
             {
@@ -53,6 +59,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Get details about customer by productId
+        /// </summary>
         [HttpGet]
         [Route("products/{id:long}")]
         public async Task<ActionResult<CustomerModel>> GetByProductId([FromRoute]long id)
@@ -73,6 +82,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// add new customer to DB
+        /// </summary>
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] CustomerReqModel value)
         {
@@ -91,6 +103,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// update customer  details to DB
+        /// </summary>
         [HttpPut]
         [Route("{id:long}")]
         public async Task<ActionResult> Put([FromRoute]long Id, [FromBody] CustomerReqModel value)
@@ -111,6 +126,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        ///delete user  from DB by user id
+        /// </summary>
         [HttpDelete]
         [Route("{id:long}")]
         public async Task<ActionResult> Delete([FromRoute]long id)

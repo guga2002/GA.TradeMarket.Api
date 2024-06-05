@@ -18,6 +18,9 @@ namespace GA.TradeMarket.Api.Controllers
                 this.ser = ser;
         }
 
+        /// <summary>
+        /// get details about shippings
+        /// </summary>
         [HttpGet]
         [Route("shipping")]
         public async Task<ActionResult<IEnumerable<ShippingModel>>> GetAllWithDetailsAsync()
@@ -37,6 +40,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Get details about shipping by Id
+        /// </summary>
         [HttpGet]
         [Route("shipping/{Id:long}")]
         public async Task<ActionResult<IEnumerable<ShippingModel>>> GetByIdAsync([FromRoute] long Id)
@@ -56,6 +62,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// add new shipping to DB
+        /// </summary>
         [HttpPost]
         [Route("shipping")]
         public async Task<ActionResult> AddAsync([FromBody] ShippingModelIn item)
@@ -72,6 +81,9 @@ namespace GA.TradeMarket.Api.Controllers
 
         }
 
+        /// <summary>
+        /// delete specify shipping history
+        /// </summary>
         [HttpDelete]
         [Route("shipping/{Id:long}")]
         public async Task<ActionResult> DeleteAsync([FromRoute] long Id)
@@ -86,6 +98,10 @@ namespace GA.TradeMarket.Api.Controllers
                 return BadRequest(exp.Message);
             }
         }
+
+        /// <summary>
+        /// update specify shipping to DB
+        /// </summary>
         [HttpPut]
         [Route("shipping")]
         public async Task<ActionResult> UpdateAsync([FromBody] ShippingModelIn item)
@@ -101,9 +117,12 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        ///Update specify Notification to DB
+        /// </summary>
         [HttpPut]
         [Route("Notification")]
-        public async Task<ActionResult> UpdateCouponAsync([FromBody] NotificationModelIn mod)
+        public async Task<ActionResult> UpdateNotificationAsync([FromBody] NotificationModelIn mod)
         {
             try
             {
@@ -117,9 +136,12 @@ namespace GA.TradeMarket.Api.Controllers
 
         }
 
+        /// <summary>
+        ///delete specify notification from DB
+        /// </summary>
         [HttpDelete]
         [Route("Notification/{Id:long}")]
-        public async Task<ActionResult> RemoveCouponAsync([FromRoute] long Id)
+        public async Task<ActionResult> RemoveNotificationAsync([FromRoute] long Id)
         {
             try
             {
@@ -132,9 +154,12 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        ///add new notification to DB
+        /// </summary>
         [HttpPost]
         [Route("Notification")]
-        public async Task<ActionResult> AddCouponAsync([FromBody] NotificationModelIn mod)
+        public async Task<ActionResult> AddNotificationAsync([FromBody] NotificationModelIn mod)
         {
             try
             {
@@ -147,9 +172,12 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// get all notifications
+        /// </summary>
         [HttpGet]
         [Route("Notification")]
-        public async Task<ActionResult<IEnumerable<NotificationModel>>> GetAllCouponAsync()
+        public async Task<ActionResult<IEnumerable<NotificationModel>>> GetAllNotificationAsync()
         {
             try
             {

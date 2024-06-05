@@ -18,6 +18,10 @@ namespace GA.TradeMarket.Api.Controllers
         {
             this.ser = ser;
         }
+
+        /// <summary>
+        /// Get all avalible payments
+        /// </summary>
         [HttpGet]
         [Route("payment")]
         public async Task<ActionResult<IEnumerable<PaymentModel>>> GetAllWithDetailsAsync()
@@ -37,6 +41,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Get payment detail by id
+        /// </summary>
         [HttpGet]
         [Route("payment/{Id:long}")]
         public async Task<ActionResult<IEnumerable<PaymentModel>>> GetByIdAsync([FromRoute] long Id)
@@ -56,15 +63,17 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// add payment detail to DB
+        /// </summary>
         [HttpPost]
         [Route("payment")]
         public async Task<ActionResult> AddAsync([FromBody] PaymentModelIn item)
         {
             try
             {
-
-                    await ser.AddAsync(item);
-                    return Ok(item);
+                await ser.AddAsync(item);
+                return Ok(item);
             }
             catch (Exception exp)
             {
@@ -73,6 +82,9 @@ namespace GA.TradeMarket.Api.Controllers
 
         }
 
+        /// <summary>
+        /// delete payment detail by id
+        /// </summary>
         [HttpDelete]
         [Route("payment/{item:long}")]
         public async Task<ActionResult> DeleteAsync([FromRoute] long item)
@@ -87,6 +99,10 @@ namespace GA.TradeMarket.Api.Controllers
                 return BadRequest(exp.Message);
             }
         }
+
+        /// <summary>
+        ///update payment details to DB
+        /// </summary>
         [HttpPut]
         [Route("payment")]
         public async Task<ActionResult> UpdateAsync([FromBody] PaymentModelIn item)
@@ -102,6 +118,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// update payment method details in DB
+        /// </summary>
         [HttpPut]
         [Route("PaymentMethod")]
         public async Task<ActionResult> UpdateCouponAsync([FromBody] PaymentMethodModelIn mod)
@@ -118,9 +137,12 @@ namespace GA.TradeMarket.Api.Controllers
 
         }
 
+        /// <summary>
+        /// remove specify payment method by id
+        /// </summary>
         [HttpDelete]
         [Route("PaymentMethod/{Id:long}")]
-        public async Task<ActionResult> RemoveCouponAsync([FromRoute] long Id)
+        public async Task<ActionResult> RemovePaymentMethod([FromRoute] long Id)
         {
             try
             {
@@ -133,9 +155,12 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// add specify payment method details to DB
+        /// </summary>
         [HttpPost]
         [Route("PaymentMethod")]
-        public async Task<ActionResult> AddCouponAsync([FromBody] PaymentMethodModelIn mod)
+        public async Task<ActionResult> AddPaymentMethod([FromBody] PaymentMethodModelIn mod)
         {
             try
             {
@@ -148,9 +173,12 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// get all payment method details
+        /// </summary>
         [HttpGet]
         [Route("PaymentMethod")]
-        public async Task<ActionResult<IEnumerable<PaymentMethodModel>>> GetAllCouponAsync()
+        public async Task<ActionResult<IEnumerable<PaymentMethodModel>>> GetAllPaymentMethodAsync()
         {
             try
             {

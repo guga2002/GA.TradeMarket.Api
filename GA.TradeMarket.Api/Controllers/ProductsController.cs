@@ -4,7 +4,6 @@ using GA.TradeMarket.Application.Models.RequestModels;
 using GA.TradeMarket.Application.StaticFIles;
 using GA.TradeMarket.Application.Validation;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GA.TradeMarket.Api.Controllers
@@ -21,6 +20,9 @@ namespace GA.TradeMarket.Api.Controllers
             _productService = productService;
         }
 
+        /// <summary>
+        /// Get details about Products
+        /// </summary>
         [HttpGet("All")]
         public async Task<ActionResult<IEnumerable<ProductModel>>> GetAllWithDetailsAsync()
         {
@@ -29,6 +31,9 @@ namespace GA.TradeMarket.Api.Controllers
             return Ok(products);
         }
 
+        /// <summary>
+        /// Get details about product by Id
+        /// </summary>
         [HttpGet("{id:long}")]
         public async Task<ActionResult<ProductModel>> GetByIdAsync([FromRoute]long id)
         {
@@ -47,6 +52,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Search products by category and price
+        /// </summary>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductModel>>> SearchProducts([FromQuery] long categoryId, [FromQuery] decimal? minPrice, [FromQuery] decimal? maxPrice)
         {
@@ -63,6 +71,9 @@ namespace GA.TradeMarket.Api.Controllers
             return Ok(rek);
         }
 
+        /// <summary>
+        /// add new produt to DB
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> AddProduct([FromBody]ProductModelIn product)
         {
@@ -72,6 +83,9 @@ namespace GA.TradeMarket.Api.Controllers
             return Ok(product);
         }
 
+        /// <summary>
+        /// update product details in DB
+        /// </summary>
         [HttpPut("{id:long}")]
         public async Task<IActionResult> UpdateProduct([FromRoute]long id,[FromBody] ProductModelIn product)
         {
@@ -85,6 +99,9 @@ namespace GA.TradeMarket.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// remove product details by id
+        /// </summary>
         [HttpDelete("{id:long}")]
         public async Task<IActionResult> DeleteProduct([FromRoute]long id)
         {
@@ -96,6 +113,9 @@ namespace GA.TradeMarket.Api.Controllers
             return Ok(id);
         }
 
+        /// <summary>
+        /// Get all categories 
+        /// </summary>
         [HttpGet("categories")]
         public async Task<ActionResult<IEnumerable<ProductCategoryModel>>> GetAllCategories()
         {
@@ -103,6 +123,9 @@ namespace GA.TradeMarket.Api.Controllers
             return Ok(categories);
         }
 
+        /// <summary>
+        ///add new category to DB
+        /// </summary>
         [HttpPost("categories")]
         public async Task<ActionResult<ProductCategoryModel>> AddCategory([FromBody]ProductCategoryModelIn category)
         {
@@ -113,6 +136,9 @@ namespace GA.TradeMarket.Api.Controllers
             return CreatedAtAction(nameof(GetAllCategories), new { id = category.Id }, category);
         }
 
+        /// <summary>
+        ///update category to DB
+        /// </summary>
         [HttpPut("categories/{id:long}")]
         public async Task<IActionResult> UpdateCategory([FromRoute]long id, [FromBody]ProductCategoryModelIn category)
         {
@@ -126,6 +152,9 @@ namespace GA.TradeMarket.Api.Controllers
             return Ok(category);
         }
 
+        /// <summary>
+        /// delete specify category by id
+        /// </summary>
         [HttpDelete("categories/{id:long}")]
         public async Task<IActionResult> DeleteCategory([FromRoute]long id)
         {

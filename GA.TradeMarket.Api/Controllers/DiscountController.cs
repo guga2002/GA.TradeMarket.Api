@@ -17,6 +17,9 @@ namespace GA.TradeMarket.Api.Controllers
                 this.ser=ser;
         }
 
+        /// <summary>
+        /// Get details about Loyality program
+        /// </summary>
         [HttpGet]
         [Route("bonusprogram")]
         public async Task<ActionResult<IEnumerable<BonusProgramModel>>> GetAllWithDetailsAsync()
@@ -36,6 +39,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Get details about Loyality program by Id
+        /// </summary>
         [HttpGet]
         [Route("bonusprogram/{Id:long}")]
         public async Task<ActionResult<IEnumerable<CouponModel>>> GetByIdAsync([FromRoute]long Id)
@@ -55,6 +61,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        ///add new Loiality program account in DB
+        /// </summary>
         [HttpPost]
         [Route("bonusprogram")]
         public async Task<ActionResult> AddAsync([FromBody]BonusProgramModelIn item)
@@ -75,6 +84,9 @@ namespace GA.TradeMarket.Api.Controllers
 
         }
 
+        /// <summary>
+        /// delete Loyality program account from DB
+        /// </summary>
         [HttpDelete]
         [Route("bonusprogram/{item:long}")]
         public async Task<ActionResult> DeleteAsync([FromRoute]long item)
@@ -89,6 +101,10 @@ namespace GA.TradeMarket.Api.Controllers
                 return BadRequest(exp.Message);
             }
         }
+
+        /// <summary>
+        /// Update Loyality origram details
+        /// </summary>
         [HttpPut]
         [Route("bonusprogram")]
         public async Task<ActionResult> UpdateAsync([FromBody]BonusProgramModelIn item)
@@ -108,6 +124,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        ///update discount coupon details
+        /// </summary>
         [HttpPut]
         [Route("coupon")]
         public async Task<ActionResult> UpdateCouponAsync([FromBody]CouponModelIn mod)
@@ -128,6 +147,9 @@ namespace GA.TradeMarket.Api.Controllers
 
         }
 
+        /// <summary>
+        /// Delete discount coupon from DB
+        /// </summary>
         [HttpDelete]
         [Route("coupon/{Id:long}")]
         public async Task<ActionResult> RemoveCouponAsync([FromRoute]long Id)
@@ -143,6 +165,10 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+
+        /// <summary>
+        /// add new discount coupon to DB
+        /// </summary>
         [HttpPost]
         [Route("coupon")]
         public async Task<ActionResult> AddCouponAsync([FromBody]CouponModelIn mod)
@@ -158,6 +184,9 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Get all avalible discount coupons
+        /// </summary>
         [HttpGet]
         [Route("coupon")]
         public async Task<ActionResult<IEnumerable<CouponModel>>> GetAllCouponAsync()
