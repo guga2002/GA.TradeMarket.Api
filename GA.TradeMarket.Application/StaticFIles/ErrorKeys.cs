@@ -9,7 +9,7 @@
         public const string NoOrder = "No order exist";
         public const string NoCustommer = "Custumer no  exist";
         public const string InternalServerError = " there  was internall error";
-        public const string DateValidation = "Datetime format is  not right";
+        public const string DateValidation = "Datetime format is  not right, YOu arer under age  10 year is allowed!";
         public const string mapped = "Mapped  not was succesfully";
         public const string General = " General Exception while send request";
         public const string NoBonus = "No bonuses  exist!";

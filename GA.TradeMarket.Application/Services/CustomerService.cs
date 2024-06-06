@@ -22,7 +22,7 @@ namespace GA.TradeMarket.Application.Services
             {
                 throw new MarketException(ErrorKeys.InternalServerError);
             }
-            if (item.BirthDate >= DateTime.Now || item.BirthDate <= new DateTime(1890, 1, 1, 1, 1, 1, DateTimeKind.Utc))
+            if (item.BirthDate > DateTime.Now.AddYears(-10) || item.BirthDate <= new DateTime(1890, 1, 1, 1, 1, 1, DateTimeKind.Utc))
             {
                 throw new MarketException(ErrorKeys.DateValidation);
             }
