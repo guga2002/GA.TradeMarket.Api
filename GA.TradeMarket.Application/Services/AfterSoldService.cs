@@ -23,7 +23,7 @@ namespace GA.TradeMarket.Application.Services
             {
                 throw new NoItemFoundException(ErrorKeys.NoOrder);
             }
-            var mapped=mapper.Map<ReturnRequest>(order);
+            var mapped=mapper.Map<ReturnRequest>(item);
             if(mapped is not null)
             {
                await  obj.ReturnRequestRepository.AddAsync(mapped);
@@ -101,11 +101,16 @@ namespace GA.TradeMarket.Application.Services
             {
                 throw new NoItemFoundException(ErrorKeys.NoOrder);
             }
-            var mapped = mapper.Map<ReturnRequest>(order);
+            var mapped = mapper.Map<ReturnRequest>(item);
             if (mapped is not null)
             {
                 obj.ReturnRequestRepository.Update(mapped);
             }
+            else
+            {
+                throw new TradeMarket.Application.Validation.MarketException("Mapped not was succesfully");            
+            }
+
         }
 
         public async Task UpdateReviewAsync(ReviewModelIn mod)

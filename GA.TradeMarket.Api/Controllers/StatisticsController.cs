@@ -67,7 +67,7 @@ namespace GA.TradeMarket.Api.Controllers
         /// get  customer facorite products
         /// </summary>
         [HttpGet("customer/{id:long}/{productCount:int}")]
-        public async Task<ActionResult<IEnumerable<ProductModel>>> GetCustomerFavoriteProducts([FromQuery]int productCount,[FromRoute] long customerId)
+        public async Task<ActionResult<IEnumerable<ProductModel>>> GetCustomerFavoriteProducts([FromRoute]int productCount,[FromRoute] long customerId)
         {
 
             var res = await statistik.GetCustomersMostPopularProductsAsync(productCount, customerId);

@@ -18,6 +18,7 @@ namespace GA.TradeMarket.Infrastructure.Repositories
                 await dbset.AddAsync(customer);
                 await context.SaveChangesAsync();
             }
+            else throw new ArgumentException("You already have made  request , check  the status at first");
         }
 
         public async Task DeleteByIdAsync(long Id)
@@ -70,8 +71,19 @@ namespace GA.TradeMarket.Infrastructure.Repositories
         {
             if (dbset.Any(io => io.Id == custom.Id))
             {
-                dbset.Update(custom);
-                context.SaveChanges();
+                var res = dbset.FirstOrDefault(io => io.Id == custom.Id);
+                if (res is not null)
+                {
+                    res.Status = custom.Status;
+                    res.RequestDate = custom.RequestDate;
+                    res.Reason = custom.Reason;
+                    res.OrderId = custom.OrderId;
+                    context.SaveChanges();
+                }
+            }
+            else
+            {
+                throw new ArgumentException(" no entity found on  this ID");
             }
         }
     }
