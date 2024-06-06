@@ -27,12 +27,19 @@ namespace GA.TradeMarket.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CustomerModel>>> GetAllWithDetailsAsync()
         {
-            var res = await _customerService.GetAllWithDetailsAsync();
-            if (res == null)
+            try
             {
-                NotFound();
+                var res = await _customerService.GetAllWithDetailsAsync();
+                if (res == null)
+                {
+                    NotFound();
+                }
+                return Ok(res);
             }
-            return Ok(res);
+            catch (Exception exp)
+            {
+                return BadRequest(exp.Message);
+            }
         }
 
         /// <summary>
@@ -51,7 +58,6 @@ namespace GA.TradeMarket.Api.Controllers
                     return NotFound(id);
                 }
                 return Ok(res);
-
             }
             catch (Exception exp)
             {
@@ -117,7 +123,6 @@ namespace GA.TradeMarket.Api.Controllers
                     return BadRequest(Id);
                 }
                 await _customerService.UpdateAsync(value);
-
                 return Ok(value);
             }
             catch (Exception exp)
@@ -146,7 +151,6 @@ namespace GA.TradeMarket.Api.Controllers
             {
                 return BadRequest(exp);
             }
-
         }
 
     }

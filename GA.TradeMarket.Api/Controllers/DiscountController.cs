@@ -49,7 +49,7 @@ namespace GA.TradeMarket.Api.Controllers
             try
             {
                 var res = await ser.GetByIdAsync(Id);
-                if (res is not null)
+                if (res is null)
                 {
                     return NotFound(ErrorKeys.NotFound);
                 }
@@ -193,12 +193,12 @@ namespace GA.TradeMarket.Api.Controllers
         {
             try
             {
-                    var res=await ser.GetAllCouponAsync();
-                    if (res.Any())
-                    {
-                        return Ok(res);
-                    }
-                    return NotFound(ErrorKeys.NotFound);
+                var res = await ser.GetAllCouponAsync();
+                if (res.Any())
+                {
+                    return Ok(res);
+                }
+                return NotFound(ErrorKeys.NotFound);
             }
             catch (Exception exp)
             {

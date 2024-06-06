@@ -43,7 +43,7 @@ namespace GA.TradeMarket.Infrastructure.Repositories
 
         public async Task<ReturnRequest> GetByIdAsync(long Id)
         {
-            var res = await dbset.FirstOrDefaultAsync(io => io.Id == Id);
+            var res = await dbset.FindAsync(Id);
             if (res is not null)
             {
                 return res;

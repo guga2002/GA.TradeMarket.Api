@@ -79,7 +79,6 @@ namespace GA.TradeMarket.Api.Controllers
             {
                 return BadRequest(exp.Message);
             }
-
         }
 
         /// <summary>
@@ -109,8 +108,8 @@ namespace GA.TradeMarket.Api.Controllers
         {
             try
             {
-                    await ser.UpdateAsync(item);
-                    return Ok(item);
+                await ser.UpdateAsync(item);
+                return Ok(item);
             }
             catch (Exception exp)
             {
@@ -127,8 +126,8 @@ namespace GA.TradeMarket.Api.Controllers
         {
             try
             {
-                    await ser.UpdatePaymentMethodAsync(mod);
-                    return Ok(mod);
+                await ser.UpdatePaymentMethodAsync(mod);
+                return Ok(mod);
             }
             catch (Exception exp)
             {
@@ -164,8 +163,8 @@ namespace GA.TradeMarket.Api.Controllers
         {
             try
             {
-                    await ser.AddPaymentMethodAsync(mod);
-                    return Ok(mod);
+                await ser.AddPaymentMethodAsync(mod);
+                return Ok(mod);
             }
             catch (Exception exp)
             {
@@ -182,12 +181,12 @@ namespace GA.TradeMarket.Api.Controllers
         {
             try
             {
-                    var res = await ser.GetAllPaymentMethodAsync();
-                    if (res.Any())
-                    {
-                        return Ok(res);
-                    }
-                    return NotFound(ErrorKeys.NotFound);
+                var res = await ser.GetAllPaymentMethodAsync();
+                if (res.Any())
+                {
+                    return Ok(res);
+                }
+                return NotFound(ErrorKeys.NotFound);
             }
             catch (Exception exp)
             {

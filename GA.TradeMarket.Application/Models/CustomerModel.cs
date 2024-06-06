@@ -2,7 +2,9 @@
 {
     public class CustomerModel
     {
-        public string id { get; set; }
+        public long Id { get; set; }
+
+        public string PersonId { get; set; }
 
         public int DiscountValue { get; set; }
 

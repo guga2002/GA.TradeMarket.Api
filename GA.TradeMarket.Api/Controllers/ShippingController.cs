@@ -181,12 +181,12 @@ namespace GA.TradeMarket.Api.Controllers
         {
             try
             {
-                    var res = await ser.GetAllNotificationAsync();
-                    if (res.Any())
-                    {
-                        return Ok(res);
-                    }
-                    return NotFound(ErrorKeys.NotFound);
+                var res = await ser.GetAllNotificationAsync();
+                if (res.Any())
+                {
+                    return Ok(res);
+                }
+                return NotFound(ErrorKeys.NotFound);
             }
             catch (Exception exp)
             {

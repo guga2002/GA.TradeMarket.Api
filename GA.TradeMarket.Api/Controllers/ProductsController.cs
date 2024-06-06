@@ -26,9 +26,15 @@ namespace GA.TradeMarket.Api.Controllers
         [HttpGet("All")]
         public async Task<ActionResult<IEnumerable<ProductModel>>> GetAllWithDetailsAsync()
         {
-
-            var products = await _productService.GetAllWithDetailsAsync();
-            return Ok(products);
+            try
+            {
+                var products = await _productService.GetAllWithDetailsAsync();
+                return Ok(products);
+            }
+            catch (Exception exp)
+            {
+                return BadRequest(exp.Message);
+            }
         }
 
         /// <summary>
@@ -58,17 +64,24 @@ namespace GA.TradeMarket.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductModel>>> SearchProducts([FromQuery] long categoryId, [FromQuery] decimal? minPrice, [FromQuery] decimal? maxPrice)
         {
-            var res = await _productService.GetAllWithDetailsAsync();
-            if (res == null)
+            try
             {
-                return NotFound(ErrorKeys.NotFound);
+                var res = await _productService.GetAllWithDetailsAsync();
+                if (res == null)
+                {
+                    return NotFound(ErrorKeys.NotFound);
+                }
+                if (maxPrice != 50)
+                {
+                    return Ok(res);
+                }
+                var rek = res.Where(io => io.ProductCategoryId == categoryId && io.Price >= minPrice && io.Price <= maxPrice).ToList();
+                return Ok(rek);
             }
-            if (maxPrice != 50)
+            catch (Exception exp)
             {
-                return Ok(res);
+                return BadRequest(exp.Message);
             }
-            var rek = res.Where(io => io.ProductCategoryId == categoryId && io.Price >= minPrice && io.Price <= maxPrice).ToList();
-            return Ok(rek);
         }
 
         /// <summary>
@@ -77,26 +90,40 @@ namespace GA.TradeMarket.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProduct([FromBody]ProductModelIn product)
         {
-            if (!ModelState.IsValid || string.IsNullOrEmpty(product.ProductName))
-                return BadRequest(ErrorKeys.BadRequest);
-            await _productService.AddAsync(product);
-            return Ok(product);
+            try
+            {
+                if (!ModelState.IsValid || string.IsNullOrEmpty(product.ProductName))
+                    return BadRequest(ErrorKeys.BadRequest);
+                await _productService.AddAsync(product);
+                return Ok(product);
+            }
+            catch (Exception exp)
+            {
+                return BadRequest(exp.Message);
+            }
         }
 
         /// <summary>
         /// update product details in DB
         /// </summary>
         [HttpPut("{id:long}")]
-        public async Task<IActionResult> UpdateProduct([FromRoute]long id,[FromBody] ProductModelIn product)
+        public async Task<IActionResult> UpdateProduct([FromRoute] long id, [FromBody] ProductModelIn product)
         {
-            if (id != product.Id)
-                return BadRequest(ErrorKeys.BadRequest);
-            if (!ModelState.IsValid || string.IsNullOrEmpty(product.ProductName))
+            try
             {
-                return BadRequest(ModelState);
+                if (id != product.Id)
+                    return BadRequest(ErrorKeys.BadRequest);
+                if (!ModelState.IsValid || string.IsNullOrEmpty(product.ProductName))
+                {
+                    return BadRequest(ModelState);
+                }
+                await _productService.UpdateAsync(product);
+                return Ok(id);
             }
-            await _productService.UpdateAsync(product);
-            return Ok();
+            catch (Exception exp)
+            {
+                return BadRequest(exp.Message);
+            }
         }
 
         /// <summary>
@@ -105,12 +132,20 @@ namespace GA.TradeMarket.Api.Controllers
         [HttpDelete("{id:long}")]
         public async Task<IActionResult> DeleteProduct([FromRoute]long id)
         {
-            var existingProduct = await _productService.GetByIdAsync(id);
-            if (existingProduct == null)
-                return NotFound(ErrorKeys.NotFound);
+            try
+            {
+                var existingProduct = await _productService.GetByIdAsync(id);
+                if (existingProduct == null)
+                    return NotFound(ErrorKeys.NotFound);
 
-            await _productService.DeleteAsync(id);
-            return Ok(id);
+                await _productService.DeleteAsync(id);
+                return Ok(id);
+            }
+            catch (Exception exp)
+            {
+
+                return BadRequest(exp.Message);
+            }
         }
 
         /// <summary>
@@ -119,47 +154,78 @@ namespace GA.TradeMarket.Api.Controllers
         [HttpGet("categories")]
         public async Task<ActionResult<IEnumerable<ProductCategoryModel>>> GetAllCategories()
         {
-            var categories = await _productService.GetAllProductCategoriesAsync();
-            return Ok(categories);
+            try
+            {
+                var categories = await _productService.GetAllProductCategoriesAsync();
+                return Ok(categories);
+            }
+            catch (Exception exp)
+            {
+
+                return BadRequest(exp.Message);
+            }
         }
 
         /// <summary>
         ///add new category to DB
         /// </summary>
         [HttpPost("categories")]
-        public async Task<ActionResult<ProductCategoryModel>> AddCategory([FromBody]ProductCategoryModelIn category)
+        public async Task<ActionResult<ProductCategoryModel>> AddCategory([FromBody] ProductCategoryModelIn category)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
 
-            await _productService.AddCategoryAsync(category);
-            return CreatedAtAction(nameof(GetAllCategories), new { id = category.Id }, category);
+                await _productService.AddCategoryAsync(category);
+                return CreatedAtAction(nameof(GetAllCategories), new { id = category.Id }, category);
+            }
+            catch (Exception exp)
+            {
+                return BadRequest(exp.Message);
+            }
         }
 
         /// <summary>
         ///update category to DB
         /// </summary>
         [HttpPut("categories/{id:long}")]
-        public async Task<IActionResult> UpdateCategory([FromRoute]long id, [FromBody]ProductCategoryModelIn category)
+        public async Task<IActionResult> UpdateCategory([FromRoute] long id, [FromBody] ProductCategoryModelIn category)
         {
-            if (id != category.Id)
-                return BadRequest(ErrorKeys.BadRequest);
+            try
+            {
+                if (id != category.Id)
+                    return BadRequest(ErrorKeys.BadRequest);
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
 
-            await _productService.UpdateCategoryAsync(category);
-            return Ok(category);
+                await _productService.UpdateCategoryAsync(category);
+                return Ok(category);
+            }
+            catch (Exception exp)
+            {
+
+                return BadRequest(exp.Message);
+            }
         }
 
         /// <summary>
         /// delete specify category by id
         /// </summary>
         [HttpDelete("categories/{id:long}")]
-        public async Task<IActionResult> DeleteCategory([FromRoute]long id)
+        public async Task<IActionResult> DeleteCategory([FromRoute] long id)
         {
-            await _productService.RemoveCategoryAsync(id);
-            return Ok(id);
+            try
+            {
+                await _productService.RemoveCategoryAsync(id);
+                return Ok(id);
+            }
+            catch (Exception exp)
+            {
+
+                return BadRequest(exp.Message);
+            }
         }
 
     }

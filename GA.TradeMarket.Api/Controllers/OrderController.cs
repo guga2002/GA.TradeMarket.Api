@@ -43,8 +43,8 @@ namespace GA.TradeMarket.Api.Controllers
         /// Get details about order by id
         /// </summary>
         [HttpGet]
-        [Route("{id:long}")]
-        public async Task<ActionResult> GetByIdAsync([FromRoute]long Id)
+        [Route("{Id:long}")]
+        public async Task<ActionResult<OrderModel>> GetByIdAsync([FromRoute]long Id)
         {
             try
             {
