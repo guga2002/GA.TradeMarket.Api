@@ -53,7 +53,7 @@ namespace GA.TradeMarket.Application.Services
         public async Task<List<ProductModel>> GetMostPopularProductsAsync(int productCount)
         {
             var receipdetails = await obj.ReceiptDetailRepository.GetAllWithDetailsAsync();
-            var products = receipdetails.OrderByDescending(io => io.Quantity).Select(io => io.Product);
+            var products = receipdetails.OrderByDescending(io => io.Product.Price).Select(io => io.Product);
             var res = products.Take(productCount);
             var mapped = mapper.Map<List<ProductModel>>(res);
             return mapped;
