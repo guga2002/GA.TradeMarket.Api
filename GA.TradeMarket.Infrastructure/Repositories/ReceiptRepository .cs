@@ -35,7 +35,9 @@ namespace GA.TradeMarket.Infrastructure.Repositories
         public async Task<IEnumerable<Receipt>> GetAllWithDetailsAsync()
         {
             return await dbset
-                .Include(io=>io.order).Include(r => r.ReceiptDetails)
+           .Include(io=>io.order)
+           .ThenInclude(io=>io.Customer)
+           .Include(r => r.ReceiptDetails)
            .ThenInclude(rd => rd.Product)
            .ThenInclude(io => io.Category)
        .ToListAsync();

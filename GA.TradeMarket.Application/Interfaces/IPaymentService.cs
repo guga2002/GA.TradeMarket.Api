@@ -9,5 +9,8 @@ namespace GA.TradeMarket.Application.Interfaces
         Task RemovePayMentMethodAsync(long a);
         Task AddPaymentMethodAsync(PaymentMethodModelIn mod);
         Task<IEnumerable<PaymentMethodModel>> GetAllPaymentMethodAsync();
+
+        Task<IEnumerable<PaymentMethodModel>> GetallPaymentMethodForCurrentUser(string userName);
+        Task<IEnumerable<PaymentModel>> GetallPaymentForCurrentUser(string userName);
     }
 }

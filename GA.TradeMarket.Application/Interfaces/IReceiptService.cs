@@ -12,6 +12,7 @@ namespace GA.TradeMarket.Application.Interfaces
         Task<IEnumerable<ReceiptDetailModel>> GetReceiptDetailsAsync(long id);
         Task<IEnumerable<ReceiptModel>> GetReceiptsByPeriodAsync(DateTime start, DateTime end);
         Task<decimal> GetReceiptSum(long id);
+        Task<IEnumerable<ReceiptModel>> GetAllReceiptsForCurrentUser(string userName);
     }
 
 }

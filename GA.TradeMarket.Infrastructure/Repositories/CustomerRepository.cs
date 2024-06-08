@@ -57,7 +57,7 @@ namespace GA.TradeMarket.Infrastructure.Repositories
 
         public async Task<Customer> GetByIdWithDetailsAsync(long Id)
         {
-            var res = await dbset.Include(io => io.bonuses).
+            var res = await dbset.Include(io => io.bonuses).Include(io=>io.Person).
                 FirstOrDefaultAsync(io => io.Id == Id);
             if (res is not null)
             {

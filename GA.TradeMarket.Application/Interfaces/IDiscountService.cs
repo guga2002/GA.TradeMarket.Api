@@ -9,5 +9,6 @@ namespace GA.TradeMarket.Application.Interfaces
         Task RemoveCouponAsync(long a);
         Task AddCouponAsync(CouponModelIn mod);
         Task<IEnumerable<CouponModel>> GetAllCouponAsync();
+        Task<IEnumerable<BonusProgramModel>> GetMyLoyalityProgram(string username);
     }
 }

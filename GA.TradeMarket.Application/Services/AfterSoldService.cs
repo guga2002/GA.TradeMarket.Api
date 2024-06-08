@@ -6,23 +6,101 @@ using GA.TradeMarket.Application.StaticFIles;
 using GA.TradeMarket.Application.Validation;
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
+using Microsoft.AspNetCore.Identity;
 
 namespace GA.TradeMarket.Application.Services
 {
     public class AfterSoldService : AbstractService, IAfterSoldService
     {
-        public AfterSoldService(IUnitOfWork obj, IMapper map) : base(obj, map)
+        private readonly UserManager<Person> _userManager;
+        public AfterSoldService(IUnitOfWork obj, IMapper map, UserManager<Person> _userManager) : base(obj, map)
         {
+            this._userManager = _userManager;
         }
 
         public async Task AddAsync(ReturnRequestModelIn item)
         {
             ArgumentNullException.ThrowIfNull(item, nameof(item));
-            var order = await obj.OrderRepository.GetByIdAsync(item.OrderId);
+            var order = await obj.OrderRepository.GetByIdWithDetailsAsync(item.OrderId);
             if (order is null)
             {
                 throw new NoItemFoundException(ErrorKeys.NoOrder);
             }
+            var person = order.Customer.Person;
+            string body = $@"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <title>Return Request Notification</title>
+    <style>
+        body {{
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }}
+        .container {{
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }}
+        .header {{
+            background: #50b3a2;
+            color: #ffffff;
+            padding: 10px 0;
+            text-align: center;
+        }}
+        .content {{
+            background: #ffffff;
+            padding: 20px;
+            margin-top: 20px;
+        }}
+        .footer {{
+            background: #50b3a2;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }}
+        .content p {{
+            font-size: 16px;
+        }}
+        .content .details {{
+            margin: 20px 0;
+        }}
+        .content .details span {{
+            font-weight: bold;
+        }}
+    </style>
+</head>
+<body>
+    <div class=""container"">
+        <div class=""header"">
+            <h1>დაბრუნების მოთხოვნა განთავსდა</h1>
+        </div>
+        <div class=""content"">
+            <p>გამარჯობა,{person.Name}</p>
+            <p>ჩვენ მივიღეთ ინფორმაცია შეკვეთს დაბრუნების თაობაზე, შემდეგი დეტალებით:</p>
+            <div class=""details"">
+                <p><span>Order ID:</span>{item.OrderId}</p>
+                <p><span>Request Date:</span>{item.RequestDate} </p>
+                <p><span>Reason for Return:</span>{item.Reason}</p>
+                <p><span>Status:</span>{item.Status}</p>
+            </div>
+            <p>ჩვენი გუნდი განიხილავს შენს მოთხოვნას, მალევე დაგიბრუნებთ უკუკავშირს.</p>
+            <p>მადლობა მოთმინებისთვის,.</p>
+            <p>საუკეთესო სურვილებით,</p>
+            <p>G.Apkha</p>
+        </div>
+        <div class=""footer"">
+            <p>&copy; 2024 TradeMarket. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
+";
             var mapped=mapper.Map<ReturnRequest>(item);
             if(mapped is not null)
             {
@@ -131,6 +209,20 @@ namespace GA.TradeMarket.Application.Services
             {
                 obj.reviewRepository.Update(mapped);
             }
+        }
+
+        public async Task<IEnumerable<ReturnRequestModel>> GetAllMyReturnRequests(string username)
+        {
+            var user=await _userManager.FindByNameAsync(username);
+            if (user is null) { throw new MarketException(ErrorKeys.NoCustommer); }
+            var res = await obj.ReturnRequestRepository.GetAllWithDetailsAsync();
+           var returnRequests=res.Where(io => io.Order.CustomerId == user.Customer.Id).ToList();
+            if(returnRequests.Any())
+            {
+                var mapped=mapper.Map<IEnumerable<ReturnRequestModel>>(returnRequests);
+                return mapped;
+            }
+            return new List<ReturnRequestModel>();
         }
     }
 }

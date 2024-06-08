@@ -9,5 +9,8 @@ namespace GA.TradeMarket.Application.Interfaces
         Task RemoveNotificationAsync(long a);
         Task AddNotificationAsync(NotificationModelIn mod);
         Task<IEnumerable<NotificationModel>> GetAllNotificationAsync();
+        Task<bool> UpdateShippingStatus(ShippingStatusUpdateModel update);
+        Task SendNotificationstoUsers();
+        Task<IEnumerable<NotificationModel>> GetAllUnsentNotifications();
     }
 }

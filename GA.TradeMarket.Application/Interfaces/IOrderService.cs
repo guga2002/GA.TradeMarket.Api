@@ -7,5 +7,6 @@ namespace GA.TradeMarket.Application.Interfaces
     {
         Task<string> CheckStatus(long orderId);
         Task UpdateStatus(UpdateStatusModelIn ord);
+        Task<IEnumerable<OrderModel>> GetMyOrder(string username);
     }
 }

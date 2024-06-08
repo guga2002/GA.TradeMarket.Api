@@ -9,5 +9,6 @@ namespace GA.TradeMarket.Application.Interfaces
         Task RemoveReviewAsync(long a);
         Task AddReviewAsync(ReviewModelIn mod);
         Task<IEnumerable<ReviewModel>> GetAllReviewsAsync();
+        Task<IEnumerable<ReturnRequestModel>> GetAllMyReturnRequests(string username);
     }
 }

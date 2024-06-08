@@ -53,7 +53,8 @@ namespace GA.TradeMarket.Infrastructure.Repositories
         {
             var res = await dbset
                 .Include(r => r.Order)
-               .ThenInclude(rd => rd.payments)
+                .ThenInclude(io=>io.Customer)
+                .ThenInclude(io=>io.Person)
               .Where(io => io.Id == Id).FirstOrDefaultAsync();
             if (res is not null)
             {

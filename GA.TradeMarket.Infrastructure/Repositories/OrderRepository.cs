@@ -60,7 +60,7 @@ namespace GA.TradeMarket.Infrastructure.Repositories
         {
             var res = await dbset.Include(io => io.ReturnRequest)
                       .Include(io => io.payments)
-                      .Include(io => io.Customer).FirstOrDefaultAsync(io => io.Id == Id);
+                      .Include(io => io.Customer).ThenInclude(io=>io.Person).FirstOrDefaultAsync(io => io.Id == Id);
             if (res is not null)
             {
                 return res;

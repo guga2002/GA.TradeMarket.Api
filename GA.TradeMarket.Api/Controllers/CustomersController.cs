@@ -2,29 +2,30 @@
 using GA.TradeMarket.Application.Models;
 using GA.TradeMarket.Application.Models.RequestModels;
 using GA.TradeMarket.Application.StaticFIles;
+using GA.TradeMarket.Domain.Configurations;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GA.TradeMarket.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
-    public class CustomersController : ControllerBase
+    public sealed class CustomersController : ControllerBase
     {
         private readonly ICustomerService _customerService;
+        private readonly ILogger<CustomersController> _logger;
 
-
-        public CustomersController(ICustomerService ser)
+        public CustomersController(ICustomerService ser,ILogger<CustomersController> logg)
         {
             _customerService = ser;
+            this._logger = logg;
         }
 
         /// <summary>
-        /// Get customer Detail info
+        /// Get customer Detail info -- allowed admin , manager
         /// </summary>
         [HttpGet]
+        [Authorize(Roles ="admin,manager")]
         public async Task<ActionResult<IEnumerable<CustomerModel>>> GetAllWithDetailsAsync()
         {
             try
@@ -38,15 +39,17 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
+                _logger.LogCritical($"Error ocured while sending request  to server:{exp.Message}");
                 return BadRequest(exp.Message);
             }
         }
 
         /// <summary>
-        /// Get customer detail by id
+        /// Get customer detail by id -- allowed  admin,manager
         /// </summary>
         [HttpGet]
         [Route("{id:long}")]
+        [Authorize(Roles = "admin,manager")]
         public async Task<ActionResult<CustomerModel>> GetById([FromRoute]long id)
         {
             try
@@ -61,15 +64,17 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
+                _logger.LogCritical($"Error ocured while sending request  to server:{exp.Message}");
                 return BadRequest(exp.Message);
             }
         }
 
         /// <summary>
-        /// Get details about customer by productId
+        /// Get details about customer by productId -- allowed operator ,manager
         /// </summary>
         [HttpGet]
         [Route("products/{id:long}")]
+        [Authorize(Roles ="operator,manager")]
         public async Task<ActionResult<CustomerModel>> GetByProductId([FromRoute]long id)
         {
             try
@@ -84,14 +89,16 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
-                return BadRequest(exp);
+                _logger.LogCritical($"Error ocured while sending request  to server:{exp.Message}");
+                return BadRequest(exp.Message);
             }
         }
 
         /// <summary>
-        /// add new customer to DB
+        /// add new customer to DB -- authorized user is allowed
         /// </summary>
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult> Post([FromBody] CustomerReqModel value)
         {
             try
@@ -110,10 +117,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// update customer  details to DB
+        /// update customer  details to DB -- authorize user is allowed
         /// </summary>
         [HttpPut]
         [Route("{id:long}")]
+        [Authorize]
         public async Task<ActionResult> Put([FromRoute]long Id, [FromBody] CustomerReqModel value)
         {
             try
@@ -127,16 +135,19 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
+                _logger.LogCritical($"error ocured while sending request{exp.Message}");
                 return BadRequest(exp.Message);
             }
         }
 
         /// <summary>
-        ///delete user  from DB by user id
+        ///delete user  from DB by user id allowed only admin
         /// </summary>
         [HttpDelete]
         [Route("{id:long}")]
+        [Authorize(Roles ="admin")]
         public async Task<ActionResult> Delete([FromRoute]long id)
+
         {
             try
             {
@@ -149,6 +160,7 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
+                _logger.LogError($"error ocured while admin trying  delete customer,{exp.Message}");
                 return BadRequest(exp);
             }
         }

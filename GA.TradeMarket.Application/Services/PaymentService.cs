@@ -6,13 +6,16 @@ using GA.TradeMarket.Application.StaticFIles;
 using GA.TradeMarket.Application.Validation;
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
+using Microsoft.AspNetCore.Identity;
 
 namespace GA.TradeMarket.Application.Services
 {
     public class PaymentService : AbstractService,IPaymentService
     {
-        public PaymentService(IUnitOfWork obj, IMapper map) : base(obj, map)
+        private readonly UserManager<Person> userManager;
+        public PaymentService(IUnitOfWork obj, IMapper map, UserManager<Person> userManager) : base(obj, map)
         {
+            this.userManager = userManager;
         }
 
         public async Task AddAsync(PaymentModelIn item)
@@ -134,6 +137,32 @@ namespace GA.TradeMarket.Application.Services
             }
             await obj.SaveAsync();
             throw new ArgumentException(ErrorKeys.mapped);
+        }
+
+        public async Task<IEnumerable<PaymentMethodModel>> GetallPaymentMethodForCurrentUser(string userName)
+        {
+            var user= await userManager.FindByNameAsync(userName);
+            if(user is null)
+            {
+                throw new MarketException(ErrorKeys.NoCustommer);
+            }
+            var paymemethods=await obj.PaymentRepository.GetAllWithDetailsAsync();
+           var res= paymemethods.Where(io => io.Order.CustomerId == user.Customer.Id).Select(io => io.method).ToList();
+            var mapped=mapper.Map<IEnumerable<PaymentMethodModel>>(res);
+            return mapped;
+        }
+
+        public async Task<IEnumerable<PaymentModel>> GetallPaymentForCurrentUser(string userName)
+        {
+            var user = await userManager.FindByNameAsync(userName);
+            if (user is null)
+            {
+                throw new MarketException(ErrorKeys.NoCustommer);
+            }
+            var payments = await obj.PaymentRepository.GetAllWithDetailsAsync();
+            var filtered = payments.Where(io => io.Order.CustomerId == user.Customer.Id).ToList();
+            var mapped = mapper.Map<IEnumerable<PaymentModel>>(filtered);
+            return mapped;
         }
     }
 }

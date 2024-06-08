@@ -9,7 +9,6 @@ using GA.TradeMarket.Persistance.SMTP;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RGBA.Optio.Domain.Services;
@@ -144,8 +143,8 @@ internal class Program
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = "http://localhost:5064",
-                    ValidAudience = "https://localhost:7049",
+                    ValidIssuer = "https://localhost:7049",
+                    ValidAudience = "https://localhost:7049/",
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("65E255FF-F399-42D4-9C7F-D5D08B0EC285")),
                 };
             });
@@ -157,7 +156,6 @@ internal class Program
             options.Cookie.SameSite = SameSiteMode.Strict;
             options.Cookie.Name = "ItStepCookiesPolicy";
             options.LoginPath = "/UserIdentity/SignIn";
-            options.AccessDeniedPath = "/Account/Error";
             options.SlidingExpiration = true;
             options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
         });
@@ -197,7 +195,6 @@ internal class Program
         app.UseCors("RequestPipeline");
 
         app.MapControllers();
-
 
         app.Run();
     }

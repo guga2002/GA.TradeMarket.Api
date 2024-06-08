@@ -10,6 +10,8 @@ namespace GA.TradeMarket.Domain.Entitites
 
         public string Message { get; set; }
 
+        public bool IsSeen { get; set; } = false;
+
         public DateTime NotificationDate { get; set; }
 
         public virtual Customer User { get; set; }

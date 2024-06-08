@@ -1,5 +1,4 @@
-﻿using Azure;
-using GA.TradeMarket.Application.Interfaces;
+﻿using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
 using GA.TradeMarket.Application.StaticFIles;
 using GA.TradeMarket.Application.Validation;
@@ -14,18 +13,19 @@ namespace GA.TradeMarket.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class UserIdentityController : ControllerBase
     {
 
         private readonly IUserIdentityService ser;
         private readonly UserManager<Person> userManager;
         private readonly SmtpService smtp;
-        public UserIdentityController(IUserIdentityService se, UserManager<Person> userManager, SmtpService smtp)
+        private readonly ILogger<UserIdentityController> logger;
+        public UserIdentityController(IUserIdentityService se, UserManager<Person> userManager, SmtpService smtp, ILogger<UserIdentityController> logger)
         {
             this.ser = se;
             this.userManager = userManager;
             this.smtp = smtp;
+            this.logger = logger;
         }
 
         [HttpGet]
@@ -47,12 +47,13 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
+                logger.LogError(exp.Message);   
                 return Content($"Error: {exp.Message}", "text/html");
             }
         }
 
         /// <summary>
-        /// Sign in Method - set cookie
+        /// Sign in Method - set cookie -- allow anymous
         /// </summary>
         /// <param name="mod"></param>
         /// <returns name="(SignInResult, string)"></returns>
@@ -69,12 +70,13 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
+                logger.LogError(exp.Message);
                 return BadRequest(exp.Message);
             }
         }
 
         /// <summary>
-        /// Registration - add user to Db
+        /// Registration - add user to Db -- allow anymous
         /// </summary>
         [HttpPost]
         [Route(nameof(Registration))]
@@ -93,6 +95,7 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
+                logger.LogError(exp.Message);
                 return BadRequest(exp.Message);
             }
         }
@@ -120,13 +123,14 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
+                logger.LogError(exp.Message);
                 return BadRequest(exp.Message);
             }
         }
 
 
         /// <summary>
-        /// reset password - forget password
+        /// reset password - forget password -- allow anymous
         /// </summary>
         [HttpGet]
         [Route(nameof(ResetPasswordNow))]
@@ -157,6 +161,7 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
+                logger.LogError(exp.Message);
                 return BadRequest(exp.Message);
             }
         }
@@ -179,6 +184,7 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
+                logger.LogError(exp.Message);
                 return BadRequest(exp.Message);
             }
         }
@@ -186,10 +192,11 @@ namespace GA.TradeMarket.Api.Controllers
 
 
         /// <summary>
-        /// change password - when you laready know old password
+        /// change password - when you laready know old password allow customer
         /// </summary>
         [HttpPost]
         [Route(nameof(ResetPassword))]
+        [Authorize(Roles ="customer")]
         public async Task<ActionResult<IdentityResult>> ResetPassword([FromBody] PasswordResetModel arg)
         {
             try
@@ -207,16 +214,18 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
+                logger.LogError(exp.Message);
                 return BadRequest(exp.Message);
             }
         }
 
 
         /// <summary>
-        /// Info about current user
+        /// Info about current user -- authorized user have access it
         /// </summary>
         [HttpGet]
         [Route(nameof(Info))]
+        [Authorize]
         public async Task<ActionResult<PersonModel>> Info()
         {
             try
@@ -229,6 +238,7 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
+                logger.LogError(exp.Message);
                 return BadRequest(exp.Message);
             }
         }
@@ -239,6 +249,7 @@ namespace GA.TradeMarket.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route(nameof(ConfirmEmail))]
+        [Authorize]
         public async Task<ActionResult<string>> ConfirmEmail()
         {
             try
@@ -267,16 +278,18 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
+                logger.LogError(exp.Message);
                 return BadRequest(exp.Message);
             }
         }
 
 
         /// <summary>
-        /// SignOut from system
+        /// SignOut from system - authorize user have access for it
         /// </summary>
         [HttpPost]
         [Route(nameof(SignOutNow))]
+        [Authorize]
         public async Task<ActionResult<bool>> SignOutNow()
         {
             try
@@ -288,35 +301,43 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
+                logger.LogError(exp.Message);
                 return BadRequest(exp.Message);
             }
         }
 
 
         /// <summary>
-        /// add new role to database
+        /// add new role to database -- only for admins
         /// </summary>
         [HttpGet]
         [Route("[action]")]
+        [Authorize(Roles ="admin")]
         public async Task<ActionResult<IEnumerable<RoleModel>>> Roles()
         {
             try
             {
+                if (!User.IsInRole("admin"))
+                {
+                    throw new UnauthorizedAccessException("You do not have the required 'admin' role.");
+                }
                 var res = await ser.GetAllRoles();
                 return Ok(res);
             }
             catch (Exception exp)
             {
+                logger.LogError(exp.Message);
                 return BadRequest(exp.Message);
             }
         }
 
 
         /// <summary>
-        ///get all users details  from DB
+        ///get all users details  from DB -- only for admins
         /// </summary>
         [HttpGet]
         [Route("[action]")]
+        [Authorize(Roles ="admin")]
         public async Task<ActionResult<IEnumerable<PersonModel>>> Users()
         {
             try
@@ -326,16 +347,18 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
+                logger.LogError(exp.Message);
                 return BadRequest(exp.Message);
             }
         }
 
 
         /// <summary>
-        /// delete specify Role from DB
+        /// delete specify Role from DB -- only for admin
         /// </summary>
         [HttpDelete]
         [Route("Role/{role:alpha}/[action]")]
+        [Authorize(Roles ="admin")]
         public async Task<ActionResult<IdentityResult>> Delete([FromRoute] string role)
         {
             try
@@ -349,16 +372,18 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
+                logger.LogError(exp.Message);
                 return BadRequest(exp.Message);
             }
         }
 
 
         /// <summary>
-        /// add new role to DB
+        /// add new role to DB -- only for admin
         /// </summary>
         [HttpPost]
         [Route("Role/{role:alpha}/[action]")]
+        [Authorize(Roles ="admin")]
         public async Task<ActionResult<IdentityResult>> Add([FromRoute] string role)
         {
             try
@@ -372,6 +397,7 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
+                logger.LogError(exp.Message);
                 return BadRequest(exp.Message);
             }
         }
@@ -381,12 +407,14 @@ namespace GA.TradeMarket.Api.Controllers
         /// delete specify User from DB only for ADMIN
         /// </summary>
         [HttpDelete]
-        [Authorize(Roles ="ADMIN")]
+        [Authorize]
         [Route("User/{id}/[action]")]
+        [Authorize(Roles="admin")]
         public async Task<ActionResult<IdentityResult>> DeleteUser([FromRoute] string id)
         {
             try
             {
+
                 if (!ModelState.IsValid)
                 {
                     throw new MarketException(id);
@@ -396,16 +424,18 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
+                logger.LogError(exp.Message);
                 return BadRequest(exp.Message);
             }
         }
 
 
         /// <summary>
-        /// assign specify role to specify User
+        /// assign specify role to specify user--  can use for admin
         /// </summary>
         [HttpPost]
         [Route("User/{userid}[action]/{role:alpha}")]
+        [Authorize]
         public async Task<ActionResult<IdentityResult>> Role([FromRoute] string userid, [FromRoute] string role)
         {
             try

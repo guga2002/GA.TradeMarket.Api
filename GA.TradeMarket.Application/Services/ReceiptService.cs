@@ -6,14 +6,16 @@ using GA.TradeMarket.Application.StaticFIles;
 using GA.TradeMarket.Application.Validation;
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
+using Microsoft.AspNetCore.Identity;
 
 namespace GA.TradeMarket.Application.Services
 {
     public class ReceiptService :AbstractService, IReceiptService
     {
-
-        public ReceiptService(IUnitOfWork obj, IMapper mapper):base(obj,mapper)
+        private readonly UserManager<Person> userManager;
+        public ReceiptService(IUnitOfWork obj, IMapper mapper, UserManager<Person> userManager) :base(obj,mapper)
         {
+            this.userManager = userManager;
         }
 
         public async Task AddAsync(ReceiptModelIn item)
@@ -104,6 +106,19 @@ namespace GA.TradeMarket.Application.Services
                    await obj.ReceiptDetailRepository.Delete(ite);
                 }
             }
+        }
+
+        public async Task<IEnumerable<ReceiptModel>> GetAllReceiptsForCurrentUser(string userName)
+        {
+           var user= await userManager.FindByNameAsync(userName);
+            if(user is not null)
+            {
+                var res=await obj.ReceiptRepository.GetAllWithDetailsAsync();
+                var receipts= res.Where(io=>io.order.CustomerId==user.Customer.Id).ToList();
+                var mapped=mapper.Map<IEnumerable<ReceiptModel>>(receipts);
+                return mapped;
+            }
+            throw new UnauthorizedAccessException(ErrorKeys.NoCustommer);
         }
 
         public async Task<IEnumerable<ReceiptModel>> GetAllWithDetailsAsync()
