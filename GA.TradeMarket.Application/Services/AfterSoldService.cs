@@ -6,6 +6,7 @@ using GA.TradeMarket.Application.StaticFIles;
 using GA.TradeMarket.Application.Validation;
 using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
+using GA.TradeMarket.Persistance.SMTP;
 using Microsoft.AspNetCore.Identity;
 
 namespace GA.TradeMarket.Application.Services
@@ -13,9 +14,11 @@ namespace GA.TradeMarket.Application.Services
     public class AfterSoldService : AbstractService, IAfterSoldService
     {
         private readonly UserManager<Person> _userManager;
-        public AfterSoldService(IUnitOfWork obj, IMapper map, UserManager<Person> _userManager) : base(obj, map)
+        private readonly SmtpService smtp;
+        public AfterSoldService(IUnitOfWork obj, IMapper map, UserManager<Person> _userManager,SmtpService ser) : base(obj, map)
         {
             this._userManager = _userManager;
+            this.smtp = ser;
         }
 
         public async Task AddAsync(ReturnRequestModelIn item)
@@ -95,16 +98,18 @@ namespace GA.TradeMarket.Application.Services
             <p>G.Apkha</p>
         </div>
         <div class=""footer"">
-            <p>&copy; 2024 TradeMarket. All rights reserved.</p>
+            <p>&copy; 2024 G.apkha, ყველა უფლება დაცულია.</p>
         </div>
     </div>
 </body>
 </html>
 ";
+           
             var mapped=mapper.Map<ReturnRequest>(item);
             if(mapped is not null)
             {
                await  obj.ReturnRequestRepository.AddAsync(mapped);
+                smtp.SendMessage(person.Email,$"დაბრუნების მოთხოვნა:{DateTime.Now.ToShortTimeString()}",body);
             }
         }
 

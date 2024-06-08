@@ -25,7 +25,7 @@ namespace GA.TradeMarket.Infrastructure.Repositories
 
         public async Task DeleteByIdAsync(long Id)
         {
-            var res = await dbset.FirstOrDefaultAsync(io => io.Id == Id);
+            var res = await dbset.FindAsync(Id);
             if (res is not null)
             {
                 dbset.Remove(res);
