@@ -26,7 +26,7 @@ namespace GA.TradeMarket.Api.Controllers
         [HttpPost]
         [Route(nameof(PopularShiper))]
         [Authorize(Roles ="manager,operator")]
-        public async Task<ActionResult> PopularShiper([FromBody]StatisticShipperModel mod)
+        public async Task<ActionResult<ShippingModelStatistic>> PopularShiper([FromBody]StatisticShipperModel mod)
         {
             try
             {
@@ -44,7 +44,7 @@ namespace GA.TradeMarket.Api.Controllers
             catch (Exception exp)
             {
                 logger.LogCritical(exp.Message);
-                return BadRequest(exp.Message);
+                return BadRequest(exp.StackTrace);
             }
 
         }

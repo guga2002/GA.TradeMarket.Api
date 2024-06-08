@@ -50,225 +50,225 @@ namespace GA.TradeMarket.Domain.Migrations
                         {
                             Id = 1L,
                             CustomerId = 1L,
-                            EnrollmentDate = new DateTime(2003, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2425),
-                            Points = 317
+                            EnrollmentDate = new DateTime(2007, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6167),
+                            Points = 980
                         },
                         new
                         {
                             Id = 2L,
                             CustomerId = 2L,
-                            EnrollmentDate = new DateTime(2023, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2441),
-                            Points = 306
+                            EnrollmentDate = new DateTime(1995, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6169),
+                            Points = 171
                         },
                         new
                         {
                             Id = 3L,
                             CustomerId = 2L,
-                            EnrollmentDate = new DateTime(2004, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2444),
-                            Points = 541
+                            EnrollmentDate = new DateTime(2023, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6171),
+                            Points = 392
                         },
                         new
                         {
                             Id = 4L,
                             CustomerId = 3L,
-                            EnrollmentDate = new DateTime(2015, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2449),
-                            Points = 534
+                            EnrollmentDate = new DateTime(2011, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6172),
+                            Points = 658
                         },
                         new
                         {
                             Id = 5L,
                             CustomerId = 4L,
-                            EnrollmentDate = new DateTime(2012, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2453),
-                            Points = 762
+                            EnrollmentDate = new DateTime(1997, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6174),
+                            Points = 939
                         },
                         new
                         {
                             Id = 6L,
                             CustomerId = 1L,
-                            EnrollmentDate = new DateTime(2020, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2458),
-                            Points = 863
+                            EnrollmentDate = new DateTime(1995, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6176),
+                            Points = 338
                         },
                         new
                         {
                             Id = 7L,
                             CustomerId = 1L,
-                            EnrollmentDate = new DateTime(2011, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2462),
-                            Points = 498
+                            EnrollmentDate = new DateTime(2023, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6177),
+                            Points = 123
                         },
                         new
                         {
                             Id = 8L,
                             CustomerId = 2L,
-                            EnrollmentDate = new DateTime(2001, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2466),
-                            Points = 861
+                            EnrollmentDate = new DateTime(2011, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6179),
+                            Points = 849
                         },
                         new
                         {
                             Id = 9L,
                             CustomerId = 3L,
-                            EnrollmentDate = new DateTime(2023, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2470),
-                            Points = 136
+                            EnrollmentDate = new DateTime(2004, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6180),
+                            Points = 901
                         },
                         new
                         {
                             Id = 10L,
                             CustomerId = 2L,
-                            EnrollmentDate = new DateTime(2001, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2474),
-                            Points = 570
+                            EnrollmentDate = new DateTime(1996, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6182),
+                            Points = 136
                         },
                         new
                         {
                             Id = 11L,
                             CustomerId = 4L,
-                            EnrollmentDate = new DateTime(2011, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2479),
-                            Points = 204
+                            EnrollmentDate = new DateTime(2023, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6184),
+                            Points = 382
                         },
                         new
                         {
                             Id = 12L,
                             CustomerId = 1L,
-                            EnrollmentDate = new DateTime(2018, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2483),
-                            Points = 888
+                            EnrollmentDate = new DateTime(2002, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6185),
+                            Points = 594
                         },
                         new
                         {
                             Id = 13L,
                             CustomerId = 2L,
-                            EnrollmentDate = new DateTime(2009, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2488),
-                            Points = 825
+                            EnrollmentDate = new DateTime(2020, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6187),
+                            Points = 637
                         },
                         new
                         {
                             Id = 14L,
                             CustomerId = 4L,
-                            EnrollmentDate = new DateTime(2012, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2492),
-                            Points = 561
+                            EnrollmentDate = new DateTime(2007, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6188),
+                            Points = 438
                         },
                         new
                         {
                             Id = 15L,
                             CustomerId = 2L,
-                            EnrollmentDate = new DateTime(2011, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2497),
-                            Points = 512
+                            EnrollmentDate = new DateTime(1999, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6191),
+                            Points = 514
                         },
                         new
                         {
                             Id = 16L,
                             CustomerId = 2L,
-                            EnrollmentDate = new DateTime(2003, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2501),
-                            Points = 393
+                            EnrollmentDate = new DateTime(2023, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6192),
+                            Points = 169
                         },
                         new
                         {
                             Id = 17L,
                             CustomerId = 5L,
-                            EnrollmentDate = new DateTime(2005, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2505),
-                            Points = 408
+                            EnrollmentDate = new DateTime(2023, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6193),
+                            Points = 766
                         },
                         new
                         {
                             Id = 18L,
                             CustomerId = 6L,
-                            EnrollmentDate = new DateTime(2006, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2510),
-                            Points = 560
+                            EnrollmentDate = new DateTime(2021, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6195),
+                            Points = 799
                         },
                         new
                         {
                             Id = 19L,
                             CustomerId = 7L,
-                            EnrollmentDate = new DateTime(1996, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2514),
-                            Points = 808
+                            EnrollmentDate = new DateTime(2022, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6197),
+                            Points = 873
                         },
                         new
                         {
                             Id = 20L,
                             CustomerId = 8L,
-                            EnrollmentDate = new DateTime(2002, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2518),
-                            Points = 518
+                            EnrollmentDate = new DateTime(1999, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6199),
+                            Points = 821
                         },
                         new
                         {
                             Id = 21L,
                             CustomerId = 4L,
-                            EnrollmentDate = new DateTime(1996, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2523),
-                            Points = 866
+                            EnrollmentDate = new DateTime(2005, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6200),
+                            Points = 726
                         },
                         new
                         {
                             Id = 22L,
                             CustomerId = 5L,
-                            EnrollmentDate = new DateTime(2006, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2527),
-                            Points = 647
+                            EnrollmentDate = new DateTime(1999, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6201),
+                            Points = 217
                         },
                         new
                         {
                             Id = 23L,
                             CustomerId = 6L,
-                            EnrollmentDate = new DateTime(2002, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2546),
-                            Points = 419
+                            EnrollmentDate = new DateTime(2000, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6203),
+                            Points = 595
                         },
                         new
                         {
                             Id = 24L,
                             CustomerId = 8L,
-                            EnrollmentDate = new DateTime(2011, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2550),
-                            Points = 554
+                            EnrollmentDate = new DateTime(2003, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6205),
+                            Points = 172
                         },
                         new
                         {
                             Id = 25L,
                             CustomerId = 7L,
-                            EnrollmentDate = new DateTime(2000, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2554),
-                            Points = 141
+                            EnrollmentDate = new DateTime(2006, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6206),
+                            Points = 755
                         },
                         new
                         {
                             Id = 26L,
                             CustomerId = 4L,
-                            EnrollmentDate = new DateTime(2015, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2558),
-                            Points = 821
+                            EnrollmentDate = new DateTime(2015, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6208),
+                            Points = 714
                         },
                         new
                         {
                             Id = 27L,
                             CustomerId = 5L,
-                            EnrollmentDate = new DateTime(1998, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2562),
-                            Points = 418
+                            EnrollmentDate = new DateTime(2021, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6209),
+                            Points = 533
                         },
                         new
                         {
                             Id = 28L,
                             CustomerId = 2L,
-                            EnrollmentDate = new DateTime(2016, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2566),
-                            Points = 368
+                            EnrollmentDate = new DateTime(2014, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6211),
+                            Points = 753
                         },
                         new
                         {
                             Id = 29L,
                             CustomerId = 8L,
-                            EnrollmentDate = new DateTime(2012, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2570),
-                            Points = 787
+                            EnrollmentDate = new DateTime(1997, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6212),
+                            Points = 432
                         },
                         new
                         {
                             Id = 30L,
                             CustomerId = 7L,
-                            EnrollmentDate = new DateTime(2006, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2574),
-                            Points = 634
+                            EnrollmentDate = new DateTime(1997, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6214),
+                            Points = 795
                         },
                         new
                         {
                             Id = 31L,
                             CustomerId = 2L,
-                            EnrollmentDate = new DateTime(2014, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2578),
-                            Points = 651
+                            EnrollmentDate = new DateTime(2002, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6215),
+                            Points = 924
                         },
                         new
                         {
                             Id = 32L,
                             CustomerId = 6L,
-                            EnrollmentDate = new DateTime(2015, 6, 6, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(2582),
-                            Points = 310
+                            EnrollmentDate = new DateTime(2003, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(6218),
+                            Points = 405
                         });
                 });
 
@@ -298,114 +298,114 @@ namespace GA.TradeMarket.Domain.Migrations
                         new
                         {
                             Id = 1L,
-                            Code = "1awjizZJvKEeCtypR6HkdbqXgfP8B42D78212",
-                            DiscountValue = 389m,
-                            ExpiryDate = new DateTime(2025, 2, 7, 15, 54, 30, 948, DateTimeKind.Local).AddTicks(3943)
+                            Code = "32fzWqaXSrEDAbecKJm5VLT6ZnY22489",
+                            DiscountValue = 148m,
+                            ExpiryDate = new DateTime(2025, 4, 14, 15, 47, 25, 675, DateTimeKind.Local).AddTicks(9228)
                         },
                         new
                         {
                             Id = 2L,
-                            Code = "1MWTepNfjoHBwyi1mt8angCFduqLc759Q59676",
-                            DiscountValue = 213m,
-                            ExpiryDate = new DateTime(2025, 2, 28, 15, 54, 30, 948, DateTimeKind.Local).AddTicks(4241)
+                            Code = "3r1GupTfiymaNFHkgBZbwMUq9zv6R8En99296",
+                            DiscountValue = 356m,
+                            ExpiryDate = new DateTime(2024, 12, 17, 15, 47, 25, 675, DateTimeKind.Local).AddTicks(9324)
                         },
                         new
                         {
                             Id = 3L,
-                            Code = "3tdrZyqoCLX3s95mYU4nzi2EA6HMb55255",
-                            DiscountValue = 206m,
-                            ExpiryDate = new DateTime(2024, 12, 14, 15, 54, 30, 948, DateTimeKind.Local).AddTicks(4386)
+                            Code = "1Me35tikaqf4BhGN9cPw1yxTjsEZL72025",
+                            DiscountValue = 204m,
+                            ExpiryDate = new DateTime(2024, 12, 4, 15, 47, 25, 675, DateTimeKind.Local).AddTicks(9359)
                         },
                         new
                         {
                             Id = 4L,
-                            Code = "1sQmPwAGXcx6ikBMdtL7FK8NoayW27107",
-                            DiscountValue = 232m,
-                            ExpiryDate = new DateTime(2025, 6, 14, 15, 54, 30, 948, DateTimeKind.Local).AddTicks(4504)
+                            Code = "1a5HEwDUi3eSPkcugbrXsJ7zVM948F51572",
+                            DiscountValue = 208m,
+                            ExpiryDate = new DateTime(2024, 12, 19, 15, 47, 25, 675, DateTimeKind.Local).AddTicks(9413)
                         },
                         new
                         {
                             Id = 5L,
-                            Code = "1qEuBMdKCSw86nQWZADmb17N5JicjRfHx3t74769",
-                            DiscountValue = 160m,
-                            ExpiryDate = new DateTime(2025, 8, 15, 15, 54, 30, 948, DateTimeKind.Local).AddTicks(4629)
+                            Code = "35znDhY98JTdE3GZVwR6NjvtyAW85120",
+                            DiscountValue = 196m,
+                            ExpiryDate = new DateTime(2025, 5, 1, 15, 47, 25, 675, DateTimeKind.Local).AddTicks(9445)
                         },
                         new
                         {
                             Id = 6L,
-                            Code = "1d6wxioXMcrq2GFVpgfS3by7knWZ78006",
-                            DiscountValue = 172m,
-                            ExpiryDate = new DateTime(2025, 2, 2, 15, 54, 30, 948, DateTimeKind.Local).AddTicks(4760)
+                            Code = "3XMRzrNf7sLtGEKhe4CSowqacBiDZpn171095",
+                            DiscountValue = 209m,
+                            ExpiryDate = new DateTime(2025, 6, 17, 15, 47, 25, 675, DateTimeKind.Local).AddTicks(9474)
                         },
                         new
                         {
                             Id = 7L,
-                            Code = "3U3NmvaobH1BVetjJQnPLsM4E7hxSp52962",
-                            DiscountValue = 343m,
-                            ExpiryDate = new DateTime(2024, 7, 29, 15, 54, 30, 948, DateTimeKind.Local).AddTicks(4909)
+                            Code = "1HENaTG1gcMYKhsAUnquv79rSXpbCj4Vt83103",
+                            DiscountValue = 396m,
+                            ExpiryDate = new DateTime(2024, 9, 6, 15, 47, 25, 675, DateTimeKind.Local).AddTicks(9507)
                         },
                         new
                         {
                             Id = 8L,
-                            Code = "34soyVAXtF271np9M6kvimeJjBhzW8GL56774",
-                            DiscountValue = 264m,
-                            ExpiryDate = new DateTime(2025, 7, 13, 15, 54, 30, 948, DateTimeKind.Local).AddTicks(5036)
+                            Code = "1yw6ip1Hh7DFZxVzRB9QuqftMA259696",
+                            DiscountValue = 100m,
+                            ExpiryDate = new DateTime(2025, 8, 5, 15, 47, 25, 675, DateTimeKind.Local).AddTicks(9541)
                         },
                         new
                         {
                             Id = 9L,
-                            Code = "1JsrQGdYU4RcfTegk3hSFvzDM8EPt80579",
-                            DiscountValue = 160m,
-                            ExpiryDate = new DateTime(2025, 1, 10, 15, 54, 30, 948, DateTimeKind.Local).AddTicks(5165)
+                            Code = "1bGYa7hQ8JXSK3io4q6WcszfFjrmwE97066",
+                            DiscountValue = 123m,
+                            ExpiryDate = new DateTime(2025, 6, 15, 15, 47, 25, 675, DateTimeKind.Local).AddTicks(9569)
                         },
                         new
                         {
                             Id = 10L,
-                            Code = "3L5qJ1xoMr6RKpDkEwunvdPsQfXt69857",
-                            DiscountValue = 131m,
-                            ExpiryDate = new DateTime(2025, 3, 15, 15, 54, 30, 948, DateTimeKind.Local).AddTicks(5275)
+                            Code = "1gN6xMmUupzGaPqi2YhtS8ETCWj5v61176",
+                            DiscountValue = 380m,
+                            ExpiryDate = new DateTime(2025, 3, 10, 15, 47, 25, 675, DateTimeKind.Local).AddTicks(9599)
                         },
                         new
                         {
                             Id = 11L,
-                            Code = "1vVM1o5KGwXU9QdiNn4rmyLBzfxEgDJ6T32782",
-                            DiscountValue = 377m,
-                            ExpiryDate = new DateTime(2025, 3, 17, 15, 54, 30, 948, DateTimeKind.Local).AddTicks(5414)
+                            Code = "3nYeAcTi9Pbyu1sVJtLB5vGWxq35216",
+                            DiscountValue = 305m,
+                            ExpiryDate = new DateTime(2025, 1, 13, 15, 47, 25, 675, DateTimeKind.Local).AddTicks(9630)
                         },
                         new
                         {
                             Id = 12L,
-                            Code = "3PkBVbDztXjn8C6u1maicLxvyUr3R55035",
-                            DiscountValue = 231m,
-                            ExpiryDate = new DateTime(2024, 8, 13, 15, 54, 30, 948, DateTimeKind.Local).AddTicks(5534)
+                            Code = "3rU64m8dgDN9Cw5T7i2enWMXckBGHbV50928",
+                            DiscountValue = 100m,
+                            ExpiryDate = new DateTime(2025, 8, 29, 15, 47, 25, 675, DateTimeKind.Local).AddTicks(9743)
                         },
                         new
                         {
                             Id = 13L,
-                            Code = "3fm4MBKudWNHjewGLqc2CZoFsV130980",
-                            DiscountValue = 164m,
-                            ExpiryDate = new DateTime(2024, 7, 12, 15, 54, 30, 948, DateTimeKind.Local).AddTicks(5657)
+                            Code = "1ZbJV8dpC6tgDosELPUqm4STaHRXW2Fhw61754",
+                            DiscountValue = 367m,
+                            ExpiryDate = new DateTime(2025, 10, 6, 15, 47, 25, 675, DateTimeKind.Local).AddTicks(9776)
                         },
                         new
                         {
                             Id = 14L,
-                            Code = "3dm3XMzEi2P6BjL5g7Wns48yaC16848",
-                            DiscountValue = 221m,
-                            ExpiryDate = new DateTime(2025, 7, 31, 15, 54, 30, 948, DateTimeKind.Local).AddTicks(5763)
+                            Code = "1imSEocFNekBQt7qwDpHaRJgL48dUZ94159",
+                            DiscountValue = 203m,
+                            ExpiryDate = new DateTime(2024, 11, 19, 15, 47, 25, 675, DateTimeKind.Local).AddTicks(9809)
                         },
                         new
                         {
                             Id = 15L,
-                            Code = "1SZn8NLgXbUG7CQmJD3KTo6p1jsq4dcBVP26552",
-                            DiscountValue = 193m,
-                            ExpiryDate = new DateTime(2025, 3, 16, 15, 54, 30, 948, DateTimeKind.Local).AddTicks(5876)
+                            Code = "1aUVMC4pBqJ9wj3Z7W1yPdD6hKmk31705",
+                            DiscountValue = 133m,
+                            ExpiryDate = new DateTime(2025, 8, 14, 15, 47, 25, 675, DateTimeKind.Local).AddTicks(9839)
                         },
                         new
                         {
                             Id = 16L,
-                            Code = "127UrGowyWNFvMgVjsn5bmTQY8e1i6ht80048",
-                            DiscountValue = 127m,
-                            ExpiryDate = new DateTime(2024, 11, 19, 15, 54, 30, 948, DateTimeKind.Local).AddTicks(6018)
+                            Code = "3vfJHKzNonbc16C2MwkS3d8jWB7588951",
+                            DiscountValue = 318m,
+                            ExpiryDate = new DateTime(2025, 4, 24, 15, 47, 25, 675, DateTimeKind.Local).AddTicks(9869)
                         });
                 });
 
@@ -444,58 +444,58 @@ namespace GA.TradeMarket.Domain.Migrations
                         new
                         {
                             Id = 1L,
-                            DiscountValue = 553m,
-                            OperationDate = new DateTime(2023, 12, 30, 5, 54, 30, 956, DateTimeKind.Local).AddTicks(1738),
+                            DiscountValue = 425m,
+                            OperationDate = new DateTime(2023, 5, 28, 16, 47, 25, 678, DateTimeKind.Local).AddTicks(5987),
                             PersonId = "1"
                         },
                         new
                         {
                             Id = 2L,
-                            DiscountValue = 285m,
-                            OperationDate = new DateTime(2023, 10, 10, 17, 54, 30, 956, DateTimeKind.Local).AddTicks(1781),
+                            DiscountValue = 763m,
+                            OperationDate = new DateTime(2023, 6, 10, 13, 47, 25, 678, DateTimeKind.Local).AddTicks(5990),
                             PersonId = "2"
                         },
                         new
                         {
                             Id = 3L,
-                            DiscountValue = 661m,
-                            OperationDate = new DateTime(2023, 6, 21, 3, 54, 30, 956, DateTimeKind.Local).AddTicks(1786),
+                            DiscountValue = 824m,
+                            OperationDate = new DateTime(2024, 5, 15, 2, 47, 25, 678, DateTimeKind.Local).AddTicks(5992),
                             PersonId = "3"
                         },
                         new
                         {
                             Id = 4L,
-                            DiscountValue = 117m,
-                            OperationDate = new DateTime(2024, 4, 29, 15, 54, 30, 956, DateTimeKind.Local).AddTicks(1791),
+                            DiscountValue = 542m,
+                            OperationDate = new DateTime(2023, 5, 1, 0, 47, 25, 678, DateTimeKind.Local).AddTicks(5993),
                             PersonId = "4"
                         },
                         new
                         {
                             Id = 5L,
-                            DiscountValue = 877m,
-                            OperationDate = new DateTime(2023, 7, 9, 1, 54, 30, 956, DateTimeKind.Local).AddTicks(1804),
+                            DiscountValue = 103m,
+                            OperationDate = new DateTime(2023, 8, 30, 13, 47, 25, 678, DateTimeKind.Local).AddTicks(6042),
                             PersonId = "5"
                         },
                         new
                         {
                             Id = 6L,
-                            DiscountValue = 307m,
-                            OperationDate = new DateTime(2023, 6, 20, 22, 54, 30, 956, DateTimeKind.Local).AddTicks(1822),
+                            DiscountValue = 598m,
+                            OperationDate = new DateTime(2023, 10, 17, 0, 47, 25, 678, DateTimeKind.Local).AddTicks(6044),
                             PersonId = "6"
                         },
                         new
                         {
                             Id = 7L,
-                            DiscountValue = 664m,
-                            OperationDate = new DateTime(2024, 1, 17, 19, 54, 30, 956, DateTimeKind.Local).AddTicks(1827),
+                            DiscountValue = 116m,
+                            OperationDate = new DateTime(2024, 2, 27, 0, 47, 25, 678, DateTimeKind.Local).AddTicks(6046),
                             PersonId = "7"
                         },
                         new
                         {
                             Id = 8L,
-                            DiscountValue = 555m,
-                            OperationDate = new DateTime(2024, 4, 8, 20, 54, 30, 956, DateTimeKind.Local).AddTicks(1831),
-                            PersonId = "8"
+                            DiscountValue = 770m,
+                            OperationDate = new DateTime(2023, 9, 3, 11, 47, 25, 678, DateTimeKind.Local).AddTicks(6047),
+                            PersonId = "02174cf0–9412–4cfe - afbf - 59f706d72cf6"
                         });
                 });
 
@@ -531,7 +531,7 @@ namespace GA.TradeMarket.Domain.Migrations
                             Id = 1L,
                             Buy = 1.0m,
                             Currency = "GEL",
-                            LogTime = new DateTime(2024, 6, 6, 15, 54, 30, 939, DateTimeKind.Local).AddTicks(6985),
+                            LogTime = new DateTime(2024, 6, 8, 15, 47, 25, 673, DateTimeKind.Local).AddTicks(6462),
                             Sell = 1.0m
                         });
                 });
@@ -543,6 +543,9 @@ namespace GA.TradeMarket.Domain.Migrations
                         .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("IsSeen")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Message")
                         .IsRequired()
@@ -564,127 +567,145 @@ namespace GA.TradeMarket.Domain.Migrations
                         new
                         {
                             Id = 1L,
-                            Message = "Et voluptas eos doloremque repellendus minus temporibus libero fugit et.\nNobis dolorem quis illo recusandae quia enim quas et.\nAut necessitatibus animi ex quasi quis dolores suscipit quo.\nEum voluptatem neque sequi qui atque.\nEst voluptas rerum.",
-                            NotificationDate = new DateTime(2024, 5, 5, 3, 54, 30, 963, DateTimeKind.Local).AddTicks(9759),
+                            IsSeen = false,
+                            Message = "laudantium",
+                            NotificationDate = new DateTime(2024, 5, 3, 20, 47, 25, 680, DateTimeKind.Local).AddTicks(5801),
                             UserId = 1L
                         },
                         new
                         {
                             Id = 2L,
-                            Message = "Deleniti dicta earum.",
-                            NotificationDate = new DateTime(2024, 5, 19, 19, 54, 30, 964, DateTimeKind.Local).AddTicks(388),
+                            IsSeen = false,
+                            Message = "quod",
+                            NotificationDate = new DateTime(2024, 5, 31, 1, 47, 25, 680, DateTimeKind.Local).AddTicks(5852),
                             UserId = 2L
                         },
                         new
                         {
                             Id = 3L,
-                            Message = "Nulla tenetur illum eos deserunt aut occaecati ullam earum dolores.",
-                            NotificationDate = new DateTime(2024, 4, 27, 6, 54, 30, 964, DateTimeKind.Local).AddTicks(431),
+                            IsSeen = false,
+                            Message = "perferendis",
+                            NotificationDate = new DateTime(2024, 6, 2, 6, 47, 25, 680, DateTimeKind.Local).AddTicks(5859),
                             UserId = 3L
                         },
                         new
                         {
                             Id = 4L,
-                            Message = "quia",
-                            NotificationDate = new DateTime(2024, 5, 1, 19, 54, 30, 964, DateTimeKind.Local).AddTicks(502),
+                            IsSeen = false,
+                            Message = "Aperiam dolores ipsa sint neque quaerat id deserunt. Nulla sit eveniet voluptatem ut natus consectetur ea corrupti. Ex ut excepturi. Consequuntur distinctio dolore sed voluptatibus quia. Sit nihil a non eum et. Non ipsam praesentium quia adipisci iusto.",
+                            NotificationDate = new DateTime(2024, 5, 16, 6, 47, 25, 680, DateTimeKind.Local).AddTicks(5864),
                             UserId = 4L
                         },
                         new
                         {
                             Id = 5L,
-                            Message = "Omnis voluptates ad eius nam quia nemo modi. Consequatur consequatur magni illo est saepe qui delectus nihil. Sed vero suscipit distinctio quidem perferendis quibusdam minima beatae labore.",
-                            NotificationDate = new DateTime(2024, 5, 12, 23, 54, 30, 964, DateTimeKind.Local).AddTicks(515),
+                            IsSeen = false,
+                            Message = "aliquam",
+                            NotificationDate = new DateTime(2024, 5, 11, 15, 47, 25, 680, DateTimeKind.Local).AddTicks(6120),
                             UserId = 1L
                         },
                         new
                         {
                             Id = 6L,
-                            Message = "neque",
-                            NotificationDate = new DateTime(2024, 5, 16, 18, 54, 30, 964, DateTimeKind.Local).AddTicks(705),
+                            IsSeen = false,
+                            Message = "Odit dicta repellat omnis aut placeat adipisci.",
+                            NotificationDate = new DateTime(2024, 5, 10, 12, 47, 25, 680, DateTimeKind.Local).AddTicks(6126),
                             UserId = 2L
                         },
                         new
                         {
                             Id = 7L,
-                            Message = "dolore",
-                            NotificationDate = new DateTime(2024, 6, 3, 7, 54, 30, 964, DateTimeKind.Local).AddTicks(728),
+                            IsSeen = false,
+                            Message = "iste",
+                            NotificationDate = new DateTime(2024, 6, 1, 8, 47, 25, 680, DateTimeKind.Local).AddTicks(6152),
                             UserId = 3L
                         },
                         new
                         {
                             Id = 8L,
-                            Message = "Doloribus natus autem voluptate optio et.\nTotam possimus tempore.\nVoluptas iste deleniti adipisci in temporibus ut ut cumque nesciunt.",
-                            NotificationDate = new DateTime(2024, 6, 4, 2, 54, 30, 964, DateTimeKind.Local).AddTicks(738),
+                            IsSeen = false,
+                            Message = "sed",
+                            NotificationDate = new DateTime(2024, 5, 6, 20, 47, 25, 680, DateTimeKind.Local).AddTicks(6157),
                             UserId = 4L
                         },
                         new
                         {
                             Id = 9L,
-                            Message = "Officiis amet beatae molestias.",
-                            NotificationDate = new DateTime(2024, 5, 20, 1, 54, 30, 964, DateTimeKind.Local).AddTicks(899),
+                            IsSeen = false,
+                            Message = "Deleniti sunt molestiae perspiciatis dolor nisi pariatur molestiae. Voluptatibus ullam iste cum ipsum dolores. Molestiae incidunt sint facere vitae. Placeat at totam est iste delectus. Ut quaerat voluptate qui quis atque.",
+                            NotificationDate = new DateTime(2024, 5, 22, 15, 47, 25, 680, DateTimeKind.Local).AddTicks(6162),
                             UserId = 5L
                         },
                         new
                         {
                             Id = 10L,
-                            Message = "Hic dolor quia eos mollitia.",
-                            NotificationDate = new DateTime(2024, 6, 4, 19, 54, 30, 964, DateTimeKind.Local).AddTicks(938),
+                            IsSeen = false,
+                            Message = "Repellendus dolore explicabo aut aut reiciendis consequuntur.",
+                            NotificationDate = new DateTime(2024, 5, 28, 10, 47, 25, 680, DateTimeKind.Local).AddTicks(6324),
                             UserId = 6L
                         },
                         new
                         {
                             Id = 11L,
-                            Message = "Doloribus fugiat quo labore deserunt accusantium. Quia nulla ullam nostrum. Et autem sit odit. Ut quidem in at consectetur illum est eaque. Alias nemo temporibus corrupti repudiandae quae rerum quam iure qui. Aut nesciunt quam.",
-                            NotificationDate = new DateTime(2024, 6, 5, 3, 54, 30, 964, DateTimeKind.Local).AddTicks(979),
+                            IsSeen = false,
+                            Message = "incidunt",
+                            NotificationDate = new DateTime(2024, 5, 24, 1, 47, 25, 680, DateTimeKind.Local).AddTicks(6349),
                             UserId = 7L
                         },
                         new
                         {
                             Id = 12L,
-                            Message = "et",
-                            NotificationDate = new DateTime(2024, 5, 29, 15, 54, 30, 964, DateTimeKind.Local).AddTicks(1562),
+                            IsSeen = false,
+                            Message = "Est aut enim nam illum aut saepe molestias dolorem adipisci.\nIpsum sunt adipisci quia reprehenderit accusamus quaerat sint.\nCorrupti ut et ea.\nQuibusdam quisquam voluptas aut adipisci dicta inventore ipsa delectus ut.",
+                            NotificationDate = new DateTime(2024, 5, 4, 3, 47, 25, 680, DateTimeKind.Local).AddTicks(6353),
                             UserId = 8L
                         },
                         new
                         {
                             Id = 13L,
-                            Message = "Ut explicabo fugit.",
-                            NotificationDate = new DateTime(2024, 5, 19, 17, 54, 30, 964, DateTimeKind.Local).AddTicks(1576),
+                            IsSeen = false,
+                            Message = "blanditiis",
+                            NotificationDate = new DateTime(2024, 5, 11, 12, 47, 25, 680, DateTimeKind.Local).AddTicks(6579),
                             UserId = 4L
                         },
                         new
                         {
                             Id = 14L,
-                            Message = "Nemo quisquam atque impedit. Aperiam ullam earum delectus sapiente molestiae. Aut aliquid ducimus et quasi in quia iste quaerat blanditiis. Omnis quas eaque necessitatibus deserunt praesentium accusamus omnis dolores voluptas. In aut molestias dolorum quidem quidem repellendus officia non.",
-                            NotificationDate = new DateTime(2024, 5, 3, 5, 54, 30, 964, DateTimeKind.Local).AddTicks(1608),
+                            IsSeen = false,
+                            Message = "Nihil saepe facilis iure quam autem ut.",
+                            NotificationDate = new DateTime(2024, 6, 5, 10, 47, 25, 680, DateTimeKind.Local).AddTicks(6585),
                             UserId = 6L
                         },
                         new
                         {
                             Id = 15L,
-                            Message = "qui",
-                            NotificationDate = new DateTime(2024, 5, 12, 4, 54, 30, 964, DateTimeKind.Local).AddTicks(2011),
+                            IsSeen = false,
+                            Message = "Non numquam minus quia. Laudantium ipsum a alias ea iste perferendis harum voluptates. Provident nihil et aut commodi. Sed asperiores et reiciendis voluptate distinctio ea recusandae ipsa. Dolores rerum et esse deleniti libero sed et.",
+                            NotificationDate = new DateTime(2024, 6, 6, 6, 47, 25, 680, DateTimeKind.Local).AddTicks(6612),
                             UserId = 7L
                         },
                         new
                         {
                             Id = 16L,
-                            Message = "Nobis sequi eveniet.\nUt eius consectetur.\nItaque consequatur ratione inventore autem.\nFugiat consequatur exercitationem iste dolor explicabo est sit itaque.\nPlaceat impedit aspernatur et aut hic.\nAut sed qui.",
-                            NotificationDate = new DateTime(2024, 5, 15, 3, 54, 30, 964, DateTimeKind.Local).AddTicks(2028),
+                            IsSeen = false,
+                            Message = "Repudiandae ipsa similique in tempore possimus et.",
+                            NotificationDate = new DateTime(2024, 6, 7, 17, 47, 25, 680, DateTimeKind.Local).AddTicks(6785),
                             UserId = 6L
                         },
                         new
                         {
                             Id = 17L,
-                            Message = "Voluptatum est quia amet architecto illo maiores porro.\nQuos iste et est mollitia nihil odit ex ratione.\nCum rerum recusandae reprehenderit est.\nUt et autem atque ipsum laborum amet corrupti expedita perferendis.\nDebitis exercitationem totam quam autem.",
-                            NotificationDate = new DateTime(2024, 5, 3, 14, 54, 30, 964, DateTimeKind.Local).AddTicks(2318),
+                            IsSeen = false,
+                            Message = "Nobis magni aspernatur.\nAut inventore maiores culpa dolores et enim deserunt.\nMagnam est aut sit quis et incidunt harum.\nPossimus maiores officia voluptatem et mollitia ut.\nHic omnis culpa cumque qui.",
+                            NotificationDate = new DateTime(2024, 5, 24, 21, 47, 25, 680, DateTimeKind.Local).AddTicks(6812),
                             UserId = 4L
                         },
                         new
                         {
                             Id = 18L,
-                            Message = "in",
-                            NotificationDate = new DateTime(2024, 5, 7, 21, 54, 30, 964, DateTimeKind.Local).AddTicks(2616),
+                            IsSeen = false,
+                            Message = "Deleniti commodi tempora ex unde.\nDicta amet sit est similique et vitae.\nMolestiae quae itaque repudiandae vel tempora.\nNostrum asperiores non omnis et quo molestiae quis.",
+                            NotificationDate = new DateTime(2024, 5, 15, 11, 47, 25, 680, DateTimeKind.Local).AddTicks(6911),
                             UserId = 8L
                         });
                 });
@@ -722,154 +743,154 @@ namespace GA.TradeMarket.Domain.Migrations
                         {
                             Id = 1L,
                             CustomerId = 1L,
-                            OrderDate = new DateTime(2024, 5, 11, 15, 54, 30, 964, DateTimeKind.Local).AddTicks(3640),
+                            OrderDate = new DateTime(2024, 5, 17, 15, 47, 25, 680, DateTimeKind.Local).AddTicks(7270),
                             Status = "Done"
                         },
                         new
                         {
                             Id = 2L,
                             CustomerId = 2L,
-                            OrderDate = new DateTime(2024, 5, 30, 15, 54, 30, 964, DateTimeKind.Local).AddTicks(3651),
+                            OrderDate = new DateTime(2024, 6, 6, 15, 47, 25, 680, DateTimeKind.Local).AddTicks(7273),
                             Status = "Decline"
                         },
                         new
                         {
                             Id = 3L,
                             CustomerId = 3L,
-                            OrderDate = new DateTime(2024, 5, 13, 15, 54, 30, 964, DateTimeKind.Local).AddTicks(3654),
+                            OrderDate = new DateTime(2024, 5, 23, 15, 47, 25, 680, DateTimeKind.Local).AddTicks(7274),
                             Status = "Done"
                         },
                         new
                         {
                             Id = 4L,
                             CustomerId = 2L,
-                            OrderDate = new DateTime(2024, 6, 1, 15, 54, 30, 964, DateTimeKind.Local).AddTicks(3655),
+                            OrderDate = new DateTime(2024, 5, 16, 15, 47, 25, 680, DateTimeKind.Local).AddTicks(7275),
                             Status = "processing"
                         },
                         new
                         {
                             Id = 5L,
                             CustomerId = 3L,
-                            OrderDate = new DateTime(2024, 5, 10, 15, 54, 30, 964, DateTimeKind.Local).AddTicks(3657),
+                            OrderDate = new DateTime(2024, 5, 17, 15, 47, 25, 680, DateTimeKind.Local).AddTicks(7277),
                             Status = "Done"
                         },
                         new
                         {
                             Id = 6L,
                             CustomerId = 4L,
-                            OrderDate = new DateTime(2024, 6, 5, 15, 54, 30, 964, DateTimeKind.Local).AddTicks(3659),
+                            OrderDate = new DateTime(2024, 5, 16, 15, 47, 25, 680, DateTimeKind.Local).AddTicks(7278),
                             Status = "Sent"
                         },
                         new
                         {
                             Id = 7L,
                             CustomerId = 2L,
-                            OrderDate = new DateTime(2024, 5, 10, 15, 54, 30, 964, DateTimeKind.Local).AddTicks(3661),
+                            OrderDate = new DateTime(2024, 5, 25, 15, 47, 25, 680, DateTimeKind.Local).AddTicks(7279),
                             Status = "done"
                         },
                         new
                         {
                             Id = 8L,
                             CustomerId = 1L,
-                            OrderDate = new DateTime(2024, 5, 17, 15, 54, 30, 964, DateTimeKind.Local).AddTicks(3662),
+                            OrderDate = new DateTime(2024, 5, 31, 15, 47, 25, 680, DateTimeKind.Local).AddTicks(7281),
                             Status = "Done"
                         },
                         new
                         {
                             Id = 9L,
                             CustomerId = 4L,
-                            OrderDate = new DateTime(2024, 5, 25, 15, 54, 30, 964, DateTimeKind.Local).AddTicks(3664),
+                            OrderDate = new DateTime(2024, 5, 22, 15, 47, 25, 680, DateTimeKind.Local).AddTicks(7282),
                             Status = "Done"
                         },
                         new
                         {
                             Id = 10L,
                             CustomerId = 2L,
-                            OrderDate = new DateTime(2024, 5, 29, 15, 54, 30, 964, DateTimeKind.Local).AddTicks(3732),
+                            OrderDate = new DateTime(2024, 6, 4, 15, 47, 25, 680, DateTimeKind.Local).AddTicks(7283),
                             Status = "done"
                         },
                         new
                         {
                             Id = 11L,
                             CustomerId = 1L,
-                            OrderDate = new DateTime(2024, 6, 4, 15, 54, 30, 964, DateTimeKind.Local).AddTicks(3734),
+                            OrderDate = new DateTime(2024, 5, 11, 15, 47, 25, 680, DateTimeKind.Local).AddTicks(7285),
                             Status = "Done"
                         },
                         new
                         {
                             Id = 12L,
                             CustomerId = 5L,
-                            OrderDate = new DateTime(2024, 5, 9, 15, 54, 30, 964, DateTimeKind.Local).AddTicks(3736),
+                            OrderDate = new DateTime(2024, 5, 22, 15, 47, 25, 680, DateTimeKind.Local).AddTicks(7286),
                             Status = "Done"
                         },
                         new
                         {
                             Id = 13L,
                             CustomerId = 6L,
-                            OrderDate = new DateTime(2024, 5, 22, 15, 54, 30, 964, DateTimeKind.Local).AddTicks(3738),
+                            OrderDate = new DateTime(2024, 6, 7, 15, 47, 25, 680, DateTimeKind.Local).AddTicks(7288),
                             Status = "Decline"
                         },
                         new
                         {
                             Id = 14L,
                             CustomerId = 7L,
-                            OrderDate = new DateTime(2024, 5, 29, 15, 54, 30, 964, DateTimeKind.Local).AddTicks(3739),
+                            OrderDate = new DateTime(2024, 6, 6, 15, 47, 25, 680, DateTimeKind.Local).AddTicks(7289),
                             Status = "Done"
                         },
                         new
                         {
                             Id = 15L,
                             CustomerId = 2L,
-                            OrderDate = new DateTime(2024, 5, 11, 15, 54, 30, 964, DateTimeKind.Local).AddTicks(3748),
+                            OrderDate = new DateTime(2024, 5, 29, 15, 47, 25, 680, DateTimeKind.Local).AddTicks(7290),
                             Status = "processing"
                         },
                         new
                         {
                             Id = 16L,
                             CustomerId = 8L,
-                            OrderDate = new DateTime(2024, 5, 25, 15, 54, 30, 964, DateTimeKind.Local).AddTicks(3751),
+                            OrderDate = new DateTime(2024, 5, 14, 15, 47, 25, 680, DateTimeKind.Local).AddTicks(7292),
                             Status = "Done"
                         },
                         new
                         {
                             Id = 17L,
                             CustomerId = 5L,
-                            OrderDate = new DateTime(2024, 5, 31, 15, 54, 30, 964, DateTimeKind.Local).AddTicks(3753),
+                            OrderDate = new DateTime(2024, 5, 29, 15, 47, 25, 680, DateTimeKind.Local).AddTicks(7293),
                             Status = "done"
                         },
                         new
                         {
                             Id = 18L,
                             CustomerId = 2L,
-                            OrderDate = new DateTime(2024, 5, 24, 15, 54, 30, 964, DateTimeKind.Local).AddTicks(3755),
+                            OrderDate = new DateTime(2024, 6, 5, 15, 47, 25, 680, DateTimeKind.Local).AddTicks(7294),
                             Status = "done"
                         },
                         new
                         {
                             Id = 19L,
                             CustomerId = 7L,
-                            OrderDate = new DateTime(2024, 5, 8, 15, 54, 30, 964, DateTimeKind.Local).AddTicks(3757),
+                            OrderDate = new DateTime(2024, 5, 12, 15, 47, 25, 680, DateTimeKind.Local).AddTicks(7296),
                             Status = "Sent"
                         },
                         new
                         {
                             Id = 20L,
                             CustomerId = 6L,
-                            OrderDate = new DateTime(2024, 5, 20, 15, 54, 30, 964, DateTimeKind.Local).AddTicks(3758),
+                            OrderDate = new DateTime(2024, 6, 1, 15, 47, 25, 680, DateTimeKind.Local).AddTicks(7297),
                             Status = "Done"
                         },
                         new
                         {
                             Id = 21L,
                             CustomerId = 7L,
-                            OrderDate = new DateTime(2024, 5, 9, 15, 54, 30, 964, DateTimeKind.Local).AddTicks(3760),
+                            OrderDate = new DateTime(2024, 6, 5, 15, 47, 25, 680, DateTimeKind.Local).AddTicks(7298),
                             Status = "Processing"
                         },
                         new
                         {
                             Id = 22L,
                             CustomerId = 8L,
-                            OrderDate = new DateTime(2024, 5, 8, 15, 54, 30, 964, DateTimeKind.Local).AddTicks(3761),
+                            OrderDate = new DateTime(2024, 5, 24, 15, 47, 25, 680, DateTimeKind.Local).AddTicks(7300),
                             Status = "Done"
                         });
                 });
@@ -911,162 +932,162 @@ namespace GA.TradeMarket.Domain.Migrations
                         new
                         {
                             Id = 1L,
-                            Amount = 839m,
+                            Amount = 880m,
                             OrderId = 1L,
-                            PaymentDate = new DateTime(2024, 5, 27, 15, 54, 30, 977, DateTimeKind.Local).AddTicks(268),
+                            PaymentDate = new DateTime(2024, 5, 25, 15, 47, 25, 683, DateTimeKind.Local).AddTicks(1614),
                             PaymentMethod = "ATM",
                             paymentMethodId = 1L
                         },
                         new
                         {
                             Id = 2L,
-                            Amount = 972m,
+                            Amount = 792m,
                             OrderId = 2L,
-                            PaymentDate = new DateTime(2024, 5, 27, 15, 54, 30, 977, DateTimeKind.Local).AddTicks(289),
+                            PaymentDate = new DateTime(2024, 5, 21, 15, 47, 25, 683, DateTimeKind.Local).AddTicks(1619),
                             PaymentMethod = "Mobile Bank",
                             paymentMethodId = 2L
                         },
                         new
                         {
                             Id = 3L,
-                            Amount = 115m,
+                            Amount = 189m,
                             OrderId = 3L,
-                            PaymentDate = new DateTime(2024, 5, 30, 15, 54, 30, 977, DateTimeKind.Local).AddTicks(294),
+                            PaymentDate = new DateTime(2024, 6, 3, 15, 47, 25, 683, DateTimeKind.Local).AddTicks(1621),
                             PaymentMethod = "ATM",
                             paymentMethodId = 3L
                         },
                         new
                         {
                             Id = 4L,
-                            Amount = 460m,
+                            Amount = 784m,
                             OrderId = 4L,
-                            PaymentDate = new DateTime(2024, 5, 27, 15, 54, 30, 977, DateTimeKind.Local).AddTicks(299),
+                            PaymentDate = new DateTime(2024, 5, 21, 15, 47, 25, 683, DateTimeKind.Local).AddTicks(1623),
                             PaymentMethod = "Credit card",
                             paymentMethodId = 4L
                         },
                         new
                         {
                             Id = 5L,
-                            Amount = 210m,
+                            Amount = 654m,
                             OrderId = 5L,
-                            PaymentDate = new DateTime(2024, 5, 22, 15, 54, 30, 977, DateTimeKind.Local).AddTicks(303),
+                            PaymentDate = new DateTime(2024, 6, 5, 15, 47, 25, 683, DateTimeKind.Local).AddTicks(1625),
                             PaymentMethod = "ATM",
                             paymentMethodId = 5L
                         },
                         new
                         {
                             Id = 6L,
-                            Amount = 262m,
+                            Amount = 651m,
                             OrderId = 1L,
-                            PaymentDate = new DateTime(2024, 5, 29, 15, 54, 30, 977, DateTimeKind.Local).AddTicks(308),
+                            PaymentDate = new DateTime(2024, 6, 3, 15, 47, 25, 683, DateTimeKind.Local).AddTicks(1627),
                             PaymentMethod = "Visa Card",
                             paymentMethodId = 6L
                         },
                         new
                         {
                             Id = 7L,
-                            Amount = 889m,
+                            Amount = 720m,
                             OrderId = 3L,
-                            PaymentDate = new DateTime(2024, 5, 26, 15, 54, 30, 977, DateTimeKind.Local).AddTicks(326),
+                            PaymentDate = new DateTime(2024, 5, 18, 15, 47, 25, 683, DateTimeKind.Local).AddTicks(1629),
                             PaymentMethod = "ATM",
                             paymentMethodId = 7L
                         },
                         new
                         {
                             Id = 8L,
-                            Amount = 151m,
+                            Amount = 969m,
                             OrderId = 2L,
-                            PaymentDate = new DateTime(2024, 5, 28, 15, 54, 30, 977, DateTimeKind.Local).AddTicks(331),
+                            PaymentDate = new DateTime(2024, 5, 25, 15, 47, 25, 683, DateTimeKind.Local).AddTicks(1631),
                             PaymentMethod = "Mobile Bank",
                             paymentMethodId = 8L
                         },
                         new
                         {
                             Id = 9L,
-                            Amount = 684m,
+                            Amount = 393m,
                             OrderId = 3L,
-                            PaymentDate = new DateTime(2024, 5, 25, 15, 54, 30, 977, DateTimeKind.Local).AddTicks(337),
+                            PaymentDate = new DateTime(2024, 5, 27, 15, 47, 25, 683, DateTimeKind.Local).AddTicks(1633),
                             PaymentMethod = "ATM",
                             paymentMethodId = 1L
                         },
                         new
                         {
                             Id = 10L,
-                            Amount = 82m,
+                            Amount = 637m,
                             OrderId = 4L,
-                            PaymentDate = new DateTime(2024, 5, 28, 15, 54, 30, 977, DateTimeKind.Local).AddTicks(344),
+                            PaymentDate = new DateTime(2024, 5, 18, 15, 47, 25, 683, DateTimeKind.Local).AddTicks(1635),
                             PaymentMethod = "Visa Card",
                             paymentMethodId = 3L
                         },
                         new
                         {
                             Id = 11L,
-                            Amount = 371m,
+                            Amount = 54m,
                             OrderId = 5L,
-                            PaymentDate = new DateTime(2024, 5, 22, 15, 54, 30, 977, DateTimeKind.Local).AddTicks(349),
+                            PaymentDate = new DateTime(2024, 5, 16, 15, 47, 25, 683, DateTimeKind.Local).AddTicks(1637),
                             PaymentMethod = "ATM",
                             paymentMethodId = 2L
                         },
                         new
                         {
                             Id = 12L,
-                            Amount = 521m,
+                            Amount = 326m,
                             OrderId = 2L,
-                            PaymentDate = new DateTime(2024, 5, 24, 15, 54, 30, 977, DateTimeKind.Local).AddTicks(354),
+                            PaymentDate = new DateTime(2024, 5, 28, 15, 47, 25, 683, DateTimeKind.Local).AddTicks(1639),
                             PaymentMethod = "Master Card",
                             paymentMethodId = 4L
                         },
                         new
                         {
                             Id = 13L,
-                            Amount = 875m,
+                            Amount = 813m,
                             OrderId = 3L,
-                            PaymentDate = new DateTime(2024, 5, 18, 15, 54, 30, 977, DateTimeKind.Local).AddTicks(358),
+                            PaymentDate = new DateTime(2024, 5, 23, 15, 47, 25, 683, DateTimeKind.Local).AddTicks(1640),
                             PaymentMethod = "ATM",
                             paymentMethodId = 5L
                         },
                         new
                         {
                             Id = 14L,
-                            Amount = 689m,
+                            Amount = 675m,
                             OrderId = 1L,
-                            PaymentDate = new DateTime(2024, 5, 29, 15, 54, 30, 977, DateTimeKind.Local).AddTicks(363),
+                            PaymentDate = new DateTime(2024, 5, 21, 15, 47, 25, 683, DateTimeKind.Local).AddTicks(1642),
                             PaymentMethod = "ATM",
                             paymentMethodId = 6L
                         },
                         new
                         {
                             Id = 15L,
-                            Amount = 612m,
+                            Amount = 951m,
                             OrderId = 6L,
-                            PaymentDate = new DateTime(2024, 5, 8, 15, 54, 30, 977, DateTimeKind.Local).AddTicks(368),
+                            PaymentDate = new DateTime(2024, 5, 10, 15, 47, 25, 683, DateTimeKind.Local).AddTicks(1644),
                             PaymentMethod = "Wallet",
                             paymentMethodId = 7L
                         },
                         new
                         {
                             Id = 16L,
-                            Amount = 210m,
+                            Amount = 32m,
                             OrderId = 7L,
-                            PaymentDate = new DateTime(2024, 5, 30, 15, 54, 30, 977, DateTimeKind.Local).AddTicks(372),
+                            PaymentDate = new DateTime(2024, 5, 28, 15, 47, 25, 683, DateTimeKind.Local).AddTicks(1646),
                             PaymentMethod = "ATM",
                             paymentMethodId = 4L
                         },
                         new
                         {
                             Id = 17L,
-                            Amount = 854m,
+                            Amount = 867m,
                             OrderId = 4L,
-                            PaymentDate = new DateTime(2024, 5, 15, 15, 54, 30, 977, DateTimeKind.Local).AddTicks(376),
+                            PaymentDate = new DateTime(2024, 5, 21, 15, 47, 25, 683, DateTimeKind.Local).AddTicks(1647),
                             PaymentMethod = "Apple pay",
                             paymentMethodId = 5L
                         },
                         new
                         {
                             Id = 18L,
-                            Amount = 451m,
+                            Amount = 562m,
                             OrderId = 3L,
-                            PaymentDate = new DateTime(2024, 5, 9, 15, 54, 30, 977, DateTimeKind.Local).AddTicks(381),
+                            PaymentDate = new DateTime(2024, 5, 12, 15, 47, 25, 683, DateTimeKind.Local).AddTicks(1649),
                             PaymentMethod = "ATM",
                             paymentMethodId = 3L
                         });
@@ -1106,178 +1127,178 @@ namespace GA.TradeMarket.Domain.Migrations
                         new
                         {
                             Id = 1L,
-                            CVV = "800",
-                            CardHolderName = "Gennaro Stokes",
-                            CardNumber = "4048-6497-6752-4317",
-                            ExpiryDate = new DateTime(2028, 6, 6, 15, 54, 30, 973, DateTimeKind.Local).AddTicks(9964)
+                            CVV = "853",
+                            CardHolderName = "Mac Ullrich",
+                            CardNumber = "4091-0430-1072-9798",
+                            ExpiryDate = new DateTime(2028, 6, 8, 15, 47, 25, 682, DateTimeKind.Local).AddTicks(4846)
                         },
                         new
                         {
                             Id = 2L,
-                            CVV = "744",
-                            CardHolderName = "Donnell Rosenbaum",
-                            CardNumber = "6771846782137103",
-                            ExpiryDate = new DateTime(2029, 6, 6, 15, 54, 30, 974, DateTimeKind.Local).AddTicks(1519)
+                            CVV = "412",
+                            CardHolderName = "Candace Emmerich",
+                            CardNumber = "6767-2531-7454-9671-399",
+                            ExpiryDate = new DateTime(2030, 6, 8, 15, 47, 25, 682, DateTimeKind.Local).AddTicks(5183)
                         },
                         new
                         {
                             Id = 3L,
-                            CVV = "114",
-                            CardHolderName = "Brandon Wilderman",
-                            CardNumber = "6771-8904-5125-0649",
-                            ExpiryDate = new DateTime(2026, 6, 6, 15, 54, 30, 974, DateTimeKind.Local).AddTicks(5265)
+                            CVV = "324",
+                            CardHolderName = "Fausto Klein",
+                            CardNumber = "3529-6406-2408-9735",
+                            ExpiryDate = new DateTime(2031, 6, 8, 15, 47, 25, 682, DateTimeKind.Local).AddTicks(5494)
                         },
                         new
                         {
                             Id = 4L,
-                            CVV = "512",
-                            CardHolderName = "Kole Smith",
-                            CardNumber = "6771-8987-8885-1062",
-                            ExpiryDate = new DateTime(2030, 6, 6, 15, 54, 30, 974, DateTimeKind.Local).AddTicks(6552)
+                            CVV = "892",
+                            CardHolderName = "Maida Tremblay",
+                            CardNumber = "6759-1447-0415-8700-38",
+                            ExpiryDate = new DateTime(2032, 6, 8, 15, 47, 25, 682, DateTimeKind.Local).AddTicks(5875)
                         },
                         new
                         {
                             Id = 5L,
-                            CVV = "409",
-                            CardHolderName = "Haylee Nicolas",
-                            CardNumber = "6372-3280-6897-8719",
-                            ExpiryDate = new DateTime(2031, 6, 6, 15, 54, 30, 974, DateTimeKind.Local).AddTicks(7814)
+                            CVV = "560",
+                            CardHolderName = "Clifford Marquardt",
+                            CardNumber = "4340467248775",
+                            ExpiryDate = new DateTime(2031, 6, 8, 15, 47, 25, 682, DateTimeKind.Local).AddTicks(6153)
                         },
                         new
                         {
                             Id = 6L,
-                            CVV = "377",
-                            CardHolderName = "Kaela Homenick",
-                            CardNumber = "6395-7383-3381-4577",
-                            ExpiryDate = new DateTime(2032, 6, 6, 15, 54, 30, 974, DateTimeKind.Local).AddTicks(8935)
+                            CVV = "874",
+                            CardHolderName = "Nat Torphy",
+                            CardNumber = "6767-3353-6851-9879-37",
+                            ExpiryDate = new DateTime(2031, 6, 8, 15, 47, 25, 682, DateTimeKind.Local).AddTicks(6493)
                         },
                         new
                         {
                             Id = 7L,
-                            CVV = "664",
-                            CardHolderName = "Christina Nicolas",
-                            CardNumber = "676236078550174964",
-                            ExpiryDate = new DateTime(2027, 6, 6, 15, 54, 30, 975, DateTimeKind.Local).AddTicks(76)
+                            CVV = "295",
+                            CardHolderName = "Demetris White",
+                            CardNumber = "6399-6981-3821-4637",
+                            ExpiryDate = new DateTime(2033, 6, 8, 15, 47, 25, 682, DateTimeKind.Local).AddTicks(6850)
                         },
                         new
                         {
                             Id = 8L,
-                            CVV = "113",
-                            CardHolderName = "Ahmed Kassulke",
-                            CardNumber = "5138-3197-0224-9994",
-                            ExpiryDate = new DateTime(2026, 6, 6, 15, 54, 30, 975, DateTimeKind.Local).AddTicks(1317)
+                            CVV = "840",
+                            CardHolderName = "Stefan Beatty",
+                            CardNumber = "3787-217336-96319",
+                            ExpiryDate = new DateTime(2033, 6, 8, 15, 47, 25, 682, DateTimeKind.Local).AddTicks(7154)
                         },
                         new
                         {
                             Id = 9L,
-                            CVV = "040",
-                            CardHolderName = "Scottie Heathcote",
-                            CardNumber = "3731-181935-19211",
-                            ExpiryDate = new DateTime(2033, 6, 6, 15, 54, 30, 975, DateTimeKind.Local).AddTicks(2351)
+                            CVV = "402",
+                            CardHolderName = "Amparo Connelly",
+                            CardNumber = "6480-6245-7808-1022-7970",
+                            ExpiryDate = new DateTime(2033, 6, 8, 15, 47, 25, 682, DateTimeKind.Local).AddTicks(7542)
                         },
                         new
                         {
                             Id = 10L,
-                            CVV = "976",
-                            CardHolderName = "Domingo Deckow",
-                            CardNumber = "4680011011579",
-                            ExpiryDate = new DateTime(2027, 6, 6, 15, 54, 30, 975, DateTimeKind.Local).AddTicks(3469)
+                            CVV = "178",
+                            CardHolderName = "Bud Mann",
+                            CardNumber = "3542-9048-0207-4908",
+                            ExpiryDate = new DateTime(2031, 6, 8, 15, 47, 25, 682, DateTimeKind.Local).AddTicks(7876)
                         },
                         new
                         {
                             Id = 11L,
-                            CVV = "923",
-                            CardHolderName = "Janessa Schinner",
-                            CardNumber = "4249954317656",
-                            ExpiryDate = new DateTime(2031, 6, 6, 15, 54, 30, 975, DateTimeKind.Local).AddTicks(4430)
+                            CVV = "595",
+                            CardHolderName = "Sean Christiansen",
+                            CardNumber = "6378-7639-1089-6632",
+                            ExpiryDate = new DateTime(2029, 6, 8, 15, 47, 25, 682, DateTimeKind.Local).AddTicks(8167)
                         },
                         new
                         {
                             Id = 12L,
-                            CVV = "470",
-                            CardHolderName = "Alek Abernathy",
-                            CardNumber = "3447-643690-88493",
-                            ExpiryDate = new DateTime(2031, 6, 6, 15, 54, 30, 975, DateTimeKind.Local).AddTicks(5411)
+                            CVV = "713",
+                            CardHolderName = "Clement Hyatt",
+                            CardNumber = "6371-7072-8372-2328",
+                            ExpiryDate = new DateTime(2029, 6, 8, 15, 47, 25, 682, DateTimeKind.Local).AddTicks(8457)
                         },
                         new
                         {
                             Id = 13L,
-                            CVV = "794",
-                            CardHolderName = "Gideon Botsford",
-                            CardNumber = "6472-2304-2540-9009",
-                            ExpiryDate = new DateTime(2026, 6, 6, 15, 54, 30, 975, DateTimeKind.Local).AddTicks(6543)
+                            CVV = "392",
+                            CardHolderName = "Mariana Boyle",
+                            CardNumber = "6767-2910-2156-8033-15",
+                            ExpiryDate = new DateTime(2030, 6, 8, 15, 47, 25, 682, DateTimeKind.Local).AddTicks(8834)
                         },
                         new
                         {
                             Id = 14L,
-                            CVV = "225",
-                            CardHolderName = "Jarrett Funk",
-                            CardNumber = "5170-9364-0192-9441",
-                            ExpiryDate = new DateTime(2031, 6, 6, 15, 54, 30, 975, DateTimeKind.Local).AddTicks(7639)
+                            CVV = "672",
+                            CardHolderName = "Guadalupe Hahn",
+                            CardNumber = "3053-613906-8537",
+                            ExpiryDate = new DateTime(2030, 6, 8, 15, 47, 25, 682, DateTimeKind.Local).AddTicks(9151)
                         },
                         new
                         {
                             Id = 15L,
-                            CVV = "866",
-                            CardHolderName = "Lafayette Waelchi",
-                            CardNumber = "676338900553648909",
-                            ExpiryDate = new DateTime(2026, 6, 6, 15, 54, 30, 975, DateTimeKind.Local).AddTicks(8879)
+                            CVV = "643",
+                            CardHolderName = "Keshawn Prosacco",
+                            CardNumber = "6767-0234-7748-9134",
+                            ExpiryDate = new DateTime(2030, 6, 8, 15, 47, 25, 682, DateTimeKind.Local).AddTicks(9387)
                         },
                         new
                         {
                             Id = 16L,
-                            CVV = "205",
-                            CardHolderName = "Shanelle Barton",
-                            CardNumber = "5020-1161-3820-6312",
-                            ExpiryDate = new DateTime(2030, 6, 6, 15, 54, 30, 976, DateTimeKind.Local).AddTicks(139)
+                            CVV = "338",
+                            CardHolderName = "Antonette O'Kon",
+                            CardNumber = "6771-8947-5867-6811",
+                            ExpiryDate = new DateTime(2026, 6, 8, 15, 47, 25, 682, DateTimeKind.Local).AddTicks(9711)
                         },
                         new
                         {
                             Id = 17L,
-                            CVV = "640",
-                            CardHolderName = "Nat Barton",
-                            CardNumber = "6381-0120-0328-4123",
-                            ExpiryDate = new DateTime(2032, 6, 6, 15, 54, 30, 976, DateTimeKind.Local).AddTicks(1278)
+                            CVV = "602",
+                            CardHolderName = "Ola Wolff",
+                            CardNumber = "3719-814363-60095",
+                            ExpiryDate = new DateTime(2026, 6, 8, 15, 47, 25, 682, DateTimeKind.Local).AddTicks(9972)
                         },
                         new
                         {
                             Id = 18L,
-                            CVV = "722",
-                            CardHolderName = "Bailey Huel",
-                            CardNumber = "3792-232800-21222",
-                            ExpiryDate = new DateTime(2026, 6, 6, 15, 54, 30, 976, DateTimeKind.Local).AddTicks(2332)
+                            CVV = "000",
+                            CardHolderName = "Cleora Gutmann",
+                            CardNumber = "6767-2917-9614-9195-413",
+                            ExpiryDate = new DateTime(2031, 6, 8, 15, 47, 25, 683, DateTimeKind.Local).AddTicks(246)
                         },
                         new
                         {
                             Id = 19L,
-                            CVV = "264",
-                            CardHolderName = "Danika Macejkovic",
-                            CardNumber = "5020-1154-0720-1947",
-                            ExpiryDate = new DateTime(2029, 6, 6, 15, 54, 30, 976, DateTimeKind.Local).AddTicks(5779)
+                            CVV = "542",
+                            CardHolderName = "Anahi Kemmer",
+                            CardNumber = "6381-3931-0214-8686",
+                            ExpiryDate = new DateTime(2029, 6, 8, 15, 47, 25, 683, DateTimeKind.Local).AddTicks(528)
                         },
                         new
                         {
                             Id = 20L,
-                            CVV = "577",
-                            CardHolderName = "Christiana Auer",
-                            CardNumber = "6771-8969-9119-6143",
-                            ExpiryDate = new DateTime(2032, 6, 6, 15, 54, 30, 976, DateTimeKind.Local).AddTicks(6864)
+                            CVV = "437",
+                            CardHolderName = "Abraham Kling",
+                            CardNumber = "5020951754450285",
+                            ExpiryDate = new DateTime(2031, 6, 8, 15, 47, 25, 683, DateTimeKind.Local).AddTicks(836)
                         },
                         new
                         {
                             Id = 21L,
-                            CVV = "165",
-                            CardHolderName = "Ophelia Lehner",
-                            CardNumber = "3678-616973-5547",
-                            ExpiryDate = new DateTime(2029, 6, 6, 15, 54, 30, 976, DateTimeKind.Local).AddTicks(7800)
+                            CVV = "254",
+                            CardHolderName = "Sonia Cummerata",
+                            CardNumber = "3529-8199-9607-3432",
+                            ExpiryDate = new DateTime(2029, 6, 8, 15, 47, 25, 683, DateTimeKind.Local).AddTicks(1095)
                         },
                         new
                         {
                             Id = 22L,
-                            CVV = "672",
-                            CardHolderName = "Elsa Casper",
-                            CardNumber = "6011-6255-9956-4572-3804",
-                            ExpiryDate = new DateTime(2029, 6, 6, 15, 54, 30, 976, DateTimeKind.Local).AddTicks(8860)
+                            CVV = "882",
+                            CardHolderName = "Gerhard Gleason",
+                            CardNumber = "3756-980509-55838",
+                            ExpiryDate = new DateTime(2030, 6, 8, 15, 47, 25, 683, DateTimeKind.Local).AddTicks(1381)
                         });
                 });
 
@@ -1359,159 +1380,159 @@ namespace GA.TradeMarket.Domain.Migrations
                     b.HasData(
                         new
                         {
+                            Id = "02174cf0–9412–4cfe - afbf - 59f706d72cf6",
+                            AccessFailedCount = 0,
+                            BirthDate = new DateTime(2002, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "4e018283-84b1-4f71-b357-c83a8d3198e7",
+                            Email = "guram.apkhazava908@ens.tsu.ge",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            Name = "Guga",
+                            NormalizedEmail = "guram.apkhazava908@ens.tsu.ge",
+                            NormalizedUserName = "Guga13guga",
+                            PasswordHash = "AQAAAAIAAYagAAAAECzJPfeOrrgQ/mEuZCtdk5zzoIJACCRbHv6aqFkzUsVACgsG4KfmT3ka9hgzx0TKfg==",
+                            PhoneNumber = "599042047",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "a50b72b4-a239-40c5-9bec-61963df74908",
+                            Surname = " Apkhazava",
+                            TwoFactorEnabled = false,
+                            UserName = "Guga13guga"
+                        },
+                        new
+                        {
                             Id = "1",
                             AccessFailedCount = 0,
-                            BirthDate = new DateTime(2002, 6, 6, 15, 54, 30, 949, DateTimeKind.Local).AddTicks(1276),
-                            ConcurrencyStamp = "2e3e7878-d0ba-4495-82f2-6f9592625c32",
-                            Email = "leola@tillmankassulke.ca",
+                            BirthDate = new DateTime(1971, 6, 8, 15, 47, 25, 676, DateTimeKind.Local).AddTicks(2052),
+                            ConcurrencyStamp = "812ec7e0-3eff-4675-a11e-5e4857117cef",
+                            Email = "asa@upton.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            Name = "Lang",
-                            PhoneNumber = "(852)455-5897 x568",
+                            Name = "Davis",
+                            PhoneNumber = "(486)050-5601 x270",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "09cc16fa-efc7-46db-a288-f7188aa2988b",
-                            Surname = "McGlynn",
+                            SecurityStamp = "19f104e8-5aa0-4e5b-8d57-07b90d9b435f",
+                            Surname = "Grant",
                             TwoFactorEnabled = false,
-                            UserName = "rhoda.paucek"
+                            UserName = "alayna_ryan"
                         },
                         new
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            BirthDate = new DateTime(1996, 6, 6, 15, 54, 30, 950, DateTimeKind.Local).AddTicks(2924),
-                            ConcurrencyStamp = "caaba42a-e683-4d02-a8b4-628c106c9c38",
-                            Email = "gustave.braun@whitespinka.co.uk",
+                            BirthDate = new DateTime(1993, 6, 8, 15, 47, 25, 676, DateTimeKind.Local).AddTicks(5325),
+                            ConcurrencyStamp = "073eeba5-964c-4b49-bbe2-87e0ea87211a",
+                            Email = "paige@ryanrempel.name",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            Name = "Lehner",
-                            PhoneNumber = "(390)251-8791",
+                            Name = "Heaney",
+                            PhoneNumber = "320.399.9859",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "11b58e7d-49de-4835-942e-c3cbc763e8e1",
-                            Surname = "Predovic",
+                            SecurityStamp = "0abfd361-44ee-46a8-93ed-34070f0c8334",
+                            Surname = "Okuneva",
                             TwoFactorEnabled = false,
-                            UserName = "teagan_homenick"
+                            UserName = "zoey.wolff"
                         },
                         new
                         {
                             Id = "3",
                             AccessFailedCount = 0,
-                            BirthDate = new DateTime(1990, 6, 6, 15, 54, 30, 950, DateTimeKind.Local).AddTicks(8569),
-                            ConcurrencyStamp = "c2f78733-1165-4e0a-a897-ca2c900c3699",
-                            Email = "joaquin_metz@hilpert.com",
+                            BirthDate = new DateTime(1969, 6, 8, 15, 47, 25, 676, DateTimeKind.Local).AddTicks(8331),
+                            ConcurrencyStamp = "eb3ac95a-46a3-450a-bd5c-99271e2db70d",
+                            Email = "gwendolyn@cronasatterfield.info",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            Name = "Rutherford",
-                            PhoneNumber = "452.465.2306",
+                            Name = "Bosco",
+                            PhoneNumber = "(288)976-3076 x160",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "35f37133-623d-488e-a64c-82cc3ae23d0e",
-                            Surname = "Cartwright",
+                            SecurityStamp = "e18757fe-4f59-4cbc-a2da-00f974874c14",
+                            Surname = "Wunsch",
                             TwoFactorEnabled = false,
-                            UserName = "mara_gleason"
+                            UserName = "lennie.effertz"
                         },
                         new
                         {
                             Id = "4",
                             AccessFailedCount = 0,
-                            BirthDate = new DateTime(2013, 6, 6, 15, 54, 30, 953, DateTimeKind.Local).AddTicks(1172),
-                            ConcurrencyStamp = "91945edc-e793-4ca3-8f63-1624ebf939a0",
-                            Email = "felicia@oberbrunnercrona.ca",
+                            BirthDate = new DateTime(2009, 6, 8, 15, 47, 25, 677, DateTimeKind.Local).AddTicks(1899),
+                            ConcurrencyStamp = "0cfb3cb3-93f4-48fe-954e-b02c5c080713",
+                            Email = "reed.prosacco@schumm.biz",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            Name = "Kunze",
-                            PhoneNumber = "1-237-401-8152",
+                            Name = "Rutherford",
+                            PhoneNumber = "1-880-162-8684",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f59ca2ee-f882-42fb-a08e-980f18bbaff5",
-                            Surname = "Corkery",
+                            SecurityStamp = "13638485-aa01-484e-b9bc-a129fb5d64d7",
+                            Surname = "Pfeffer",
                             TwoFactorEnabled = false,
-                            UserName = "hardy_okuneva"
+                            UserName = "skye.welch"
                         },
                         new
                         {
                             Id = "5",
                             AccessFailedCount = 0,
-                            BirthDate = new DateTime(1996, 6, 6, 15, 54, 30, 953, DateTimeKind.Local).AddTicks(8471),
-                            ConcurrencyStamp = "6c851b8e-ad88-4bf8-8332-58d9c825ce80",
-                            Email = "vincent@sawaynbechtelar.info",
+                            BirthDate = new DateTime(1994, 6, 8, 15, 47, 25, 677, DateTimeKind.Local).AddTicks(5048),
+                            ConcurrencyStamp = "9fb90562-5de5-40b8-a777-c24d20853e11",
+                            Email = "nayeli.hamill@kuphalcorwin.biz",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            Name = "Funk",
-                            PhoneNumber = "1-933-502-8313 x1990",
+                            Name = "Lebsack",
+                            PhoneNumber = "(632)680-3635",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6484ef31-8fa4-4b69-95f0-cfa46af3a458",
-                            Surname = "Dach",
+                            SecurityStamp = "1f255fff-4623-40ca-8ef4-bbec6684cf5a",
+                            Surname = "Parisian",
                             TwoFactorEnabled = false,
-                            UserName = "noah"
+                            UserName = "mia"
                         },
                         new
                         {
                             Id = "6",
                             AccessFailedCount = 0,
-                            BirthDate = new DateTime(1967, 6, 6, 15, 54, 30, 954, DateTimeKind.Local).AddTicks(4625),
-                            ConcurrencyStamp = "a8b4f503-2833-4906-aae6-07ee056b8a21",
-                            Email = "sigmund@cummerata.co.uk",
+                            BirthDate = new DateTime(2003, 6, 8, 15, 47, 25, 677, DateTimeKind.Local).AddTicks(8317),
+                            ConcurrencyStamp = "2ca74fef-c5d6-4498-97a3-b62f7eda431c",
+                            Email = "dax@beatty.uk",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            Name = "Skiles",
-                            PhoneNumber = "281-839-7278 x156",
+                            Name = "Carroll",
+                            PhoneNumber = "354-678-0064 x809",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "59ca6a9d-1ddd-4fff-a754-6f6987a8acf9",
-                            Surname = "Crooks",
+                            SecurityStamp = "c1907c7c-bf0e-4190-8971-3a827b0cfb65",
+                            Surname = "Rath",
                             TwoFactorEnabled = false,
-                            UserName = "kira"
+                            UserName = "lou"
                         },
                         new
                         {
                             Id = "7",
                             AccessFailedCount = 0,
-                            BirthDate = new DateTime(1998, 6, 6, 15, 54, 30, 955, DateTimeKind.Local).AddTicks(1641),
-                            ConcurrencyStamp = "599fc16c-fb9c-4224-9cd8-f829de02320f",
-                            Email = "carley.windler@marvin.uk",
+                            BirthDate = new DateTime(2006, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(1149),
+                            ConcurrencyStamp = "b932f5ed-11f0-4d2e-91d1-2ab8d6f347bf",
+                            Email = "minerva@adams.ca",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            Name = "Ruecker",
-                            PhoneNumber = "473.456.7216 x048",
+                            Name = "Rath",
+                            PhoneNumber = "1-568-960-6125 x0345",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9631bcf4-a3fb-4b24-8699-42578ba83608",
-                            Surname = "Stark",
+                            SecurityStamp = "982f9ee3-4810-49ee-930d-40055ce02c45",
+                            Surname = "McCullough",
                             TwoFactorEnabled = false,
-                            UserName = "jadon"
+                            UserName = "dovie_ferry"
                         },
                         new
                         {
                             Id = "8",
                             AccessFailedCount = 0,
-                            BirthDate = new DateTime(2013, 6, 6, 15, 54, 30, 955, DateTimeKind.Local).AddTicks(7606),
-                            ConcurrencyStamp = "1ab79499-61bc-4bd0-b418-ee5e65e06534",
-                            Email = "norwood.quigley@wintheiser.name",
+                            BirthDate = new DateTime(1976, 6, 8, 15, 47, 25, 678, DateTimeKind.Local).AddTicks(4445),
+                            ConcurrencyStamp = "2a208d77-0439-4d80-8c7b-4db0ec48d108",
+                            Email = "wyman.borer@mcglynnkiehn.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            Name = "O'Hara",
-                            PhoneNumber = "556-424-9392 x062",
+                            Name = "Homenick",
+                            PhoneNumber = "1-811-494-1863",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3404a20c-aaad-47d2-ac81-21d3bcf95413",
-                            Surname = "Weissnat",
+                            SecurityStamp = "7b9ad071-3d44-48d3-b115-306fdade489e",
+                            Surname = "D'Amore",
                             TwoFactorEnabled = false,
-                            UserName = "pat.wiza"
-                        },
-                        new
-                        {
-                            Id = "02174cf0–9412–4cfe - afbf - 59f706d72cf6",
-                            AccessFailedCount = 0,
-                            BirthDate = new DateTime(2002, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "25e446cc-9bce-4f9e-aee8-7c8490387ed7",
-                            Email = "aapkhazava22@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            Name = "Guga",
-                            NormalizedEmail = "AAPKHAZAVA22@GMAIL.COM",
-                            NormalizedUserName = "GUGAADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAED5lnFFF5WWGq2kbmym5ronT+NE/6sUikqB9tfaflECIZkhIaAGrknT+QTRZFKr0pw==",
-                            PhoneNumber = "599042047",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "64dbfd49-08b1-4c53-9d2d-1c73a796a0d8",
-                            Surname = " Apkhazava",
-                            TwoFactorEnabled = false,
-                            UserName = "gugaadmin"
+                            UserName = "meaghan"
                         });
                 });
 
@@ -1551,394 +1572,394 @@ namespace GA.TradeMarket.Domain.Migrations
                         new
                         {
                             Id = 1L,
-                            Price = 799.12m,
+                            Price = 764.29m,
                             ProductCategoryId = 1L,
-                            ProductName = "Tasty Steel Chair"
+                            ProductName = "Rustic Plastic Bacon"
                         },
                         new
                         {
                             Id = 2L,
-                            Price = 751.34m,
+                            Price = 983.33m,
                             ProductCategoryId = 2L,
-                            ProductName = "Unbranded Soft Hat"
+                            ProductName = "Practical Granite Salad"
                         },
                         new
                         {
                             Id = 3L,
-                            Price = 574.49m,
+                            Price = 259.88m,
                             ProductCategoryId = 3L,
-                            ProductName = "Unbranded Frozen Shoes"
+                            ProductName = "Unbranded Concrete Bike"
                         },
                         new
                         {
                             Id = 4L,
-                            Price = 820.90m,
+                            Price = 237.72m,
                             ProductCategoryId = 4L,
-                            ProductName = "Awesome Steel Gloves"
+                            ProductName = "Ergonomic Metal Chicken"
                         },
                         new
                         {
                             Id = 5L,
-                            Price = 409.09m,
+                            Price = 803.82m,
                             ProductCategoryId = 5L,
-                            ProductName = "Licensed Rubber Soap"
+                            ProductName = "Generic Rubber Mouse"
                         },
                         new
                         {
                             Id = 6L,
-                            Price = 546.32m,
+                            Price = 651.92m,
                             ProductCategoryId = 6L,
-                            ProductName = "Fantastic Granite Tuna"
+                            ProductName = "Refined Fresh Fish"
                         },
                         new
                         {
                             Id = 7L,
-                            Price = 750.99m,
+                            Price = 616.15m,
                             ProductCategoryId = 7L,
-                            ProductName = "Fantastic Concrete Table"
+                            ProductName = "Fantastic Rubber Table"
                         },
                         new
                         {
                             Id = 8L,
-                            Price = 881.69m,
+                            Price = 446.36m,
                             ProductCategoryId = 8L,
-                            ProductName = "Unbranded Steel Bacon"
+                            ProductName = "Awesome Concrete Sausages"
                         },
                         new
                         {
                             Id = 9L,
-                            Price = 450.10m,
+                            Price = 25.19m,
                             ProductCategoryId = 9L,
-                            ProductName = "Unbranded Steel Car"
+                            ProductName = "Gorgeous Metal Gloves"
                         },
                         new
                         {
                             Id = 10L,
-                            Price = 536.17m,
+                            Price = 261.01m,
                             ProductCategoryId = 1L,
-                            ProductName = "Tasty Concrete Gloves"
+                            ProductName = "Rustic Fresh Towels"
                         },
                         new
                         {
                             Id = 11L,
-                            Price = 201.58m,
+                            Price = 876.04m,
                             ProductCategoryId = 3L,
-                            ProductName = "Handcrafted Wooden Table"
+                            ProductName = "Rustic Wooden Salad"
                         },
                         new
                         {
                             Id = 12L,
-                            Price = 506.86m,
+                            Price = 54.38m,
                             ProductCategoryId = 4L,
-                            ProductName = "Generic Steel Bacon"
+                            ProductName = "Fantastic Steel Hat"
                         },
                         new
                         {
                             Id = 13L,
-                            Price = 343.29m,
+                            Price = 114.35m,
                             ProductCategoryId = 3L,
-                            ProductName = "Rustic Wooden Keyboard"
+                            ProductName = "Intelligent Fresh Hat"
                         },
                         new
                         {
                             Id = 14L,
-                            Price = 410.76m,
+                            Price = 21.92m,
                             ProductCategoryId = 6L,
-                            ProductName = "Ergonomic Concrete Ball"
+                            ProductName = "Small Frozen Mouse"
                         },
                         new
                         {
                             Id = 15L,
-                            Price = 138.29m,
+                            Price = 654.00m,
                             ProductCategoryId = 11L,
-                            ProductName = "Tasty Fresh Tuna"
+                            ProductName = "Intelligent Fresh Tuna"
                         },
                         new
                         {
                             Id = 16L,
-                            Price = 372.87m,
+                            Price = 390.39m,
                             ProductCategoryId = 12L,
-                            ProductName = "Awesome Rubber Pants"
+                            ProductName = "Gorgeous Fresh Shirt"
                         },
                         new
                         {
                             Id = 17L,
-                            Price = 337.88m,
+                            Price = 459.20m,
                             ProductCategoryId = 13L,
-                            ProductName = "Gorgeous Granite Pants"
+                            ProductName = "Incredible Steel Ball"
                         },
                         new
                         {
                             Id = 18L,
-                            Price = 782.89m,
+                            Price = 886.35m,
                             ProductCategoryId = 14L,
-                            ProductName = "Refined Wooden Mouse"
+                            ProductName = "Rustic Fresh Soap"
                         },
                         new
                         {
                             Id = 19L,
-                            Price = 475.34m,
+                            Price = 158.65m,
                             ProductCategoryId = 15L,
-                            ProductName = "Sleek Metal Chips"
+                            ProductName = "Intelligent Cotton Salad"
                         },
                         new
                         {
                             Id = 20L,
-                            Price = 648.62m,
+                            Price = 681.98m,
                             ProductCategoryId = 16L,
-                            ProductName = "Practical Cotton Soap"
+                            ProductName = "Sleek Granite Salad"
                         },
                         new
                         {
                             Id = 21L,
-                            Price = 664.69m,
+                            Price = 381.80m,
                             ProductCategoryId = 17L,
-                            ProductName = "Tasty Plastic Ball"
+                            ProductName = "Small Frozen Mouse"
                         },
                         new
                         {
                             Id = 22L,
-                            Price = 684.06m,
+                            Price = 284.46m,
                             ProductCategoryId = 8L,
-                            ProductName = "Ergonomic Metal Chips"
+                            ProductName = "Awesome Steel Salad"
                         },
                         new
                         {
                             Id = 23L,
-                            Price = 43.90m,
+                            Price = 128.11m,
                             ProductCategoryId = 9L,
-                            ProductName = "Tasty Concrete Pants"
+                            ProductName = "Tasty Plastic Mouse"
                         },
                         new
                         {
                             Id = 24L,
-                            Price = 803.72m,
+                            Price = 148.46m,
                             ProductCategoryId = 14L,
-                            ProductName = "Awesome Granite Keyboard"
+                            ProductName = "Licensed Wooden Computer"
                         },
                         new
                         {
                             Id = 25L,
-                            Price = 500.50m,
+                            Price = 304.65m,
                             ProductCategoryId = 13L,
-                            ProductName = "Tasty Frozen Gloves"
+                            ProductName = "Incredible Metal Chips"
                         },
                         new
                         {
                             Id = 26L,
-                            Price = 463.13m,
+                            Price = 505.11m,
                             ProductCategoryId = 4L,
-                            ProductName = "Refined Concrete Tuna"
+                            ProductName = "Handmade Granite Sausages"
                         },
                         new
                         {
                             Id = 27L,
-                            Price = 124.15m,
+                            Price = 982.04m,
                             ProductCategoryId = 3L,
-                            ProductName = "Intelligent Wooden Soap"
+                            ProductName = "Tasty Frozen Pizza"
                         },
                         new
                         {
                             Id = 28L,
-                            Price = 222.17m,
+                            Price = 621.44m,
                             ProductCategoryId = 6L,
-                            ProductName = "Practical Metal Keyboard"
+                            ProductName = "Incredible Cotton Keyboard"
                         },
                         new
                         {
                             Id = 29L,
-                            Price = 741.55m,
+                            Price = 810.13m,
                             ProductCategoryId = 1L,
-                            ProductName = "Incredible Granite Tuna"
+                            ProductName = "Small Soft Cheese"
                         },
                         new
                         {
                             Id = 30L,
-                            Price = 865.98m,
+                            Price = 999.30m,
                             ProductCategoryId = 2L,
-                            ProductName = "Intelligent Cotton Shirt"
+                            ProductName = "Handcrafted Cotton Hat"
                         },
                         new
                         {
                             Id = 31L,
-                            Price = 186.62m,
+                            Price = 457.89m,
                             ProductCategoryId = 3L,
-                            ProductName = "Small Steel Sausages"
+                            ProductName = "Unbranded Cotton Fish"
                         },
                         new
                         {
                             Id = 32L,
-                            Price = 914.31m,
+                            Price = 910.37m,
                             ProductCategoryId = 4L,
-                            ProductName = "Handmade Steel Chips"
+                            ProductName = "Incredible Rubber Ball"
                         },
                         new
                         {
                             Id = 33L,
-                            Price = 738.71m,
+                            Price = 82.74m,
                             ProductCategoryId = 5L,
-                            ProductName = "Intelligent Plastic Bacon"
+                            ProductName = "Licensed Steel Bacon"
                         },
                         new
                         {
                             Id = 34L,
-                            Price = 798.92m,
+                            Price = 648.96m,
                             ProductCategoryId = 6L,
-                            ProductName = "Incredible Metal Fish"
+                            ProductName = "Tasty Plastic Soap"
                         },
                         new
                         {
                             Id = 35L,
-                            Price = 418.25m,
+                            Price = 512.78m,
                             ProductCategoryId = 7L,
-                            ProductName = "Awesome Steel Bike"
+                            ProductName = "Handcrafted Concrete Soap"
                         },
                         new
                         {
                             Id = 36L,
-                            Price = 136.52m,
+                            Price = 656.64m,
                             ProductCategoryId = 8L,
-                            ProductName = "Awesome Plastic Tuna"
+                            ProductName = "Gorgeous Metal Computer"
                         },
                         new
                         {
                             Id = 37L,
-                            Price = 824.86m,
+                            Price = 483.74m,
                             ProductCategoryId = 9L,
-                            ProductName = "Practical Cotton Shirt"
+                            ProductName = "Incredible Cotton Shirt"
                         },
                         new
                         {
                             Id = 38L,
-                            Price = 5.57m,
+                            Price = 118.55m,
                             ProductCategoryId = 1L,
-                            ProductName = "Intelligent Metal Pants"
+                            ProductName = "Tasty Steel Bike"
                         },
                         new
                         {
                             Id = 39L,
-                            Price = 904.02m,
+                            Price = 392.67m,
                             ProductCategoryId = 11L,
-                            ProductName = "Tasty Wooden Cheese"
+                            ProductName = "Rustic Cotton Chips"
                         },
                         new
                         {
                             Id = 40L,
-                            Price = 408.21m,
+                            Price = 342.32m,
                             ProductCategoryId = 14L,
-                            ProductName = "Fantastic Cotton Keyboard"
+                            ProductName = "Intelligent Frozen Chips"
                         },
                         new
                         {
                             Id = 41L,
-                            Price = 367.81m,
+                            Price = 160.08m,
                             ProductCategoryId = 3L,
-                            ProductName = "Tasty Soft Table"
+                            ProductName = "Awesome Granite Car"
                         },
                         new
                         {
                             Id = 42L,
-                            Price = 456.96m,
+                            Price = 8.46m,
                             ProductCategoryId = 6L,
-                            ProductName = "Small Granite Hat"
+                            ProductName = "Rustic Metal Sausages"
                         },
                         new
                         {
                             Id = 43L,
-                            Price = 648.02m,
+                            Price = 952.38m,
                             ProductCategoryId = 15L,
-                            ProductName = "Practical Granite Pants"
+                            ProductName = "Practical Granite Sausages"
                         },
                         new
                         {
                             Id = 44L,
-                            Price = 552.57m,
+                            Price = 414.74m,
                             ProductCategoryId = 2L,
-                            ProductName = "Handcrafted Metal Pizza"
+                            ProductName = "Refined Steel Chicken"
                         },
                         new
                         {
                             Id = 45L,
-                            Price = 740.82m,
+                            Price = 680.08m,
                             ProductCategoryId = 18L,
-                            ProductName = "Tasty Wooden Shoes"
+                            ProductName = "Ergonomic Fresh Salad"
                         },
                         new
                         {
                             Id = 46L,
-                            Price = 199.80m,
+                            Price = 163.65m,
                             ProductCategoryId = 4L,
-                            ProductName = "Ergonomic Fresh Mouse"
+                            ProductName = "Generic Frozen Ball"
                         },
                         new
                         {
                             Id = 47L,
-                            Price = 256.42m,
+                            Price = 490.97m,
                             ProductCategoryId = 15L,
-                            ProductName = "Intelligent Metal Car"
+                            ProductName = "Licensed Cotton Shoes"
                         },
                         new
                         {
                             Id = 48L,
-                            Price = 181.74m,
+                            Price = 195.46m,
                             ProductCategoryId = 19L,
-                            ProductName = "Handcrafted Concrete Towels"
+                            ProductName = "Ergonomic Fresh Salad"
                         },
                         new
                         {
                             Id = 49L,
-                            Price = 790.51m,
+                            Price = 608.05m,
                             ProductCategoryId = 20L,
-                            ProductName = "Small Frozen Soap"
+                            ProductName = "Ergonomic Fresh Cheese"
                         },
                         new
                         {
                             Id = 50L,
-                            Price = 195.21m,
+                            Price = 2.55m,
                             ProductCategoryId = 8L,
-                            ProductName = "Unbranded Granite Pants"
+                            ProductName = "Fantastic Concrete Sausages"
                         },
                         new
                         {
                             Id = 51L,
-                            Price = 957.09m,
+                            Price = 292.47m,
                             ProductCategoryId = 14L,
-                            ProductName = "Handcrafted Metal Chips"
+                            ProductName = "Refined Concrete Chicken"
                         },
                         new
                         {
                             Id = 52L,
-                            Price = 565.99m,
+                            Price = 628.21m,
                             ProductCategoryId = 13L,
-                            ProductName = "Awesome Rubber Shirt"
+                            ProductName = "Sleek Metal Shirt"
                         },
                         new
                         {
                             Id = 53L,
-                            Price = 119.90m,
+                            Price = 432.92m,
                             ProductCategoryId = 19L,
-                            ProductName = "Tasty Plastic Pizza"
+                            ProductName = "Intelligent Wooden Chair"
                         },
                         new
                         {
                             Id = 54L,
-                            Price = 941.64m,
+                            Price = 192.06m,
                             ProductCategoryId = 16L,
-                            ProductName = "Ergonomic Granite Soap"
+                            ProductName = "Licensed Steel Gloves"
                         },
                         new
                         {
                             Id = 55L,
-                            Price = 23.70m,
+                            Price = 144.83m,
                             ProductCategoryId = 11L,
-                            ProductName = "Handcrafted Plastic Sausages"
+                            ProductName = "Small Wooden Shoes"
                         },
                         new
                         {
                             Id = 56L,
-                            Price = 327.95m,
+                            Price = 335.16m,
                             ProductCategoryId = 13L,
-                            ProductName = "Handmade Concrete Gloves"
+                            ProductName = "Practical Frozen Chair"
                         });
                 });
 
@@ -1966,102 +1987,102 @@ namespace GA.TradeMarket.Domain.Migrations
                         new
                         {
                             Id = 1L,
-                            CategoryName = "Books"
+                            CategoryName = "Health"
                         },
                         new
                         {
                             Id = 2L,
-                            CategoryName = "Games"
-                        },
-                        new
-                        {
-                            Id = 3L,
                             CategoryName = "Shoes"
                         },
                         new
                         {
-                            Id = 4L,
+                            Id = 3L,
                             CategoryName = "Baby"
                         },
                         new
                         {
-                            Id = 5L,
-                            CategoryName = "Music"
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            CategoryName = "Grocery"
-                        },
-                        new
-                        {
-                            Id = 7L,
-                            CategoryName = "Sports"
-                        },
-                        new
-                        {
-                            Id = 8L,
-                            CategoryName = "Sports"
-                        },
-                        new
-                        {
-                            Id = 9L,
-                            CategoryName = "Movies"
-                        },
-                        new
-                        {
-                            Id = 10L,
-                            CategoryName = "Home"
-                        },
-                        new
-                        {
-                            Id = 11L,
-                            CategoryName = "Automotive"
-                        },
-                        new
-                        {
-                            Id = 12L,
-                            CategoryName = "Toys"
-                        },
-                        new
-                        {
-                            Id = 13L,
-                            CategoryName = "Kids"
-                        },
-                        new
-                        {
-                            Id = 14L,
-                            CategoryName = "Computers"
-                        },
-                        new
-                        {
-                            Id = 15L,
-                            CategoryName = "Outdoors"
-                        },
-                        new
-                        {
-                            Id = 16L,
-                            CategoryName = "Jewelery"
-                        },
-                        new
-                        {
-                            Id = 17L,
-                            CategoryName = "Kids"
-                        },
-                        new
-                        {
-                            Id = 18L,
-                            CategoryName = "Games"
-                        },
-                        new
-                        {
-                            Id = 19L,
+                            Id = 4L,
                             CategoryName = "Tools"
                         },
                         new
                         {
-                            Id = 20L,
+                            Id = 5L,
+                            CategoryName = "Grocery"
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            CategoryName = "Books"
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            CategoryName = "Outdoors"
+                        },
+                        new
+                        {
+                            Id = 8L,
+                            CategoryName = "Health"
+                        },
+                        new
+                        {
+                            Id = 9L,
+                            CategoryName = "Home"
+                        },
+                        new
+                        {
+                            Id = 10L,
+                            CategoryName = "Kids"
+                        },
+                        new
+                        {
+                            Id = 11L,
+                            CategoryName = "Toys"
+                        },
+                        new
+                        {
+                            Id = 12L,
                             CategoryName = "Garden"
+                        },
+                        new
+                        {
+                            Id = 13L,
+                            CategoryName = "Games"
+                        },
+                        new
+                        {
+                            Id = 14L,
+                            CategoryName = "Toys"
+                        },
+                        new
+                        {
+                            Id = 15L,
+                            CategoryName = "Garden"
+                        },
+                        new
+                        {
+                            Id = 16L,
+                            CategoryName = "Clothing"
+                        },
+                        new
+                        {
+                            Id = 17L,
+                            CategoryName = "Health"
+                        },
+                        new
+                        {
+                            Id = 18L,
+                            CategoryName = "Music"
+                        },
+                        new
+                        {
+                            Id = 19L,
+                            CategoryName = "Home"
+                        },
+                        new
+                        {
+                            Id = 20L,
+                            CategoryName = "Music"
                         });
                 });
 
@@ -2251,181 +2272,181 @@ namespace GA.TradeMarket.Domain.Migrations
                         {
                             ProductId = 1L,
                             ReceiptId = 1L,
-                            DiscountUnitPrice = 639m,
+                            DiscountUnitPrice = 545m,
                             Id = 1L,
-                            Quantity = 25,
-                            UnitPrice = 208.73m
+                            Quantity = 75,
+                            UnitPrice = 556.25m
                         },
                         new
                         {
                             ProductId = 2L,
                             ReceiptId = 3L,
-                            DiscountUnitPrice = 966m,
+                            DiscountUnitPrice = 577m,
                             Id = 2L,
-                            Quantity = 37,
-                            UnitPrice = 856.40m
+                            Quantity = 70,
+                            UnitPrice = 695.01m
                         },
                         new
                         {
                             ProductId = 3L,
                             ReceiptId = 2L,
-                            DiscountUnitPrice = 409m,
+                            DiscountUnitPrice = 832m,
                             Id = 3L,
-                            Quantity = 63,
-                            UnitPrice = 522.99m
+                            Quantity = 72,
+                            UnitPrice = 647.47m
                         },
                         new
                         {
                             ProductId = 4L,
                             ReceiptId = 3L,
-                            DiscountUnitPrice = 684m,
+                            DiscountUnitPrice = 67m,
                             Id = 4L,
-                            Quantity = 88,
-                            UnitPrice = 874.20m
+                            Quantity = 22,
+                            UnitPrice = 601.39m
                         },
                         new
                         {
                             ProductId = 5L,
                             ReceiptId = 4L,
-                            DiscountUnitPrice = 522m,
+                            DiscountUnitPrice = 538m,
                             Id = 5L,
-                            Quantity = 27,
-                            UnitPrice = 924.90m
+                            Quantity = 79,
+                            UnitPrice = 526.76m
                         },
                         new
                         {
                             ProductId = 1L,
                             ReceiptId = 5L,
-                            DiscountUnitPrice = 799m,
+                            DiscountUnitPrice = 433m,
                             Id = 6L,
-                            Quantity = 80,
-                            UnitPrice = 85.77m
+                            Quantity = 44,
+                            UnitPrice = 887.16m
                         },
                         new
                         {
                             ProductId = 2L,
                             ReceiptId = 2L,
-                            DiscountUnitPrice = 110m,
+                            DiscountUnitPrice = 247m,
                             Id = 7L,
-                            Quantity = 56,
-                            UnitPrice = 816.48m
+                            Quantity = 76,
+                            UnitPrice = 999.32m
                         },
                         new
                         {
                             ProductId = 3L,
                             ReceiptId = 3L,
-                            DiscountUnitPrice = 539m,
+                            DiscountUnitPrice = 246m,
                             Id = 8L,
-                            Quantity = 41,
-                            UnitPrice = 987.68m
+                            Quantity = 15,
+                            UnitPrice = 49.85m
                         },
                         new
                         {
                             ProductId = 4L,
                             ReceiptId = 2L,
-                            DiscountUnitPrice = 243m,
+                            DiscountUnitPrice = 771m,
                             Id = 9L,
-                            Quantity = 46,
-                            UnitPrice = 981.64m
+                            Quantity = 17,
+                            UnitPrice = 170.67m
                         },
                         new
                         {
                             ProductId = 5L,
                             ReceiptId = 3L,
-                            DiscountUnitPrice = 218m,
+                            DiscountUnitPrice = 708m,
                             Id = 10L,
-                            Quantity = 18,
-                            UnitPrice = 626.70m
+                            Quantity = 68,
+                            UnitPrice = 417.57m
                         },
                         new
                         {
                             ProductId = 1L,
                             ReceiptId = 11L,
-                            DiscountUnitPrice = 549m,
+                            DiscountUnitPrice = 975m,
                             Id = 11L,
-                            Quantity = 33,
-                            UnitPrice = 673.90m
+                            Quantity = 27,
+                            UnitPrice = 1.85m
                         },
                         new
                         {
                             ProductId = 2L,
                             ReceiptId = 13L,
-                            DiscountUnitPrice = 53m,
+                            DiscountUnitPrice = 562m,
                             Id = 12L,
-                            Quantity = 18,
-                            UnitPrice = 467.60m
+                            Quantity = 45,
+                            UnitPrice = 110.06m
                         },
                         new
                         {
                             ProductId = 3L,
                             ReceiptId = 12L,
-                            DiscountUnitPrice = 733m,
+                            DiscountUnitPrice = 121m,
                             Id = 13L,
-                            Quantity = 94,
-                            UnitPrice = 448.80m
+                            Quantity = 20,
+                            UnitPrice = 541.97m
                         },
                         new
                         {
                             ProductId = 4L,
                             ReceiptId = 10L,
-                            DiscountUnitPrice = 821m,
+                            DiscountUnitPrice = 883m,
                             Id = 14L,
-                            Quantity = 14,
-                            UnitPrice = 393.83m
+                            Quantity = 87,
+                            UnitPrice = 83.65m
                         },
                         new
                         {
                             ProductId = 5L,
                             ReceiptId = 14L,
-                            DiscountUnitPrice = 993m,
+                            DiscountUnitPrice = 147m,
                             Id = 15L,
-                            Quantity = 39,
-                            UnitPrice = 508.52m
+                            Quantity = 16,
+                            UnitPrice = 472.91m
                         },
                         new
                         {
                             ProductId = 1L,
                             ReceiptId = 15L,
-                            DiscountUnitPrice = 371m,
+                            DiscountUnitPrice = 612m,
                             Id = 16L,
-                            Quantity = 17,
-                            UnitPrice = 288.31m
+                            Quantity = 56,
+                            UnitPrice = 92.74m
                         },
                         new
                         {
                             ProductId = 2L,
                             ReceiptId = 12L,
-                            DiscountUnitPrice = 388m,
+                            DiscountUnitPrice = 544m,
                             Id = 17L,
-                            Quantity = 40,
-                            UnitPrice = 723.03m
+                            Quantity = 53,
+                            UnitPrice = 672.46m
                         },
                         new
                         {
                             ProductId = 3L,
                             ReceiptId = 13L,
-                            DiscountUnitPrice = 958m,
+                            DiscountUnitPrice = 557m,
                             Id = 18L,
-                            Quantity = 74,
-                            UnitPrice = 169.20m
+                            Quantity = 24,
+                            UnitPrice = 664.36m
                         },
                         new
                         {
                             ProductId = 4L,
                             ReceiptId = 12L,
-                            DiscountUnitPrice = 648m,
+                            DiscountUnitPrice = 242m,
                             Id = 19L,
-                            Quantity = 47,
-                            UnitPrice = 820.74m
+                            Quantity = 92,
+                            UnitPrice = 915.86m
                         },
                         new
                         {
                             ProductId = 5L,
                             ReceiptId = 13L,
-                            DiscountUnitPrice = 534m,
+                            DiscountUnitPrice = 489m,
                             Id = 20L,
-                            Quantity = 94,
-                            UnitPrice = 491.33m
+                            Quantity = 78,
+                            UnitPrice = 412.98m
                         });
                 });
 
@@ -2464,48 +2485,48 @@ namespace GA.TradeMarket.Domain.Migrations
                         {
                             Id = 1L,
                             OrderId = 1L,
-                            Reason = "Voluptas hic magni praesentium. Quos id enim beatae deleniti perspiciatis aut aut. Laboriosam at laudantium cupiditate.",
-                            RequestDate = new DateTime(2024, 5, 7, 15, 54, 31, 15, DateTimeKind.Local).AddTicks(6366),
+                            Reason = "odio",
+                            RequestDate = new DateTime(2024, 5, 9, 15, 47, 25, 689, DateTimeKind.Local).AddTicks(8135),
                             Status = "Active"
                         },
                         new
                         {
                             Id = 2L,
                             OrderId = 2L,
-                            Reason = "veniam",
-                            RequestDate = new DateTime(2024, 2, 27, 15, 54, 31, 15, DateTimeKind.Local).AddTicks(7035),
+                            Reason = "ut",
+                            RequestDate = new DateTime(2024, 2, 29, 15, 47, 25, 689, DateTimeKind.Local).AddTicks(8183),
                             Status = "Passed"
                         },
                         new
                         {
                             Id = 3L,
                             OrderId = 3L,
-                            Reason = "Consectetur illum reiciendis est iure accusamus aut adipisci. Sint officia fugit praesentium voluptatem quidem iste veritatis doloribus sint. Velit voluptates dolorem et quasi eos. Aut est nobis est nisi. Et velit nemo omnis illum quia eos deleniti accusantium. Atque cumque vel provident voluptatibus atque facilis enim et.",
-                            RequestDate = new DateTime(2024, 5, 17, 15, 54, 31, 15, DateTimeKind.Local).AddTicks(7067),
+                            Reason = "Laborum odit asperiores omnis.",
+                            RequestDate = new DateTime(2024, 5, 19, 15, 47, 25, 689, DateTimeKind.Local).AddTicks(8191),
                             Status = "Declined"
                         },
                         new
                         {
                             Id = 4L,
                             OrderId = 4L,
-                            Reason = "Dolor dolorem sed molestiae dignissimos dolores voluptas repudiandae dolorum cumque.",
-                            RequestDate = new DateTime(2024, 5, 7, 15, 54, 31, 15, DateTimeKind.Local).AddTicks(7954),
+                            Reason = "Esse recusandae et commodi dolorum officiis.",
+                            RequestDate = new DateTime(2024, 5, 9, 15, 47, 25, 689, DateTimeKind.Local).AddTicks(8257),
                             Status = "Processing"
                         },
                         new
                         {
                             Id = 5L,
                             OrderId = 5L,
-                            Reason = "Aut possimus non accusamus aut.\nQuaerat voluptatum quos.\nVoluptatibus consectetur iste.",
-                            RequestDate = new DateTime(2024, 2, 27, 15, 54, 31, 15, DateTimeKind.Local).AddTicks(8140),
+                            Reason = "Earum ea veritatis non facilis qui qui laudantium.",
+                            RequestDate = new DateTime(2024, 2, 29, 15, 47, 25, 689, DateTimeKind.Local).AddTicks(8283),
                             Status = "To be ready"
                         },
                         new
                         {
                             Id = 6L,
                             OrderId = 6L,
-                            Reason = "Molestiae qui minima at pariatur qui.",
-                            RequestDate = new DateTime(2024, 5, 17, 15, 54, 31, 15, DateTimeKind.Local).AddTicks(8408),
+                            Reason = "aliquid",
+                            RequestDate = new DateTime(2024, 5, 19, 15, 47, 25, 689, DateTimeKind.Local).AddTicks(8315),
                             Status = "Archived"
                         });
                 });
@@ -2549,8 +2570,8 @@ namespace GA.TradeMarket.Domain.Migrations
                             CustomerId = 1L,
                             ProductId = 1L,
                             Rating = 3,
-                            ReviewDate = new DateTime(2024, 5, 22, 15, 54, 31, 23, DateTimeKind.Local).AddTicks(8284),
-                            ReviewText = "Voluptate et non aut sit vero corrupti suscipit. Necessitatibus quia neque sed autem magni laborum accusamus. Et odit inventore expedita. Iusto omnis fuga ut doloribus consequuntur quae qui."
+                            ReviewDate = new DateTime(2024, 5, 24, 15, 47, 25, 691, DateTimeKind.Local).AddTicks(2438),
+                            ReviewText = "Amet tenetur tempora iure nulla. Ut aut a delectus quis quibusdam eaque. Mollitia molestiae cupiditate maiores autem tempora."
                         },
                         new
                         {
@@ -2558,8 +2579,8 @@ namespace GA.TradeMarket.Domain.Migrations
                             CustomerId = 2L,
                             ProductId = 2L,
                             Rating = 5,
-                            ReviewDate = new DateTime(2024, 4, 13, 15, 54, 31, 23, DateTimeKind.Local).AddTicks(8874),
-                            ReviewText = "Est maiores quae dolores."
+                            ReviewDate = new DateTime(2024, 4, 15, 15, 47, 25, 691, DateTimeKind.Local).AddTicks(2624),
+                            ReviewText = "Aspernatur et eius quo commodi in deleniti. Reprehenderit dolorem quam. Praesentium tempore possimus qui quia molestiae et sapiente animi ullam."
                         },
                         new
                         {
@@ -2567,8 +2588,8 @@ namespace GA.TradeMarket.Domain.Migrations
                             CustomerId = 3L,
                             ProductId = 3L,
                             Rating = 4,
-                            ReviewDate = new DateTime(2024, 5, 14, 15, 54, 31, 23, DateTimeKind.Local).AddTicks(8923),
-                            ReviewText = "Maxime mollitia facere quo sed unde repellat sint libero a.\nIure et quisquam voluptas facilis in ad.\nMaxime qui quidem.\nDebitis repudiandae beatae non deleniti."
+                            ReviewDate = new DateTime(2024, 5, 16, 15, 47, 25, 691, DateTimeKind.Local).AddTicks(2750),
+                            ReviewText = "Amet ut explicabo voluptatum ut velit dolorem. Expedita molestiae veritatis sint rerum laboriosam recusandae qui sit nulla. Sit vitae et et magni mollitia nesciunt sed sit atque. Debitis rerum qui odit totam est. Quod voluptate cumque culpa voluptas eos vitae expedita dolorum consequatur."
                         },
                         new
                         {
@@ -2576,8 +2597,8 @@ namespace GA.TradeMarket.Domain.Migrations
                             CustomerId = 2L,
                             ProductId = 4L,
                             Rating = 3,
-                            ReviewDate = new DateTime(2024, 6, 4, 15, 54, 31, 23, DateTimeKind.Local).AddTicks(9121),
-                            ReviewText = "Ipsum est quod."
+                            ReviewDate = new DateTime(2024, 6, 6, 15, 47, 25, 691, DateTimeKind.Local).AddTicks(2900),
+                            ReviewText = "Expedita harum facere dolores qui. Officiis eum optio qui harum voluptatem. Aperiam laudantium voluptatem ut quos dolores fugit illo accusamus consequuntur. Quo asperiores assumenda. Enim possimus libero eaque. Rerum aliquid aut."
                         },
                         new
                         {
@@ -2585,8 +2606,8 @@ namespace GA.TradeMarket.Domain.Migrations
                             CustomerId = 2L,
                             ProductId = 5L,
                             Rating = 2,
-                            ReviewDate = new DateTime(2024, 5, 3, 15, 54, 31, 23, DateTimeKind.Local).AddTicks(9158),
-                            ReviewText = "Nulla repellat non reprehenderit tenetur sequi excepturi tempora.\nEa quas ad aperiam.\nRerum deleniti explicabo nostrum."
+                            ReviewDate = new DateTime(2024, 5, 5, 15, 47, 25, 691, DateTimeKind.Local).AddTicks(3039),
+                            ReviewText = "Eveniet consequatur non id commodi molestiae molestiae aut. Sapiente incidunt veritatis consequatur voluptas libero dolor. Excepturi est laborum alias ut excepturi minima ex. Est in optio aut nobis aut tenetur voluptas fugiat suscipit. Non odio ut rerum quis laboriosam et eveniet reprehenderit dolores. Nostrum est officia modi voluptatum alias hic."
                         },
                         new
                         {
@@ -2594,8 +2615,8 @@ namespace GA.TradeMarket.Domain.Migrations
                             CustomerId = 1L,
                             ProductId = 6L,
                             Rating = 4,
-                            ReviewDate = new DateTime(2024, 5, 2, 15, 54, 31, 23, DateTimeKind.Local).AddTicks(9349),
-                            ReviewText = "rerum"
+                            ReviewDate = new DateTime(2024, 5, 4, 15, 47, 25, 691, DateTimeKind.Local).AddTicks(3225),
+                            ReviewText = "Molestias atque quis optio facere."
                         },
                         new
                         {
@@ -2603,8 +2624,8 @@ namespace GA.TradeMarket.Domain.Migrations
                             CustomerId = 5L,
                             ProductId = 11L,
                             Rating = 3,
-                            ReviewDate = new DateTime(2024, 5, 22, 15, 54, 31, 23, DateTimeKind.Local).AddTicks(9388),
-                            ReviewText = "voluptatem"
+                            ReviewDate = new DateTime(2024, 5, 24, 15, 47, 25, 691, DateTimeKind.Local).AddTicks(3243),
+                            ReviewText = "provident"
                         },
                         new
                         {
@@ -2612,8 +2633,8 @@ namespace GA.TradeMarket.Domain.Migrations
                             CustomerId = 6L,
                             ProductId = 12L,
                             Rating = 5,
-                            ReviewDate = new DateTime(2024, 4, 13, 15, 54, 31, 23, DateTimeKind.Local).AddTicks(9400),
-                            ReviewText = "Eum et enim qui inventore sequi assumenda voluptate quia."
+                            ReviewDate = new DateTime(2024, 4, 15, 15, 47, 25, 691, DateTimeKind.Local).AddTicks(3249),
+                            ReviewText = "Sint at quod magni pariatur ad excepturi ea omnis labore."
                         },
                         new
                         {
@@ -2621,8 +2642,8 @@ namespace GA.TradeMarket.Domain.Migrations
                             CustomerId = 7L,
                             ProductId = 7L,
                             Rating = 4,
-                            ReviewDate = new DateTime(2024, 5, 14, 15, 54, 31, 23, DateTimeKind.Local).AddTicks(9467),
-                            ReviewText = "Aliquid aut itaque non ratione eligendi iusto omnis asperiores. Voluptatibus sint natus. Optio quidem ipsa. Sed rem deserunt enim asperiores ut. Impedit libero pariatur laborum earum nam suscipit necessitatibus qui. Dolor a exercitationem odio rerum ut molestiae officia."
+                            ReviewDate = new DateTime(2024, 5, 16, 15, 47, 25, 691, DateTimeKind.Local).AddTicks(3279),
+                            ReviewText = "quibusdam"
                         },
                         new
                         {
@@ -2630,8 +2651,8 @@ namespace GA.TradeMarket.Domain.Migrations
                             CustomerId = 8L,
                             ProductId = 13L,
                             Rating = 3,
-                            ReviewDate = new DateTime(2024, 6, 4, 15, 54, 31, 23, DateTimeKind.Local).AddTicks(9811),
-                            ReviewText = "Numquam qui animi quibusdam sequi tempora. Voluptatibus id eligendi est velit neque fugit. Quis dolores necessitatibus. Temporibus et enim rem autem molestias repudiandae."
+                            ReviewDate = new DateTime(2024, 6, 6, 15, 47, 25, 691, DateTimeKind.Local).AddTicks(3284),
+                            ReviewText = "Ut est ipsum voluptatem voluptas eius."
                         });
                 });
 
@@ -2675,65 +2696,65 @@ namespace GA.TradeMarket.Domain.Migrations
                         new
                         {
                             Id = 1L,
-                            Carrier = "1GAjgcrL1J9DtqEYoURZ83dQabz",
+                            Carrier = "33AKbiWwDSNvpq59R82GxuhBcVy7H",
                             OrderId = 1L,
-                            ShippingDate = new DateTime(2024, 6, 2, 15, 54, 31, 30, DateTimeKind.Local).AddTicks(5960),
+                            ShippingDate = new DateTime(2024, 6, 4, 15, 47, 25, 692, DateTimeKind.Local).AddTicks(7610),
                             Status = "Sent from abroad",
-                            TrackingNumber = "VYCUPFF1VET"
+                            TrackingNumber = "CKWICII1"
                         },
                         new
                         {
                             Id = 2L,
-                            Carrier = "3cZMorCEignGT6UWKuRYB7qJ3XDd9tHmsh",
+                            Carrier = "32kS6GtncXQHD3zhmdgTeFYiPMBRvsf",
                             OrderId = 2L,
-                            ShippingDate = new DateTime(2024, 6, 1, 15, 54, 31, 30, DateTimeKind.Local).AddTicks(6351),
+                            ShippingDate = new DateTime(2024, 6, 3, 15, 47, 25, 692, DateTimeKind.Local).AddTicks(7764),
                             Status = "Recieved from abroad",
-                            TrackingNumber = "PPOUCUR1"
+                            TrackingNumber = "ITSOMSY1"
                         },
                         new
                         {
                             Id = 3L,
-                            Carrier = "1qct6FBUSxQnhGEPaX5zvYRdZLru8b",
+                            Carrier = "17L2CeS8BaqyzHXnhuEoPgiQjxUMNtw6",
                             OrderId = 3L,
-                            ShippingDate = new DateTime(2024, 4, 22, 15, 54, 31, 30, DateTimeKind.Local).AddTicks(6482),
+                            ShippingDate = new DateTime(2024, 4, 24, 15, 47, 25, 692, DateTimeKind.Local).AddTicks(7806),
                             Status = "recieve in sorting centre",
-                            TrackingNumber = "EZSOINH1155"
+                            TrackingNumber = "WJDUBOP1"
                         },
                         new
                         {
                             Id = 4L,
-                            Carrier = "1G5SkimRLavTMendNobZ3jw6hCV2usUD7Px",
+                            Carrier = "39pvAsHNGtri1oxk3TKYCDQBz7W",
                             OrderId = 4L,
-                            ShippingDate = new DateTime(2024, 4, 22, 15, 54, 31, 30, DateTimeKind.Local).AddTicks(6647),
+                            ShippingDate = new DateTime(2024, 4, 24, 15, 47, 25, 692, DateTimeKind.Local).AddTicks(7844),
                             Status = "delivered",
-                            TrackingNumber = "ETZUPWB1"
+                            TrackingNumber = "NFBEEAL1"
                         },
                         new
                         {
                             Id = 5L,
-                            Carrier = "34RpC8jmigoYSZKTvJdEW1FcGL57Vr",
+                            Carrier = "3Nf4bB3ijeHT52AvSJpDXaUGKyWV",
                             OrderId = 5L,
-                            ShippingDate = new DateTime(2024, 6, 3, 15, 54, 31, 30, DateTimeKind.Local).AddTicks(6771),
+                            ShippingDate = new DateTime(2024, 6, 5, 15, 47, 25, 692, DateTimeKind.Local).AddTicks(7878),
                             Status = "Unsuccesfull delivery",
-                            TrackingNumber = "LRHUSNY1"
+                            TrackingNumber = "JXUOBLP1252"
                         },
                         new
                         {
                             Id = 6L,
-                            Carrier = "1ygtDcaYSKzu8PA2nj3FxbqkNMmRUB9d4",
+                            Carrier = "11VUuTQziBD5eWm3xnGovsYyH42aFSt8ZR",
                             OrderId = 6L,
-                            ShippingDate = new DateTime(2024, 5, 26, 15, 54, 31, 30, DateTimeKind.Local).AddTicks(6888),
+                            ShippingDate = new DateTime(2024, 5, 28, 15, 47, 25, 692, DateTimeKind.Local).AddTicks(7916),
                             Status = "recieved",
-                            TrackingNumber = "KZQOVCR1"
+                            TrackingNumber = "WEYOLYE1327"
                         },
                         new
                         {
                             Id = 7L,
-                            Carrier = "3CHideTrS4WGtj1E7Y6Ug5RxyQkZFPzXcq",
+                            Carrier = "3YCN1R2sDrS9BTPobUdFLMHnXAhw4v",
                             OrderId = 7L,
-                            ShippingDate = new DateTime(2024, 4, 11, 15, 54, 31, 30, DateTimeKind.Local).AddTicks(7034),
+                            ShippingDate = new DateTime(2024, 4, 13, 15, 47, 25, 692, DateTimeKind.Local).AddTicks(7960),
                             Status = "boxing",
-                            TrackingNumber = "HHQIKEW1"
+                            TrackingNumber = "KQLECAH1"
                         });
                 });
 

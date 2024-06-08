@@ -16,28 +16,16 @@ namespace GA.TradeMarket.Application.Services
         {
         }
 
-        public async Task AddAsync(CustomerReqModel item)
+        public async Task AddAsync(CustomerModelIn item)
         {
             if (item == null)
             {
                 throw new MarketException(ErrorKeys.InternalServerError);
             }
-            if (item.BirthDate > DateTime.Now.AddYears(-10) || item.BirthDate <= new DateTime(1890, 1, 1, 1, 1, 1, DateTimeKind.Utc))
-            {
-                throw new MarketException(ErrorKeys.DateValidation);
-            }
+            var mapped = mapper.Map<Customer>(item);
 
-            if (!string.IsNullOrEmpty(item.Name) && !string.IsNullOrEmpty(item.Surname))
-            {
-                var mapped = mapper.Map<Customer>(item);
-
-                await obj.CustomerRepository.AddAsync(mapped);
-                await obj.SaveAsync();
-            }
-            else
-            {
-                throw new MarketException(ErrorKeys.InternalServerError);
-            }
+            await obj.CustomerRepository.AddAsync(mapped);
+            await obj.SaveAsync();
         }
 
         public async Task DeleteAsync(long item)
@@ -96,17 +84,8 @@ namespace GA.TradeMarket.Application.Services
             throw new MarketException(ErrorKeys.General);
         }
 
-        public async Task UpdateAsync(CustomerReqModel item)
+        public async Task UpdateAsync(CustomerModelIn item)
         {
-
-            if (item.BirthDate >= DateTime.Now || item.BirthDate <= new DateTime(1890, 1, 1, 1, 1, 1, DateTimeKind.Utc))
-            {
-                throw new MarketException(ErrorKeys.DateValidation);
-            }
-            if (string.IsNullOrEmpty(item.Name) || string.IsNullOrEmpty(item.Surname))
-            {
-                throw new MarketException(ErrorKeys.BadRequest);
-            }
             var res = mapper.Map<Customer>(item);
             if (obj.CustomerRepository != null)
             {

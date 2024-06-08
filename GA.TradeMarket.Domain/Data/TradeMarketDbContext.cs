@@ -27,6 +27,46 @@ namespace GA.TradeMarket.Domain.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
+
+            string ADMIN_ID = "02174cf0–9412–4cfe - afbf - 59f706d72cf6";
+            string ROLE_ID = "341743f0 - asd2–42de - afbf - 59kmkkmk72cf6";
+
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Name = "admin",
+                NormalizedName = "ADMIN",
+                Id = ROLE_ID,
+                ConcurrencyStamp = ROLE_ID
+            });
+
+            var appUser = new Person
+            {
+                Id = ADMIN_ID,
+                Email = "guram.apkhazava908@ens.tsu.ge",
+                NormalizedEmail="guram.apkhazava908@ens.tsu.ge",
+                EmailConfirmed = true,
+                UserName = "Guga13guga",
+                Name="Guga",
+                Surname= " Apkhazava",
+                BirthDate=new DateTime(2002,02,02),
+                PhoneNumber="599042047",
+                PhoneNumberConfirmed=true,
+                NormalizedUserName = "Guga13guga"
+            };
+
+            PasswordHasher<Person> ph = new PasswordHasher<Person>();
+
+            appUser.PasswordHash = ph.HashPassword(appUser, "Guga13guga#");
+
+            modelBuilder.Entity<Person>().HasData(appUser);
+
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = ROLE_ID,
+                UserId = ADMIN_ID
+            });
+
             modelBuilder.ApplyConfiguration(new ExchangeRateConfig());
             modelBuilder.ApplyConfiguration(new CouponConfig());
             modelBuilder.ApplyConfiguration(new PeopleConfig());
@@ -44,45 +84,6 @@ namespace GA.TradeMarket.Domain.Data
             modelBuilder.ApplyConfiguration(new ReviewConfig());
             modelBuilder.ApplyConfiguration(new ShipingConfig());
 
-            string ADMIN_ID = "02174cf0–9412–4cfe - afbf - 59f706d72cf6";
-            string ROLE_ID = "341743f0 - asd2–42de - afbf - 59kmkkmk72cf6";
-
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
-            {
-                Name = "admin",
-                NormalizedName = "ADMIN",
-                Id = ROLE_ID,
-                ConcurrencyStamp = ROLE_ID
-            });
-
-            var appUser = new Person
-            {
-                Id = ADMIN_ID,
-                Email = "aapkhazava22@gmail.com",
-                NormalizedEmail="AAPKHAZAVA22@GMAIL.COM",
-                EmailConfirmed = true,
-                UserName = "gugaadmin",
-                Name="Guga",
-                Surname= " Apkhazava",
-                BirthDate=new DateTime(2002,02,02),
-                PhoneNumber="599042047",
-                PhoneNumberConfirmed=true,
-                NormalizedUserName = "GUGAADMIN"
-            };
-
-            PasswordHasher<Person> ph = new PasswordHasher<Person>();
-
-            appUser.PasswordHash = ph.HashPassword(appUser, "Guga13guga#");
-
-            modelBuilder.Entity<Person>().HasData(appUser);
-
-            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
-            {
-                RoleId = ROLE_ID,
-                UserId = ADMIN_ID
-            });
-
-            Random rand = new Random();
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<ReceiptDetail>()
                 .HasKey(rd => new { rd.ProductId, rd.ReceiptId });

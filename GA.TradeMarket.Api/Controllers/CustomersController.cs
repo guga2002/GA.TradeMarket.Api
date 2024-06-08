@@ -99,11 +99,15 @@ namespace GA.TradeMarket.Api.Controllers
         /// </summary>
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult> Post([FromBody] CustomerReqModel value)
+        public async Task<ActionResult> AddCustommer([FromBody] CustomerModelIn value)
         {
             try
             {
-                if (value.Name == string.Empty || value.Surname == string.Empty || value.BirthDate >= DateTime.Now || value.DiscountValue < 0)
+                if(!ModelState.IsValid)
+                {
+                    return BadRequest(value);
+                }
+                if (value.DiscountValue < 0)
                 {
                     return BadRequest(ErrorKeys.BadRequest);
                 }
@@ -112,7 +116,7 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
-                return BadRequest(exp);
+                return BadRequest(exp.Message);
             }
         }
 
@@ -122,14 +126,10 @@ namespace GA.TradeMarket.Api.Controllers
         [HttpPut]
         [Route("{id:long}")]
         [Authorize]
-        public async Task<ActionResult> Put([FromRoute]long Id, [FromBody] CustomerReqModel value)
+        public async Task<ActionResult> Put([FromBody] CustomerModelIn value)
         {
             try
             {
-                if (value.Name == string.Empty || value.Surname == string.Empty || value.BirthDate >= DateTime.Now || value.DiscountValue < 0)
-                {
-                    return BadRequest(Id);
-                }
                 await _customerService.UpdateAsync(value);
                 return Ok(value);
             }

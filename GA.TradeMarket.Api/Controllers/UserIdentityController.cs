@@ -42,7 +42,7 @@ namespace GA.TradeMarket.Api.Controllers
                     Content(
                     res
                         ? "<div style='text-align: center;'><h1 style='color: green; font-weight: bold; font-size: 24px;'>Congratulations!</h1><p style='font-size: 16px;'>Your email has been verified successfully.</p></div>"
-                        : "<h1>somethings strange</h1>", "text/html");
+                        : "<h1 style='text-align: center; font-weight: bold; font-size: 24px;color:red;'>Link has ben expired!</h1>", "text/html");
 
             }
             catch (Exception exp)
@@ -259,7 +259,7 @@ namespace GA.TradeMarket.Api.Controllers
                 {
                     if (await ser.IsEmailConfirmed(User.Identity.Name))
                     {
-                        throw new ArgumentException("there is error");
+                        throw new ArgumentException("Email is already Confirmed!");
                     }
 
                     var user = await userManager.FindByNameAsync(User.Identity.Name);
@@ -363,10 +363,6 @@ namespace GA.TradeMarket.Api.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ErrorKeys.BadRequest);
-                }
                 var res = await ser.DeleteRole(role);
                 return Ok(res);
             }

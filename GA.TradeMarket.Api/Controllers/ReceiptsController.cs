@@ -26,7 +26,7 @@ namespace GA.TradeMarket.Api.Controllers
         [HttpGet]
         [Route(nameof(AllReceiptsForCurrentUser))]
         [Authorize(Roles ="customer")]
-        public async Task<ActionResult<ReceiptModel>> AllReceiptsForCurrentUser()
+        public async Task<ActionResult<IEnumerable<ReceiptModel>>> AllReceiptsForCurrentUser()
         {
             try
             {
@@ -41,7 +41,7 @@ namespace GA.TradeMarket.Api.Controllers
             catch (Exception exp)
             {
                 _logger.LogError(exp, "Error fetching all receipts with details");
-                return BadRequest("An error occurred while fetching the receipts.");
+                return BadRequest($"An error occurred while fetching the receipts.{exp.StackTrace}");
             }
         }
 

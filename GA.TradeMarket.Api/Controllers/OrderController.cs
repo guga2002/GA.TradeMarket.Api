@@ -1,8 +1,9 @@
-﻿using Bogus;
+﻿
 using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Models;
 using GA.TradeMarket.Application.Models.RequestModels;
 using GA.TradeMarket.Application.StaticFIles;
+using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Persistance.SMTP;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -161,10 +162,9 @@ namespace GA.TradeMarket.Api.Controllers
 <body>
 <div class=""container"">
     <h2>თქვენს სახელზე ფიქსირდება ახალი შეკვეთა</h2>
-    <p>Hello,</p>
-    <p>გამარჯობა,{user.FirstName}, შენ განათავსე ახალი შეკვეთა პლათფორმაზე!</p>
+    <p>გამარჯობა,{user.Name}, შენ განათავსე ახალი შეკვეთა პლათფორმაზე!</p>
     <div class=""order-details"">
-        <p><strong>მომხმარებელი:</strong>{user.FirstName + ' ' + user.LastName}</p>
+        <p><strong>მომხმარებელი:</strong>{user.Name + ' ' + user.Surname}</p>
         <p><strong>შეკვეთს თარიღი:</strong> {item.OrderDate}</p>
         <p><strong>სტატუსი:</strong>{item.Status}</p>
     </div>
@@ -269,9 +269,9 @@ namespace GA.TradeMarket.Api.Controllers
 <div class=""container"">
     <h2>თქვენი შეკვეთის დეტალები განახლდა</h2>
     <p>Hello,</p>
-    <p>გამარჯობა,{user.FirstName}, შენი შეკვეთის დეტალები განახლდა</p>
+    <p>გამარჯობა,{user.Name}, შენი შეკვეთის დეტალები განახლდა</p>
     <div class=""order-details"">
-        <p><strong>მომხმარებელი:</strong>{user.FirstName + ' ' + user.LastName}</p>
+        <p><strong>მომხმარებელი:</strong>{user.Surname + ' ' + user.Name}</p>
         <p><strong>შეკვეთს თარიღი:</strong> {item.OrderDate}</p>
         <p><strong>სტატუსი:</strong>{item.Status}</p>
         <p><strong>მომხმარებლის იდენტიფიკატორი:</strong>{item.CustomerId}</p>

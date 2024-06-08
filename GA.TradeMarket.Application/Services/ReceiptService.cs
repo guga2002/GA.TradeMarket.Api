@@ -114,7 +114,7 @@ namespace GA.TradeMarket.Application.Services
             if(user is not null)
             {
                 var res=await obj.ReceiptRepository.GetAllWithDetailsAsync();
-                var receipts= res.Where(io=>io.order.CustomerId==user.Customer.Id).ToList();
+                var receipts= res.Where(io=>io.order.Customer.PersonId==user.Id).ToList();
                 var mapped=mapper.Map<IEnumerable<ReceiptModel>>(receipts);
                 return mapped;
             }

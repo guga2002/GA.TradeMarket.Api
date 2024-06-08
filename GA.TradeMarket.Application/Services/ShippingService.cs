@@ -375,17 +375,17 @@ namespace GA.TradeMarket.Application.Services
         <h1>განსაკუთრებული შეთავაზება!</h1>
     </div>
     <div class=""content"">
-        <p>Dear Customer,</p>
+        <p>ძვირფასო {notification.User.Person.Name},</p>
         <p>ჩვენ მოხარული ვართ შემოგთავაზოთ სპეციალური ფასდაკლებები ჩვენს პროდუქტებზე. არ გამოგრჩეს.</p>
         <h2>შეთავაზება:</h2>
         <ul>
             <li>{notification.Message}</li>
         </ul>
-        <p>Visit our website or contact us for more details and to make your purchase.</p>
-        <p>Thank you for choosing us!</p>
+        <p>ეწვიეთ ჩვენს ვებგვერდს ან დაგვიკავშირდით დამატებითი ინფორმაციისთვის.</p>
+        <p>მადლობა, რომ გვირჩევ ჩვენ</p>
     </div>
     <div class=""footer"">
-        <p>This email was sent to you because you subscribed to our newsletter. If you wish to unsubscribe, <a href=""#"">click here</a>.</p>
+        <p>ელ.ფოსტა გამოგეგზავნათ, რადგან თქვენ გამოიწერეთ ჩვენი გვერდი. თუ გსურთ გამოწერის გაუქმება <a href=""https://www.linkedin.com/in/guga-apkhazava-938a40237/"">დააჭირე აქ</a>.</p>
     </div>
 </div>
 </body>
@@ -401,7 +401,7 @@ namespace GA.TradeMarket.Application.Services
         public async Task<IEnumerable<NotificationModel>> GetAllUnsentNotifications()
         {
             var res = await obj.NotificationRepository.GetAllWithDetailsAsync();
-            var filtered = res.Where(io => io.IsSeen = false).ToList();
+            var filtered = res.Where(io => io.IsSeen == false).ToList();
             var mapped=mapper.Map<IEnumerable<NotificationModel>>(filtered);
             return mapped;
         }

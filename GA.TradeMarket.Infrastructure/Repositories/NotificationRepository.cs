@@ -40,7 +40,7 @@ namespace GA.TradeMarket.Infrastructure.Repositories
 
         public async Task<IEnumerable<Notification>> GetAllWithDetailsAsync()
         {
-            return await dbset.Include(io=>io.User).ThenInclude(io=>io.Orders).ToListAsync();
+            return await dbset.Include(io=>io.User).ThenInclude(io=>io.Person).ToListAsync();
         }
 
         public async Task<Notification> GetByIdAsync(long Id)

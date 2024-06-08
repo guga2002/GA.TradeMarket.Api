@@ -69,7 +69,7 @@ namespace GA.TradeMarket.Application.Services
 
             var receipts = await obj.ReceiptRepository.GetAllWithDetailsAsync();
 
-            var filteredReceipts = receipts.Where(io => io.order.OrderDate >= mod.start && io.order.OrderDate <= mod.end);
+            var filteredReceipts = receipts.Where(io => io.order.OrderDate >= mod.start && io.order.OrderDate <= mod.end&&io.order.Customer is not null&&io.ReceiptDetails is not null);
 
             var groupedReceiptsByCustomer = filteredReceipts.GroupBy(io => io.order.Customer);
  
@@ -77,7 +77,6 @@ namespace GA.TradeMarket.Application.Services
                 .Select(group => new CustomerActivityModel
                 {
                     CustomerId = group.Key.Id,
-                    CustomerName = $"{group.Key.Person.Name} {group.Key.Person.Surname}",
                     ReceiptSum = group.Sum(io => io.ReceiptDetails.Sum(detail => detail.DiscountUnitPrice * detail.Quantity))
                 })
                 .OrderByDescending(activity => activity.ReceiptSum)
@@ -87,27 +86,28 @@ namespace GA.TradeMarket.Application.Services
             return topCustomers;
         }
 
-        public async Task<IEnumerable<ShippingModel>> PopularShiper(StatisticShipperModel mod)
+        public async Task<IEnumerable<ShippingModelStatistic>> PopularShiper(StatisticShipperModel mod)
         {
             var shipping = await obj.OrderRepository.GetAllWithDetailsAsync();
 
-            var filteredReceipts = shipping.Where(io => io.OrderDate >= mod.start && io.OrderDate <= mod.end);
+            var filteredReceipts = shipping.Where(io => io.OrderDate >= mod.start && io.OrderDate <= mod.end&&io.Shipping is not null);
 
-            var groupedSHippers= filteredReceipts.GroupBy(io => io.Shipping);
+            var grouped= filteredReceipts.GroupBy(io => io.Shipping);
 
-            var customerActivities = groupedSHippers
-                .Select(group => new ShippingModel
+            var selectedlist = grouped.Select(io => new ShippingModelStatistic()
+            {
+                shipingdetails = new ShippingModel()
                 {
-                   ShippingDate=group.Key.ShippingDate,
-                   Status=group.Key.Status,
-                   TrackingNumber=group.Key.TrackingNumber,
-                   Carrier=group.Key.Carrier,
-                })
-                .OrderByDescending(activity => activity.OrderId)
-                .ToList();
-            var topCustomers = customerActivities.Take(mod.Count).ToList();
+                    ShippingDate = io.Key.ShippingDate,
+                    Carrier = io.Key.Carrier,
+                    OrderId = io.Key.OrderId,
+                    Status = io.Key.Status,
+                    TrackingNumber = io.Key.TrackingNumber,
+                },
+                Count = io.Key.Order.Receipts.Count()
+            }).OrderByDescending(io=>io.Count).ToList();
 
-            return topCustomers;
+            return selectedlist.Take(mod.Count).ToList();
         }
     }
 

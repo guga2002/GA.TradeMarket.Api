@@ -147,7 +147,7 @@ namespace GA.TradeMarket.Application.Services
                 throw new MarketException(ErrorKeys.NoCustommer);
             }
             var paymemethods=await obj.PaymentRepository.GetAllWithDetailsAsync();
-           var res= paymemethods.Where(io => io.Order.CustomerId == user.Customer.Id).Select(io => io.method).ToList();
+           var res= paymemethods.Where(io => io.Order.Customer.PersonId == user.Id).Select(io=>io.method);
             var mapped=mapper.Map<IEnumerable<PaymentMethodModel>>(res);
             return mapped;
         }
@@ -160,7 +160,7 @@ namespace GA.TradeMarket.Application.Services
                 throw new MarketException(ErrorKeys.NoCustommer);
             }
             var payments = await obj.PaymentRepository.GetAllWithDetailsAsync();
-            var filtered = payments.Where(io => io.Order.CustomerId == user.Customer.Id).ToList();
+            var filtered = payments.Where(io => io.Order.Customer.PersonId == user.Id).ToList();
             var mapped = mapper.Map<IEnumerable<PaymentModel>>(filtered);
             return mapped;
         }

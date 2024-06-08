@@ -148,9 +148,28 @@ namespace RGBA.Optio.Domain.Services
 
         public async Task<IdentityResult> DeleteRole(string rol)
         {
-            if (!await role.RoleExistsAsync(rol)) return new IdentityResult();
-            var res = await role.DeleteAsync(new IdentityRole(rol));
-            return res;
+            if (!await role.RoleExistsAsync(rol))
+            {
+                return IdentityResult.Success;
+            }
+
+            try
+            {
+                var roleToDelete = await role.FindByNameAsync(rol);
+                if (roleToDelete != null)
+                {
+                    var result = await role.DeleteAsync(roleToDelete);
+                    return result;
+                }
+                else
+                {
+                    throw new MarketException(rol);
+                }
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                return IdentityResult.Failed(new IdentityError { Description = "Concurrency conflict occurred while deleting role." });
+            }
         }
 
         #endregion

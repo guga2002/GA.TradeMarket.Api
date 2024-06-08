@@ -72,7 +72,7 @@ namespace GA.TradeMarket.Api.Controllers
         /// all exchange rates allowed -- customer, operator,manager,admin
         /// </summary>
         [HttpGet]
-        [Authorize("customer,operator,manager,admin")]
+        [Authorize(Roles ="customer,operator,manager,admin")]
         public async Task<ActionResult<ExchangeRateModel>> GetExchangeRates()
         {
             try
@@ -96,7 +96,7 @@ namespace GA.TradeMarket.Api.Controllers
         /// </summary>
         [HttpDelete]
         [Route("{id:long}")]
-        [Authorize("manager")]
+        [Authorize(Roles ="manager")]
         public async Task<ActionResult> Delete([FromRoute]long id)
         {
             try

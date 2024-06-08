@@ -43,6 +43,7 @@ namespace GA.TradeMarket.Application.AutoMapp
             CreateMap<CouponModelIn, Coupon>().ReverseMap();
 
             CreateMap<Customer, CustomerModel>();
+            CreateMap<CustomerModelIn, Customer>().ReverseMap();
             CreateMap<Person, PersonModel>().ReverseMap();
 
             CreateMap<ProductCategory, ProductCategoryModel>();

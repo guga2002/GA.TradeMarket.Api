@@ -89,7 +89,7 @@ namespace GA.TradeMarket.Api.Controllers
             catch (Exception exp)
             {
                 logger.LogCritical($"error while retrieving specify payment method for current user, error:{exp.Message}");
-                return BadRequest(exp.Message);
+                return BadRequest(exp.StackTrace);
             }
         }
 

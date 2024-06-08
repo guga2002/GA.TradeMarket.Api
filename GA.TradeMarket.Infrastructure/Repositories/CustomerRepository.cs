@@ -68,16 +68,12 @@ namespace GA.TradeMarket.Infrastructure.Repositories
 
         public void Update(Customer custom)
         {
-            var user = dbset.Where(io => io.PersonId == custom.PersonId)
+            var user = dbset.Where(io => io.Id == custom.Id)
                 .Include(io => io.Person)
                 .FirstOrDefault();
             if (user != null && custom.Person != null)
             {
                 user.Person = new Person();
-
-                user.Person.Name = custom.Person.Name;
-                user.Person.Surname = custom.Person.Surname;
-                user.Person.BirthDate = custom.Person.BirthDate;
                 user.DiscountValue = custom.DiscountValue;
                 user.OperationDate = custom.OperationDate;
                 dbset.Update(user);
