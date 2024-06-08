@@ -45,7 +45,7 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// Get payment detail by id
+        /// Get payment detail by id -- allowed operator,manager
         /// </summary>
         [HttpGet]
         [Route("payment/{Id:long}")]

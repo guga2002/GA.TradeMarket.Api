@@ -231,7 +231,7 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// Get all avalible discount coupons
+        /// Get all avalible discount coupons  -- allowed manager,operator
         /// </summary>
         [HttpGet]
         [Route("coupon")]

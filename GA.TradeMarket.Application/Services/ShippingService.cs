@@ -41,7 +41,7 @@ namespace GA.TradeMarket.Application.Services
 <head>
     <meta charset=""UTF-8"">
     <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
-    <title>Shipping Notification</title>
+    <title>შეკვეთა გამოიგზავნა</title>
     <style>
         body {{
             font-family: Arial, sans-serif;
@@ -94,7 +94,7 @@ namespace GA.TradeMarket.Application.Services
 <body>
     <div class=""container"">
         <div class=""header"">
-            <h1>Shipping Notification</h1>
+            <h1>შეტყობინება გადამზიდი კომპანიისგან</h1>
         </div>
         <div class=""content"">
             <p>ძვირფასო, {order.Customer.Person.Name}</p>
@@ -103,7 +103,7 @@ namespace GA.TradeMarket.Application.Services
                 <p><span>შეკვეთის იდენტიფიკატორი:</span> {order.Id}</p>
                 <p><span>Tracking ნომერი:</span> {item.TrackingNumber}</p>
                 <p><span>გადამზიდი:</span> {item.Carrier}</p>
-                <p><span>გამოგზავნის თარიღი:</span>{item.Carrier}</p>
+                <p><span>გამოგზავნის თარიღი:</span>{item.ShippingDate}</p>
                 <p><span>მიმდინარე სტატუსი:</span></p>
                 <div class=""status-box"">
                     <p>{item.Status}</p>
@@ -120,7 +120,7 @@ namespace GA.TradeMarket.Application.Services
 </body>
 </html>
 ";
-                ser.SendMessage(order.Customer.Person.Email, $"შეკვეთა გამოიდზავნა:{DateTime.Now}", body);
+                ser.SendMessage(order.Customer.Person.Email, $"შეტყობინება გადამზიდი კომპანიისგან:{DateTime.Now}", body);
             }
         }
 
