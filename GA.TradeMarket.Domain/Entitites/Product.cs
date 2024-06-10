@@ -24,6 +24,8 @@ namespace GA.TradeMarket.Domain.Entitites
         public virtual IEnumerable<ReceiptDetail> ReceiptDetails { get; set; }
 
         public virtual IEnumerable<Review> Reviews { get; set; }
-}
+
+        public  virtual IEnumerable<WIshList> WishLists { get; set; }
+    }
 
 }

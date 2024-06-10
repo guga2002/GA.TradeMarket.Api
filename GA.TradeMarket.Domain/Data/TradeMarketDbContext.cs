@@ -44,7 +44,7 @@ namespace GA.TradeMarket.Domain.Data
             {
                 Id = ADMIN_ID,
                 Email = "guram.apkhazava908@ens.tsu.ge",
-                NormalizedEmail="guram.apkhazava908@ens.tsu.ge",
+                NormalizedEmail="GURAM.APKHAZAVA908@ENS.TSU.GE",
                 EmailConfirmed = true,
                 UserName = "Guga13guga",
                 Name="Guga",
@@ -83,6 +83,7 @@ namespace GA.TradeMarket.Domain.Data
             modelBuilder.ApplyConfiguration(new ReturmRequestConfig());
             modelBuilder.ApplyConfiguration(new ReviewConfig());
             modelBuilder.ApplyConfiguration(new ShipingConfig());
+            modelBuilder.ApplyConfiguration(new WIshListConfiguration());
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<ReceiptDetail>()

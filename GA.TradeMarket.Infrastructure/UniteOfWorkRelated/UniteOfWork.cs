@@ -47,6 +47,8 @@ namespace GA.TradeMarket.Infrastructure.UniteOfWorkRelated
 
         public IExchangeRateRepository ExchangeRateRepository => new ExchangeRateRepository(_dbContext);
 
+        public IWishListRepository WishListRepository => new WishListRepository(_dbContext);
+
         public async Task SaveAsync()
         {
             await _dbContext.SaveChangesAsync();

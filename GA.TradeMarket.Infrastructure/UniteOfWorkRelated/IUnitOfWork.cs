@@ -15,6 +15,7 @@ namespace GA.TradeMarket.Infrastructure.UniteOfWorkRelated
 
         IProductCategoryRepository ProductCategoryRepository { get; }
 
+        IWishListRepository WishListRepository { get; }
         IReceiptRepository ReceiptRepository { get; }
 
         IExchangeRateRepository ExchangeRateRepository { get; }

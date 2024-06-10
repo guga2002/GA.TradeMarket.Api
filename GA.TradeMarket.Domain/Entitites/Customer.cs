@@ -27,5 +27,7 @@ namespace GA.TradeMarket.Domain.Entitites
 
         public virtual IEnumerable<Notification> Notifications { get; set; }
 
+        public virtual IEnumerable<WIshList> wishLists { get; set; }
+
     }
 }
