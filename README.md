@@ -12,7 +12,7 @@ Domain  აღწერა:
 
 ![image](https://github.com/guga2002/GA.TradeMarket.Api/assets/74540934/2c7234a2-3acf-47da-8b18-8a79035ab125)
 
-![image](https://github.com/guga2002/GA.TradeMarket.Api/assets/74540934/b00ec45c-911b-4452-a5f7-93d3b7fdf2c6
+![image](https://github.com/guga2002/GA.TradeMarket.Api/assets/74540934/b00ec45c-911b-4452-a5f7-93d3b7fdf2c6)
 
 ![image](https://github.com/guga2002/GA.TradeMarket.Api/assets/74540934/4fd3bfb6-3e0f-4406-b139-ce4cbf0f26fc)
 
