@@ -22,7 +22,7 @@ namespace GA.TradeMarket.Domain.Data
         public DbSet<ReturnRequest> returnRequest { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Shipping> Shippings { get; set; }
-
+        public DbSet<AuditLog> AuditLogs { get; set; }
         public DbSet<ExchangeRate> ExhcnageRates { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

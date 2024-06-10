@@ -5,6 +5,7 @@ using GA.TradeMarket.Domain.Entitites;
 using GA.TradeMarket.Domain.Interfaces;
 using GA.TradeMarket.Infrastructure.Repositories;
 using GA.TradeMarket.Infrastructure.UniteOfWorkRelated;
+using GA.TradeMarket.Persistance.LogRelate;
 using GA.TradeMarket.Persistance.SMTP;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -38,6 +39,16 @@ internal class Program
         builder.Services.AddMemoryCache();
 
         builder.Services.AddHttpContextAccessor();
+
+        #region Logger Config
+        builder.Services.AddLogging(opt =>
+        {
+            opt.AddProvider(new LoggerProvider((category, level) =>
+            {
+                return level > LogLevel.Warning; // warningze meti tu aris vlogavt bazashi
+            }, builder.Services.BuildServiceProvider().GetService<TradeMarketDbContext>()));
+        });
+        #endregion
 
         #region Add scopes to DI
         builder.Services.AddScoped<UserManager<Person>>();
@@ -80,6 +91,7 @@ internal class Program
 
         builder.Services.AddEndpointsApiExplorer();
 
+        #region Swagger config
         builder.Services.AddSwaggerGen(opt =>
         {
             opt.SwaggerDoc("v1", new OpenApiInfo
@@ -128,6 +140,7 @@ internal class Program
                 }
             });
         });
+        #endregion
 
 
         builder.Services.AddIdentity<Person, IdentityRole>()
@@ -135,7 +148,7 @@ internal class Program
             .AddDefaultTokenProviders();
 
 
-
+        #region  authentification related
         builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
@@ -173,6 +186,8 @@ internal class Program
                            .AllowAnyMethod();
                 });
         });
+        #endregion
+
 
         var app = builder.Build();
 

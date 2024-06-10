@@ -193,7 +193,7 @@ namespace RGBA.Optio.Domain.Services
         {
             var user = await userManager.FindByEmailAsync(email);
 
-            if ((user is null)) throw new ArgumentException("Such User no exist");
+            if (user is null) throw new ArgumentException("Such User no exist");
             var rej = await userManager.CheckPasswordAsync(user, newPassword);
             if (rej)
             {
@@ -203,6 +203,67 @@ namespace RGBA.Optio.Domain.Services
             var res = await userManager.GeneratePasswordResetTokenAsync(user);
             if (res is null) return false;
             var rek = await userManager.ResetPasswordAsync(user, res, newPassword);
+
+            string body = $@"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <title>პაროლი წარმატებით შეიცვალა</title>
+    <style>
+        body {{
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width:90%;
+        }}
+        .container {{
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            text-align: center;
+        }}
+        h1 {{
+            color: #333;
+        }}
+        p {{
+            color: #666;
+            margin-bottom: 20px;
+        }}
+        .button {{
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }}
+        .button:hover {{
+            background-color: #0056b3;
+        }}
+    </style>
+</head>
+<body>
+    <div class=""container"">
+        <h1>პაროლი შეიცვალა </h1>
+        <h3>გამარჯობა, {user.Name}</h3>
+        <p>შენი პაროლი შეიცვალა წარმატებით.</p>
+        <p>თუ შენ არ შეგიცვლია პაროლი , დაუყოვნებლივ დაგვიკავშირდი, შენივე უსაფრთხოებისთვის.</p>
+        <a href=""https://www.linkedin.com/in/guga-apkhazava-938a40237"" class=""button"">დაუკავშირდი დამხმარე ჯგუფს</a>
+    </div>
+</body>
+</html>
+";
+
+            smtp.SendMessage(user.Email,$"პაროლი განახლდა წარმატებით:{DateTime.Now.ToShortTimeString()}",body);
             return rek.Succeeded;
         }
 
