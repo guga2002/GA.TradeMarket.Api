@@ -21,8 +21,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// get specify  counted  popular shipper in data range --- allow Manager,operator
+        /// Get specify  counted  popular shipper in data range 
         /// </summary>
+        /// <remarks>
+        /// allow **Manager,operator**
+        /// </remarks>
         [HttpPost]
         [Route(nameof(PopularShiper))]
         [Authorize(Roles ="manager,operator")]
@@ -50,8 +53,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// get  popular products by specify count  --- allow Manager,operator
+        /// Get popular products by specify count 
         /// </summary>
+        /// <remarks>
+        ///  allow **Manager,operator**
+        /// </remarks>
         [HttpGet(nameof(GetPopularProducts))]
         [Authorize(Roles ="operator,manager")]
         public async Task<ActionResult<IEnumerable<ProductModel>>> GetPopularProducts([FromQuery]int productCount)
@@ -73,8 +79,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// get  customer facorite products  --- allow Manager,operator
+        /// Get customer facorite products 
         /// </summary>
+        /// <remarks>
+        /// allow **Manager,operator**
+        /// </remarks>
         [HttpGet("customer/{id:long}/{productCount:int}")]
         [Authorize(Roles ="manager,operator")]
         public async Task<ActionResult<IEnumerable<ProductModel>>> GetCustomerFavoriteProducts([FromRoute] int productCount, [FromRoute] long customerId)
@@ -96,8 +105,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// get most active customers -- allow Manager,operator
+        /// Get most active customers
         /// </summary>
+        /// <remarks>
+        ///  allow **Manager,operator**
+        /// </remarks>
         [HttpPost]
         [Route(nameof(MostActiveCustomers))]
         [Authorize(Roles ="manager,operator")]
@@ -124,8 +136,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// get incomes by category id allow Manager,operator
+        /// Get incomes by category id 
         /// </summary>
+        /// <remarks>
+        /// allow **Manager,operator**
+        /// </remarks>
         [HttpPost]
         [Route(nameof(CategoryIncome))]
         [Authorize(Roles ="operator,manager")]

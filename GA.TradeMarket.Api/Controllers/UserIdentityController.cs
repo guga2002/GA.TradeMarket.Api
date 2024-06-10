@@ -53,8 +53,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// Sign in Method - set cookie -- allow anymous
+        /// Sign in Method - set cookie 
         /// </summary>
+        /// <remarks>
+        /// allow **anymous**
+        /// </remarks>
         /// <param name="mod"></param>
         /// <returns name="(SignInResult, string)"></returns>
         [HttpPost]
@@ -76,8 +79,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// Registration - add user to Db -- allow anymous
+        /// Registration - add user to Db 
         /// </summary>
+        /// <remarks>
+        /// allow **anymous**
+        /// </remarks>
         [HttpPost]
         [Route(nameof(Registration))]
         [AllowAnonymous]
@@ -130,8 +136,11 @@ namespace GA.TradeMarket.Api.Controllers
 
 
         /// <summary>
-        /// reset password - forget password -- allow anymous
+        /// Reset password - forget password 
         /// </summary>
+        /// <remarks>
+        ///  allow **anymous**
+        /// </remarks>
         [HttpGet]
         [Route(nameof(ResetPasswordNow))]
         [AllowAnonymous]
@@ -192,8 +201,11 @@ namespace GA.TradeMarket.Api.Controllers
 
 
         /// <summary>
-        /// change password - when you laready know old password allow customer
+        /// change password - when you laready know old password
         /// </summary>
+        /// <remarks>
+        /// allow **customer**
+        /// </remarks>
         [HttpPost]
         [Route(nameof(ResetPassword))]
         [Authorize(Roles ="customer")]
@@ -221,8 +233,11 @@ namespace GA.TradeMarket.Api.Controllers
 
 
         /// <summary>
-        /// Info about current user -- authorized user have access it
+        /// Info about current user 
         /// </summary>
+        /// <remarks>
+        /// **authorized** user have access it
+        /// </remarks>
         [HttpGet]
         [Route(nameof(Info))]
         [Authorize]
@@ -245,8 +260,11 @@ namespace GA.TradeMarket.Api.Controllers
 
 
         /// <summary>
-        /// Confirm email address  for authorized user
+        /// Confirm email address  
         /// </summary>
+        /// <remarks>
+        /// for **authorized** user
+        /// </remarks>
         [HttpGet]
         [Route(nameof(ConfirmEmail))]
         [Authorize]
@@ -285,8 +303,11 @@ namespace GA.TradeMarket.Api.Controllers
 
 
         /// <summary>
-        /// SignOut from system - authorize user have access for it
+        /// SignOut from system 
         /// </summary>
+        /// <remarks>
+        /// **authorize** user have access for it
+        /// </remarks>
         [HttpPost]
         [Route(nameof(SignOutNow))]
         [Authorize]
@@ -308,8 +329,11 @@ namespace GA.TradeMarket.Api.Controllers
 
 
         /// <summary>
-        /// add new role to database -- only for admins
+        /// Add new role to database 
         /// </summary>
+        /// <remarks>
+        /// only for **admins**
+        /// </remarks>
         [HttpGet]
         [Route("[action]")]
         [Authorize(Roles ="admin")]
@@ -333,8 +357,11 @@ namespace GA.TradeMarket.Api.Controllers
 
 
         /// <summary>
-        ///get all users details  from DB -- only for admins
+        ///Get all users details  from DB 
         /// </summary>
+        /// <remarks>
+        /// only for **admins**
+        /// </remarks>
         [HttpGet]
         [Route("[action]")]
         [Authorize(Roles ="admin")]
@@ -354,8 +381,11 @@ namespace GA.TradeMarket.Api.Controllers
 
 
         /// <summary>
-        /// delete specify Role from DB -- only for admin
+        /// Delete specify Role from DB
         /// </summary>
+        /// <remarks>
+        ///  only for **admin**
+        /// </remarks>
         [HttpDelete]
         [Route("Role/{role:alpha}/[action]")]
         [Authorize(Roles ="admin")]
@@ -375,8 +405,11 @@ namespace GA.TradeMarket.Api.Controllers
 
 
         /// <summary>
-        /// add new role to DB -- only for admin
+        /// Add new role to DB
         /// </summary>
+        /// <remarks>
+        /// only for **admin**
+        /// </remarks>
         [HttpPost]
         [Route("Role/{role:alpha}/[action]")]
         [Authorize(Roles ="admin")]
@@ -400,8 +433,11 @@ namespace GA.TradeMarket.Api.Controllers
 
 
         /// <summary>
-        /// delete specify User from DB only for ADMIN
+        /// Delete specify User from DB
         /// </summary>
+        /// <remarks>
+        ///  only for **admin**
+        /// </remarks>
         [HttpDelete]
         [Authorize]
         [Route("User/{id}/[action]")]
@@ -427,8 +463,11 @@ namespace GA.TradeMarket.Api.Controllers
 
 
         /// <summary>
-        /// assign specify role to specify user--  can use for admin
+        /// Assign specify role to specify user
         /// </summary>
+        /// <remarks>
+        /// can use for **admin**
+        /// </remarks>
         [HttpPost]
         [Route("User/{userid}[action]/{role:alpha}")]
         [Authorize]

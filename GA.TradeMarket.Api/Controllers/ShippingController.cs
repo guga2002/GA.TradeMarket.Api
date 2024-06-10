@@ -5,6 +5,7 @@ using GA.TradeMarket.Application.StaticFIles;
 using GA.TradeMarket.Application.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace GA.TradeMarket.Api.Controllers
 {
@@ -14,15 +15,20 @@ namespace GA.TradeMarket.Api.Controllers
     {
         private readonly IShippingService ser;
         private  readonly ILogger<ShippingController> logger;
-        public ShippingController(IShippingService ser, ILogger<ShippingController> logger)
+        private readonly IMemoryCache cash;
+        public ShippingController(IShippingService ser, ILogger<ShippingController> logger,IMemoryCache cash)
         {
             this.ser = ser;
             this.logger = logger;
+            this.cash = cash;   
         }
 
         /// <summary>
-        /// get details about shippings -- Allow Manager, operator
+        /// get details about shippings 
         /// </summary>
+        /// <remarks>
+        /// Allow Manager, operator  **enable cashing**
+        /// </remarks>
         [HttpGet]
         [Route("shipping")]
         [Authorize(Roles ="operator,manager")]
@@ -30,11 +36,20 @@ namespace GA.TradeMarket.Api.Controllers
         {
             try
             {
+                var encryptkey = "getallshipping";
+                if (cash.TryGetValue(encryptkey, out IEnumerable<ShippingModel>? result))
+                {
+                    if(result is not null)
+                    {
+                        return Ok(result);
+                    }
+                }
                 var res = await ser.GetAllWithDetailsAsync();
                 if (!res.Any())
                 {
                     return NotFound(ErrorKeys.NotFound);
                 }
+                cash.Set(encryptkey, res,TimeSpan.FromMinutes(10));
                 return Ok(res);
             }
             catch (Exception exp)
@@ -45,20 +60,32 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// Get details about shipping by Id  -- Allow Manager, operator
+        /// Get details about shipping by Id 
         /// </summary>
+        /// <remarks>
+        /// Allow Manager, operator  **enable cashing**
+        /// </remarks>
         [HttpGet]
         [Route("shipping/{Id:long}")]
         [Authorize(Roles ="manager,operator")]
-        public async Task<ActionResult<IEnumerable<ShippingModel>>> GetByIdAsync([FromRoute] long Id)
+        public async Task<ActionResult<ShippingModel>> GetByIdAsync([FromRoute] long Id)
         {
             try
             {
+                string encryptKey = $"SHippngById{Id}";
+                if(cash.TryGetValue(encryptKey, out IEnumerable<ShippingModel>? result))
+                {
+                    if(result is not null)
+                    {
+                        return Ok(result);
+                    }
+                }
                 var res = await ser.GetByIdAsync(Id);
                 if (res is null)
                 {
                     return NotFound(ErrorKeys.NotFound);
                 }
+                cash.Set(encryptKey, res,TimeSpan.FromMinutes(10));
                 return Ok(res);
             }
             catch (Exception exp)
@@ -69,8 +96,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// add new shipping to DB -- allow operator,manager
+        /// Add new shipping to DB 
         /// </summary>
+        /// <remarks>
+        /// allow **operator,manager**
+        /// </remarks>
         [HttpPost]
         [Route("shipping")]
         [Authorize(Roles ="operator,manager")]
@@ -97,8 +127,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// delete specify shipping history --- allow Manager
+        /// delete specify shipping history
         /// </summary>
+        /// <<remarks>
+        /// allow only **Manager**
+        /// </remarks>
         [HttpDelete]
         [Route("shipping/{Id:long}")]
         [Authorize(Roles ="manager")]
@@ -117,8 +150,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// update specify shipping to DB -- allow Operator manager
+        /// update specify shipping to DB
         /// </summary>
+        /// <remarks>
+        /// allow **Operator, manager**
+        /// </remarks>
         [HttpPut]
         [Route("shipping")]
         [Authorize(Roles ="operator,manager")]
@@ -141,8 +177,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        ///Update specify Notification to DB -- allow manager, operator
+        ///Update specify Notification to DB 
         /// </summary>
+        /// <remarks>
+        /// allow  **manager, operator**
+        /// </remarks>
         [HttpPut]
         [Route("Notification")]
         [Authorize(Roles ="operator,manager")]
@@ -166,8 +205,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        ///delete specify notification from DB -- allow manager
+        ///delete specify notification from DB 
         /// </summary>
+        /// <remarks>
+        /// allow only **manager**
+        /// </remarks>
         [HttpDelete]
         [Route("Notification/{Id:long}")]
         [Authorize(Roles ="manager")]
@@ -185,8 +227,11 @@ namespace GA.TradeMarket.Api.Controllers
             }
         }
         /// <summary>
-        ///Retrive notification which is not sent yet --allow operator,manager
+        ///Retrive notification which is not sent yet
         /// </summary>
+        /// <remarks>
+        /// allow **operator,manager**
+        /// </remarks>
         [HttpGet]
         [Route(nameof(AllUnsendNotifications))]
         [Authorize(Roles = "operator,manager")]
@@ -209,8 +254,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        ///send all advertisments to users -- allowed operator,manager
+        ///send all advertisments to users 
         /// </summary>
+        /// <remarks>
+        /// allowed  **operator,manager**
+        /// </remarks>
         [HttpGet]
         [Route(nameof(SendNotificationstoUsers))]
         [Authorize(Roles ="operator,manager")]
@@ -229,8 +277,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        ///add new notification to DB --allow operator,manager
+        ///add new notification to DB
         /// </summary>
+        /// <remarks>
+        /// allow **operator,manager**
+        /// </remarks>
         [HttpPost]
         [Route("Notification")]
         [Authorize(Roles = "operator,manager")]
@@ -253,8 +304,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// get all notifications -- allow operator,manager
+        /// get all notifications 
         /// </summary>
+        /// <remarks>
+        /// allow operator,manager  -- **enable cashing**
+        /// </remarks>
         [HttpGet]
         [Route("Notification")]
         [Authorize("operator,manager")]
@@ -262,9 +316,18 @@ namespace GA.TradeMarket.Api.Controllers
         {
             try
             {
+                var cashKey = "Allnotifications";
+                if(cash.TryGetValue(cashKey, out IEnumerable<NotificationModel>? notification))
+                {
+                    if(notification is not null)
+                    {
+                        return Ok(notification);
+                    }
+                }
                 var res = await ser.GetAllNotificationAsync();
                 if (res.Any())
                 {
+                    cash.Set(cashKey, res, TimeSpan.FromMinutes(10));
                     return Ok(res);
                 }
                 return NotFound(ErrorKeys.NotFound);
@@ -277,8 +340,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// update shippping status -- allow  only operator and manager
+        /// update shippping status 
         /// </summary>
+        /// <remarks>
+        /// allow  only **operator and manager**
+        /// </remarks>
         [HttpPut]
         [Route(nameof(ShippingStatus))]
         [Authorize(Roles ="operator,manager")]

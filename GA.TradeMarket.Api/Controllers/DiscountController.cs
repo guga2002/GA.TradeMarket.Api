@@ -4,6 +4,7 @@ using GA.TradeMarket.Application.Models.RequestModels;
 using GA.TradeMarket.Application.StaticFIles;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace GA.TradeMarket.Api.Controllers
 {
@@ -13,26 +14,32 @@ namespace GA.TradeMarket.Api.Controllers
     {
         private readonly IDiscountService ser;
         private readonly ILogger<DiscountController> logger;
+        private readonly IMemoryCache memoryCache;
 
-        public DiscountController(ILogger<DiscountController> log, IDiscountService ser)
+        public DiscountController(ILogger<DiscountController> log, IDiscountService ser, IMemoryCache cash)
         {
             this.ser = ser;
             this.logger = log;
+            this.memoryCache = cash;
         }
 
         /// <summary>
-        /// get my loyality program(current customer who is signed in,, allow only for customer
+        /// Get my loyalty program (current customer who is signed in).
         /// </summary>
+        /// <remarks>
+        /// allow  for user with role 'customer'
+        /// </remarks>
+        /// <returns>Returns the loyalty program of the signed-in customer.</returns>
         [HttpGet]
         [Route(nameof(MyLoyalityProgram))]
-        [Authorize(Roles ="customer")]
+        [Authorize(Roles = "customer")]
         public async Task<ActionResult<BonusProgramModel>> MyLoyalityProgram()
         {
             try
             {
-                if(User.Identity?.Name is not null)
+                if (User.Identity?.Name is not null)
                 {
-                   var res=await ser.GetMyLoyalityProgram(User.Identity.Name);
+                    var res = await ser.GetMyLoyalityProgram(User.Identity.Name);
                     return Ok(res);
                 }
                 return Unauthorized(ErrorKeys.General);
@@ -44,60 +51,92 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// Get details about Loyality program, allowed access for manager , operator
+        /// Get details about the loyalty program..
         /// </summary>
+        /// <remarks>
+        /// allow  for user with role 'customer' , **cashing is enable**
+        /// </remarks>
+        /// <returns>Returns a list of bonus program models.</returns>
         [HttpGet]
         [Route("bonusprogram")]
-        [Authorize(Roles ="manager,operator")]
+        [Authorize(Roles = "manager,operator")]
         public async Task<ActionResult<IEnumerable<BonusProgramModel>>> GetAllWithDetailsAsync()
         {
             try
             {
-                var res= await ser.GetAllWithDetailsAsync();
-                if(!res.Any())
+                var cachedKey = "GetAllLoyalityProgram";
+                if (memoryCache.TryGetValue(cachedKey, out IEnumerable<BonusProgramModel>? bonus))
+                {
+                    if (bonus is not null)
+                    {
+                        return Ok(bonus);
+                    }
+                }
+                var res = await ser.GetAllWithDetailsAsync();
+                if (!res.Any())
                 {
                     return NotFound(ErrorKeys.NotFound);
                 }
+                memoryCache.Set(cachedKey, res, TimeSpan.FromMinutes(10));
                 return Ok(res);
             }
             catch (Exception exp)
             {
-                logger.LogCritical($"Error ocured while sending request:{exp.Message}");
+                logger.LogCritical($"Error occurred while sending request: {exp.Message}");
                 return BadRequest(exp.Message);
             }
         }
 
         /// <summary>
-        /// Get details about Loyality program by Id, allowed operator,manager
+        /// Get details about the loyalty program by ID.
         /// </summary>
+        /// <remarks>
+        /// allow  for user with role 'manager','operator', **cashing is enable**
+        /// </remarks>
+        /// <param name="Id">The ID of the loyalty program.</param>
+        /// <returns>Returns the bonus program model for the specified ID.</returns>
         [HttpGet]
         [Route("bonusprogram/{Id:long}")]
-        [Authorize(Roles ="manager,operator")]
-        public async Task<ActionResult<IEnumerable<CouponModel>>> GetByIdAsync([FromRoute]long Id)
+        [Authorize(Roles = "manager,operator")]
+        public async Task<ActionResult<BonusProgramModel>> GetByIdAsync([FromRoute] long Id)
         {
             try
             {
+                var cachedKey = $"GetLoyalityPrograms{Id}";
+                if (memoryCache.TryGetValue(cachedKey, out BonusProgramModel? mod))
+                {
+                    if (mod is not null)
+                    {
+                        return Ok(mod);
+                    }
+                }
                 var res = await ser.GetByIdAsync(Id);
                 if (res is null)
                 {
                     return NotFound(ErrorKeys.NotFound);
                 }
+                memoryCache.Set(cachedKey, res, TimeSpan.FromMinutes(10));
                 return Ok(res);
             }
             catch (Exception exp)
             {
-                logger.LogCritical($"Error while fetching data with id:{exp.Message}");
+                logger.LogCritical($"Error while fetching data with id: {exp.Message}");
                 return BadRequest(exp.Message);
             }
         }
 
         /// <summary>
-        ///add new Loiality program account in DB- allowed manager ,operator
+        /// Add a new loyalty program account in the database.
         /// </summary>
+        /// <remarks>
+        /// allow  for user with role 'manager','operator'
+        /// </remarks>
+        /// <param name="item">The bonus program model to add.</param>
+        /// <returns>Returns the added bonus program model.</returns>
         [HttpPost]
         [Route("bonusprogram")]
-        [Authorize(Roles ="manager,operator")]
-        public async Task<ActionResult> AddAsync([FromBody]BonusProgramModelIn item)
+        [Authorize(Roles = "manager,operator")]
+        public async Task<ActionResult> AddAsync([FromBody] BonusProgramModelIn item)
         {
             try
             {
@@ -110,19 +149,23 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
-                logger.LogCritical($"error while trying, add  request:{exp.Message}");
+                logger.LogCritical($"Error while trying to add request: {exp.Message}");
                 return BadRequest(exp.Message);
             }
-
         }
 
         /// <summary>
-        /// delete Loyality program account from DB -- allowed manager
+        /// Delete a loyalty program account from the database. 
         /// </summary>
+        /// <remarks>
+        /// allow  for user with role 'manager'
+        /// </remarks>
+        /// <param name="item">The ID of the loyalty program to delete.</param>
+        /// <returns>Returns the ID of the deleted loyalty program.</returns>
         [HttpDelete]
         [Route("bonusprogram/{item:long}")]
-        [Authorize(Roles ="manager")]
-        public async Task<ActionResult> DeleteAsync([FromRoute]long item)
+        [Authorize(Roles = "manager")]
+        public async Task<ActionResult> DeleteAsync([FromRoute] long item)
         {
             try
             {
@@ -131,18 +174,23 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
-                logger.LogCritical($"Error  while deleting  loyality program for  identificator:{item}");
+                logger.LogCritical($"Error while deleting loyalty program with ID {item}: {exp.Message}");
                 return BadRequest(exp.Message);
             }
         }
 
         /// <summary>
-        /// Update Loyality origram details-- allowed manager,operator
+        /// Update loyalty program details.
         /// </summary>
+        /// <remarks>
+        /// allow  for user with role 'manager','operator'
+        /// </remarks>
+        /// <param name="item">The bonus program model to update.</param>
+        /// <returns>Returns the updated bonus program model.</returns>
         [HttpPut]
         [Route("bonusprogram")]
-        [Authorize(Roles ="manager,operator")]
-        public async Task<ActionResult> UpdateAsync([FromBody]BonusProgramModelIn item)
+        [Authorize(Roles = "manager,operator")]
+        public async Task<ActionResult> UpdateAsync([FromBody] BonusProgramModelIn item)
         {
             try
             {
@@ -155,18 +203,23 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
-                logger.LogCritical($"Error while  trying update:{exp.Message}");
+                logger.LogCritical($"Error while trying to update: {exp.Message}");
                 return BadRequest(exp.Message);
             }
         }
 
         /// <summary>
-        ///update discount coupon details-- alloowed manager,operator
+        /// Update discount coupon details. 
         /// </summary>
+        /// <remarks>
+        /// allow  for user with role 'operator','manager'
+        /// </remarks>
+        /// <param name="mod">The coupon model to update.</param>
+        /// <returns>Returns the updated coupon model.</returns>
         [HttpPut]
         [Route("coupon")]
         [Authorize(Roles = "manager,operator")]
-        public async Task<ActionResult> UpdateCouponAsync([FromBody]CouponModelIn mod)
+        public async Task<ActionResult> UpdateCouponAsync([FromBody] CouponModelIn mod)
         {
             try
             {
@@ -179,19 +232,23 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
-                logger.LogError($"error while trying edit coupon details:{exp.Message}");
+                logger.LogError($"Error while trying to edit coupon details: {exp.Message}");
                 return BadRequest(exp.Message);
             }
-
         }
 
         /// <summary>
-        /// Delete discount coupon from DB -- allowed manager,operator
+        /// Delete a discount coupon from the database.
         /// </summary>
+        /// <remarks>
+        /// allow  for user with role 'maanager','operator'
+        /// </remarks>
+        /// <param name="Id">The ID of the coupon to delete.</param>
+        /// <returns>Returns the ID of the deleted coupon.</returns>
         [HttpDelete]
         [Route("coupon/{Id:long}")]
         [Authorize(Roles = "manager,operator")]
-        public async Task<ActionResult> RemoveCouponAsync([FromRoute]long Id)
+        public async Task<ActionResult> RemoveCouponAsync([FromRoute] long Id)
         {
             try
             {
@@ -200,19 +257,23 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
-                logger.LogCritical($"Error while trying remove coupon from DB :{exp.Message}");
+                logger.LogCritical($"Error while trying to remove coupon from DB: {exp.Message}");
                 return BadRequest(exp.Message);
             }
         }
 
-
         /// <summary>
-        /// add new discount coupon to DB -- alllowed manager,operator
+        /// Add a new discount coupon to the database.
         /// </summary>
+        /// <remarks>
+        /// allow  for user with role 'manager','operator'
+        /// </remarks>
+        /// <param name="mod">The coupon model to add.</param>
+        /// <returns>Returns the added coupon model.</returns>
         [HttpPost]
         [Route("coupon")]
-        [Authorize(Roles ="manager,operator")]
-        public async Task<ActionResult> AddCouponAsync([FromBody]CouponModelIn mod)
+        [Authorize(Roles = "manager,operator")]
+        public async Task<ActionResult> AddCouponAsync([FromBody] CouponModelIn mod)
         {
             try
             {
@@ -225,31 +286,44 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
-                logger.LogTrace($"error while trying add new  discount coupon:{exp.Message}");
+                logger.LogTrace($"Error while trying to add new discount coupon: {exp.Message}");
                 return BadRequest(exp.Message);
             }
         }
 
         /// <summary>
-        /// Get all avalible discount coupons  -- allowed manager,operator
+        /// Get all available discount coupons.
         /// </summary>
+        /// <remarks>
+        /// allow  for user with role 'manager','operator'
+        /// </remarks>
+        /// <returns>Returns a list of coupon models.</returns>
         [HttpGet]
         [Route("coupon")]
-        [Authorize(Roles ="manager,operator")]
+        [Authorize(Roles = "manager,operator")]
         public async Task<ActionResult<IEnumerable<CouponModel>>> GetAllCouponAsync()
         {
             try
             {
+                var cachedKey = "GetAllDiscountCoupons";
+                if (memoryCache.TryGetValue(cachedKey, out IEnumerable<CouponModel>? coupon))
+                {
+                    if (coupon is not null)
+                    {
+                        return Ok(coupon);
+                    }
+                }
                 var res = await ser.GetAllCouponAsync();
                 if (res.Any())
                 {
+                    memoryCache.Set(cachedKey, res, TimeSpan.FromMinutes(10));
                     return Ok(res);
                 }
                 return NotFound(ErrorKeys.NotFound);
             }
             catch (Exception exp)
             {
-                logger.LogCritical($"Error ocured while trying get data from coupon  {exp.Message}");
+                logger.LogCritical($"Error occurred while trying to get data from coupon: {exp.Message}");
                 return BadRequest(exp.Message);
             }
         }

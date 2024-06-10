@@ -60,6 +60,8 @@ namespace GA.TradeMarket.Application.AutoMapp
             CreateMap<ReturnRequest, ReturnRequestModel>();
             CreateMap<ReturnRequest, ReturnRequestModelIn>().ReverseMap();
 
+            CreateMap<WIshList, WishListModelIn>().ReverseMap();
+            CreateMap<WIshList, WishListModel>();
 
         }
 

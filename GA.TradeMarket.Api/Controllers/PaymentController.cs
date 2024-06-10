@@ -21,8 +21,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// Get all avalible payments -- allowed, operators and managers
+        /// Get all avalible payments 
         /// </summary>
+        /// <remarks>
+        ///  allowed -- **operators and managers**
+        /// </remarks>
         [HttpGet]
         [Route("payment")]
         [Authorize(Roles ="operator,manager")]
@@ -45,8 +48,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// Get payment detail by id -- allowed operator,manager
+        /// Get payment detail by id
         /// </summary>
+        /// <remarks>
+        /// allowed  **operator,manager**
+        /// </remarks>
         [HttpGet]
         [Route("payment/{Id:long}")]
         [Authorize(Roles = "operator,manager")]
@@ -69,8 +75,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// get payme methods for current user -- allow customer
+        /// get payme methods for current user
         /// </summary>
+        /// <remarks>
+        /// allow **customer**
+        /// </remarks>
         [HttpGet]
         [Route(nameof(PaymentMethodForCurrentUser))]
         [Authorize(Roles ="customer")]
@@ -95,8 +104,11 @@ namespace GA.TradeMarket.Api.Controllers
 
 
         /// <summary>
-        /// get payme methods for current user -- allow customer
+        /// get payme methods for current user 
         /// </summary>
+        /// <remarks>
+        /// allow  **customer**
+        /// </remarks>
         [HttpGet]
         [Route(nameof(PaymentForCurrentUser))]
         [Authorize(Roles = "customer")]
@@ -120,8 +132,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// add payment detail to DB -- allow  customer
+        /// Add customer payment detail to DB 
         /// </summary>
+        /// <remarks>
+        ///  allow  customer
+        /// </remarks>
         [HttpPost]
         [Route("payment")]
         [Authorize(Roles ="customer")]
@@ -144,8 +159,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// delete payment detail by id -- allowed  only managers
+        /// delete payment detail by id
         /// </summary>
+        /// <remarks>
+        ///  allowed  only **managers**
+        /// </remarks>
         [HttpDelete]
         [Route("payment/{item:long}")]
         [Authorize(Roles ="manager")]
@@ -164,8 +182,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        ///update payment details to DB -- allowed customer,operator
+        ///update payment details to DB 
         /// </summary>
+        /// <remarks>
+        ///  allowed **customer,operator**
+        /// </remarks>
         [HttpPut]
         [Route("payment")]
         [Authorize(Roles ="operator,customer")]
@@ -188,8 +209,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// update payment method details in DB -- allowed customer,operator
+        /// update payment method details in DB 
         /// </summary>
+        /// <remarks>
+        /// allowed **customer,operator**
+        /// </remarks>
         [HttpPut]
         [Route("PaymentMethod")]
         [Authorize(Roles ="customer,operator")]
@@ -213,8 +237,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// remove specify payment method by id -- allow customer,operator,manager
+        /// remove specify payment method by id
         /// </summary>
+        /// <remarks>
+        /// allow **customer,operator,manager**
+        /// </remarks>
         [HttpDelete]
         [Route("PaymentMethod/{Id:long}")]
         [Authorize(Roles ="customer,operator,manager")]
@@ -233,8 +260,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// add specify payment method details to DB -- allowed customer
+        /// add specify payment method details to DB
         /// </summary>
+        /// <remarks>
+        /// allowed **customer**
+        /// </remarks>
         [HttpPost]
         [Route("PaymentMethod")]
         [Authorize(Roles ="customer")]
@@ -257,8 +287,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// get all payment method details -- allowed operator,manager
+        /// get all payment method details 
         /// </summary>
+        /// <remarks>
+        /// allowed **operator,manager**
+        /// </remarks>
         [HttpGet]
         [Route("PaymentMethod")]
         [Authorize(Roles ="operator,manager")]

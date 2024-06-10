@@ -21,16 +21,21 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// Converting currencies, source from TBC bank, allow anymous access
+        /// Converts currencies using the source from TBC bank.
         /// </summary>
+        /// <remarks>
+        /// This endpoint is accessible to anonymous users.
+        /// </remarks>
+        /// <param name="mod">The conversion model containing the currency details.</param>
+        /// <returns>Returns the exchange rate data.</returns>
         [HttpPost]
         [Route(nameof(ConvertNow))]
         [AllowAnonymous]
-        public async Task<ActionResult<ExchangeRateDecodable>> ConvertNow([FromBody]ConvertCurrencyModel mod)
+        public async Task<ActionResult<ExchangeRateDecodable>> ConvertNow([FromBody] ConvertCurrencyModel mod)
         {
             try
             {
-                if(!ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
                     return BadRequest(ErrorKeys.General);
                 }
@@ -39,23 +44,28 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
-                logger.LogError($"error ocured while send request to server, for fetch data{exp.Message}");
+                logger.LogError($"Error occurred while sending request to server to fetch data: {exp.Message}");
                 return BadRequest(exp.Message);
             }
         }
 
         /// <summary>
-        /// Getting exchange rate, from DB, anyone can access it
+        /// Gets the exchange rate for a specified currency from the database.
         /// </summary>
+        /// <remarks>
+        /// This endpoint is accessible to anonymous users.
+        /// </remarks>
+        /// <param name="Currency">The currency code (alpha).</param>
+        /// <returns>Returns the exchange rate as a string.</returns>
         [HttpPost]
         [Route("{Currency:alpha}")]
         [AllowAnonymous]
-        public async Task<ActionResult<string>> GetExchangeRate([FromRoute]string Currency)
+        public async Task<ActionResult<string>> GetExchangeRate([FromRoute] string Currency)
         {
             try
             {
-               var res=await ser.Getcourse(Currency);
-                if(res is null)
+                var res = await ser.Getcourse(Currency);
+                if (res is null)
                 {
                     return NotFound(res);
                 }
@@ -63,22 +73,26 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError($"error ocured while send request to server, for fetch data{ex.Message}");
+                logger.LogError($"Error occurred while sending request to server to fetch data: {ex.Message}");
                 return BadRequest(ex.Message);
             }
         }
 
         /// <summary>
-        /// all exchange rates allowed -- customer, operator,manager,admin
+        /// Gets all exchange rates from the database.
         /// </summary>
+        /// <remarks>
+        /// This endpoint is accessible to users with the roles "customer", "operator", "manager", and "admin".
+        /// </remarks>
+        /// <returns>Returns a list of exchange rate models.</returns>
         [HttpGet]
-        [Authorize(Roles ="customer,operator,manager,admin")]
+        [Authorize(Roles = "customer,operator,manager,admin")]
         public async Task<ActionResult<ExchangeRateModel>> GetExchangeRates()
         {
             try
             {
-                var res= await ser.GetExchangeRates();
-                if(!res.Any())
+                var res = await ser.GetExchangeRates();
+                if (!res.Any())
                 {
                     return NotFound(ErrorKeys.NotFound);
                 }
@@ -86,18 +100,23 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
-                logger.LogCritical($"Error, while user trying fetch data to server{exp.Message}");
+                logger.LogCritical($"Error occurred while user trying to fetch data from server: {exp.Message}");
                 return BadRequest(exp.Message);
             }
         }
 
         /// <summary>
-        /// remove specify currency from DB -- allowed manager
+        /// Removes a specified currency from the database.
         /// </summary>
+        /// <remarks>
+        /// This endpoint is accessible to users with the role "manager".
+        /// </remarks>
+        /// <param name="id">The Id of the currency to remove.</param>
+        /// <returns>Returns the Id of the removed currency.</returns>
         [HttpDelete]
         [Route("{id:long}")]
-        [Authorize(Roles ="manager")]
-        public async Task<ActionResult> Delete([FromRoute]long id)
+        [Authorize(Roles = "manager")]
+        public async Task<ActionResult> Delete([FromRoute] long id)
         {
             try
             {
@@ -106,7 +125,7 @@ namespace GA.TradeMarket.Api.Controllers
             }
             catch (Exception exp)
             {
-                logger.LogError($"Error while delete  currency from server{exp.Message}");
+                logger.LogError($"Error occurred while deleting currency from server: {exp.Message}");
                 return BadRequest(exp.Message);
             }
         }

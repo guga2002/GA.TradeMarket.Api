@@ -60,6 +60,7 @@ internal class Program
         builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
         builder.Services.AddScoped<IShipingRepository, ShipingRepository>();
         builder.Services.AddScoped<IExchangeRateRepository, ExchangeRateRepository>();
+        builder.Services.AddScoped<IWishListRepository, WishListRepository>();
 
         builder.Services.AddScoped<ICustomerService, CustomerService>();
         builder.Services.AddScoped<IProductService, ProductService>();
@@ -72,6 +73,7 @@ internal class Program
         builder.Services.AddScoped<IShippingService, ShippingService>();
         builder.Services.AddScoped<ICurrencyService, CurrencyService>();
         builder.Services.AddScoped<IOrderService, OrderService>();
+        builder.Services.AddScoped<IWishListService,WIshListService>();
 
         builder.Services.AddSingleton<SmtpService>();
         #endregion

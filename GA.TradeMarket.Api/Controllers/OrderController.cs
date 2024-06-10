@@ -8,6 +8,7 @@ using GA.TradeMarket.Persistance.SMTP;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace GA.TradeMarket.Api.Controllers
 {
@@ -19,17 +20,22 @@ namespace GA.TradeMarket.Api.Controllers
         private readonly ILogger<OrderController> logger;
         private readonly UserManager<Person> userManager;
         private readonly SmtpService smtpService;
-        public OrderController(IOrderService se, ILogger<OrderController> logg, SmtpService smtpService, UserManager<Person> userManager)
+        private readonly IMemoryCache cash;
+        public OrderController(IOrderService se, ILogger<OrderController> logg, SmtpService smtpService, UserManager<Person> userManager,IMemoryCache cash)
         {
             this.ser = se;
             this.logger = logg;
             this.smtpService = smtpService;
             this.userManager = userManager;
+            this.cash = cash;
         }
 
         /// <summary>
-        /// Get  details about my orders(current user) --allowed only customers
+        /// Get  details about my orders(current user) 
         /// </summary>
+        /// <remarks>
+        /// allowed only **customers**
+        /// </remarks>
         [HttpGet]
         [Route(nameof(MyOrder))]
         [Authorize(Roles ="customer")]
@@ -53,17 +59,30 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// Get details about orders --allowed only operator,manager
+        /// Get details about orders
         /// </summary>
+        /// <remarks>
+        /// allowed only operator,manager -- **enable cashing**
+        /// </remarks>
         [HttpGet]
         [Authorize(Roles ="operator,manager")]
         public async Task<ActionResult<IEnumerable<OrderModel>>> GetAllWithDetailsAsync()
         {
             try
             {
+                var cashedkey = "GetAllOrders";
+
+                if(cash.TryGetValue(cashedkey,out IEnumerable<OrderModel>? orders))
+                {
+                    if(orders is not null)
+                    {
+                        return Ok(orders);
+                    }
+                }
                 var res=await ser.GetAllWithDetailsAsync();
                 if(res.Any())
                 {
+                    cash.Set(cashedkey,res,TimeSpan.FromMinutes(10));
                     return Ok(res);
                 }
                 return BadRequest(res);
@@ -76,8 +95,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// Get details about order by id -- allowed operator,manager
+        ///Get details about order by id
         /// </summary>
+        /// <remarks>
+        ///  allowed operator,manager -- **enable  cashing**
+        /// </remarks>
         [HttpGet]
         [Route("{Id:long}")]
         [Authorize(Roles ="operator,manager")]
@@ -85,9 +107,18 @@ namespace GA.TradeMarket.Api.Controllers
         {
             try
             {
+                var cashedkey = $"ordermodelbyiid{Id}";
+                if(cash.TryGetValue(cashedkey, out OrderModel? orders))
+                {
+                    if(orders is not null)
+                    {
+                        return Ok(orders);
+                    }
+                }
                var res=await ser.GetByIdAsync(Id);
                 if(res is not null)
                 {
+                    cash.Set(cashedkey, res, TimeSpan.FromMinutes(10));
                     return Ok(res);
                 }
                 return NotFound(Id);
@@ -100,8 +131,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        ///add new order to DB -- allow customer
+        ///Add new order to DB 
         /// </summary>
+        /// <remarks>
+        /// allow **customer**
+        /// </remarks>
         [HttpPost]
         [Authorize(Roles ="customer")]
         public async Task<ActionResult> AddAsync([FromBody]OrderModelIn item)
@@ -186,8 +220,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        ///  remove order from DB -- allow operator,manager
+        ///  remove order from DB
         /// </summary>
+        /// <remarks>
+        ///  allow **operator,manager**
+        /// </remarks>
         [HttpDelete]
         [Route("{Id:long}")]
         [Authorize(Roles ="operator,manager")]
@@ -206,8 +243,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// Update order details -- allowed customer,operator
+        /// Update order details 
         /// </summary>
+        /// <remarks>
+        ///  allowed **customer,operator**
+        /// </remarks>
         [HttpPut]
         [Authorize(Roles ="customer,operator")]
         public async Task<ActionResult> UpdateAsync([FromBody]OrderModelIn item)
@@ -294,8 +334,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        /// Update status of order -- allowed operator
+        /// Update status of order
         /// </summary>
+        /// <remarks>
+        /// allowed  to  this endpoint is **operator**
+        /// </remarks>
         [HttpPost]
         [Route("UpdateStatus")]
         [Authorize(Roles ="operator")]
@@ -318,8 +361,11 @@ namespace GA.TradeMarket.Api.Controllers
         }
 
         /// <summary>
-        ///Get current status of order -- allowed customer,operator
+        ///Get current status of order
         /// </summary>
+        /// <remarks>
+        /// allowed **customer,operator**
+        /// </remarks>
         [HttpGet]
         [Route("Status/{Id:long}")]
         [Authorize(Roles ="customer,operator")]
