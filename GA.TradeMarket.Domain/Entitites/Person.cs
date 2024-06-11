@@ -15,6 +15,6 @@ namespace GA.TradeMarket.Domain.Entitites
 
         public DateTime BirthDate { get; set; }
 
-        public virtual Customer Customer { get; set; }
+        public virtual Customer? Customer { get; set; }
     }
 }

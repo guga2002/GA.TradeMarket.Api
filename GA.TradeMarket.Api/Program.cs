@@ -33,8 +33,7 @@ internal class Program
 
         builder.Services.AddControllers().AddJsonOptions(options =>
         {
-
-        }); ;
+        });
 
         builder.Services.AddMemoryCache();
 
@@ -143,9 +142,12 @@ internal class Program
         #endregion
 
 
+        #region Add Identity
         builder.Services.AddIdentity<Person, IdentityRole>()
             .AddEntityFrameworkStores<TradeMarketDbContext>()
             .AddDefaultTokenProviders();
+
+        #endregion
 
 
         #region  authentification related

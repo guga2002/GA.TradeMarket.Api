@@ -54,7 +54,7 @@ namespace GA.TradeMarket.Api.Controllers
         /// Get details about the loyalty program..
         /// </summary>
         /// <remarks>
-        /// allow  for user with role 'customer' , **cashing is enable**
+        /// allow  for user with role 'manager',,'operator' , **cashing is enable**
         /// </remarks>
         /// <returns>Returns a list of bonus program models.</returns>
         [HttpGet]

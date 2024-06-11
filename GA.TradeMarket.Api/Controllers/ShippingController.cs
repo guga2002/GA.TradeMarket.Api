@@ -311,7 +311,7 @@ namespace GA.TradeMarket.Api.Controllers
         /// </remarks>
         [HttpGet]
         [Route("Notification")]
-        [Authorize("operator,manager")]
+        [Authorize(Roles ="operator,manager")]
         public async Task<ActionResult<IEnumerable<NotificationModel>>> GetAllNotificationAsync()
         {
             try
