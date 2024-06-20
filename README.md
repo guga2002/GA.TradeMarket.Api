@@ -34,5 +34,11 @@ Domain  აღწერა:
 
 აგრეთვე გამოყენებულია სხვა დიზაინ პატერებიც: unite of work, Dependency of inversion, solid პრინციპები.
 
+## Contact
+ნებისმიერი კითხვის შემთხვევაში დამიკავშირდი
+- **Author**: Guga Apkhazava 
+- **Email**: guram.apkhazava908@ens.tsu.ge
+- **Tel**: +995599042047
+
 
 
