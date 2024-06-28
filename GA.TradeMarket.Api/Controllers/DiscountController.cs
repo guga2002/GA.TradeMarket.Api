@@ -35,19 +35,12 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "customer")]
         public async Task<ActionResult<BonusProgramModel>> MyLoyalityProgram()
         {
-            try
+            if (User.Identity?.Name is not null)
             {
-                if (User.Identity?.Name is not null)
-                {
-                    var res = await ser.GetMyLoyalityProgram(User.Identity.Name);
-                    return Ok(res);
-                }
-                return Unauthorized(ErrorKeys.General);
+                var res = await ser.GetMyLoyalityProgram(User.Identity.Name);
+                return Ok(res);
             }
-            catch (Exception exp)
-            {
-                return BadRequest(exp.Message);
-            }
+            return Unauthorized(ErrorKeys.General);
         }
 
         /// <summary>
@@ -62,29 +55,21 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "manager,operator")]
         public async Task<ActionResult<IEnumerable<BonusProgramModel>>> GetAllWithDetailsAsync()
         {
-            try
+            var cachedKey = "GetAllLoyalityProgram";
+            if (memoryCache.TryGetValue(cachedKey, out IEnumerable<BonusProgramModel>? bonus))
             {
-                var cachedKey = "GetAllLoyalityProgram";
-                if (memoryCache.TryGetValue(cachedKey, out IEnumerable<BonusProgramModel>? bonus))
+                if (bonus is not null)
                 {
-                    if (bonus is not null)
-                    {
-                        return Ok(bonus);
-                    }
+                    return Ok(bonus);
                 }
-                var res = await ser.GetAllWithDetailsAsync();
-                if (!res.Any())
-                {
-                    return NotFound(ErrorKeys.NotFound);
-                }
-                memoryCache.Set(cachedKey, res, TimeSpan.FromMinutes(10));
-                return Ok(res);
             }
-            catch (Exception exp)
+            var res = await ser.GetAllWithDetailsAsync();
+            if (!res.Any())
             {
-                logger.LogCritical($"Error occurred while sending request: {exp.Message}");
-                return BadRequest(exp.Message);
+                return NotFound(ErrorKeys.NotFound);
             }
+            memoryCache.Set(cachedKey, res, TimeSpan.FromMinutes(10));
+            return Ok(res);
         }
 
         /// <summary>
@@ -100,29 +85,21 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "manager,operator")]
         public async Task<ActionResult<BonusProgramModel>> GetByIdAsync([FromRoute] long Id)
         {
-            try
+            var cachedKey = $"GetLoyalityPrograms{Id}";
+            if (memoryCache.TryGetValue(cachedKey, out BonusProgramModel? mod))
             {
-                var cachedKey = $"GetLoyalityPrograms{Id}";
-                if (memoryCache.TryGetValue(cachedKey, out BonusProgramModel? mod))
+                if (mod is not null)
                 {
-                    if (mod is not null)
-                    {
-                        return Ok(mod);
-                    }
+                    return Ok(mod);
                 }
-                var res = await ser.GetByIdAsync(Id);
-                if (res is null)
-                {
-                    return NotFound(ErrorKeys.NotFound);
-                }
-                memoryCache.Set(cachedKey, res, TimeSpan.FromMinutes(10));
-                return Ok(res);
             }
-            catch (Exception exp)
+            var res = await ser.GetByIdAsync(Id);
+            if (res is null)
             {
-                logger.LogCritical($"Error while fetching data with id: {exp.Message}");
-                return BadRequest(exp.Message);
+                return NotFound(ErrorKeys.NotFound);
             }
+            memoryCache.Set(cachedKey, res, TimeSpan.FromMinutes(10));
+            return Ok(res);
         }
 
         /// <summary>
@@ -138,20 +115,12 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "manager,operator")]
         public async Task<ActionResult> AddAsync([FromBody] BonusProgramModelIn item)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    await ser.AddAsync(item);
-                    return Ok(item);
-                }
-                return BadRequest(ErrorKeys.UnsuccesfullInsert);
+                await ser.AddAsync(item);
+                return Ok(item);
             }
-            catch (Exception exp)
-            {
-                logger.LogCritical($"Error while trying to add request: {exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            return BadRequest(ErrorKeys.UnsuccesfullInsert);
         }
 
         /// <summary>
@@ -167,16 +136,9 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "manager")]
         public async Task<ActionResult> DeleteAsync([FromRoute] long item)
         {
-            try
-            {
-                await ser.DeleteAsync(item);
-                return Ok(item);
-            }
-            catch (Exception exp)
-            {
-                logger.LogCritical($"Error while deleting loyalty program with ID {item}: {exp.Message}");
-                return BadRequest(exp.Message);
-            }
+
+            await ser.DeleteAsync(item);
+            return Ok(item);
         }
 
         /// <summary>
@@ -192,20 +154,12 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "manager,operator")]
         public async Task<ActionResult> UpdateAsync([FromBody] BonusProgramModelIn item)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    await ser.UpdateAsync(item);
-                    return Ok(item);
-                }
-                return BadRequest(ErrorKeys.UnsucessfullUpdate);
+                await ser.UpdateAsync(item);
+                return Ok(item);
             }
-            catch (Exception exp)
-            {
-                logger.LogCritical($"Error while trying to update: {exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            return BadRequest(ErrorKeys.UnsucessfullUpdate);
         }
 
         /// <summary>
@@ -221,20 +175,12 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "manager,operator")]
         public async Task<ActionResult> UpdateCouponAsync([FromBody] CouponModelIn mod)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    await ser.UpdateCouponAsync(mod);
-                    return Ok(mod);
-                }
-                return BadRequest(ErrorKeys.UnsucessfullUpdate);
+                await ser.UpdateCouponAsync(mod);
+                return Ok(mod);
             }
-            catch (Exception exp)
-            {
-                logger.LogError($"Error while trying to edit coupon details: {exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            return BadRequest(ErrorKeys.UnsucessfullUpdate);
         }
 
         /// <summary>
@@ -250,16 +196,8 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "manager,operator")]
         public async Task<ActionResult> RemoveCouponAsync([FromRoute] long Id)
         {
-            try
-            {
-                await ser.RemoveCouponAsync(Id);
-                return Ok(Id);
-            }
-            catch (Exception exp)
-            {
-                logger.LogCritical($"Error while trying to remove coupon from DB: {exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            await ser.RemoveCouponAsync(Id);
+            return Ok(Id);
         }
 
         /// <summary>
@@ -275,20 +213,12 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "manager,operator")]
         public async Task<ActionResult> AddCouponAsync([FromBody] CouponModelIn mod)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    await ser.AddCouponAsync(mod);
-                    return Ok(mod);
-                }
-                return BadRequest(ErrorKeys.NoCoupon);
+                await ser.AddCouponAsync(mod);
+                return Ok(mod);
             }
-            catch (Exception exp)
-            {
-                logger.LogTrace($"Error while trying to add new discount coupon: {exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            return BadRequest(ErrorKeys.NoCoupon);
         }
 
         /// <summary>
@@ -303,29 +233,21 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "manager,operator")]
         public async Task<ActionResult<IEnumerable<CouponModel>>> GetAllCouponAsync()
         {
-            try
+            var cachedKey = "GetAllDiscountCoupons";
+            if (memoryCache.TryGetValue(cachedKey, out IEnumerable<CouponModel>? coupon))
             {
-                var cachedKey = "GetAllDiscountCoupons";
-                if (memoryCache.TryGetValue(cachedKey, out IEnumerable<CouponModel>? coupon))
+                if (coupon is not null)
                 {
-                    if (coupon is not null)
-                    {
-                        return Ok(coupon);
-                    }
+                    return Ok(coupon);
                 }
-                var res = await ser.GetAllCouponAsync();
-                if (res.Any())
-                {
-                    memoryCache.Set(cachedKey, res, TimeSpan.FromMinutes(10));
-                    return Ok(res);
-                }
-                return NotFound(ErrorKeys.NotFound);
             }
-            catch (Exception exp)
+            var res = await ser.GetAllCouponAsync();
+            if (res.Any())
             {
-                logger.LogCritical($"Error occurred while trying to get data from coupon: {exp.Message}");
-                return BadRequest(exp.Message);
+                memoryCache.Set(cachedKey, res, TimeSpan.FromMinutes(10));
+                return Ok(res);
             }
+            return NotFound(ErrorKeys.NotFound);
         }
     }
 }

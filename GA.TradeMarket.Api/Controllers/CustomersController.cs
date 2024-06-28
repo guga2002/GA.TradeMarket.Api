@@ -31,20 +31,12 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "admin,manager")]
         public async Task<ActionResult<IEnumerable<CustomerModel>>> GetAllWithDetailsAsync()
         {
-            try
+            var res = await _customerService.GetAllWithDetailsAsync();
+            if (res == null)
             {
-                var res = await _customerService.GetAllWithDetailsAsync();
-                if (res == null)
-                {
-                    return NotFound();
-                }
-                return Ok(res);
+                return NotFound();
             }
-            catch (Exception exp)
-            {
-                _logger.LogCritical($"Error occurred while sending request to server: {exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            return Ok(res);
         }
 
         /// <summary>
@@ -60,21 +52,13 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "admin,manager")]
         public async Task<ActionResult<CustomerModel>> GetById([FromRoute] long id)
         {
-            try
+            if (id < 0) return NotFound();
+            var res = await _customerService.GetByIdAsync(id);
+            if (res == null)
             {
-                if (id < 0) return NotFound();
-                var res = await _customerService.GetByIdAsync(id);
-                if (res == null)
-                {
-                    return NotFound(id);
-                }
-                return Ok(res);
+                return NotFound(id);
             }
-            catch (Exception exp)
-            {
-                _logger.LogCritical($"Error occurred while sending request to server: {exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            return Ok(res);
         }
 
         /// <summary>
@@ -90,21 +74,14 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "operator,manager")]
         public async Task<ActionResult<CustomerModel>> GetByProductId([FromRoute] long id)
         {
-            try
+
+            if (id < 0) return NotFound();
+            var res = await _customerService.GetCustomersByProductIdAsync(id);
+            if (res != null)
             {
-                if (id < 0) return NotFound();
-                var res = await _customerService.GetCustomersByProductIdAsync(id);
-                if (res != null)
-                {
-                    return Ok(res);
-                }
-                return NotFound(ErrorKeys.NotFound);
+                return Ok(res);
             }
-            catch (Exception exp)
-            {
-                _logger.LogCritical($"Error occurred while sending request to server: {exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            return NotFound(ErrorKeys.NotFound);
         }
 
         /// <summary>
@@ -119,24 +96,16 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize]
         public async Task<ActionResult> AddCustommer([FromBody] CustomerModelIn value)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(value);
-                }
-                if (value.DiscountValue < 0)
-                {
-                    return BadRequest(ErrorKeys.BadRequest);
-                }
-                await _customerService.AddAsync(value);
-                return Ok(value);
+                return BadRequest(value);
             }
-            catch (Exception exp)
+            if (value.DiscountValue < 0)
             {
-                _logger.LogCritical($"Error occurred while adding customer to the database: {exp.Message}");
-                return BadRequest(exp.Message);
+                return BadRequest(ErrorKeys.BadRequest);
             }
+            await _customerService.AddAsync(value);
+            return Ok(value);
         }
 
         /// <summary>
@@ -152,16 +121,8 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize]
         public async Task<ActionResult> Put([FromBody] CustomerModelIn value)
         {
-            try
-            {
-                await _customerService.UpdateAsync(value);
-                return Ok(value);
-            }
-            catch (Exception exp)
-            {
-                _logger.LogCritical($"Error occurred while updating customer details: {exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            await _customerService.UpdateAsync(value);
+            return Ok(value);
         }
 
         /// <summary>
@@ -177,20 +138,12 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "admin")]
         public async Task<ActionResult> Delete([FromRoute] long id)
         {
-            try
+            if (id < 0)
             {
-                if (id < 0)
-                {
-                    return BadRequest(ErrorKeys.BadRequest);
-                }
-                await _customerService.DeleteAsync(id);
-                return Ok(id);
+                return BadRequest(ErrorKeys.BadRequest);
             }
-            catch (Exception exp)
-            {
-                _logger.LogError($"Error occurred while deleting customer: {exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            await _customerService.DeleteAsync(id);
+            return Ok(id);
         }
     }
 }

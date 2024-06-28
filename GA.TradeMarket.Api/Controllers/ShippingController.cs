@@ -14,13 +14,13 @@ namespace GA.TradeMarket.Api.Controllers
     public class ShippingController : ControllerBase
     {
         private readonly IShippingService ser;
-        private  readonly ILogger<ShippingController> logger;
+        private readonly ILogger<ShippingController> logger;
         private readonly IMemoryCache cash;
-        public ShippingController(IShippingService ser, ILogger<ShippingController> logger,IMemoryCache cash)
+        public ShippingController(IShippingService ser, ILogger<ShippingController> logger, IMemoryCache cash)
         {
             this.ser = ser;
             this.logger = logger;
-            this.cash = cash;   
+            this.cash = cash;
         }
 
         /// <summary>
@@ -31,32 +31,24 @@ namespace GA.TradeMarket.Api.Controllers
         /// </remarks>
         [HttpGet]
         [Route("shipping")]
-        [Authorize(Roles ="operator,manager")]
+        [Authorize(Roles = "operator,manager")]
         public async Task<ActionResult<IEnumerable<ShippingModel>>> GetAllWithDetailsAsync()
         {
-            try
+            var encryptkey = "getallshipping";
+            if (cash.TryGetValue(encryptkey, out IEnumerable<ShippingModel>? result))
             {
-                var encryptkey = "getallshipping";
-                if (cash.TryGetValue(encryptkey, out IEnumerable<ShippingModel>? result))
+                if (result is not null)
                 {
-                    if(result is not null)
-                    {
-                        return Ok(result);
-                    }
+                    return Ok(result);
                 }
-                var res = await ser.GetAllWithDetailsAsync();
-                if (!res.Any())
-                {
-                    return NotFound(ErrorKeys.NotFound);
-                }
-                cash.Set(encryptkey, res,TimeSpan.FromMinutes(10));
-                return Ok(res);
             }
-            catch (Exception exp)
+            var res = await ser.GetAllWithDetailsAsync();
+            if (!res.Any())
             {
-                logger.LogError($"Errror ocured while sending request to server{exp.Message}");
-                return BadRequest(exp.Message);
+                return NotFound(ErrorKeys.NotFound);
             }
+            cash.Set(encryptkey, res, TimeSpan.FromMinutes(10));
+            return Ok(res);
         }
 
         /// <summary>
@@ -67,32 +59,24 @@ namespace GA.TradeMarket.Api.Controllers
         /// </remarks>
         [HttpGet]
         [Route("shipping/{Id:long}")]
-        [Authorize(Roles ="manager,operator")]
+        [Authorize(Roles = "manager,operator")]
         public async Task<ActionResult<ShippingModel>> GetByIdAsync([FromRoute] long Id)
         {
-            try
+            string encryptKey = $"SHippngById{Id}";
+            if (cash.TryGetValue(encryptKey, out IEnumerable<ShippingModel>? result))
             {
-                string encryptKey = $"SHippngById{Id}";
-                if(cash.TryGetValue(encryptKey, out IEnumerable<ShippingModel>? result))
+                if (result is not null)
                 {
-                    if(result is not null)
-                    {
-                        return Ok(result);
-                    }
+                    return Ok(result);
                 }
-                var res = await ser.GetByIdAsync(Id);
-                if (res is null)
-                {
-                    return NotFound(ErrorKeys.NotFound);
-                }
-                cash.Set(encryptKey, res,TimeSpan.FromMinutes(10));
-                return Ok(res);
             }
-            catch (Exception exp)
+            var res = await ser.GetByIdAsync(Id);
+            if (res is null)
             {
-                logger.LogError($"Errror ocured while sending request to server{exp.Message}");
-                return BadRequest(exp.Message);
+                return NotFound(ErrorKeys.NotFound);
             }
+            cash.Set(encryptKey, res, TimeSpan.FromMinutes(10));
+            return Ok(res);
         }
 
         /// <summary>
@@ -103,27 +87,18 @@ namespace GA.TradeMarket.Api.Controllers
         /// </remarks>
         [HttpPost]
         [Route("shipping")]
-        [Authorize(Roles ="operator,manager")]
+        [Authorize(Roles = "operator,manager")]
         public async Task<ActionResult> AddAsync([FromBody] ShippingModelIn item)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    await ser.AddAsync(item);
-                    return Ok(item);
-                }
-                else
-                {
-                    throw new MarketException(ErrorKeys.InternalServerError);
-                }
+                await ser.AddAsync(item);
+                return Ok(item);
             }
-            catch (Exception exp)
+            else
             {
-                logger.LogError($"Errro ocured while sending request{exp.Message}");
-                return BadRequest(exp.Message);
+                throw new MarketException(ErrorKeys.InternalServerError);
             }
-
         }
 
         /// <summary>
@@ -134,19 +109,11 @@ namespace GA.TradeMarket.Api.Controllers
         /// </remarks>
         [HttpDelete]
         [Route("shipping/{Id:long}")]
-        [Authorize(Roles ="manager")]
+        [Authorize(Roles = "manager")]
         public async Task<ActionResult> DeleteAsync([FromRoute] long Id)
         {
-            try
-            {
-                await ser.DeleteAsync(Id);
-                return Ok(Id);
-            }
-            catch (Exception exp)
-            {
-                logger.LogCritical($"Following error ocured while sending request to server{exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            await ser.DeleteAsync(Id);
+            return Ok(Id);
         }
 
         /// <summary>
@@ -157,23 +124,15 @@ namespace GA.TradeMarket.Api.Controllers
         /// </remarks>
         [HttpPut]
         [Route("shipping")]
-        [Authorize(Roles ="operator,manager")]
+        [Authorize(Roles = "operator,manager")]
         public async Task<ActionResult> UpdateAsync([FromBody] ShippingModelIn item)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if(!ModelState.IsValid)
-                {
-                    throw new MarketException(ErrorKeys.InternalServerError);
-                }
-                await ser.UpdateAsync(item);
-                return Ok(item);
+                throw new MarketException(ErrorKeys.InternalServerError);
             }
-            catch (Exception exp)
-            {
-                logger.LogError($"Following error ocured while sending request to server{exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            await ser.UpdateAsync(item);
+            return Ok(item);
         }
 
         /// <summary>
@@ -184,24 +143,15 @@ namespace GA.TradeMarket.Api.Controllers
         /// </remarks>
         [HttpPut]
         [Route("Notification")]
-        [Authorize(Roles ="operator,manager")]
+        [Authorize(Roles = "operator,manager")]
         public async Task<ActionResult> UpdateNotificationAsync([FromBody] NotificationModelIn mod)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if(!ModelState.IsValid)
-                {
-                    throw new MarketException(ErrorKeys.InternalServerError);
-                }
-                await ser.UpdateNotificationAsync(mod);
-                return Ok(mod);
+                throw new MarketException(ErrorKeys.InternalServerError);
             }
-            catch (Exception exp)
-            {
-                logger.LogError($"Following error ocured while sending request to server{exp.Message}");
-                return BadRequest(exp.Message);
-            }
-
+            await ser.UpdateNotificationAsync(mod);
+            return Ok(mod);
         }
 
         /// <summary>
@@ -212,19 +162,11 @@ namespace GA.TradeMarket.Api.Controllers
         /// </remarks>
         [HttpDelete]
         [Route("Notification/{Id:long}")]
-        [Authorize(Roles ="manager")]
+        [Authorize(Roles = "manager")]
         public async Task<ActionResult> RemoveNotificationAsync([FromRoute] long Id)
         {
-            try
-            {
-                await ser.RemoveNotificationAsync(Id);
-                return Ok(Id);
-            }
-            catch (Exception exp)
-            {
-                logger.LogCritical($"Following error ocured while sending request to server{exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            await ser.RemoveNotificationAsync(Id);
+            return Ok(Id);
         }
         /// <summary>
         ///Retrive notification which is not sent yet
@@ -237,20 +179,12 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "operator,manager")]
         public async Task<ActionResult<IEnumerable<NotificationModel>>> AllUnsendNotifications()
         {
-            try
+            var res = await ser.GetAllUnsentNotifications();
+            if (res.Any())
             {
-                var res = await ser.GetAllUnsentNotifications();
-                if(res.Any())
-                {
-                    return Ok(res);
-                }
-                return NotFound(ErrorKeys.NotFound);
+                return Ok(res);
             }
-            catch (Exception exp)
-            {
-                logger.LogCritical($"Following error ocured while sending request to server{exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            return NotFound(ErrorKeys.NotFound);
         }
 
         /// <summary>
@@ -261,19 +195,11 @@ namespace GA.TradeMarket.Api.Controllers
         /// </remarks>
         [HttpGet]
         [Route(nameof(SendNotificationstoUsers))]
-        [Authorize(Roles ="operator,manager")]
+        [Authorize(Roles = "operator,manager")]
         public async Task<ActionResult> SendNotificationstoUsers()
         {
-            try
-            {
-                await ser.SendNotificationstoUsers();
-                return Ok();
-            }
-            catch (Exception exp)
-            {
-                logger.LogCritical($"Following error ocured while sending request to server{exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            await ser.SendNotificationstoUsers();
+            return Ok();
         }
 
         /// <summary>
@@ -287,22 +213,13 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "operator,manager")]
         public async Task<ActionResult> AddNotificationAsync([FromBody] NotificationModelIn mod)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new MarketException($"{ErrorKeys.InternalServerError}");
-                }
-                await ser.AddNotificationAsync(mod);
-                return Ok(mod);
+                throw new MarketException($"{ErrorKeys.InternalServerError}");
             }
-            catch (Exception exp)
-            {
-                logger.LogCritical($"Following error ocured while sending request to server{exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            await ser.AddNotificationAsync(mod);
+            return Ok(mod);
         }
-
         /// <summary>
         /// get all notifications 
         /// </summary>
@@ -311,32 +228,24 @@ namespace GA.TradeMarket.Api.Controllers
         /// </remarks>
         [HttpGet]
         [Route("Notification")]
-        [Authorize(Roles ="operator,manager")]
+        [Authorize(Roles = "operator,manager")]
         public async Task<ActionResult<IEnumerable<NotificationModel>>> GetAllNotificationAsync()
         {
-            try
+            var cashKey = "Allnotifications";
+            if (cash.TryGetValue(cashKey, out IEnumerable<NotificationModel>? notification))
             {
-                var cashKey = "Allnotifications";
-                if(cash.TryGetValue(cashKey, out IEnumerable<NotificationModel>? notification))
+                if (notification is not null)
                 {
-                    if(notification is not null)
-                    {
-                        return Ok(notification);
-                    }
+                    return Ok(notification);
                 }
-                var res = await ser.GetAllNotificationAsync();
-                if (res.Any())
-                {
-                    cash.Set(cashKey, res, TimeSpan.FromMinutes(10));
-                    return Ok(res);
-                }
-                return NotFound(ErrorKeys.NotFound);
             }
-            catch (Exception exp)
+            var res = await ser.GetAllNotificationAsync();
+            if (res.Any())
             {
-                logger.LogCritical($"Following error ocured while sending request to server{exp.Message}");
-                return BadRequest(exp.Message);
+                cash.Set(cashKey, res, TimeSpan.FromMinutes(10));
+                return Ok(res);
             }
+            return NotFound(ErrorKeys.NotFound);
         }
 
         /// <summary>
@@ -347,23 +256,16 @@ namespace GA.TradeMarket.Api.Controllers
         /// </remarks>
         [HttpPut]
         [Route(nameof(ShippingStatus))]
-        [Authorize(Roles ="operator,manager")]
+        [Authorize(Roles = "operator,manager")]
         public async Task<ActionResult<bool>> ShippingStatus([FromBody] ShippingStatusUpdateModel update)
         {
-            try
+            var res = await ser.UpdateShippingStatus(update);
+            if (res)
             {
-                var res = await ser.UpdateShippingStatus(update);
-                if(res)
-                {
-                    return Ok(update);
-                }
-                return NotFound(ErrorKeys.NotFound);
+                return Ok(update);
             }
-            catch (Exception exp)
-            {
-                logger.LogCritical($"Following error ocured while sending request to server{exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            return NotFound(ErrorKeys.NotFound);
+
         }
     }
 }

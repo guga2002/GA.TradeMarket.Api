@@ -33,20 +33,12 @@ namespace GA.TradeMarket.Api.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<ExchangeRateDecodable>> ConvertNow([FromBody] ConvertCurrencyModel mod)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ErrorKeys.General);
-                }
-                var res = await ser.ConvertNow(mod);
-                return Ok(res);
+                return BadRequest(ErrorKeys.General);
             }
-            catch (Exception exp)
-            {
-                logger.LogError($"Error occurred while sending request to server to fetch data: {exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            var res = await ser.ConvertNow(mod);
+            return Ok(res);
         }
 
         /// <summary>
@@ -62,20 +54,13 @@ namespace GA.TradeMarket.Api.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<string>> GetExchangeRate([FromRoute] string Currency)
         {
-            try
+
+            var res = await ser.Getcourse(Currency);
+            if (res is null)
             {
-                var res = await ser.Getcourse(Currency);
-                if (res is null)
-                {
-                    return NotFound(res);
-                }
-                return Ok(res);
+                return NotFound(res);
             }
-            catch (Exception ex)
-            {
-                logger.LogError($"Error occurred while sending request to server to fetch data: {ex.Message}");
-                return BadRequest(ex.Message);
-            }
+            return Ok(res);
         }
 
         /// <summary>
@@ -89,20 +74,12 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "customer,operator,manager,admin")]
         public async Task<ActionResult<ExchangeRateModel>> GetExchangeRates()
         {
-            try
+            var res = await ser.GetExchangeRates();
+            if (!res.Any())
             {
-                var res = await ser.GetExchangeRates();
-                if (!res.Any())
-                {
-                    return NotFound(ErrorKeys.NotFound);
-                }
-                return Ok(res);
+                return NotFound(ErrorKeys.NotFound);
             }
-            catch (Exception exp)
-            {
-                logger.LogCritical($"Error occurred while user trying to fetch data from server: {exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            return Ok(res);
         }
 
         /// <summary>
@@ -118,16 +95,8 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "manager")]
         public async Task<ActionResult> Delete([FromRoute] long id)
         {
-            try
-            {
-                await ser.Delete(id);
-                return Ok(id);
-            }
-            catch (Exception exp)
-            {
-                logger.LogError($"Error occurred while deleting currency from server: {exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            await ser.Delete(id);
+            return Ok(id);
         }
     }
 }

@@ -30,32 +30,24 @@ namespace GA.TradeMarket.Api.Controllers
         /// allowed customer, operator, manager -- **enable cashing**
         /// </remarks>
         [HttpGet("All")]
-        [Authorize(Roles ="customer,operator,manager")]
+        [Authorize(Roles = "customer,operator,manager")]
         public async Task<ActionResult<IEnumerable<ProductModel>>> GetAllWithDetailsAsync()
         {
-            try
+            var key = "GetAllProducts";
+            if (cashe.TryGetValue(key, out IEnumerable<ProductModel>? products))
             {
-                var key = "GetAllProducts";
-                if (cashe.TryGetValue(key, out IEnumerable<ProductModel>? products))
+                if (products is not null)
                 {
-                    if (products is not null)
-                    {
-                        return Ok(products);
-                    }
-                }
-                var productsFromDB = await _productService.GetAllWithDetailsAsync();
-                if (productsFromDB.Any())
-                {
-                    cashe.Set(key, productsFromDB, TimeSpan.FromMinutes(10));
                     return Ok(products);
                 }
-                return NotFound(ErrorKeys.NotFound);
             }
-            catch (Exception exp)
+            var productsFromDB = await _productService.GetAllWithDetailsAsync();
+            if (productsFromDB.Any())
             {
-                _logger.LogCritical($"error while fetching data:{exp.Message}");
-                return BadRequest(exp.Message);
+                cashe.Set(key, productsFromDB, TimeSpan.FromMinutes(10));
+                return Ok(products);
             }
+            return NotFound(ErrorKeys.NotFound);
         }
 
         /// <summary>
@@ -65,33 +57,25 @@ namespace GA.TradeMarket.Api.Controllers
         ///  allowed customer,operator,manager -- **enable cashing**
         /// </remarks>
         [HttpGet("{id:long}")]
-        [Authorize(Roles ="customer,operator,manager")]
-        public async Task<ActionResult<ProductModel>> GetByIdAsync([FromRoute]long id)
+        [Authorize(Roles = "customer,operator,manager")]
+        public async Task<ActionResult<ProductModel>> GetByIdAsync([FromRoute] long id)
         {
-            try
+            var cashedkey = $"GetProduct{id}";
+            if (cashe.TryGetValue(id, out ProductModel? products))
             {
-                var cashedkey = $"GetProduct{id}";
-                if (cashe.TryGetValue(id, out ProductModel? products))
+                if (products is not null)
                 {
-                    if (products is not null)
-                    {
-                        return Ok(products);
-                    }
+                    return Ok(products);
                 }
+            }
 
-                var product = await _productService.GetByIdAsync(id);
-                if (product == null || product.ProductName is null)
-                {
-                    return NotFound(ErrorKeys.NotFound);
-                }
-                cashe.Set(cashedkey, product, TimeSpan.FromMinutes(10));
-                return Ok(product);
-            }
-            catch (MarketException exp)
+            var product = await _productService.GetByIdAsync(id);
+            if (product == null || product.ProductName is null)
             {
-                _logger.LogCritical($"error while fetching data:{exp.Message}");
-                return BadRequest(exp);
+                return NotFound(ErrorKeys.NotFound);
             }
+            cashe.Set(cashedkey, product, TimeSpan.FromMinutes(10));
+            return Ok(product);
         }
 
         /// <summary>
@@ -101,24 +85,16 @@ namespace GA.TradeMarket.Api.Controllers
         ///  allowed **customer,manager,operator**
         /// </remarks>
         [HttpGet]
-        [Authorize(Roles ="customer,manager,operator")]
+        [Authorize(Roles = "customer,manager,operator")]
         public async Task<ActionResult<IEnumerable<ProductModel>>> SearchProducts([FromQuery] long categoryId, [FromQuery] decimal? minPrice, [FromQuery] decimal? maxPrice)
         {
-            try
+            var res = await _productService.GetAllWithDetailsAsync();
+            if (res == null)
             {
-                var res = await _productService.GetAllWithDetailsAsync();
-                if (res == null)
-                {
-                    return NotFound(ErrorKeys.NotFound);
-                }
-                var rek = res.Where(io => io.ProductCategoryId == categoryId && io.Price >= minPrice && io.Price <= maxPrice).ToList();
-                return Ok(rek);
+                return NotFound(ErrorKeys.NotFound);
             }
-            catch (Exception exp)
-            {
-                _logger.LogError($"error while searching products: {exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            var rek = res.Where(io => io.ProductCategoryId == categoryId && io.Price >= minPrice && io.Price <= maxPrice).ToList();
+            return Ok(rek);
         }
 
         /// <summary>
@@ -128,21 +104,14 @@ namespace GA.TradeMarket.Api.Controllers
         /// allowed **operator,manager**
         /// </remarks>
         [HttpPost]
-        [Authorize(Roles ="operator,manager")]
-        public async Task<IActionResult> AddProduct([FromBody]ProductModelIn product)
+        [Authorize(Roles = "operator,manager")]
+        public async Task<IActionResult> AddProduct([FromBody] ProductModelIn product)
         {
-            try
-            {
-                if (!ModelState.IsValid || string.IsNullOrEmpty(product.ProductName))
-                    return BadRequest(ErrorKeys.BadRequest);
-                await _productService.AddAsync(product);
-                return Ok(product);
-            }
-            catch (Exception exp)
-            {
-                _logger.LogError($"{exp.Message}");
-                return BadRequest(exp.Message);
-            }
+
+            if (!ModelState.IsValid || string.IsNullOrEmpty(product.ProductName))
+                return BadRequest(ErrorKeys.BadRequest);
+            await _productService.AddAsync(product);
+            return Ok(product);
         }
 
         /// <summary>
@@ -155,22 +124,15 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "operator,manager")]
         public async Task<IActionResult> UpdateProduct([FromRoute] long id, [FromBody] ProductModelIn product)
         {
-            try
+
+            if (id != product.Id)
+                return BadRequest(ErrorKeys.BadRequest);
+            if (!ModelState.IsValid || string.IsNullOrEmpty(product.ProductName))
             {
-                if (id != product.Id)
-                    return BadRequest(ErrorKeys.BadRequest);
-                if (!ModelState.IsValid || string.IsNullOrEmpty(product.ProductName))
-                {
-                    return BadRequest(ModelState);
-                }
-                await _productService.UpdateAsync(product);
-                return Ok(id);
+                return BadRequest(ModelState);
             }
-            catch (Exception exp)
-            {
-                _logger.LogError($"{exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            await _productService.UpdateAsync(product);
+            return Ok(id);
         }
 
         /// <summary>
@@ -180,23 +142,15 @@ namespace GA.TradeMarket.Api.Controllers
         /// allowed **operator,manager**
         /// </remarks>
         [HttpDelete("{id:long}")]
-        [Authorize(Roles ="operator,manager")]
-        public async Task<IActionResult> DeleteProduct([FromRoute]long id)
+        [Authorize(Roles = "operator,manager")]
+        public async Task<IActionResult> DeleteProduct([FromRoute] long id)
         {
-            try
-            {
-                var existingProduct = await _productService.GetByIdAsync(id);
-                if (existingProduct == null)
-                    return NotFound(ErrorKeys.NotFound);
+            var existingProduct = await _productService.GetByIdAsync(id);
+            if (existingProduct == null)
+                return NotFound(ErrorKeys.NotFound);
 
-                await _productService.DeleteAsync(id);
-                return Ok(id);
-            }
-            catch (Exception exp)
-            {
-                _logger.LogError($"{exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            await _productService.DeleteAsync(id);
+            return Ok(id);
         }
 
         /// <summary>
@@ -206,28 +160,20 @@ namespace GA.TradeMarket.Api.Controllers
         ///  allowed customer,operator,manager  -- **enable cashing**
         /// </remarks>
         [HttpGet("categories")]
-        [Authorize(Roles ="operator,manager,customer")]
+        [Authorize(Roles = "operator,manager,customer")]
         public async Task<ActionResult<IEnumerable<ProductCategoryModel>>> GetAllCategories()
         {
-            try
+            string cashedkey = "GetAllCategories";
+            if (cashe.TryGetValue(cashedkey, out ProductCategoryModel? category))
             {
-                string cashedkey = "GetAllCategories";
-                if (cashe.TryGetValue(cashedkey, out ProductCategoryModel? category))
+                if (category is not null)
                 {
-                    if (category is not null)
-                    {
-                        return Ok(category);
-                    }
+                    return Ok(category);
                 }
-                var categories = await _productService.GetAllProductCategoriesAsync();
-                cashe.Set(cashedkey, categories, TimeSpan.FromMinutes(10));
-                return Ok(categories);
             }
-            catch (Exception exp)
-            {
-                _logger.LogError($"{exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            var categories = await _productService.GetAllProductCategoriesAsync();
+            cashe.Set(cashedkey, categories, TimeSpan.FromMinutes(10));
+            return Ok(categories);
         }
 
         /// <summary>
@@ -240,19 +186,11 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "operator,manager")]
         public async Task<ActionResult<ProductCategoryModel>> AddCategory([FromBody] ProductCategoryModelIn category)
         {
-            try
-            {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-                await _productService.AddCategoryAsync(category);
-                return CreatedAtAction(nameof(GetAllCategories), new { id = category.Id }, category);
-            }
-            catch (Exception exp)
-            {
-                _logger.LogError($"{exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            await _productService.AddCategoryAsync(category);
+            return CreatedAtAction(nameof(GetAllCategories), new { id = category.Id }, category);
         }
 
         /// <summary>
@@ -265,20 +203,11 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "operator,manager")]
         public async Task<IActionResult> UpdateCategory([FromRoute] long CategoryId, [FromBody] ProductCategoryModelIn category)
         {
-            try
-            {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
-
-                await _productService.UpdateCategoryAsync(category);
-                return Ok(category);
-            }
-            catch (Exception exp)
-            {
-                _logger.LogError($"{exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            await _productService.UpdateCategoryAsync(category);
+            return Ok(category);
         }
 
         /// <summary>
@@ -288,19 +217,12 @@ namespace GA.TradeMarket.Api.Controllers
         /// allowed **manager**
         /// </remarks>
         [HttpDelete("categories/{id:long}")]
-        [Authorize(Roles ="manager")]
+        [Authorize(Roles = "manager")]
         public async Task<IActionResult> DeleteCategory([FromRoute] long id)
         {
-            try
-            {
-                await _productService.RemoveCategoryAsync(id);
-                return Ok(id);
-            }
-            catch (Exception exp)
-            {
-                _logger.LogCritical(exp.Message);
-                return BadRequest(exp.Message);
-            }
+            await _productService.RemoveCategoryAsync(id);
+            return Ok(id);
+
         }
 
     }

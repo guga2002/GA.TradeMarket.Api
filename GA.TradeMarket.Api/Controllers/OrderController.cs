@@ -41,8 +41,6 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles ="customer")]
         public async Task<ActionResult<OrderModel>> MyOrder()
         {
-            try
-            {
                 var user = User.Identity?.Name;
                 if(user is null)
                 {
@@ -50,12 +48,6 @@ namespace GA.TradeMarket.Api.Controllers
                 }
                 var res = await  ser.GetMyOrder(user);
                 return Ok(res);
-            }
-            catch (Exception exp)
-            {
-                logger.LogCritical($"error while retrieving my orders{exp.Message}");
-                return BadRequest(exp.Message);
-            }
         }
 
         /// <summary>
@@ -68,8 +60,6 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles ="operator,manager")]
         public async Task<ActionResult<IEnumerable<OrderModel>>> GetAllWithDetailsAsync()
         {
-            try
-            {
                 var cashedkey = "GetAllOrders";
 
                 if(cash.TryGetValue(cashedkey,out IEnumerable<OrderModel>? orders))
@@ -86,12 +76,6 @@ namespace GA.TradeMarket.Api.Controllers
                     return Ok(res);
                 }
                 return BadRequest(res);
-            }
-            catch (Exception exp)
-            {
-                logger.LogCritical($"Error ocured while retrieving data{exp.Message}");
-                return BadRequest(exp.Message);
-            }
         }
 
         /// <summary>
@@ -105,8 +89,6 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles ="operator,manager")]
         public async Task<ActionResult<OrderModel>> GetByIdAsync([FromRoute]long Id)
         {
-            try
-            {
                 var cashedkey = $"ordermodelbyiid{Id}";
                 if(cash.TryGetValue(cashedkey, out OrderModel? orders))
                 {
@@ -122,12 +104,6 @@ namespace GA.TradeMarket.Api.Controllers
                     return Ok(res);
                 }
                 return NotFound(Id);
-            }
-            catch (Exception exp)
-            {
-                logger.LogCritical($"Error while fetching data with id{Id}");
-                return BadRequest(exp.Message);
-            }
         }
 
         /// <summary>
@@ -137,25 +113,23 @@ namespace GA.TradeMarket.Api.Controllers
         /// allow **customer**
         /// </remarks>
         [HttpPost]
-        [Authorize(Roles ="customer")]
-        public async Task<ActionResult> AddAsync([FromBody]OrderModelIn item)
+        [Authorize(Roles = "customer")]
+        public async Task<ActionResult> AddAsync([FromBody] OrderModelIn item)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                var userName = User.Identity?.Name;
+                if (userName == null)
                 {
-                    var userName = User.Identity?.Name;
-                    if (userName == null)
-                    {
-                        return Unauthorized(ErrorKeys.General);
-                    }
-                    var user = await userManager.FindByNameAsync(userName);
-                    if (user == null)
-                    {
-                        return Unauthorized(ErrorKeys.General);
-                    }
-                    await ser.AddAsync(item);
-                    string body = $@"<!DOCTYPE html>
+                    return Unauthorized(ErrorKeys.General);
+                }
+                var user = await userManager.FindByNameAsync(userName);
+                if (user == null)
+                {
+                    return Unauthorized(ErrorKeys.General);
+                }
+                await ser.AddAsync(item);
+                string body = $@"<!DOCTYPE html>
 <html lang=""en"">
 <head>
 <meta charset=""UTF-8"">
@@ -207,16 +181,11 @@ namespace GA.TradeMarket.Api.Controllers
 </body>
 </html>
 ";
-                    smtpService.SendMessage(user.Email, $"ახალი შეკვეთა შენს სახელზე:{DateTime.Now.ToShortTimeString()}", body);
-                    return Ok(item);
-                }
-                return BadRequest(ErrorKeys.InternalServerError);
+                smtpService.SendMessage(user.Email, $"ახალი შეკვეთა შენს სახელზე:{DateTime.Now.ToShortTimeString()}", body);
+                return Ok(item);
             }
-            catch (Exception exp)
-            {
-                logger.LogError($"Error while add order: {exp.Message}", exp);
-                return BadRequest(exp.Message);
-            }
+            return BadRequest(ErrorKeys.InternalServerError);
+
         }
 
         /// <summary>
@@ -227,19 +196,11 @@ namespace GA.TradeMarket.Api.Controllers
         /// </remarks>
         [HttpDelete]
         [Route("{Id:long}")]
-        [Authorize(Roles ="operator,manager")]
+        [Authorize(Roles = "operator,manager")]
         public async Task<ActionResult> DeleteAsync(long Id)
         {
-            try
-            {
-                await ser.DeleteAsync(Id);
-                return Ok(Id);
-            }
-            catch (Exception exp)
-            {
-                logger.LogWarning($"error while deleting  order:{exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            await ser.DeleteAsync(Id);
+            return Ok(Id);
         }
 
         /// <summary>
@@ -249,25 +210,23 @@ namespace GA.TradeMarket.Api.Controllers
         ///  allowed **customer,operator**
         /// </remarks>
         [HttpPut]
-        [Authorize(Roles ="customer,operator")]
-        public async Task<ActionResult> UpdateAsync([FromBody]OrderModelIn item)
+        [Authorize(Roles = "customer,operator")]
+        public async Task<ActionResult> UpdateAsync([FromBody] OrderModelIn item)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                await ser.UpdateAsync(item);
+                var userName = User.Identity?.Name;
+                if (userName == null)
                 {
-                    await ser.UpdateAsync(item);
-                    var userName = User.Identity?.Name;
-                    if (userName == null)
-                    {
-                        return Unauthorized(ErrorKeys.General);
-                    }
-                    var user = await userManager.FindByNameAsync(userName);
-                    if (user == null)
-                    {
-                        return Unauthorized(ErrorKeys.General);
-                    }
-                    string body = $@"<!DOCTYPE html>
+                    return Unauthorized(ErrorKeys.General);
+                }
+                var user = await userManager.FindByNameAsync(userName);
+                if (user == null)
+                {
+                    return Unauthorized(ErrorKeys.General);
+                }
+                string body = $@"<!DOCTYPE html>
 <html lang=""en"">
 <head>
 <meta charset=""UTF-8"">
@@ -321,16 +280,10 @@ namespace GA.TradeMarket.Api.Controllers
 </body>
 </html>
 ";
-                    smtpService.SendMessage(user.Email, $"თქვენი შეკვეთა განახლდა:{DateTime.Now.ToShortTimeString()}", body);
-                    return Ok(item);
-                }
-                return BadRequest(ErrorKeys.InternalServerError);
+                smtpService.SendMessage(user.Email, $"თქვენი შეკვეთა განახლდა:{DateTime.Now.ToShortTimeString()}", body);
+                return Ok(item);
             }
-            catch (Exception exp )
-            {
-                logger.LogCritical($"error while updating order details: {exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            return BadRequest(ErrorKeys.InternalServerError);
         }
 
         /// <summary>
@@ -341,23 +294,16 @@ namespace GA.TradeMarket.Api.Controllers
         /// </remarks>
         [HttpPost]
         [Route("UpdateStatus")]
-        [Authorize(Roles ="operator")]
-        public async Task<ActionResult> UpdateStatus([FromBody]UpdateStatusModelIn ord)
+        [Authorize(Roles = "operator")]
+        public async Task<ActionResult> UpdateStatus([FromBody] UpdateStatusModelIn ord)
         {
-            try
+
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    await ser.UpdateStatus(ord);
-                    return Ok(ord);
-                }
-                return BadRequest(ErrorKeys.InternalServerError);
+                await ser.UpdateStatus(ord);
+                return Ok(ord);
             }
-            catch (Exception exp)
-            {
-                logger.LogCritical($"Error while tring update status:{exp.Message}");
-                return BadRequest($"{exp.Message}");
-            }
+            return BadRequest(ErrorKeys.InternalServerError);
         }
 
         /// <summary>
@@ -368,23 +314,15 @@ namespace GA.TradeMarket.Api.Controllers
         /// </remarks>
         [HttpGet]
         [Route("Status/{Id:long}")]
-        [Authorize(Roles ="customer,operator")]
-        public async Task<ActionResult> OrderStatus(long  Id)
+        [Authorize(Roles = "customer,operator")]
+        public async Task<ActionResult> OrderStatus(long Id)
         {
-            try
+            var res = await ser.CheckStatus(Id);
+            if (string.IsNullOrEmpty(res))
             {
-                var res= await ser.CheckStatus(Id);
-                if(string.IsNullOrEmpty(res))
-                {
-                    return NotFound(ErrorKeys.NotFound);
-                }
-                return Ok(res);
+                return NotFound(ErrorKeys.NotFound);
             }
-            catch (Exception exp)
-            {
-                logger.LogError($"error while  trying get order status:{exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            return Ok(res);
         }
     }
 }

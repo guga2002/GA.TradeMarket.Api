@@ -35,24 +35,16 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "customer")]
         public async Task<ActionResult<IEnumerable<ReturnRequestModel>>> GetAllMyReturnRequests()
         {
-            try
+            if (User.Identity?.Name is not null)
             {
-                if (User.Identity?.Name is not null)
+                var res = await ser.GetAllMyReturnRequests(User.Identity.Name);
+                if (!res.Any())
                 {
-                    var res = await ser.GetAllMyReturnRequests(User.Identity.Name);
-                    if (!res.Any())
-                    {
-                        return NotFound(ErrorKeys.NotFound);
-                    }
-                    return Ok(res);
+                    return NotFound(ErrorKeys.NotFound);
                 }
-                return Unauthorized(ErrorKeys.General);
+                return Ok(res);
             }
-            catch (Exception exp)
-            {
-                logger.LogCritical($"Error occurred while sending request to server: {exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            return Unauthorized(ErrorKeys.General);
         }
 
         /// <summary>
@@ -67,29 +59,21 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "operator,manager")]
         public async Task<ActionResult<IEnumerable<ReturnRequestModel>>> GetAllWithDetailsAsync()
         {
-            try
+            string cachedKey = "GetAllReturnRequest";
+            if (cash.TryGetValue(cachedKey, out IEnumerable<ReturnRequestModel>? returnreq))
             {
-                string cachedKey = "GetAllReturnRequest";
-                if (cash.TryGetValue(cachedKey, out IEnumerable<ReturnRequestModel>? returnreq))
+                if (returnreq is not null)
                 {
-                    if (returnreq is not null)
-                    {
-                        return Ok(returnreq);
-                    }
+                    return Ok(returnreq);
                 }
-                var res = await ser.GetAllWithDetailsAsync();
-                if (!res.Any())
-                {
-                    return NotFound(ErrorKeys.NotFound);
-                }
-                cash.Set(cachedKey, res, TimeSpan.FromMinutes(10));
-                return Ok(res);
             }
-            catch (Exception exp)
+            var res = await ser.GetAllWithDetailsAsync();
+            if (!res.Any())
             {
-                logger.LogError($"Error occurred while sending request to retrieve all data: {exp.Message}");
-                return BadRequest(exp.Message);
+                return NotFound(ErrorKeys.NotFound);
             }
+            cash.Set(cachedKey, res, TimeSpan.FromMinutes(10));
+            return Ok(res);
         }
 
         /// <summary>
@@ -105,29 +89,21 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "operator,manager")]
         public async Task<ActionResult<ReturnRequestModel>> GetByIdAsync([FromRoute] long Id)
         {
-            try
+            var cachedKey = $"getallreturnreq{Id}";
+            if (cash.TryGetValue(cachedKey, out ReturnRequestModel? returnreq))
             {
-                var cachedKey = $"getallreturnreq{Id}";
-                if (cash.TryGetValue(cachedKey, out ReturnRequestModel? returnreq))
+                if (returnreq is not null)
                 {
-                    if (returnreq is not null)
-                    {
-                        return Ok(returnreq);
-                    }
+                    return Ok(returnreq);
                 }
-                var res = await ser.GetByIdAsync(Id);
-                if (res is null)
-                {
-                    return NotFound(ErrorKeys.NotFound);
-                }
-                cash.Set(cachedKey, res, TimeSpan.FromMinutes(10));
-                return Ok(res);
             }
-            catch (Exception exp)
+            var res = await ser.GetByIdAsync(Id);
+            if (res is null)
             {
-                logger.LogDebug($"Error occurred while trying to fetch data from server, identifier: {Id}");
-                return BadRequest(exp.Message);
+                return NotFound(ErrorKeys.NotFound);
             }
+            cash.Set(cachedKey, res, TimeSpan.FromMinutes(10));
+            return Ok(res);
         }
 
         /// <summary>
@@ -143,16 +119,8 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "customer")]
         public async Task<ActionResult> AddAsync([FromBody] ReturnRequestModelIn item)
         {
-            try
-            {
-                await ser.AddAsync(item);
-                return Ok(item);
-            }
-            catch (Exception exp)
-            {
-                logger.LogError($"Error while customer trying to add a new return request to the database. Order Id: {item.OrderId}");
-                return BadRequest(exp.Message);
-            }
+            await ser.AddAsync(item);
+            return Ok(item);
         }
 
         /// <summary>
@@ -168,16 +136,8 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "manager")]
         public async Task<ActionResult> DeleteAsync([FromRoute] long id)
         {
-            try
-            {
-                await ser.DeleteAsync(id);
-                return Ok(id);
-            }
-            catch (Exception exp)
-            {
-                logger.LogCritical($"Error occurred while admin trying to delete item from database, Id: {id}");
-                return BadRequest(exp.Message);
-            }
+            await ser.DeleteAsync(id);
+            return Ok(id);
         }
 
         /// <summary>
@@ -193,16 +153,8 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "manager,operator")]
         public async Task<ActionResult> UpdateAsync([FromBody] ReturnRequestModelIn item)
         {
-            try
-            {
-                await ser.UpdateAsync(item);
-                return Ok(item);
-            }
-            catch (Exception exp)
-            {
-                logger.LogCritical($"Error while trying to edit details about return request: {exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            await ser.UpdateAsync(item);
+            return Ok(item);
         }
 
         /// <summary>
@@ -218,16 +170,8 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "manager")]
         public async Task<ActionResult> UpdateReviewAsync([FromBody] ReviewModelIn mod)
         {
-            try
-            {
-                await ser.UpdateReviewAsync(mod);
-                return Ok(mod);
-            }
-            catch (Exception exp)
-            {
-                logger.LogCritical($"Error while trying to edit details about review: {exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            await ser.UpdateReviewAsync(mod);
+            return Ok(mod);
         }
 
         /// <summary>
@@ -243,16 +187,8 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "manager")]
         public async Task<ActionResult> RemoveReviewAsync([FromRoute] long Id)
         {
-            try
-            {
-                await ser.RemoveReviewAsync(Id);
-                return Ok(Id);
-            }
-            catch (Exception exp)
-            {
-                logger.LogCritical($"Error occurred while trying to remove data from server, identifier: {Id}");
-                return BadRequest(exp.Message);
-            }
+            await ser.RemoveReviewAsync(Id);
+            return Ok(Id);
         }
 
         /// <summary>
@@ -268,16 +204,8 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "customer")]
         public async Task<ActionResult> AddReviewAsync([FromBody] ReviewModelIn mod)
         {
-            try
-            {
-                await ser.AddReviewAsync(mod);
-                return Ok(mod);
-            }
-            catch (Exception exp)
-            {
-                logger.LogError($"Error occurred while operator trying to add a new review to the database: {exp.Message}");
-                return BadRequest(exp.Message);
-            }
+            await ser.AddReviewAsync(mod);
+            return Ok(mod);
         }
 
         /// <summary>
@@ -292,29 +220,21 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "operator,manager")]
         public async Task<ActionResult<IEnumerable<ReviewModel>>> GetAllReviewsAsync()
         {
-            try
+            var cachedKey = "AllReviews";
+            if (cash.TryGetValue(cachedKey, out IEnumerable<ReviewModel>? result))
             {
-                var cachedKey = "AllReviews";
-                if (cash.TryGetValue(cachedKey, out IEnumerable<ReviewModel>? result))
+                if (result is not null)
                 {
-                    if (result is not null)
-                    {
-                        return Ok(result);
-                    }
+                    return Ok(result);
                 }
-                var res = await ser.GetAllReviewsAsync();
-                if (res.Any())
-                {
-                    cash.Set(cachedKey, res, TimeSpan.FromMinutes(10));
-                    return Ok(res);
-                }
-                return NotFound(ErrorKeys.NotFound);
             }
-            catch (Exception exp)
+            var res = await ser.GetAllReviewsAsync();
+            if (res.Any())
             {
-                logger.LogCritical($"Error occurred while operator/manager was trying to fetch data from server: {exp.Message}");
-                return BadRequest(exp.Message);
+                cash.Set(cachedKey, res, TimeSpan.FromMinutes(10));
+                return Ok(res);
             }
+            return NotFound(ErrorKeys.NotFound);
         }
     }
 }

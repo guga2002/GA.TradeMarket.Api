@@ -1,3 +1,4 @@
+using GA.TradeMarket.Api.CustomMiddlwares;
 using GA.TradeMarket.Application.Interfaces;
 using GA.TradeMarket.Application.Services;
 using GA.TradeMarket.Domain.Data;
@@ -26,6 +27,7 @@ internal class Program
         builder.Services.AddDbContext<TradeMarketDbContext>(opt =>
         {
             opt.UseSqlServer(builder.Configuration.GetConnectionString("GugassConnection"));
+           
         });
 
 
@@ -44,7 +46,7 @@ internal class Program
         {
             opt.AddProvider(new LoggerProvider((category, level) =>
             {
-                return level > LogLevel.Warning; // warningze meti tu aris vlogavt bazashi
+                return level > LogLevel.Information; // warningze meti tu aris vlogavt bazashi
             }, builder.Services.BuildServiceProvider().GetService<TradeMarketDbContext>()));
         });
         #endregion
@@ -202,6 +204,10 @@ internal class Program
             });
 
         }
+        app.UseMiddleware<ExceptionMiddleware>();
+        app.UseMiddleware<LoggingMiddleware>();
+        app.UseMiddleware<RateLimitingMiddleware>();
+        app.UseMiddleware<RequestTimingMiddleware>();
 
         app.UseHttpsRedirection();
 

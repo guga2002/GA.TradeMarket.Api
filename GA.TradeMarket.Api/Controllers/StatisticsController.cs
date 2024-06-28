@@ -28,28 +28,19 @@ namespace GA.TradeMarket.Api.Controllers
         /// </remarks>
         [HttpPost]
         [Route(nameof(PopularShiper))]
-        [Authorize(Roles ="manager,operator")]
-        public async Task<ActionResult<ShippingModelStatistic>> PopularShiper([FromBody]StatisticShipperModel mod)
+        [Authorize(Roles = "manager,operator")]
+        public async Task<ActionResult<ShippingModelStatistic>> PopularShiper([FromBody] StatisticShipperModel mod)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ErrorKeys.InternalServerError);
-                }
-                var res=await statistik.PopularShiper(mod);
-                if(res.Any())
-                {
-                    return Ok(res);
-                }
-                return NotFound(ErrorKeys.NotFound);
+                return BadRequest(ErrorKeys.InternalServerError);
             }
-            catch (Exception exp)
+            var res = await statistik.PopularShiper(mod);
+            if (res.Any())
             {
-                logger.LogCritical(exp.Message);
-                return BadRequest(exp.StackTrace);
+                return Ok(res);
             }
-
+            return NotFound(ErrorKeys.NotFound);
         }
 
         /// <summary>
@@ -59,23 +50,15 @@ namespace GA.TradeMarket.Api.Controllers
         ///  allow **Manager,operator**
         /// </remarks>
         [HttpGet(nameof(GetPopularProducts))]
-        [Authorize(Roles ="operator,manager")]
-        public async Task<ActionResult<IEnumerable<ProductModel>>> GetPopularProducts([FromQuery]int productCount)
+        [Authorize(Roles = "operator,manager")]
+        public async Task<ActionResult<IEnumerable<ProductModel>>> GetPopularProducts([FromQuery] int productCount)
         {
-            try
+            var res = await statistik.GetMostPopularProductsAsync(productCount);
+            if (res == null)
             {
-                var res = await statistik.GetMostPopularProductsAsync(productCount);
-                if (res == null)
-                {
-                    return BadRequest(ErrorKeys.BadRequest);
-                }
-                return Ok(res);
+                return BadRequest(ErrorKeys.BadRequest);
             }
-            catch (Exception exp)
-            {
-                logger.LogCritical(exp.Message);
-                return BadRequest($"{exp.Message}");
-            }
+            return Ok(res);
         }
 
         /// <summary>
@@ -85,23 +68,15 @@ namespace GA.TradeMarket.Api.Controllers
         /// allow **Manager,operator**
         /// </remarks>
         [HttpGet("customer/{id:long}/{productCount:int}")]
-        [Authorize(Roles ="manager,operator")]
+        [Authorize(Roles = "manager,operator")]
         public async Task<ActionResult<IEnumerable<ProductModel>>> GetCustomerFavoriteProducts([FromRoute] int productCount, [FromRoute] long customerId)
         {
-            try
+            var res = await statistik.GetCustomersMostPopularProductsAsync(productCount, customerId);
+            if (res == null)
             {
-                var res = await statistik.GetCustomersMostPopularProductsAsync(productCount, customerId);
-                if (res == null)
-                {
-                    return BadRequest(ErrorKeys.BadRequest);
-                }
-                return Ok(res);
+                return BadRequest(ErrorKeys.BadRequest);
             }
-            catch (Exception exp)
-            {
-                logger.LogCritical(exp.Message);
-                return BadRequest(exp.Message);
-            }
+            return Ok(res);
         }
 
         /// <summary>
@@ -112,27 +87,19 @@ namespace GA.TradeMarket.Api.Controllers
         /// </remarks>
         [HttpPost]
         [Route(nameof(MostActiveCustomers))]
-        [Authorize(Roles ="manager,operator")]
-        public async Task<ActionResult<IEnumerable<CustomerModel>>> MostActiveCustomers([FromBody]StatisticShipperModel Customer)
+        [Authorize(Roles = "manager,operator")]
+        public async Task<ActionResult<IEnumerable<CustomerModel>>> MostActiveCustomers([FromBody] StatisticShipperModel Customer)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ErrorKeys.InternalServerError);
-                }
-                var res = await statistik.GetMostValuableCustomersAsync(Customer);
-                if (res == null)
-                {
-                    return BadRequest(ErrorKeys.BadRequest);
-                }
-                return Ok(res);
+                return BadRequest(ErrorKeys.InternalServerError);
             }
-            catch (Exception exp)
+            var res = await statistik.GetMostValuableCustomersAsync(Customer);
+            if (res == null)
             {
-                logger.LogCritical($"{exp.Message}");
-                return BadRequest(exp.Message);
+                return BadRequest(ErrorKeys.BadRequest);
             }
+            return Ok(res);
         }
 
         /// <summary>
@@ -143,27 +110,19 @@ namespace GA.TradeMarket.Api.Controllers
         /// </remarks>
         [HttpPost]
         [Route(nameof(CategoryIncome))]
-        [Authorize(Roles ="operator,manager")]
+        [Authorize(Roles = "operator,manager")]
         public async Task<ActionResult<decimal>> CategoryIncome([FromBody] IncomeOfCategoryModel Statistic)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ErrorKeys.InternalServerError);
-                }
-                var res = await statistik.GetIncomeOfCategoryInPeriod(Statistic);
-                if(res==0)
-                {
-                    return NotFound(ErrorKeys.NotFound);
-                }
-                return Ok(res);
+                return BadRequest(ErrorKeys.InternalServerError);
             }
-            catch (Exception exp)
+            var res = await statistik.GetIncomeOfCategoryInPeriod(Statistic);
+            if (res == 0)
             {
-                return BadRequest(exp.Message);
+                return NotFound(ErrorKeys.NotFound);
             }
+            return Ok(res);
         }
-
     }
 }

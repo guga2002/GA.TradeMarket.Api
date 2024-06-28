@@ -30,23 +30,15 @@ namespace GA.TradeMarket.Api.Controllers
         /// allow  for **Customer**
         /// </remarks>
         [HttpPost]
-        [Authorize(Roles ="customer")]
-        public async Task<ActionResult> AddAsync([FromBody]WishListModelIn item)
+        [Authorize(Roles = "customer")]
+        public async Task<ActionResult> AddAsync([FromBody] WishListModelIn item)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    await ser.AddAsync(item);
-                    return Ok(item);
-                }
-                return BadRequest(ModelState);
+                await ser.AddAsync(item);
+                return Ok(item);
             }
-            catch (Exception exp)
-            {
-                logger.LogError($"error  ocure while send  request to server:{exp.Message}");
-                return StatusCode(501, ErrorKeys.InternalServerError);
-            }
+            return BadRequest(ModelState);
         }
 
         /// <summary>
@@ -56,20 +48,12 @@ namespace GA.TradeMarket.Api.Controllers
         /// allow  for **Customer**
         /// </remarks>
         [HttpDelete]
-        [Authorize(Roles ="customer")]
+        [Authorize(Roles = "customer")]
         [Route("{id:long}")]
-        public async Task<ActionResult> DeleteAsync([FromRoute]long id)
+        public async Task<ActionResult> DeleteAsync([FromRoute] long id)
         {
-            try
-            {
-                await ser.DeleteAsync(id);
-                return Ok(id);
-            }
-            catch (Exception exp)
-            {
-                logger.LogError($"error  ocure while send  request to server:{exp.Message}");
-                return StatusCode(501, ErrorKeys.InternalServerError);
-            }
+            await ser.DeleteAsync(id);
+            return Ok(id);
         }
 
         /// <summary>
@@ -82,24 +66,16 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "customer")]
         public async Task<ActionResult<IEnumerable<WishListModel>>> GetAllWithDetailsAsync()
         {
-            try
+            if (User is { Identity.IsAuthenticated: true, Identity.Name: not null, Identity: not null })
             {
-                if (User is { Identity.IsAuthenticated: true, Identity.Name: not null, Identity: not null })
+                var wishlists = await ser.GetAllWithDetailsAsync(User.Identity.Name);
+                if (wishlists.Any())
                 {
-                    var wishlists = await ser.GetAllWithDetailsAsync(User.Identity.Name);
-                    if(wishlists.Any())
-                    {
-                        return Ok(wishlists);
-                    }
-                    return NotFound(ErrorKeys.NotFound);
+                    return Ok(wishlists);
                 }
-              return Unauthorized(ErrorKeys.NoCustommer);
+                return NotFound(ErrorKeys.NotFound);
             }
-            catch (Exception exp)
-            {
-                logger.LogError($"error  ocure while send  request to server:{exp.Message}");
-                return StatusCode(501, ErrorKeys.InternalServerError);
-            }
+            return Unauthorized(ErrorKeys.NoCustommer);
         }
 
         /// <summary>
@@ -110,32 +86,24 @@ namespace GA.TradeMarket.Api.Controllers
         /// </remarks>
         [HttpGet]
         [Route("{Id:long}")]
-        [Authorize(Roles ="operator,manager")]
-        public async Task<ActionResult<WishListModel>> GetByIdAsync([FromRoute]long Id)
+        [Authorize(Roles = "operator,manager")]
+        public async Task<ActionResult<WishListModel>> GetByIdAsync([FromRoute] long Id)
         {
-            try
+            var chashedkey = $"Getbyid{Id}";
+            if (cash.TryGetValue(chashedkey, out WishListModel? wish))
             {
-                var chashedkey = $"Getbyid{Id}";
-                if(cash.TryGetValue(chashedkey,out WishListModel? wish))
+                if (wish is not null)
                 {
-                    if(wish is not null)
-                    {
-                        return wish;
-                    }
+                    return wish;
                 }
-                var res= await ser.GetByIdAsync(Id);
-                if (res is not null)
-                {
-                    cash.Set(chashedkey, res,TimeSpan.FromMinutes(10));
-                    return Ok(res);
-                }
-                return NotFound(ErrorKeys.NotFound);
             }
-            catch (Exception exp)
+            var res = await ser.GetByIdAsync(Id);
+            if (res is not null)
             {
-                logger.LogError($"error  ocure while send  request to server:{exp.Message}");
-                return StatusCode(501, ErrorKeys.InternalServerError);
+                cash.Set(chashedkey, res, TimeSpan.FromMinutes(10));
+                return Ok(res);
             }
+            return NotFound(ErrorKeys.NotFound);
         }
 
         /// <summary>
@@ -145,23 +113,15 @@ namespace GA.TradeMarket.Api.Controllers
         /// allow  for **Customer**
         /// </remarks>
         [HttpPut]
-        [Authorize(Roles ="customer")]
-        public async Task<ActionResult> UpdateAsync([FromBody]WishListModelIn item)
+        [Authorize(Roles = "customer")]
+        public async Task<ActionResult> UpdateAsync([FromBody] WishListModelIn item)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if(!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
-                await ser.UpdateAsync(item);
-                return Ok(item);
+                return BadRequest(ModelState);
             }
-            catch (Exception exp)
-            {
-                logger.LogError($"error  ocure while send  request to server:{exp.Message}");
-                return StatusCode(501, ErrorKeys.InternalServerError);
-            }
+            await ser.UpdateAsync(item);
+            return Ok(item);
         }
     }
 }

@@ -32,24 +32,15 @@ namespace GA.TradeMarket.Api.Controllers
         [Route(nameof(GetEmailVerificationMessage))]
         [ApiExplorerSettings(IgnoreApi = true)]
         [AllowAnonymous]
-        public async Task<ActionResult> GetEmailVerificationMessage([FromQuery] string? securitySchema,string? UserName)
+        public async Task<ActionResult> GetEmailVerificationMessage([FromQuery] string? securitySchema, string? UserName)
         {
-            try
-            {
 
-                var res = await ser.ConfirmMail(UserName, securitySchema);
-                return
-                    Content(
-                    res
-                        ? "<div style='text-align: center;'><h1 style='color: green; font-weight: bold; font-size: 24px;'>Congratulations!</h1><p style='font-size: 16px;'>Your email has been verified successfully.</p></div>"
-                        : "<h1 style='text-align: center; font-weight: bold; font-size: 24px;color:red;'>Link has ben expired!</h1>", "text/html");
-
-            }
-            catch (Exception exp)
-            {
-                logger.LogError(exp.Message);   
-                return Content($"Error: {exp.Message}", "text/html");
-            }
+            var res = await ser.ConfirmMail(UserName, securitySchema);
+            return
+                Content(
+                res
+                    ? "<div style='text-align: center;'><h1 style='color: green; font-weight: bold; font-size: 24px;'>Congratulations!</h1><p style='font-size: 16px;'>Your email has been verified successfully.</p></div>"
+                    : "<h1 style='text-align: center; font-weight: bold; font-size: 24px;color:red;'>Link has ben expired!</h1>", "text/html");
         }
 
         /// <summary>
@@ -65,17 +56,8 @@ namespace GA.TradeMarket.Api.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<(SignInResult, string)>> SignIn([FromBody] SignInModel mod)
         {
-            try
-            {
-
-                var res = await ser.SignInAsync(mod);
-                return Ok(res.Item2);
-            }
-            catch (Exception exp)
-            {
-                logger.LogError(exp.Message);
-                return BadRequest(exp.Message);
-            }
+            var res = await ser.SignInAsync(mod);
+            return Ok(res.Item2);
         }
 
         /// <summary>
@@ -89,21 +71,12 @@ namespace GA.TradeMarket.Api.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<IdentityResult>> Registration([FromBody] UserRegistrationModel user)
         {
-
-            try
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new MarketException(user.Persons.UserName);
-                }
-                var res = await ser.RegisterUserAsync(user.Persons, user.Password);
-                return Ok(res);
+                throw new MarketException(user.Persons.UserName);
             }
-            catch (Exception exp)
-            {
-                logger.LogError(exp.Message);
-                return BadRequest(exp.Message);
-            }
+            var res = await ser.RegisterUserAsync(user.Persons, user.Password);
+            return Ok(res);
         }
 
         [HttpPost]
@@ -111,26 +84,18 @@ namespace GA.TradeMarket.Api.Controllers
         [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<bool>> RefreshToken([FromQuery] string token)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new MarketException(token);
-                }
-                if (User.Identity is { Name: not null, IsAuthenticated: true })
-                {
-                    var res = await ser.RefreshToken(User.Identity.Name, token);
-                    return Ok(res);
-                }
-                else
-                {
-                    return BadRequest(ErrorKeys.BadRequest);
-                }
+                throw new MarketException(token);
             }
-            catch (Exception exp)
+            if (User.Identity is { Name: not null, IsAuthenticated: true })
             {
-                logger.LogError(exp.Message);
-                return BadRequest(exp.Message);
+                var res = await ser.RefreshToken(User.Identity.Name, token);
+                return Ok(res);
+            }
+            else
+            {
+                return BadRequest(ErrorKeys.BadRequest);
             }
         }
 
@@ -146,15 +111,13 @@ namespace GA.TradeMarket.Api.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<string>> ResetPasswordNow(string email, string newPassword)
         {
-            try
+            if (!await ser.IsUserExist(email))
             {
-                if (!await ser.IsUserExist(email))
-                {
-                    return BadRequest(ErrorKeys.BadRequest);
-                }
-                var link = Url.ActionLink(nameof(ForgetPassword), "UserIdentity", new { Email = email, Password = newPassword }, Request.Scheme);
-                if (link is null) return BadRequest();
-                var body = $@"
+                return BadRequest(ErrorKeys.BadRequest);
+            }
+            var link = Url.ActionLink(nameof(ForgetPassword), "UserIdentity", new { Email = email, Password = newPassword }, Request.Scheme);
+            if (link is null) return BadRequest();
+            var body = $@"
                   <div align='center' style='font-family: Arial, sans-serif;'>
                   <p style='font-size: 16px;'>გადადი ლინკზე რათა შეცვალო პაროლი:</p>
                  <p style='font-size: 16px;'>
@@ -165,14 +128,8 @@ namespace GA.TradeMarket.Api.Controllers
                  <p style='font-size: 16px;'>ჩვენი ჯგუფი გიხდის მადლობას..</p>
                   <h2 style='font-size: 16px;color:red;'>თუ თქვენ  არ გამოგიგზავნიათ მოთხოვნა, გთხოვთ დაგვიკავშირდეთ!</h2>
                 </div>";
-                smtp.SendMessage(email, "პაროლის შეცვლის მოთხოვნა" + '_' + DateTime.Now.Hour + ':' + DateTime.Now.Minute, body);
-                return Ok(email);
-            }
-            catch (Exception exp)
-            {
-                logger.LogError(exp.Message);
-                return BadRequest(exp.Message);
-            }
+            smtp.SendMessage(email, "პაროლის შეცვლის მოთხოვნა" + '_' + DateTime.Now.Hour + ':' + DateTime.Now.Minute, body);
+            return Ok(email);
         }
 
 
@@ -182,22 +139,13 @@ namespace GA.TradeMarket.Api.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ForgetPassword([FromQuery] string email, [FromQuery] string password)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new MarketException(email);
-                }
-                var res = await ser.ForgetPassword(email, password);
-                return Content(res ? "<html><body><h1>Password Reset Successfully!</h1></body></html>" : "<html><body><h1>Password Reset Failed</h1></body></html>", "text/html");
+                throw new MarketException(email);
             }
-            catch (Exception exp)
-            {
-                logger.LogError(exp.Message);
-                return BadRequest(exp.Message);
-            }
+            var res = await ser.ForgetPassword(email, password);
+            return Content(res ? "<html><body><h1>Password Reset Successfully!</h1></body></html>" : "<html><body><h1>Password Reset Failed</h1></body></html>", "text/html");
         }
-
 
 
         /// <summary>
@@ -208,27 +156,19 @@ namespace GA.TradeMarket.Api.Controllers
         /// </remarks>
         [HttpPost]
         [Route(nameof(ResetPassword))]
-        [Authorize(Roles ="customer")]
+        [Authorize(Roles = "customer")]
         public async Task<ActionResult<IdentityResult>> ResetPassword([FromBody] PasswordResetModel arg)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new MarketException(arg.NewPassword);
-                }
-
-                if (User.Identity is not { Name: not null, IsAuthenticated: true })
-                    return BadRequest(ErrorKeys.BadRequest);
-
-                var res = await ser.ResetPasswordAsync(arg, User.Identity.Name);
-                return Ok(arg);
+                throw new MarketException(arg.NewPassword);
             }
-            catch (Exception exp)
-            {
-                logger.LogError(exp.Message);
-                return BadRequest(exp.Message);
-            }
+
+            if (User.Identity is not { Name: not null, IsAuthenticated: true })
+                return BadRequest(ErrorKeys.BadRequest);
+
+            var res = await ser.ResetPasswordAsync(arg, User.Identity.Name);
+            return Ok(arg);
         }
 
 
@@ -243,19 +183,10 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize]
         public async Task<ActionResult<PersonModel>> Info()
         {
-            try
-            {
-                if (User?.Identity is not { Name: not null, IsAuthenticated: true })
-                    return BadRequest(ErrorKeys.BadRequest);
-                var res = await ser.Info(User.Identity.Name);
-                return Ok(res);
-
-            }
-            catch (Exception exp)
-            {
-                logger.LogError(exp.Message);
-                return BadRequest(exp.Message);
-            }
+            if (User?.Identity is not { Name: not null, IsAuthenticated: true })
+                return BadRequest(ErrorKeys.BadRequest);
+            var res = await ser.Info(User.Identity.Name);
+            return Ok(res);
         }
 
 
@@ -270,37 +201,25 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize]
         public async Task<ActionResult<string>> ConfirmEmail()
         {
-            try
+            if (User.Identity is not null && User.Identity.Name != null && User.Identity.IsAuthenticated)
             {
-
-                if (User.Identity is not null && User.Identity.Name != null && User.Identity.IsAuthenticated)
+                if (await ser.IsEmailConfirmed(User.Identity.Name))
                 {
-                    if (await ser.IsEmailConfirmed(User.Identity.Name))
-                    {
-                        throw new ArgumentException("Email is already Confirmed!");
-                    }
-
-                    var user = await userManager.FindByNameAsync(User.Identity.Name);
-                    if (user == null) return BadRequest(ErrorKeys.BadRequest);
-
-                    var rek = await userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var link = Url.ActionLink(nameof(GetEmailVerificationMessage), "UserIdentity",
-                        new { SecuritySchema = rek, UserName= User.Identity.Name}, Request.Scheme);
-                    if (link == null) return BadRequest("Linki ara  validuri");
-                    await ser.SendLinkToUser(User.Identity.Name, link);
-                    return Ok(link);
+                    throw new ArgumentException("Email is already Confirmed!");
                 }
 
-                return NotFound(ErrorKeys.BadRequest);
+                var user = await userManager.FindByNameAsync(User.Identity.Name);
+                if (user == null) return BadRequest(ErrorKeys.BadRequest);
 
+                var rek = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                var link = Url.ActionLink(nameof(GetEmailVerificationMessage), "UserIdentity",
+                    new { SecuritySchema = rek, UserName = User.Identity.Name }, Request.Scheme);
+                if (link == null) return BadRequest("Linki ara  validuri");
+                await ser.SendLinkToUser(User.Identity.Name, link);
+                return Ok(link);
             }
-            catch (Exception exp)
-            {
-                logger.LogError(exp.Message);
-                return BadRequest(exp.Message);
-            }
+            return NotFound(ErrorKeys.BadRequest);
         }
-
 
         /// <summary>
         /// SignOut from system 
@@ -313,18 +232,10 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize]
         public async Task<ActionResult<bool>> SignOutNow()
         {
-            try
-            {
-                if (User.Identity is null || !User.Identity.IsAuthenticated || User.Identity.Name is null)
-                    return BadRequest(ErrorKeys.BadRequest);
-                var res = await ser.SignOutAsync(User.Identity.Name);
-                return Ok(res);
-            }
-            catch (Exception exp)
-            {
-                logger.LogError(exp.Message);
-                return BadRequest(exp.Message);
-            }
+            if (User.Identity is null || !User.Identity.IsAuthenticated || User.Identity.Name is null)
+                return BadRequest(ErrorKeys.BadRequest);
+            var res = await ser.SignOutAsync(User.Identity.Name);
+            return Ok(res);
         }
 
 
@@ -336,25 +247,16 @@ namespace GA.TradeMarket.Api.Controllers
         /// </remarks>
         [HttpGet]
         [Route("[action]")]
-        [Authorize(Roles ="admin")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<IEnumerable<RoleModel>>> Roles()
         {
-            try
+            if (!User.IsInRole("admin"))
             {
-                if (!User.IsInRole("admin"))
-                {
-                    throw new UnauthorizedAccessException("You do not have the required 'admin' role.");
-                }
-                var res = await ser.GetAllRoles();
-                return Ok(res);
+                throw new UnauthorizedAccessException("You do not have the required 'admin' role.");
             }
-            catch (Exception exp)
-            {
-                logger.LogError(exp.Message);
-                return BadRequest(exp.Message);
-            }
+            var res = await ser.GetAllRoles();
+            return Ok(res);
         }
-
 
         /// <summary>
         ///Get all users details  from DB 
@@ -364,21 +266,12 @@ namespace GA.TradeMarket.Api.Controllers
         /// </remarks>
         [HttpGet]
         [Route("[action]")]
-        [Authorize(Roles ="admin")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<IEnumerable<PersonModel>>> Users()
         {
-            try
-            {
-                var res = await ser.GetAllUser();
-                return Ok(res);
-            }
-            catch (Exception exp)
-            {
-                logger.LogError(exp.Message);
-                return BadRequest(exp.Message);
-            }
+            var res = await ser.GetAllUser();
+            return Ok(res);
         }
-
 
         /// <summary>
         /// Delete specify Role from DB
@@ -388,19 +281,11 @@ namespace GA.TradeMarket.Api.Controllers
         /// </remarks>
         [HttpDelete]
         [Route("Role/{role:alpha}/[action]")]
-        [Authorize(Roles ="admin")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<IdentityResult>> Delete([FromRoute] string role)
         {
-            try
-            {
-                var res = await ser.DeleteRole(role);
-                return Ok(res);
-            }
-            catch (Exception exp)
-            {
-                logger.LogError(exp.Message);
-                return BadRequest(exp.Message);
-            }
+            var res = await ser.DeleteRole(role);
+            return Ok(res);
         }
 
 
@@ -412,23 +297,15 @@ namespace GA.TradeMarket.Api.Controllers
         /// </remarks>
         [HttpPost]
         [Route("Role/{role:alpha}/[action]")]
-        [Authorize(Roles ="admin")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<IdentityResult>> Add([FromRoute] string role)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new MarketException(role);
-                }
-                var res = await ser.AddRolesAsync(role);
-                return Ok(res);
+                throw new MarketException(role);
             }
-            catch (Exception exp)
-            {
-                logger.LogError(exp.Message);
-                return BadRequest(exp.Message);
-            }
+            var res = await ser.AddRolesAsync(role);
+            return Ok(res);
         }
 
 
@@ -441,24 +318,15 @@ namespace GA.TradeMarket.Api.Controllers
         [HttpDelete]
         [Authorize]
         [Route("User/{id}/[action]")]
-        [Authorize(Roles="admin")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<IdentityResult>> DeleteUser([FromRoute] string id)
         {
-            try
+            if (!ModelState.IsValid)
             {
-
-                if (!ModelState.IsValid)
-                {
-                    throw new MarketException(id);
-                }
-                var res = await ser.DeleteUser(id);
-                return Ok(res);
+                throw new MarketException(id);
             }
-            catch (Exception exp)
-            {
-                logger.LogError(exp.Message);
-                return BadRequest(exp.Message);
-            }
+            var res = await ser.DeleteUser(id);
+            return Ok(res);
         }
 
 
@@ -473,19 +341,12 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize]
         public async Task<ActionResult<IdentityResult>> Role([FromRoute] string userid, [FromRoute] string role)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new MarketException(role);
-                }
-                var res = await ser.AssignRoleToUserAsync(userid, role);
-                return Ok(res);
+                throw new MarketException(role);
             }
-            catch (Exception exp)
-            {
-                return BadRequest(exp.Message);
-            }
+            var res = await ser.AssignRoleToUserAsync(userid, role);
+            return Ok(res);
         }
     }
 }

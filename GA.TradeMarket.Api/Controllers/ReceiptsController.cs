@@ -35,21 +35,14 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "customer")]
         public async Task<ActionResult<IEnumerable<ReceiptModel>>> AllReceiptsForCurrentUser()
         {
-            try
+
+            var user = User.Identity?.Name;
+            if (user is null)
             {
-                var user = User.Identity?.Name;
-                if (user is null)
-                {
-                    return Unauthorized(ErrorKeys.NoCustommer);
-                }
-                var receipts = await _service.GetAllReceiptsForCurrentUser(user);
-                return Ok(receipts);
+                return Unauthorized(ErrorKeys.NoCustommer);
             }
-            catch (Exception exp)
-            {
-                _logger.LogError(exp, "Error fetching all receipts with details");
-                return BadRequest($"An error occurred while fetching the receipts. {exp.StackTrace}");
-            }
+            var receipts = await _service.GetAllReceiptsForCurrentUser(user);
+            return Ok(receipts);
         }
 
         /// <summary>
@@ -63,29 +56,21 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "manager,operator")]
         public async Task<ActionResult<IEnumerable<ReceiptModel>>> GetAllWithDetails()
         {
-            try
+            string cacheKey = "getallreceipts";
+            if (_cache.TryGetValue(cacheKey, out IEnumerable<ReceiptModel>? receipts))
             {
-                string cacheKey = "getallreceipts";
-                if (_cache.TryGetValue(cacheKey, out IEnumerable<ReceiptModel>? receipts))
+                if (receipts is not null)
                 {
-                    if (receipts is not null)
-                    {
-                        return Ok(receipts);
-                    }
+                    return Ok(receipts);
                 }
-                var result = await _service.GetAllWithDetailsAsync();
-                if (result == null)
-                {
-                    return NotFound(ErrorKeys.NotFound);
-                }
-                _cache.Set(cacheKey, result, TimeSpan.FromMinutes(10));
-                return Ok(result);
             }
-            catch (Exception exp)
+            var result = await _service.GetAllWithDetailsAsync();
+            if (result == null)
             {
-                _logger.LogError(exp, "Error fetching all receipts with details");
-                return BadRequest("An error occurred while fetching the receipts.");
+                return NotFound(ErrorKeys.NotFound);
             }
+            _cache.Set(cacheKey, result, TimeSpan.FromMinutes(10));
+            return Ok(result);
         }
 
         /// <summary>
@@ -100,29 +85,22 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "manager,operator")]
         public async Task<ActionResult<ReceiptModel>> GetById([FromRoute] long id)
         {
-            try
+
+            var cacheKey = $"getreceiptbyid{id}";
+            if (_cache.TryGetValue(cacheKey, out ReceiptModel? receipt))
             {
-                var cacheKey = $"getreceiptbyid{id}";
-                if (_cache.TryGetValue(cacheKey, out ReceiptModel? receipt))
+                if (receipt is not null)
                 {
-                    if (receipt is not null)
-                    {
-                        return Ok(receipt);
-                    }
+                    return Ok(receipt);
                 }
-                var result = await _service.GetByIdAsync(id);
-                if (result == null)
-                {
-                    return NotFound(ErrorKeys.NotFound);
-                }
-                _cache.Set(cacheKey, result, TimeSpan.FromMinutes(10));
-                return Ok(result);
             }
-            catch (Exception exp)
+            var result = await _service.GetByIdAsync(id);
+            if (result == null)
             {
-                _logger.LogError(exp, $"Error fetching receipt with Id {id}");
-                return BadRequest("An error occurred while fetching the receipt.");
+                return NotFound(ErrorKeys.NotFound);
             }
+            _cache.Set(cacheKey, result, TimeSpan.FromMinutes(10));
+            return Ok(result);
         }
 
         /// <summary>
@@ -137,29 +115,21 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "manager,operator")]
         public async Task<ActionResult<IEnumerable<ReceiptDetailModel>>> GetDetails([FromRoute] long id)
         {
-            try
+            string cacheKey = "getallReceiptdetails";
+            if (_cache.TryGetValue(cacheKey, out IEnumerable<ReceiptDetailModel>? receiptDetails))
             {
-                string cacheKey = "getallReceiptdetails";
-                if (_cache.TryGetValue(cacheKey, out IEnumerable<ReceiptDetailModel>? receiptDetails))
+                if (receiptDetails is not null)
                 {
-                    if (receiptDetails is not null)
-                    {
-                        return Ok(receiptDetails);
-                    }
+                    return Ok(receiptDetails);
                 }
-                var result = await _service.GetReceiptDetailsAsync(id);
-                if (result == null)
-                {
-                    return NotFound(ErrorKeys.NotFound);
-                }
-                _cache.Set(cacheKey, result, TimeSpan.FromMinutes(10));
-                return Ok(result);
             }
-            catch (Exception exp)
+            var result = await _service.GetReceiptDetailsAsync(id);
+            if (result == null)
             {
-                _logger.LogError(exp, $"Error fetching receipt details for Id {id}");
-                return BadRequest("An error occurred while fetching the receipt details.");
+                return NotFound(ErrorKeys.NotFound);
             }
+            _cache.Set(cacheKey, result, TimeSpan.FromMinutes(10));
+            return Ok(result);
         }
 
         /// <summary>
@@ -174,16 +144,8 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "customer,operator")]
         public async Task<ActionResult<decimal>> GetReceiptSum([FromRoute] long id)
         {
-            try
-            {
-                var result = await _service.GetReceiptSum(id);
-                return Ok(result);
-            }
-            catch (Exception exp)
-            {
-                _logger.LogError(exp, $"Error fetching receipt sum for Id {id}");
-                return BadRequest("An error occurred while fetching the receipt sum.");
-            }
+            var result = await _service.GetReceiptSum(id);
+            return Ok(result);
         }
 
         /// <summary>
@@ -199,16 +161,8 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "manager,operator")]
         public async Task<ActionResult<IEnumerable<ReceiptModel>>> GetReceiptsByPeriodAsync([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
         {
-            try
-            {
-                var result = await _service.GetReceiptsByPeriodAsync(startDate, endDate);
-                return Ok(result);
-            }
-            catch (Exception exp)
-            {
-                _logger.LogError(exp, $"Error fetching receipts between {startDate} and {endDate}");
-                return BadRequest("An error occurred while fetching the receipts.");
-            }
+            var result = await _service.GetReceiptsByPeriodAsync(startDate, endDate);
+            return Ok(result);
         }
 
         /// <summary>
@@ -223,24 +177,16 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "customer")]
         public async Task<ActionResult> CreateReceipt([FromBody] ReceiptModelIn receipt)
         {
-            try
+            if (receipt == null)
             {
-                if (receipt == null)
-                {
-                    return BadRequest(ErrorKeys.BadRequest);
-                }
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ErrorKeys.General);
-                }
-                await _service.AddAsync(receipt);
-                return Ok(receipt);
+                return BadRequest(ErrorKeys.BadRequest);
             }
-            catch (Exception exp)
+            if (!ModelState.IsValid)
             {
-                _logger.LogError(exp, "Error creating a new receipt");
-                return BadRequest("An error occurred while creating the receipt.");
+                return BadRequest(ErrorKeys.General);
             }
+            await _service.AddAsync(receipt);
+            return Ok(receipt);
         }
 
         /// <summary>
@@ -256,22 +202,13 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "manager,operator")]
         public async Task<IActionResult> UpdateReceipt([FromRoute] long id, [FromBody] ReceiptModelIn receipt)
         {
-            try
+            if (receipt == null)
             {
-                if (receipt == null)
-                {
-                    return BadRequest(ErrorKeys.BadRequest);
-                }
-                await _service.UpdateAsync(receipt);
-                return Ok();
+                return BadRequest(ErrorKeys.BadRequest);
             }
-            catch (Exception exp)
-            {
-                _logger.LogError(exp, $"Error updating receipt with Id {id}");
-                return BadRequest("An error occurred while updating the receipt.");
-            }
+            await _service.UpdateAsync(receipt);
+            return Ok();
         }
-
         /// <summary>
         /// Adds a product to a receipt.
         /// </summary>
@@ -286,16 +223,8 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "customer")]
         public async Task<IActionResult> AddProductToReceipt([FromRoute] long id, [FromRoute] long productId, [FromQuery] int quantity)
         {
-            try
-            {
-                await _service.AddProductAsync(id, productId, quantity);
-                return Ok(id);
-            }
-            catch (Exception exp)
-            {
-                _logger.LogError(exp, $"Error adding product {productId} to receipt {id}");
-                return BadRequest("An error occurred while adding the product to the receipt.");
-            }
+            await _service.AddProductAsync(id, productId, quantity);
+            return Ok(id);
         }
 
         /// <summary>
@@ -312,16 +241,8 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "customer")]
         public async Task<IActionResult> RemoveProductFromReceipt([FromRoute] long id, [FromRoute] long productId, [FromQuery] int quantity)
         {
-            try
-            {
-                await _service.RemoveProductAsync(productId, id, quantity);
-                return Ok(id);
-            }
-            catch (Exception exp)
-            {
-                _logger.LogError(exp, $"Error removing product {productId} from receipt {id}");
-                return BadRequest("An error occurred while removing the product from the receipt.");
-            }
+            await _service.RemoveProductAsync(productId, id, quantity);
+            return Ok(id);
         }
 
         /// <summary>
@@ -336,16 +257,8 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "customer,operator,manager")]
         public async Task<IActionResult> CheckoutReceipt([FromRoute] long id)
         {
-            try
-            {
-                await _service.CheckOutAsync(id);
-                return Ok(id);
-            }
-            catch (Exception exp)
-            {
-                _logger.LogError(exp, $"Error checking out receipt {id}");
-                return BadRequest("An error occurred while checking out the receipt.");
-            }
+            await _service.CheckOutAsync(id);
+            return Ok(id);
         }
 
         /// <summary>
@@ -360,16 +273,8 @@ namespace GA.TradeMarket.Api.Controllers
         [Authorize(Roles = "manager")]
         public async Task<IActionResult> DeleteReceipt([FromRoute] long id)
         {
-            try
-            {
-                await _service.DeleteAsync(id);
-                return Ok(id);
-            }
-            catch (Exception exp)
-            {
-                _logger.LogError(exp, $"Error deleting receipt {id}");
-                return BadRequest("An error occurred while deleting the receipt.");
-            }
+            await _service.DeleteAsync(id);
+            return Ok(id);
         }
     }
 }
