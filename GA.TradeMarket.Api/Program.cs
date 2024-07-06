@@ -46,7 +46,7 @@ internal class Program
         {
             opt.AddProvider(new LoggerProvider((category, level) =>
             {
-                return level > LogLevel.Information; // warningze meti tu aris vlogavt bazashi
+                return level > LogLevel.Error; // warningze meti tu aris vlogavt bazashi
             }, builder.Services.BuildServiceProvider().GetService<TradeMarketDbContext>()));
         });
         #endregion
